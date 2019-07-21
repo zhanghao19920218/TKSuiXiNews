@@ -15,6 +15,8 @@ class BaseViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setupUI();
+        
+        loadData();
     }
     
 
@@ -27,6 +29,12 @@ class BaseViewController: UIViewController {
             addBackImageBtnInTopBar();
         }
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated);
+//        
+//        loadData();
+//    }
     
     //初始化NavigationBar的Logo
     func createNavigationBarLogo()
@@ -63,7 +71,7 @@ class BaseViewController: UIViewController {
     
     //基类进行网络请求
     func loadData() {
-        
+
     }
 
 }

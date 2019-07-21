@@ -204,7 +204,7 @@ class SXLoginViewController: BaseLoginViewController {
         }
         
         //请求参数登录
-        HttpClient.shareInstance.request(target: BAAPI.login(account: model.account, password: model.password)) { (json) in
+        HttpClient.shareInstance.request(target: BAAPI.login(account: model.account, password: model.password), success: { (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(UserLoginInfo.self, from: json)
             guard let userModel = model else {
@@ -216,6 +216,7 @@ class SXLoginViewController: BaseLoginViewController {
             let rootVC = BaseTabBarController.init();
             UIViewController.restoreRootViewController(rootVC);
         }
+        )
     }
     
     //MARK: 注册按钮和忘记密码按钮点击

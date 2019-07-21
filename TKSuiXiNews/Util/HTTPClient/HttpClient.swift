@@ -17,11 +17,11 @@ class HttpClient
         
     }
     
-    public func request<T: TargetType>(target:T, success: @escaping((Data) -> Void) ) {
+    public func request<T: TargetType>(target:T, success: @escaping((Data) -> Void), failure: (()->Void)? = nil ) {
         //请求成功进行再次刷新数据
         HttpRequest.loadData(target: target,
                              success: success) { (errorCode, errorMessage) in
-                                
+                                failure;
                                 TProgressHUD.show(text: errorMessage);
         }
     

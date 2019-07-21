@@ -7,6 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		733ED17522E40D6900B452D4 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED17422E40D6900B452D4 /* BaseTableViewController.swift */; };
+		733ED17722E4111B00B452D4 /* HomeVVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED17622E4111B00B452D4 /* HomeVVideoController.swift */; };
+		733ED17A22E4153800B452D4 /* NoMoreDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED17922E4153800B452D4 /* NoMoreDataView.swift */; };
+		733ED17D22E43CD200B452D4 /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED17C22E43CD200B452D4 /* BannerView.swift */; };
+		733ED18022E43D7400B452D4 /* HomeVVideoBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED17F22E43D7400B452D4 /* HomeVVideoBannerCell.swift */; };
+		733ED18522E449FA00B452D4 /* HomeVVideoNormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED18422E449FA00B452D4 /* HomeVVideoNormalCell.swift */; };
+		733ED18822E4560800B452D4 /* VVideoListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED18722E4560800B452D4 /* VVideoListResponseModel.swift */; };
+		733ED18B22E45FC200B452D4 /* BaseAvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED18A22E45FC200B452D4 /* BaseAvatarImageView.swift */; };
+		733ED18D22E4611000B452D4 /* ShowImageTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED18C22E4611000B452D4 /* ShowImageTextCell.swift */; };
+		733ED18F22E462D000B452D4 /* BaseTimeCommentLikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED18E22E462D000B452D4 /* BaseTimeCommentLikeView.swift */; };
+		733ED19122E4660F00B452D4 /* BaseWrapImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED19022E4660F00B452D4 /* BaseWrapImagesView.swift */; };
+		733ED19322E4706100B452D4 /* ShowVideoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED19222E4706100B452D4 /* ShowVideoViewCell.swift */; };
+		733ED19622E4721E00B452D4 /* ShowListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED19522E4721E00B452D4 /* ShowListResponseModel.swift */; };
 		7380EA4B22E301FB00628C48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7380EA4A22E301FB00628C48 /* AppDelegate.swift */; };
 		7380EA5022E301FB00628C48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7380EA4E22E301FB00628C48 /* Main.storyboard */; };
 		7380EA5222E301FB00628C48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7380EA5122E301FB00628C48 /* Assets.xcassets */; };
@@ -56,13 +69,26 @@
 
 /* Begin PBXFileReference section */
 		0BF23A43A937A01D5D675F19 /* Pods-TKSuiXiNews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TKSuiXiNews.release.xcconfig"; path = "Target Support Files/Pods-TKSuiXiNews/Pods-TKSuiXiNews.release.xcconfig"; sourceTree = "<group>"; };
+		733ED17422E40D6900B452D4 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
+		733ED17622E4111B00B452D4 /* HomeVVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVVideoController.swift; sourceTree = "<group>"; };
+		733ED17922E4153800B452D4 /* NoMoreDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoMoreDataView.swift; sourceTree = "<group>"; };
+		733ED17C22E43CD200B452D4 /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		733ED17F22E43D7400B452D4 /* HomeVVideoBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVVideoBannerCell.swift; sourceTree = "<group>"; };
+		733ED18422E449FA00B452D4 /* HomeVVideoNormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVVideoNormalCell.swift; sourceTree = "<group>"; };
+		733ED18722E4560800B452D4 /* VVideoListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VVideoListResponseModel.swift; sourceTree = "<group>"; };
+		733ED18A22E45FC200B452D4 /* BaseAvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAvatarImageView.swift; sourceTree = "<group>"; };
+		733ED18C22E4611000B452D4 /* ShowImageTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowImageTextCell.swift; sourceTree = "<group>"; };
+		733ED18E22E462D000B452D4 /* BaseTimeCommentLikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTimeCommentLikeView.swift; sourceTree = "<group>"; };
+		733ED19022E4660F00B452D4 /* BaseWrapImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseWrapImagesView.swift; sourceTree = "<group>"; };
+		733ED19222E4706100B452D4 /* ShowVideoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVideoViewCell.swift; sourceTree = "<group>"; };
+		733ED19522E4721E00B452D4 /* ShowListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListResponseModel.swift; sourceTree = "<group>"; };
 		7380EA4722E301FB00628C48 /* TKSuiXiNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TKSuiXiNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7380EA4A22E301FB00628C48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7380EA4F22E301FB00628C48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7380EA5122E301FB00628C48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7380EA5422E301FB00628C48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7380EA5622E301FB00628C48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7380EA5C22E302C200628C48 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		7380EA5C22E302C200628C48 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		73DEBA9F22E30BDC007EC4E1 /* JsonKeyDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonKeyDefine.swift; sourceTree = "<group>"; };
 		73DEBAA122E30CA8007EC4E1 /* ColorsDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsDefine.swift; sourceTree = "<group>"; };
 		73DEBAA322E30DBA007EC4E1 /* BaseUrlDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUrlDefine.swift; sourceTree = "<group>"; };
@@ -118,6 +144,69 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		733ED17322E40D4100B452D4 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				733ED18622E455E900B452D4 /* M */,
+				733ED17E22E43D5E00B452D4 /* V */,
+				733ED17622E4111B00B452D4 /* HomeVVideoController.swift */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		733ED17822E4151900B452D4 /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				733ED17922E4153800B452D4 /* NoMoreDataView.swift */,
+			);
+			path = BaseView;
+			sourceTree = "<group>";
+		};
+		733ED17B22E43C6300B452D4 /* Banner */ = {
+			isa = PBXGroup;
+			children = (
+				733ED17C22E43CD200B452D4 /* BannerView.swift */,
+			);
+			path = Banner;
+			sourceTree = "<group>";
+		};
+		733ED17E22E43D5E00B452D4 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				733ED17F22E43D7400B452D4 /* HomeVVideoBannerCell.swift */,
+				733ED18422E449FA00B452D4 /* HomeVVideoNormalCell.swift */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		733ED18622E455E900B452D4 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				733ED18722E4560800B452D4 /* VVideoListResponseModel.swift */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		733ED18922E45F2700B452D4 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				733ED18A22E45FC200B452D4 /* BaseAvatarImageView.swift */,
+				733ED18E22E462D000B452D4 /* BaseTimeCommentLikeView.swift */,
+				733ED19022E4660F00B452D4 /* BaseWrapImagesView.swift */,
+				733ED18C22E4611000B452D4 /* ShowImageTextCell.swift */,
+				733ED19222E4706100B452D4 /* ShowVideoViewCell.swift */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		733ED19422E471FB00B452D4 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				733ED19522E4721E00B452D4 /* ShowListResponseModel.swift */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
 		7380EA3E22E301FB00628C48 = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +284,7 @@
 		73DEBAAE22E311E3007EC4E1 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				733ED17B22E43C6300B452D4 /* Banner */,
 				73DEBAFD22E34AEB007EC4E1 /* CommonLicense */,
 				73DEBAFA22E34042007EC4E1 /* CounterButton */,
 				73DEBAE622E329BC007EC4E1 /* StaticMethod */,
@@ -237,6 +327,7 @@
 		73DEBAC022E32211007EC4E1 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				733ED17822E4151900B452D4 /* BaseView */,
 				73DEBB0A22E35E2E007EC4E1 /* BaseRightItem */,
 				73DEBACF22E3229D007EC4E1 /* BaseTableViewController */,
 				73DEBACC22E32263007EC4E1 /* BaseViewController */,
@@ -284,6 +375,7 @@
 			isa = PBXGroup;
 			children = (
 				73DEBAD022E322CD007EC4E1 /* BaseTableViewCell.swift */,
+				733ED17422E40D6900B452D4 /* BaseTableViewController.swift */,
 			);
 			path = BaseTableViewController;
 			sourceTree = "<group>";
@@ -352,6 +444,7 @@
 		73DEBADA22E324EC007EC4E1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				733ED17322E40D4100B452D4 /* C */,
 				73DEBADE22E3250E007EC4E1 /* HomeViewController.swift */,
 			);
 			path = Home;
@@ -360,6 +453,8 @@
 		73DEBADB22E324F3007EC4E1 /* Show */ = {
 			isa = PBXGroup;
 			children = (
+				733ED19422E471FB00B452D4 /* M */,
+				733ED18922E45F2700B452D4 /* V */,
 				73DEBAE022E32517007EC4E1 /* ShowViewController.swift */,
 			);
 			path = Show;
@@ -585,24 +680,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				733ED18522E449FA00B452D4 /* HomeVVideoNormalCell.swift in Sources */,
 				73DEBAC822E3224E007EC4E1 /* BaseTabBarController.swift in Sources */,
 				73DEBAE522E3252B007EC4E1 /* MineViewController.swift in Sources */,
 				73DEBAA022E30BDC007EC4E1 /* JsonKeyDefine.swift in Sources */,
 				73DEBAEA22E32AB3007EC4E1 /* AppDelegate+Other.swift in Sources */,
 				73DEBABD22E31A44007EC4E1 /* TSaveFiles.swift in Sources */,
 				73DEBAFF22E34B09007EC4E1 /* CommonLicense.swift in Sources */,
+				733ED18F22E462D000B452D4 /* BaseTimeCommentLikeView.swift in Sources */,
 				73DEBAE822E329D6007EC4E1 /* StaticMethod.swift in Sources */,
 				73DEBAD522E32495007EC4E1 /* SXLoginViewController.swift in Sources */,
+				733ED17D22E43CD200B452D4 /* BannerView.swift in Sources */,
 				73DEBAAB22E31095007EC4E1 /* String+Extension.swift in Sources */,
 				73DEBAD122E322CD007EC4E1 /* BaseTableViewCell.swift in Sources */,
+				733ED18B22E45FC200B452D4 /* BaseAvatarImageView.swift in Sources */,
 				73DEBADF22E3250E007EC4E1 /* HomeViewController.swift in Sources */,
+				733ED19122E4660F00B452D4 /* BaseWrapImagesView.swift in Sources */,
 				73DEBAAD22E3119D007EC4E1 /* UIView+Extension.swift in Sources */,
+				733ED19322E4706100B452D4 /* ShowVideoViewCell.swift in Sources */,
 				73DEBACE22E3228E007EC4E1 /* BaseViewController.swift in Sources */,
 				7380EA4B22E301FB00628C48 /* AppDelegate.swift in Sources */,
+				733ED17522E40D6900B452D4 /* BaseTableViewController.swift in Sources */,
 				73DEBAB422E3127F007EC4E1 /* API.swift in Sources */,
+				733ED18822E4560800B452D4 /* VVideoListResponseModel.swift in Sources */,
 				73DEBB0C22E35E52007EC4E1 /* BaseNaviRightButton.swift in Sources */,
 				73DEBAE122E32517007EC4E1 /* ShowViewController.swift in Sources */,
 				73DEBB0222E3531A007EC4E1 /* SXForgetPasswordController.swift in Sources */,
+				733ED18D22E4611000B452D4 /* ShowImageTextCell.swift in Sources */,
 				73DEBAB222E31231007EC4E1 /* SXAPI.swift in Sources */,
 				73DEBAA622E30E00007EC4E1 /* UIDefine.swift in Sources */,
 				73DEBACB22E3224E007EC4E1 /* BANavigationController.swift in Sources */,
@@ -610,10 +714,14 @@
 				73DEBAF622E33EE8007EC4E1 /* SXSignUpViewController.swift in Sources */,
 				73DEBABB22E31A2F007EC4E1 /* TStrInt.swift in Sources */,
 				73DEBACA22E3224E007EC4E1 /* BATabBar.swift in Sources */,
+				733ED18022E43D7400B452D4 /* HomeVVideoBannerCell.swift in Sources */,
 				73DEBAB622E315DC007EC4E1 /* MoyaConfig.swift in Sources */,
 				73DEBAA922E30E7F007EC4E1 /* UIViewController+Extesion.swift in Sources */,
 				73DEBABF22E31A65007EC4E1 /* HttpRequest.swift in Sources */,
+				733ED17722E4111B00B452D4 /* HomeVVideoController.swift in Sources */,
 				73DEBAEE22E33109007EC4E1 /* BaseLoginViewController.swift in Sources */,
+				733ED17A22E4153800B452D4 /* NoMoreDataView.swift in Sources */,
+				733ED19622E4721E00B452D4 /* ShowListResponseModel.swift in Sources */,
 				73DEBAEC22E32B90007EC4E1 /* SXLoginTextField.swift in Sources */,
 				73DEBAA222E30CA8007EC4E1 /* ColorsDefine.swift in Sources */,
 				73DEBB0922E359A6007EC4E1 /* UserLoginInfo.swift in Sources */,
