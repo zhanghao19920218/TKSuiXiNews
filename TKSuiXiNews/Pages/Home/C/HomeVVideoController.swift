@@ -15,14 +15,17 @@ fileprivate let bannerIdentifier = "HomeVVideoBannerCellIdentifier";
 fileprivate let normalIdentifier = "HomeVVideoNormalCellIdentifier";
 
 class HomeVVideoController: BaseTableViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
         
         setupUI()
+
     }
+    
     
     //初始化页面
     private func setupUI() {

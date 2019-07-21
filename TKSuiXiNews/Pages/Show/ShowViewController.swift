@@ -16,6 +16,14 @@ fileprivate let videoIdentifier = "ShowVideoViewCellIdentifier";
  */
 
 class ShowViewController: BaseTableViewController {
+    //设置右侧的navigationItem
+    private lazy var rightNavigatorItem: BaseNaviRightButton = {
+        let button = BaseNaviRightButton(type: .custom);
+        button.imageName = "send_video_icon"
+        button.title = "发布"
+        button.frame = CGRect(x: 0, y: 0, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO)
+        return button;
+    }();
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +35,14 @@ class ShowViewController: BaseTableViewController {
         navigationController?.navigationBar.barTintColor = appThemeColor;
         
         setupUI()
+        
+        configureNavigationBar()
+    }
+    
+    //初始化navigationBar
+    private func configureNavigationBar()
+    {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem);
     }
     
     override func loadData() {

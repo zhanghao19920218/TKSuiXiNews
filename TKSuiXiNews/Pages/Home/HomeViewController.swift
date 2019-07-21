@@ -18,6 +18,16 @@ fileprivate let pageViewFontSize = kFont(16 * iPHONE_AUTORATIO);
 fileprivate let pageViewTitleHeight = 40 * iPHONE_AUTORATIO;
 
 class HomeViewController: BaseViewController {
+    //设置右侧的navigationItem
+    private lazy var rightNavigatorItem: BaseNaviRightButton = {
+        let button = BaseNaviRightButton(type: .custom);
+        button.imageName = "send_home_v_icon"
+        button.title = "V视"
+        button.frame = CGRect(x: 0, y: 0, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO)
+        return button;
+    }();
+    
+    
     //初始化页面选择器
     private lazy var pageViewManager: DNSPageViewManager = {
         let style = DNSPageStyle();
@@ -64,6 +74,14 @@ class HomeViewController: BaseViewController {
         navigationController?.navigationBar.barTintColor = appThemeColor;
         
         setupUI()
+        
+        configureNavigationBar()
+    }
+    
+    //初始化navigationBar
+    private func configureNavigationBar()
+    {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem);
     }
     
     //初始化页面
