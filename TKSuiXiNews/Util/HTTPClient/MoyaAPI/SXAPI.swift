@@ -14,6 +14,8 @@ enum  BAAPI {
     case login(account:String, password: String)
     //内容模块
     case contentList(module:String, page: Int)
+    //会员中心
+    case memeberInfo
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -28,6 +30,8 @@ extension BAAPI: TargetType {
             return K_URL_login;
         case .contentList:
             return K_URL_contentList;
+        case .memeberInfo:
+            return K_URL_mineInfo;
         }
         
     }
@@ -49,6 +53,9 @@ extension BAAPI: TargetType {
         case let .contentList(module, page):
             params["module"] = module;
             params["p"] = page;
+            
+        case .memeberInfo://不需要传参数的接口走这里
+            return .requestPlain
             
         default:
             //不需要传参数的接口走这里

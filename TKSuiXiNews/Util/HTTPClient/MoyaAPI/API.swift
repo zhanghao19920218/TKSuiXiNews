@@ -10,3 +10,4 @@ import Foundation
 
 let K_URL_login = "api/user/login"; //会员登录
 let K_URL_contentList = "api/article/index" //内容模块
+let K_URL_mineInfo = "api/user/index"; //个人中心

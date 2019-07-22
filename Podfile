@@ -16,5 +16,7 @@ pod 'PPBadgeViewSwift'
 pod 'Kingfisher'
 pod 'DNSPageView' #仿今日头条的PageView
 pod 'FSPagerView' #首页的Banner
+pod 'FWPopupView' #仿微信弹窗
+pod 'ZLPhotoBrowser'
 
 end

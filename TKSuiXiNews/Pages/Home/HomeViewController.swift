@@ -8,6 +8,8 @@
 
 import UIKit
 import DNSPageView
+import FWPopupView
+import ZLPhotoBrowser
 
 //PageView的frame
 fileprivate let pageViewRect = CGRect(x: 0, y: 0, width: K_SCREEN_WIDTH, height: K_SCREEN_HEIGHT - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT);
@@ -24,6 +26,9 @@ class HomeViewController: BaseViewController {
         button.imageName = "send_home_v_icon"
         button.title = "V视"
         button.frame = CGRect(x: 0, y: 0, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO)
+        button.addTarget(self,
+                         action: #selector(didSelectedVVideo),
+                         for: .touchUpInside);
         return button;
     }();
     
@@ -109,6 +114,22 @@ class HomeViewController: BaseViewController {
             make.top.right.equalToSuperview();
             make.size.equalTo(CGSize(width: pageViewTitleHeight, height: pageViewTitleHeight));
         }
+    }
+    
+    //MARK: - 点击V视频sheet(title: nil, itemTitles: ["拍摄", "从手机相册选择"], itemBlock: )
+    @objc private func didSelectedVVideo(){
+        let sheetView = FWSheetView.sheet(title: nil, itemTitles:  ["拍摄", "从手机相册选择"], itemBlock: { [weak self](_, index, _) in
+            if index == 0 {
+                let camera = ZLCustomCamera();
+                camera.doneBlock = { (image, videoUrl) in
+                    
+                }
+                
+                self?.present(camera, animated: true, completion: nil);
+            }
+        })
+        sheetView.backgroundColor = RGBA(244, 244, 244, 1);
+        sheetView.show()
     }
 
 }
