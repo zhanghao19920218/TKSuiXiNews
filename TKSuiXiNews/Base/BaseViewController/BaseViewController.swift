@@ -54,7 +54,11 @@ class BaseViewController: UIViewController {
     private func addBackImageBtnInTopBar ()
     {
         let backB = UIButton.init();
-        backB.setImage(K_ImageName("back_main")!, for: .normal);
+        if StaticMethod.share.isUserLogin {
+            backB.setImage("token_back_main");
+        } else {
+            backB.setImage("back_main");
+        }
         backB.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: -30, bottom: 0, right: 0);
         backB.frame = CGRect(x: 0, y: 0, width: 44, height: 44);
         backB.addTarget(self,

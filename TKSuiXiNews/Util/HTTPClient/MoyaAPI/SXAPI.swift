@@ -16,6 +16,12 @@ enum  BAAPI {
     case contentList(module:String, page: Int)
     //会员中心
     case memeberInfo
+    //详情
+    case articleDetail(id:String)
+    //上传文件
+    case uploadVideo(data:Data)
+    //上传图片
+    case uploadImage(data:Data)
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -32,6 +38,10 @@ extension BAAPI: TargetType {
             return K_URL_contentList;
         case .memeberInfo:
             return K_URL_mineInfo;
+        case .articleDetail:
+            return K_URL_articleDetail
+        case .uploadVideo, .uploadImage:
+            return K_URL_uploadVideo
         }
         
     }
@@ -56,6 +66,16 @@ extension BAAPI: TargetType {
             
         case .memeberInfo://不需要传参数的接口走这里
             return .requestPlain
+            
+        case let .articleDetail(id):
+            params["id"] = id;
+        case let .uploadVideo(data):
+            let videoDataProvider = Moya.MultipartFormData(provider: MultipartFormData.FormDataProvider.data(data), name: "file", fileName: "video.mp4", mimeType: "video/mp4")
+            return .uploadMultipart([videoDataProvider]);
+            
+        case let .uploadImage(data):
+            let imageDataProvider = Moya.MultipartFormData(provider: MultipartFormData.FormDataProvider.data(data), name: "file", fileName: "avatar.jpeg", mimeType: "image/jpeg")
+            return .uploadMultipart([imageDataProvider]);
             
         default:
             //不需要传参数的接口走这里

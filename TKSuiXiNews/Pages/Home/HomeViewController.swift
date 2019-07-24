@@ -9,7 +9,7 @@
 import UIKit
 import DNSPageView
 import FWPopupView
-import ZLPhotoBrowser
+import YPImagePicker
 
 //PageView的frame
 fileprivate let pageViewRect = CGRect(x: 0, y: 0, width: K_SCREEN_WIDTH, height: K_SCREEN_HEIGHT - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT);
@@ -49,11 +49,12 @@ class HomeViewController: BaseViewController {
         // 创建每一页对应的controller
         let childViewControllers: [UIViewController] = titles.enumerated().map { (index, _) -> UIViewController in
             //V视频
+            var controller: UIViewController!
             if index == 0 {
-                let controller = HomeVVideoController();
-                return controller;
+                controller = HomeVVideoController();
+            } else {
+                controller = UIViewController();
             }
-            let controller = UIViewController();
             addChild(controller);
             return controller;
         }
@@ -87,6 +88,8 @@ class HomeViewController: BaseViewController {
     private func configureNavigationBar()
     {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem);
+        //设置标题为白色
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
     //初始化页面
@@ -118,18 +121,74 @@ class HomeViewController: BaseViewController {
     
     //MARK: - 点击V视频sheet(title: nil, itemTitles: ["拍摄", "从手机相册选择"], itemBlock: )
     @objc private func didSelectedVVideo(){
-        let sheetView = FWSheetView.sheet(title: nil, itemTitles:  ["拍摄", "从手机相册选择"], itemBlock: { [weak self](_, index, _) in
-            if index == 0 {
-                let camera = ZLCustomCamera();
-                camera.doneBlock = { (image, videoUrl) in
-                    
-                }
-                
-                self?.present(camera, animated: true, completion: nil);
+//        let sheetView = FWSheetView.sheet(title: nil, itemTitles:  ["拍摄", "从手机相册选择"], itemBlock: { [weak self](_, index, _) in
+//
+////            if index == 0 {
+////                let camera = ZLCustomCamera();
+////                camera.doneBlock = { (image, videoUrl) in
+////
+////                }
+////
+////                self?.present(camera, animated: true, completion: nil);
+////            } else {
+////                let vc = VVideoShootViewController();
+////                self?.navigationController?.pushViewController(vc, animated: true);
+////            }
+//        })
+//        sheetView.backgroundColor = RGBA(244, 244, 244, 1);
+//        sheetView.show()
+        // Here we configure the picker to only show videos, no photos.
+        var config = YPImagePickerConfiguration()
+        config.screens = [.video]
+        
+        let picker = YPImagePicker(configuration: config)
+        picker.didFinishPicking { [weak picker,weak self] items, _ in
+            guard let video = items.singleVideo else {
+                picker?.dismiss(animated: true, completion: nil);
+                return;
             }
-        })
-        sheetView.backgroundColor = RGBA(244, 244, 244, 1);
-        sheetView.show()
+            
+            self?.uploadDetailVideo(videoUrl: video.url, image: video.thumbnail)
+//            picker?.dismiss(animated: true, completion: {
+//                //跳转视频详情页面
+//                self?.jumpVideoDetailVC();
+//            })
+        }
+        present(picker, animated: true, completion: nil)
+    }
+    
+    //上传视频接口
+    private func uploadDetailVideo(videoUrl:URL, image:UIImage ){
+        //上传视频的数据
+        let data = try? Data(contentsOf: videoUrl);
+        
+        HttpClient.shareInstance.request(target: BAAPI.uploadVideo(data: data  ?? Data()), success: { [weak self] (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(VVideoListResponseModel.self, from: json)
+            guard let forceModel = model else {
+                return;
+            }
+            }
+        )
+    }
+    
+    //上传图像
+    private func uploadDetailImage(videoUrl:URL, image:UIImage){
+        let imageData = image.jpegData(compressionQuality: 0.75);
+        HttpClient.shareInstance.request(target: BAAPI.uploadImage(data: imageData ?? Data()), success: { [weak self] (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(VVideoListResponseModel.self, from: json)
+            guard let forceModel = model else {
+                return;
+            }
+            }
+        )
+    }
+    
+    //跳转到发送视频页面
+    private func jumpVideoDetailVC() {
+        let vc = VVideoShootViewController();
+        navigationController?.pushViewController(vc, animated: true);
     }
 
 }

@@ -14,8 +14,7 @@ import UIKit
 fileprivate let bannerIdentifier = "HomeVVideoBannerCellIdentifier";
 fileprivate let normalIdentifier = "HomeVVideoNormalCellIdentifier";
 
-class HomeVVideoController: BaseTableViewController, UITableViewDelegate, UITableViewDataSource {
-    
+class HomeVVideoController: BaseTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,41 +35,6 @@ class HomeVVideoController: BaseTableViewController, UITableViewDelegate, UITabl
         tableView.separatorStyle = .none;
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1;
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 + dataSource.count;
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: bannerIdentifier) as! HomeVVideoBannerCell;
-            return cell;
-        }
-        
-        let model = dataSource[indexPath.row - 1] as! VVideoListModel;
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: normalIdentifier) as! HomeVVideoNormalCell;
-        cell.describe = model.name.string;
-        cell.imageUrl = model.image.string;
-        cell.videoUrl = model.video.string;
-        cell.avatar = model.avatar.string;
-        cell.nickname = model.nickname.string;
-        cell.comment = model.commentNum.string;
-        cell.isLike = model.likeStatus.int;
-        cell.like = model.likeNum.string;
-        cell.videoLength = model.time.string;
-        return cell;
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 188 * iPHONE_AUTORATIO;
-        }
-        return 250 * iPHONE_AUTORATIO;
-    }
     
     override func loadData() {
         super.loadData();
@@ -129,6 +93,51 @@ class HomeVVideoController: BaseTableViewController, UITableViewDelegate, UITabl
                 self?.tableView.reloadData();
             }
         )
+    }
+}
+
+extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1;
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1 + dataSource.count;
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: bannerIdentifier) as! HomeVVideoBannerCell;
+            return cell;
+        }
+        
+        let model = dataSource[indexPath.row - 1] as! VVideoListModel;
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: normalIdentifier) as! HomeVVideoNormalCell;
+        cell.describe = model.name.string;
+        cell.imageUrl = model.image.string;
+        cell.videoUrl = model.video.string;
+        cell.avatar = model.avatar.string;
+        cell.nickname = model.nickname.string;
+        cell.comment = model.commentNum.string;
+        cell.isLike = model.likeStatus.int;
+        cell.like = model.likeNum.string;
+        cell.videoLength = model.time.string;
+        return cell;
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 188 * iPHONE_AUTORATIO;
+        }
+        return 250 * iPHONE_AUTORATIO;
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = dataSource[indexPath.row - 1] as! VVideoListModel;
+        let vc = DetailVideoInfoController();
+        vc.id = model.id.string
+        parent?.navigationController?.pushViewController(vc, animated: true);
     }
 }
 

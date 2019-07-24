@@ -104,6 +104,7 @@ class ShowViewController: BaseTableViewController {
             } else {
                 //没有更多数据
                 self?.tableView.es.noticeNoMoreData();
+                self?.tableView.reloadData();
             }
             
             }, failure:{ [weak self] () in
@@ -144,7 +145,7 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = dataSource[indexPath.row] as! ShowListItemModel;
         
-        if model.images.isEmpty {
+        if model.images.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: videoIdentifier) as! ShowVideoViewCell;
             cell.describe = model.name.string;
             cell.imageUrl = model.image?.string;
@@ -186,6 +187,22 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
                 height = 324 * iPHONE_AUTORATIO;
             }
             return 140 * iPHONE_AUTORATIO + height ;
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = dataSource[indexPath.row] as! ShowListItemModel;
+        
+        if model.images.count == 0 {
+            //进入视频页面
+            let vc = DetailVideoInfoController()
+            vc.id = model.id.string
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            //进入图文页面
+            let vc = ShowDetailImageViewController();
+            vc.id = model.id.string
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
     

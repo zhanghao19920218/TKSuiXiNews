@@ -1,59 +1,27 @@
 //
-//  BaseWrapImagesView.swift
+//  HomeVSendCollectionView.swift
 //  TKSuiXiNews
 //
-//  Created by Barry Allen on 2019/7/21.
+//  Created by Barry Allen on 2019/7/24.
 //  Copyright © 2019 Barry Allen. All rights reserved.
 //
 
 import UIKit
 
-fileprivate let layoutWidth = 90 * iPHONE_AUTORATIO;
-
-//MARK: - 里面的collectionViewCell
-class BaseWrapCollectionCell: UICollectionViewCell {
-    //照片名称
-    var imageName:String? {
-        willSet(value) {
-            if let imageUrl = value {
-                imagev.kf.setImage(with: URL(string: imageUrl), placeholder: K_ImageName(PLACE_HOLDER_IMAGE));
-            }
-        }
-    }
-    
-    lazy var imagev:UIImageView = {
-        let imageView = UIImageView.init();
-        imageView.image = K_ImageName(PLACE_HOLDER_IMAGE);
-        return imageView;
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame);
-        
-        setupUI();
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupUI(){
-        contentView.addSubview(imagev);
-        imagev.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview();
-        };
-    }
-    
-}
+/*
+ * 发送图文的view
+ */
 
 fileprivate let cellIdentifier = "BaseWrapCollectionCellIdentifier";
 
-class BaseWrapImagesView: UIView {
+fileprivate let layoutWidth = 105 * iPHONE_AUTORATIO;
+
+class HomeVSendCollectionView: UIView {
+
     //获取照片的数据
     var images:Array<String>? {
         willSet(value) {
             dataSource = value ?? [];
-            collectionView.reloadData();
         }
     }
     
@@ -76,8 +44,8 @@ class BaseWrapImagesView: UIView {
         collectionView.register(BaseWrapCollectionCell.self, forCellWithReuseIdentifier: cellIdentifier);
         return collectionView;
     }();
-
-
+    
+    
     override init(frame: CGRect) {
         super.init(frame: frame);
         
@@ -95,19 +63,25 @@ class BaseWrapImagesView: UIView {
             make.edges.equalToSuperview();
         }
     }
-
+    
 }
 
-extension BaseWrapImagesView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension HomeVSendCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1;
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count;
+        return dataSource.count + 1;
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.row == dataSource.count {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! BaseWrapCollectionCell
+            cell.imagev.image = K_ImageName("add_photo");
+            return cell
+        }
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! BaseWrapCollectionCell
         cell.imageName = dataSource[indexPath.row];
         return cell

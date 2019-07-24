@@ -1,59 +1,23 @@
 //
-//  BaseWrapImagesView.swift
+//  ShowImagesCollectionCell.swift
 //  TKSuiXiNews
 //
-//  Created by Barry Allen on 2019/7/21.
+//  Created by Barry Allen on 2019/7/24.
 //  Copyright © 2019 Barry Allen. All rights reserved.
 //
 
 import UIKit
 
-fileprivate let layoutWidth = 90 * iPHONE_AUTORATIO;
-
-//MARK: - 里面的collectionViewCell
-class BaseWrapCollectionCell: UICollectionViewCell {
-    //照片名称
-    var imageName:String? {
-        willSet(value) {
-            if let imageUrl = value {
-                imagev.kf.setImage(with: URL(string: imageUrl), placeholder: K_ImageName(PLACE_HOLDER_IMAGE));
-            }
-        }
-    }
-    
-    lazy var imagev:UIImageView = {
-        let imageView = UIImageView.init();
-        imageView.image = K_ImageName(PLACE_HOLDER_IMAGE);
-        return imageView;
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame);
-        
-        setupUI();
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setupUI(){
-        contentView.addSubview(imagev);
-        imagev.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview();
-        };
-    }
-    
-}
-
 fileprivate let cellIdentifier = "BaseWrapCollectionCellIdentifier";
 
-class BaseWrapImagesView: UIView {
+fileprivate let layoutWidth = 110 * iPHONE_AUTORATIO;
+
+class ShowImagesCollectionCell: BaseTableViewCell {
+
     //获取照片的数据
     var images:Array<String>? {
         willSet(value) {
             dataSource = value ?? [];
-            collectionView.reloadData();
         }
     }
     
@@ -76,29 +40,22 @@ class BaseWrapImagesView: UIView {
         collectionView.register(BaseWrapCollectionCell.self, forCellWithReuseIdentifier: cellIdentifier);
         return collectionView;
     }();
-
-
-    override init(frame: CGRect) {
-        super.init(frame: frame);
-        
-        setupUI()
-    }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupUI() {
+    override func setupUI() {
+        super.setupUI();
         
         addSubview(collectionView);
         collectionView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview();
+            make.left.equalTo(13 * iPHONE_AUTORATIO);
+            make.top.equalTo(20 * iPHONE_AUTORATIO);
+            make.right.equalTo(-13 * iPHONE_AUTORATIO);
+            make.bottom.equalToSuperview();
         }
     }
-
+    
 }
 
-extension BaseWrapImagesView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ShowImagesCollectionCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1;
     }

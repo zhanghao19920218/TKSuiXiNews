@@ -17,6 +17,8 @@ pod 'Kingfisher'
 pod 'DNSPageView' #仿今日头条的PageView
 pod 'FSPagerView' #首页的Banner
 pod 'FWPopupView' #仿微信弹窗
-pod 'ZLPhotoBrowser'
+#pod 'ZLPhotoBrowser' #微信拍摄点按拍照，长按录制
+pod 'KMPlaceholderTextView' #带placeholder的UITextView
+pod 'YPImagePicker' #图片选择器
 
 end

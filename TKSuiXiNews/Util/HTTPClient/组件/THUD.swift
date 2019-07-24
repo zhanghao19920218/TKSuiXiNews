@@ -53,7 +53,7 @@ class TProgressHUD {
             //如果这里想设置成一直自旋转，可以设置为MAXFLOAT，否则设置具体的数值则代表执行多少次
             let hub = MBProgressHUD.showAdded(to: window!, animated: true);
             hub.mode = MBProgressHUDMode.indeterminate;
-            hub.bezelView.color = UIColor.black;
+//            hub.bezelView.color = UIColor.black;
             let xOffset:CGFloat = hub.offset.x;
             hub.offset = CGPoint(x: xOffset, y: -80);
         }
@@ -64,8 +64,8 @@ class TProgressHUD {
             //如果这里想设置成一直自旋转，可以设置为MAXFLOAT，否则设置具体的数值则代表执行多少次
             let hub = MBProgressHUD.showAdded(to: window!, animated: true);
             hub.mode = MBProgressHUDMode.indeterminate;
-            hub.bezelView.color = UIColor.black;
-            hub.label.textColor = UIColor.white;
+//            hub.bezelView.color = UIColor.black;
+//            hub.label.textColor = UIColor.white;
             hub.label.text = text;
             let xOffset:CGFloat = hub.offset.x;
             hub.offset = CGPoint(x: xOffset, y: -80);

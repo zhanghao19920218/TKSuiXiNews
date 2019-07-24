@@ -9,6 +9,13 @@
 import UIKit
 
 class BaseTableViewCell: UITableViewCell {
+    
+    //增加下横线
+    lazy var bottomLine: UIView = {
+        let view = UIView();
+        view.backgroundColor = RGBA(244, 244, 244, 1);
+        return view;
+    }();
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier);
