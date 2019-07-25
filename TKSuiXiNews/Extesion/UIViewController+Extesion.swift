@@ -31,4 +31,20 @@ extension UIViewController {
                           animations: animation,
                           completion: nil);
     }
+    
+    //MARK: - 获取当前的viewController
+    /// - Parameters:
+    ///   - rootViewController: 要跳转的viewController
+    class func current(base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        if let nav = base as? UINavigationController {
+            return current(base: nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController {
+            return current(base: tab.selectedViewController)
+        }
+        if let presented = base?.presentedViewController {
+            return current(base: presented)
+        }
+        return base
+    }
 }

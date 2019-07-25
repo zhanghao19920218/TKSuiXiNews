@@ -124,8 +124,4 @@ extension ServiceViewController: UICollectionViewDelegate, UICollectionViewDataS
         fatalError()
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: K_SCREEN_WIDTH, height: 50 * iPHONE_AUTORATIO)
-//    }
-    
 }

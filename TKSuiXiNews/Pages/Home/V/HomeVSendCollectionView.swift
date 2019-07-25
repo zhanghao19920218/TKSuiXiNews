@@ -14,7 +14,7 @@ import UIKit
 
 fileprivate let cellIdentifier = "BaseWrapCollectionCellIdentifier";
 
-fileprivate let layoutWidth = 105 * iPHONE_AUTORATIO;
+fileprivate let layoutWidth = 90 * iPHONE_AUTORATIO;
 
 class HomeVSendCollectionView: UIView {
 
@@ -33,7 +33,7 @@ class HomeVSendCollectionView: UIView {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout.init()
         layout.itemSize = CGSize.init(width: layoutWidth, height: layoutWidth)
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 0;
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout);
@@ -72,6 +72,9 @@ extension HomeVSendCollectionView: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if dataSource.count == 9 {
+            return 9;
+        }
         return dataSource.count + 1;
     }
     

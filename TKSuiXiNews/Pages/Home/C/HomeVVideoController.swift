@@ -123,6 +123,10 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
         cell.isLike = model.likeStatus.int;
         cell.like = model.likeNum.string;
         cell.videoLength = model.time.string;
+        cell.block = { [weak self] () in
+            let vc = NetworkPlayerController(url: model.video.string);
+            self?.navigationController?.pushViewController(vc, animated: true);
+        }
         return cell;
     }
     

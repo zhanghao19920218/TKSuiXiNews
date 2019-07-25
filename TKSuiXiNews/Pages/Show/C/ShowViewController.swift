@@ -22,13 +22,15 @@ class ShowViewController: BaseTableViewController {
         button.imageName = "send_video_icon"
         button.title = "发布"
         button.frame = CGRect(x: 0, y: 0, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO)
+        button.addTarget(self,
+                         action: #selector(rightNavigationBarItemTapped(_:)),
+                         for: .touchUpInside);
         return button;
     }();
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         // Do any additional setup after loading the view.
         createNavigationBarLogo();
         
@@ -43,6 +45,8 @@ class ShowViewController: BaseTableViewController {
     private func configureNavigationBar()
     {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem);
+        //设置标题为白色
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
     override func loadData() {
@@ -114,6 +118,12 @@ class ShowViewController: BaseTableViewController {
         )
     }
 
+    
+    //MARK: - 点击右上角的弹窗
+    @objc private func rightNavigationBarItemTapped(_ sender: UIButton) {
+        FWPopupViewUtil.share.popAlert()
+        FWPopupViewUtil.share.delegate = self;
+    }
 }
 
 extension ShowViewController {
@@ -207,3 +217,55 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+
+//MARK: - 点击跳转拍摄V视频和拍照
+extension ShowViewController: FWPopupViewUtilDelegate {
+    func didSelectedPopIndex(index: Int) {
+        if index == 0 {
+            YPImagePickerUtil.share.cameraOrVideo();
+            YPImagePickerUtil.share.delegate = self
+        } else {
+            YPImagePickerUtil.share.multiPickerPhotosLibary()
+            YPImagePickerUtil.share.delegate = self
+        }
+    }
+}
+
+//MARK: - YPImagePickerUtilDelegate
+extension ShowViewController: YPImagePickerUtilDelegate {
+    func imagePicker(images: [String], isSuccess: Bool) {
+        if isSuccess {
+            //跳转页面
+            let vc = VVideoShootViewController();
+            vc.isVideo = false;
+            vc.images = images
+            navigationController?.pushViewController(vc, animated: true);
+        }
+    }
+    
+    func imagePicker(imageUrl: String, videoUrl: String, videoLength: Int, isSuccess:Bool) {
+        print(videoUrl);
+        print(imageUrl);
+        if isSuccess {
+            //跳转页面
+            let vc = VVideoShootViewController();
+            vc.isVideo = true;
+            vc.videoImageUrl = imageUrl;
+            vc.videoUrl = videoUrl
+            vc.videoLength = videoLength;
+            navigationController?.pushViewController(vc, animated: true);
+        }
+    }
+    
+    func imagePicker(imageUrl: String, isSuccess: Bool) {
+        if isSuccess {
+            //跳转页面
+            let vc = VVideoShootViewController();
+            vc.isVideo = false;
+            vc.images = [imageUrl]
+            navigationController?.pushViewController(vc, animated: true);
+        }
+    }
+}
+

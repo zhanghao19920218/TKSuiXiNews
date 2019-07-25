@@ -8,7 +8,6 @@
 
 import UIKit
 import DNSPageView
-import FWPopupView
 import YPImagePicker
 
 //PageView的frame
@@ -119,76 +118,39 @@ class HomeViewController: BaseViewController {
         }
     }
     
-    //MARK: - 点击V视频sheet(title: nil, itemTitles: ["拍摄", "从手机相册选择"], itemBlock: )
+    //MARK: - 点击V视频sheet
     @objc private func didSelectedVVideo(){
-//        let sheetView = FWSheetView.sheet(title: nil, itemTitles:  ["拍摄", "从手机相册选择"], itemBlock: { [weak self](_, index, _) in
-//
-////            if index == 0 {
-////                let camera = ZLCustomCamera();
-////                camera.doneBlock = { (image, videoUrl) in
-////
-////                }
-////
-////                self?.present(camera, animated: true, completion: nil);
-////            } else {
-////                let vc = VVideoShootViewController();
-////                self?.navigationController?.pushViewController(vc, animated: true);
-////            }
-//        })
-//        sheetView.backgroundColor = RGBA(244, 244, 244, 1);
-//        sheetView.show()
-        // Here we configure the picker to only show videos, no photos.
-        var config = YPImagePickerConfiguration()
-        config.screens = [.video]
+        YPImagePickerUtil.share.singleVideoPicker();
+        YPImagePickerUtil.share.delegate = self
         
-        let picker = YPImagePicker(configuration: config)
-        picker.didFinishPicking { [weak picker,weak self] items, _ in
-            guard let video = items.singleVideo else {
-                picker?.dismiss(animated: true, completion: nil);
-                return;
-            }
-            
-            self?.uploadDetailVideo(videoUrl: video.url, image: video.thumbnail)
-//            picker?.dismiss(animated: true, completion: {
-//                //跳转视频详情页面
-//                self?.jumpVideoDetailVC();
-//            })
-        }
-        present(picker, animated: true, completion: nil)
-    }
-    
-    //上传视频接口
-    private func uploadDetailVideo(videoUrl:URL, image:UIImage ){
-        //上传视频的数据
-        let data = try? Data(contentsOf: videoUrl);
-        
-        HttpClient.shareInstance.request(target: BAAPI.uploadVideo(data: data  ?? Data()), success: { [weak self] (json) in
-            let decoder = JSONDecoder()
-            let model = try? decoder.decode(VVideoListResponseModel.self, from: json)
-            guard let forceModel = model else {
-                return;
-            }
-            }
-        )
-    }
-    
-    //上传图像
-    private func uploadDetailImage(videoUrl:URL, image:UIImage){
-        let imageData = image.jpegData(compressionQuality: 0.75);
-        HttpClient.shareInstance.request(target: BAAPI.uploadImage(data: imageData ?? Data()), success: { [weak self] (json) in
-            let decoder = JSONDecoder()
-            let model = try? decoder.decode(VVideoListResponseModel.self, from: json)
-            guard let forceModel = model else {
-                return;
-            }
-            }
-        )
     }
     
     //跳转到发送视频页面
-    private func jumpVideoDetailVC() {
+    private func jumpVideoDetailVC(videoUrl:String, imageUrl:String, videoLength:Int) {
         let vc = VVideoShootViewController();
+        vc.isVideo = true;
+        vc.videoImageUrl = imageUrl;
+        vc.videoUrl = videoUrl
+        vc.videoLength = videoLength;
+        vc.isVVideo = true;
         navigationController?.pushViewController(vc, animated: true);
     }
 
+}
+
+//MARK: - YPImagePickerUtilDelegate
+extension HomeViewController: YPImagePickerUtilDelegate {
+    func imagePicker(images: [String], isSuccess: Bool) {
+    }
+    
+    func imagePicker(imageUrl: String, videoUrl: String, videoLength: Int, isSuccess:Bool) {
+        if isSuccess {
+            //跳转页面
+            jumpVideoDetailVC(videoUrl: videoUrl, imageUrl: imageUrl, videoLength: videoLength);
+        }
+    }
+    
+    func imagePicker(imageUrl: String, isSuccess: Bool) {
+        
+    }
 }

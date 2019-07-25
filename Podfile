@@ -20,5 +20,6 @@ pod 'FWPopupView' #仿微信弹窗
 #pod 'ZLPhotoBrowser' #微信拍摄点按拍照，长按录制
 pod 'KMPlaceholderTextView' #带placeholder的UITextView
 pod 'YPImagePicker' #图片选择器
+pod 'NELivePlayer' #网易云播放器
 
 end

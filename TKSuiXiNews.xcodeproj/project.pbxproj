@@ -48,6 +48,11 @@
 		7380EA5522E301FB00628C48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7380EA5322E301FB00628C48 /* LaunchScreen.storyboard */; };
 		7380EA5D22E302C200628C48 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 7380EA5C22E302C200628C48 /* Podfile */; };
 		738BD9E422E7E02600B7BF75 /* HomeVSendCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738BD9E322E7E02600B7BF75 /* HomeVSendCollectionView.swift */; };
+		73D4E2D622E92C4A0088FF37 /* YPImagePickerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4E2D522E92C4A0088FF37 /* YPImagePickerUtil.swift */; };
+		73D4E2D922E938850088FF37 /* UploadFileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4E2D822E938850088FF37 /* UploadFileResponse.swift */; };
+		73D4E2DC22E94BB00088FF37 /* FWPopupViewUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4E2DB22E94BB00088FF37 /* FWPopupViewUtil.swift */; };
+		73D4E2DE22E97A0D0088FF37 /* MutiImagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4E2DD22E97A0D0088FF37 /* MutiImagesResponse.swift */; };
+		73D4E2E122E998000088FF37 /* NetworkPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4E2E022E998000088FF37 /* NetworkPlayer.swift */; };
 		73DEBAA022E30BDC007EC4E1 /* JsonKeyDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DEBA9F22E30BDC007EC4E1 /* JsonKeyDefine.swift */; };
 		73DEBAA222E30CA8007EC4E1 /* ColorsDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DEBAA122E30CA8007EC4E1 /* ColorsDefine.swift */; };
 		73DEBAA422E30DBA007EC4E1 /* BaseUrlDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DEBAA322E30DBA007EC4E1 /* BaseUrlDefine.swift */; };
@@ -136,6 +141,11 @@
 		7380EA5622E301FB00628C48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7380EA5C22E302C200628C48 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		738BD9E322E7E02600B7BF75 /* HomeVSendCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVSendCollectionView.swift; sourceTree = "<group>"; };
+		73D4E2D522E92C4A0088FF37 /* YPImagePickerUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePickerUtil.swift; sourceTree = "<group>"; };
+		73D4E2D822E938850088FF37 /* UploadFileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadFileResponse.swift; sourceTree = "<group>"; };
+		73D4E2DB22E94BB00088FF37 /* FWPopupViewUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWPopupViewUtil.swift; sourceTree = "<group>"; };
+		73D4E2DD22E97A0D0088FF37 /* MutiImagesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutiImagesResponse.swift; sourceTree = "<group>"; };
+		73D4E2E022E998000088FF37 /* NetworkPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPlayer.swift; sourceTree = "<group>"; };
 		73DEBA9F22E30BDC007EC4E1 /* JsonKeyDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonKeyDefine.swift; sourceTree = "<group>"; };
 		73DEBAA122E30CA8007EC4E1 /* ColorsDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsDefine.swift; sourceTree = "<group>"; };
 		73DEBAA322E30DBA007EC4E1 /* BaseUrlDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUrlDefine.swift; sourceTree = "<group>"; };
@@ -424,6 +434,40 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		73D4E2D422E92C1A0088FF37 /* YPImagePickerUtil */ = {
+			isa = PBXGroup;
+			children = (
+				73D4E2D722E938720088FF37 /* M */,
+				73D4E2D522E92C4A0088FF37 /* YPImagePickerUtil.swift */,
+			);
+			path = YPImagePickerUtil;
+			sourceTree = "<group>";
+		};
+		73D4E2D722E938720088FF37 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				73D4E2D822E938850088FF37 /* UploadFileResponse.swift */,
+				73D4E2DD22E97A0D0088FF37 /* MutiImagesResponse.swift */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		73D4E2DA22E94B960088FF37 /* FWPopupViewUtil */ = {
+			isa = PBXGroup;
+			children = (
+				73D4E2DB22E94BB00088FF37 /* FWPopupViewUtil.swift */,
+			);
+			path = FWPopupViewUtil;
+			sourceTree = "<group>";
+		};
+		73D4E2DF22E997C20088FF37 /* NetworkPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				73D4E2E022E998000088FF37 /* NetworkPlayer.swift */,
+			);
+			path = NetworkPlayer;
+			sourceTree = "<group>";
+		};
 		73DEBA9E22E30B68007EC4E1 /* Define */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,6 +493,9 @@
 		73DEBAAE22E311E3007EC4E1 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				73D4E2DF22E997C20088FF37 /* NetworkPlayer */,
+				73D4E2DA22E94B960088FF37 /* FWPopupViewUtil */,
+				73D4E2D422E92C1A0088FF37 /* YPImagePickerUtil */,
 				7308499722E5884500958969 /* WeChatVideoRecord */,
 				733ED17B22E43C6300B452D4 /* Banner */,
 				73DEBAFD22E34AEB007EC4E1 /* CommonLicense */,
@@ -859,8 +906,10 @@
 			files = (
 				7377745F22E7E3A200513350 /* HomeVVideoBaseView.swift in Sources */,
 				733ED18522E449FA00B452D4 /* HomeVVideoNormalCell.swift in Sources */,
+				73D4E2D922E938850088FF37 /* UploadFileResponse.swift in Sources */,
 				7377747C22E847B200513350 /* ShowDetailImageViewController.swift in Sources */,
 				7377747722E8378A00513350 /* DetailUserCommentCell.swift in Sources */,
+				73D4E2E122E998000088FF37 /* NetworkPlayer.swift in Sources */,
 				733742F122E7D6AD006F30C6 /* VVideoShootViewController.swift in Sources */,
 				73DEBAC822E3224E007EC4E1 /* BaseTabBarController.swift in Sources */,
 				73DEBAE522E3252B007EC4E1 /* MineViewController.swift in Sources */,
@@ -910,6 +959,7 @@
 				73DEBAB622E315DC007EC4E1 /* MoyaConfig.swift in Sources */,
 				73DEBAA922E30E7F007EC4E1 /* UIViewController+Extesion.swift in Sources */,
 				73DEBABF22E31A65007EC4E1 /* HttpRequest.swift in Sources */,
+				73D4E2DC22E94BB00088FF37 /* FWPopupViewUtil.swift in Sources */,
 				7377746E22E82A8500513350 /* DetailUserInfoNameCell.swift in Sources */,
 				7377747522E833E000513350 /* DetailCommentLikeNumCell.swift in Sources */,
 				733ED17722E4111B00B452D4 /* HomeVVideoController.swift in Sources */,
@@ -922,6 +972,7 @@
 				73DEBAEC22E32B90007EC4E1 /* SXLoginTextField.swift in Sources */,
 				73DEBAA222E30CA8007EC4E1 /* ColorsDefine.swift in Sources */,
 				7308498522E5440B00958969 /* ScroreItemButton.swift in Sources */,
+				73D4E2DE22E97A0D0088FF37 /* MutiImagesResponse.swift in Sources */,
 				73DEBB0922E359A6007EC4E1 /* UserLoginInfo.swift in Sources */,
 				73DEBAF022E3376D007EC4E1 /* SXLoginBaseButton.swift in Sources */,
 				73DEBAC922E3224E007EC4E1 /* BATabBarButton.swift in Sources */,
@@ -931,6 +982,7 @@
 				73DEBAB922E3195E007EC4E1 /* THUD.swift in Sources */,
 				73DEBAE322E32522007EC4E1 /* ServiceViewController.swift in Sources */,
 				73DEBAA422E30DBA007EC4E1 /* BaseUrlDefine.swift in Sources */,
+				73D4E2D622E92C4A0088FF37 /* YPImagePickerUtil.swift in Sources */,
 				7308498722E5467A00958969 /* MineUsualCollCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

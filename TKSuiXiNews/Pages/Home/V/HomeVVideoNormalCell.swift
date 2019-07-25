@@ -13,6 +13,7 @@ fileprivate let fontColor = RGBA(153, 153, 153, 1);
 
 //MARK: - 初始化V视频Item
 class HomeVVideoNormalCell: BaseTableViewCell {
+    var block = { () in }
     //MARK: -设置参数
     var describe: String? {
         willSet(value) {
@@ -76,6 +77,7 @@ class HomeVVideoNormalCell: BaseTableViewCell {
     private lazy var videoImageView: UIImageView = {
         let imageView = UIImageView();
         imageView.contentMode =  UIView.ContentMode.scaleToFill;
+        imageView.isUserInteractionEnabled = true;
         //增加一个变灰色的view
         let view = UIView();
         imageView.addSubview(view);
@@ -99,6 +101,10 @@ class HomeVVideoNormalCell: BaseTableViewCell {
     private lazy var playItem: UIButton = {
         let button = UIButton(type: .custom);
         button.setImage(K_ImageName("play_video"), for: .normal);
+        button.imageEdgeInsets = UIEdgeInsets(top: 30 * iPHONE_AUTORATIO, left: 30 * iPHONE_AUTORATIO, bottom: 30 * iPHONE_AUTORATIO, right: 30 * iPHONE_AUTORATIO)
+        button.addTarget(self,
+                         action: #selector(didSelectedPlayItemBlock(_:)),
+                         for: .touchUpInside)
         return button;
     }();
     
@@ -188,7 +194,7 @@ class HomeVVideoNormalCell: BaseTableViewCell {
         videoImageView.addSubview(playItem);
         playItem.snp.makeConstraints { (make) in
             make.center.equalToSuperview();
-            make.size.equalTo(CGSize(width: 35 * iPHONE_AUTORATIO, height: 35 * iPHONE_AUTORATIO));
+            make.size.equalTo(CGSize(width: 95 * iPHONE_AUTORATIO, height: 95 * iPHONE_AUTORATIO));
         };
         
         //视频长度
@@ -241,6 +247,12 @@ class HomeVVideoNormalCell: BaseTableViewCell {
             make.left.equalTo(self.likeIcon.snp_right).offset(5 * iPHONE_AUTORATIO);
             make.centerY.equalTo(self.avatarImage.snp_centerY);
         };
+    }
+    
+    //MARK: - 点击播放按钮的Block
+    @objc private func didSelectedPlayItemBlock(_ sender: UIButton){
+        print("点击了按钮");
+        block();
     }
 
 }

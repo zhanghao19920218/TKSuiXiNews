@@ -65,8 +65,8 @@ class BaseWrapImagesView: UIView {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout.init()
         layout.itemSize = CGSize.init(width: layoutWidth, height: layoutWidth)
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0;
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 10;
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout);
         collectionView.backgroundColor = .white;

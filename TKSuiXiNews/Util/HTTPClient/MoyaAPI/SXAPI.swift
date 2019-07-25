@@ -22,6 +22,12 @@ enum  BAAPI {
     case uploadVideo(data:Data)
     //上传图片
     case uploadImage(data:Data)
+    //上传V视频
+    case sendVVideoInfo(name:String, video:String, image:String, time:Int)
+    //上传多图
+    case uploadImages(images:[Image])
+    //发布随手拍
+    case addsCausualPhotos(name:String, video:String?, images:[String]?, image:String?, time:Int?)
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -42,6 +48,12 @@ extension BAAPI: TargetType {
             return K_URL_articleDetail
         case .uploadVideo, .uploadImage:
             return K_URL_uploadVideo
+        case .sendVVideoInfo:
+            return K_URL_sendVideoDesc
+        case .uploadImages:
+            return K_URL_multiImages
+        case .addsCausualPhotos:
+            return K_URL_causualShow
         }
         
     }
@@ -76,6 +88,50 @@ extension BAAPI: TargetType {
         case let .uploadImage(data):
             let imageDataProvider = Moya.MultipartFormData(provider: MultipartFormData.FormDataProvider.data(data), name: "file", fileName: "avatar.jpeg", mimeType: "image/jpeg")
             return .uploadMultipart([imageDataProvider]);
+            
+        case let .sendVVideoInfo(name, video, image, time):
+            params["name"] = name;
+            params["video"] = video;
+            params["image"] = image;
+            params["time"] = time;
+            
+        case let .uploadImages(images):
+            var formDataAry = [MultipartFormData]();
+            for (index,image) in images.enumerated() {
+                //图片转成Data
+                let data:Data = image.jpegData(compressionQuality: 0.75) ?? Data.init()
+                //根据当前时间设置图片上传时候的名字
+                let date:Date = Date()
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd-HH:mm:ss"
+                var dateStr:String = formatter.string(from: date as Date)
+                //别忘记这里给名字加上图片的后缀哦
+                dateStr = dateStr.appendingFormat("-%i.jpeg", index)
+                let formData = MultipartFormData(provider: .data(data), name: "images[]", fileName: dateStr, mimeType: "image/jpeg")
+                formDataAry.append(formData);
+                
+            }
+            return .uploadMultipart(formDataAry);
+            
+            
+        case let .addsCausualPhotos(name, video, images, image, time):
+            params["name"] = name;
+            if let forceVideo = video {
+                params["video"] = forceVideo;
+                params["time"] = time ?? "0";
+                params["image"] = image ?? "";
+            } else {
+                //拼装array
+                if let arrayImages = images {
+                    let array:String = arrayImages.joined(separator: ",");
+                    params["images"] = array;
+                    print(array);
+                }
+//                let array = images
+//                let data = try? JSONSerialization.data(withJSONObject: images ?? [String](), options: .prettyPrinted);
+//                let imagesJson = String(data: data ?? Data.init(), encoding: String.Encoding.unicode);
+//                params["images"] = imagesJson ?? "[]";
+            }
             
         default:
             //不需要传参数的接口走这里
