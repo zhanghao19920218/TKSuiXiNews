@@ -41,6 +41,8 @@ class BANavigationController: UINavigationController, UINavigationControllerDele
             self.delegate = weakSelf;
         }
         
+        self.interactivePopGestureRecognizer?.delegate = self
+        
         self.setupClearColorNavigationBar();
     }
     
@@ -71,7 +73,7 @@ class BANavigationController: UINavigationController, UINavigationControllerDele
         if (self.children.count == 1) {
             return false;
         }
-        return true;
+        return false;
     }
     
     // 我们差不多能猜到是因为手势冲突导致的，那我们就先让 ViewController 同时接受多个手势吧。
@@ -82,5 +84,14 @@ class BANavigationController: UINavigationController, UINavigationControllerDele
     //解决手指在滑动的时候，被 pop 的 ViewController 中的 UIScrollView 会跟着一起滚动，这个效果看起来就很怪，而且也不是原始的滑动返回应有的效果
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return gestureRecognizer.isKind(of: UIScreenEdgePanGestureRecognizer.self);
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if let topVC = viewControllers.last {
+            //return the status property of each VC, look at step 2
+            return topVC.preferredStatusBarStyle
+        }
+        
+        return .default
     }
 }

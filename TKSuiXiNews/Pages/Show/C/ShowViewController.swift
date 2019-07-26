@@ -49,6 +49,12 @@ class ShowViewController: BaseTableViewController {
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
+    //MARK: - 更新StatusBar
+    override var preferredStatusBarStyle: UIStatusBarStyle
+    {
+        return .lightContent
+    }
+    
     override func loadData() {
         super.loadData();
         

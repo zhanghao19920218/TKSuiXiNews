@@ -53,6 +53,12 @@ class ServiceViewController: BaseViewController {
         getLocaleJson() //获取本地数据
     }
     
+    //MARK: - 更新StatusBar
+    override var preferredStatusBarStyle: UIStatusBarStyle
+    {
+        return .lightContent
+    }
+    
     //MARK: - 服务页面CollectionView
     private func setupUI(){
         view.addSubview(collectionView)

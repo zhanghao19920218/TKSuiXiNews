@@ -69,6 +69,12 @@ class HomeViewController: BaseViewController {
         button.backgroundColor = .white;
         return button;
     }()
+    
+    //MARK: - 更新StatusBar
+    override var preferredStatusBarStyle: UIStatusBarStyle
+    {
+        return .lightContent
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()

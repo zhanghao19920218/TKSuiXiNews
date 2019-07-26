@@ -12,8 +12,9 @@ import NELivePlayerFramework
 //播放器的Controller
 class NetworkPlayerController: BaseViewController {
     //播放器的控制UI
-    private lazy var controlView: UIView = {
+    private lazy var controlView: NEPlayerControlView = {
         let view = NEPlayerControlView();
+        view.delegate = self;
         return view;
     }();
     
@@ -30,7 +31,8 @@ class NetworkPlayerController: BaseViewController {
         return view;
     }()
     
-    
+    //进度条
+    private var timer: DispatchSource?
     
     init(url:String) {
         super.init(nibName: nil, bundle:nil);
@@ -46,25 +48,42 @@ class NetworkPlayerController: BaseViewController {
         NotificationCenter.default.removeObserver(self);
     }
     
+    //MARK: - 更新StatusBar
+    override var preferredStatusBarStyle: UIStatusBarStyle
+    {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
         //设置标题为isTransport false
         navigationController?.navigationBar.isTranslucent = true;
         
+        view.backgroundColor = .black;
+        
         setupUI()
         
         configurePlayer()
         
         doInitPlayerNotification()
+        
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated);
+        
+        setNeedsStatusBarAppearanceUpdate(); //更新StatusBar
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated);
         
         //设置标题为isTransport false
         navigationController?.navigationBar.isTranslucent = false;
+        //更新标题为默认
+        
         //销毁播放器
         doDestoryPlayer()
     }
@@ -151,8 +170,10 @@ class NetworkPlayerController: BaseViewController {
         //关
         player?.setRealTimeListenerWithIntervalMS(500, callback: nil);
         
-        //设置同步播放器
-        
+        //更新播放器时间
+        controlView.duration = player?.duration;
+        //更新数据
+        controlView.currentPos = player?.currentPlaybackTime()
     }
     
     //MARK: - 播放状态改变
@@ -211,5 +232,22 @@ class NetworkPlayerController: BaseViewController {
     private func doDestoryPlayer() {
         player?.shutdown();
         player = nil;
+    }
+}
+
+//MARK: - NEPlayer控制按钮的界面
+extension NetworkPlayerController: NEPlayerControlViewDelegate {
+    func controlViewOnClickPlay(_ controlView: NEPlayerControlView, isPlay: Bool) {
+        if isPlay {
+            player?.play(); //播放
+        } else {
+            player?.pause(); //暂停
+        }
+    }
+    
+    //MARK: - 拖拉进度条
+    func controlViewOnClickSeek(_ controlView: NEPlayerControlView, dstTime: Float) {
+        //更新进度条
+        player?.setCurrentPlaybackTime(TimeInterval(exactly: dstTime) ?? TimeInterval())
     }
 }

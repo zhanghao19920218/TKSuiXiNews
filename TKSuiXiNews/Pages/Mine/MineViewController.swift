@@ -97,6 +97,12 @@ class MineViewController: BaseViewController {
         configureNavigationBar()
     }
     
+    //MARK: - 更新StatusBar
+    override var preferredStatusBarStyle: UIStatusBarStyle
+    {
+        return .lightContent
+    }
+    
     //初始化navigationBar
     private func configureNavigationBar()
     {
