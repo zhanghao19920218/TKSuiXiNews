@@ -92,6 +92,11 @@ class VVideoShootViewController: BaseViewController {
     private lazy var imagesScreen: HomeVSendCollectionView = {
         let view = HomeVSendCollectionView();
         view.images = []
+        //点击选择更多照片
+        view.block = { [weak self] () in
+            //选择更多照片
+            self?.selectedMorePhotos();
+        }
         return view;
     }();
 
@@ -186,6 +191,13 @@ class VVideoShootViewController: BaseViewController {
         
         
     }
+    
+    //MARK: - 选择更多照片
+    private func selectedMorePhotos() {
+        let maxCount = 9 - images.count; //确定最大的照片数量
+        YPImagePickerUtil.share.multiPickerPhotosLibary(maxCount: maxCount);
+        YPImagePickerUtil.share.delegate = self;
+    }
 }
 
 
@@ -194,4 +206,24 @@ extension VVideoShootViewController: UITextViewDelegate {
         let text = textView.text ?? ""; //获取内容
         describe = text;
     }
+}
+
+extension VVideoShootViewController: YPImagePickerUtilDelegate {
+    func imagePicker(imageUrl: String, videoUrl: String, videoLength: Int, isSuccess: Bool) {
+    }
+    
+    func imagePicker(imageUrl: String, isSuccess: Bool) {
+    }
+    
+    //选择增加照片
+    func imagePicker(images: [String], isSuccess: Bool) {
+        //更新照片图库
+        let newImages = images.map({ (val) in
+            return K_URL_Base + val;
+        })
+        self.images += newImages;
+        self.imagesScreen.images = self.images;
+    }
+    
+    
 }

@@ -154,6 +154,7 @@ open class YPImagePickerUtil {
         //定义配置文件
         var config = YPImagePickerConfiguration()
         config.screens = [.video, .photo]
+        config.showsPhotoFilters = false; //隐藏滤镜效果
         
         picker = YPImagePicker(configuration: config)
         picker?.didFinishPicking { [weak self] items, _ in
@@ -217,7 +218,7 @@ open class YPImagePickerUtil {
     }
     
     //MARK: - 拍客上传多照片
-    open func multiPickerPhotosLibary() {
+    open func multiPickerPhotosLibary(maxCount:Int) {
         //获取当前的viewController
         let vc = UIViewController.current()
         
@@ -225,7 +226,9 @@ open class YPImagePickerUtil {
         var config = YPImagePickerConfiguration()
         config.screens = [.library]
         config.library.mediaType = .photo;
-        config.library.maxNumberOfItems = 9;
+        config.library.maxNumberOfItems = maxCount;
+        config.showsPhotoFilters = false; //隐藏滤镜效果
+        config.library.defaultMultipleSelection = true; //显示多选择的页面
         
         picker = YPImagePicker(configuration: config)
         picker?.didFinishPicking { [weak self] items, _ in

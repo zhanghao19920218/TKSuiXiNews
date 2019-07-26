@@ -226,7 +226,8 @@ extension ShowViewController: FWPopupViewUtilDelegate {
             YPImagePickerUtil.share.cameraOrVideo();
             YPImagePickerUtil.share.delegate = self
         } else {
-            YPImagePickerUtil.share.multiPickerPhotosLibary()
+            //最大的照片数量
+            YPImagePickerUtil.share.multiPickerPhotosLibary(maxCount: 9)
             YPImagePickerUtil.share.delegate = self
         }
     }

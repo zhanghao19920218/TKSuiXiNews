@@ -17,11 +17,16 @@ fileprivate let cellIdentifier = "BaseWrapCollectionCellIdentifier";
 fileprivate let layoutWidth = 90 * iPHONE_AUTORATIO;
 
 class HomeVSendCollectionView: UIView {
+    /*
+     * 点击选择更多照片的Block
+     */
+    var block = { () in }
 
     //获取照片的数据
     var images:Array<String>? {
         willSet(value) {
             dataSource = value ?? [];
+            collectionView.reloadData();
         }
     }
     
@@ -88,5 +93,11 @@ extension HomeVSendCollectionView: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! BaseWrapCollectionCell
         cell.imageName = dataSource[indexPath.row];
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row == dataSource.count {
+            block();
+        }
     }
 }

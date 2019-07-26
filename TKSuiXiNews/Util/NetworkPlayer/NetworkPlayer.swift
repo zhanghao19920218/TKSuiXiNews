@@ -11,6 +11,12 @@ import NELivePlayerFramework
 
 //播放器的Controller
 class NetworkPlayerController: BaseViewController {
+    //播放器的控制UI
+    private lazy var controlView: UIView = {
+        let view = NEPlayerControlView();
+        return view;
+    }();
+    
     //播放器的url
     private var _url:String = "";
     
@@ -71,6 +77,12 @@ class NetworkPlayerController: BaseViewController {
             make.edges.equalToSuperview();
         }
         
+        
+        //初始化背景配置
+        view.addSubview(controlView);
+        controlView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview();
+        }
     }
     
     //MARK: - 初始化播放器

@@ -48,6 +48,8 @@
 		7380EA5522E301FB00628C48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7380EA5322E301FB00628C48 /* LaunchScreen.storyboard */; };
 		7380EA5D22E302C200628C48 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 7380EA5C22E302C200628C48 /* Podfile */; };
 		738BD9E422E7E02600B7BF75 /* HomeVSendCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738BD9E322E7E02600B7BF75 /* HomeVSendCollectionView.swift */; };
+		73A3329722EA94560060F281 /* iQiYiPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3329622EA94560060F281 /* iQiYiPlayButton.swift */; };
+		73C419B822EA87C200D8D412 /* NEPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C419B722EA87C200D8D412 /* NEPlayerControlView.swift */; };
 		73D4E2D622E92C4A0088FF37 /* YPImagePickerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4E2D522E92C4A0088FF37 /* YPImagePickerUtil.swift */; };
 		73D4E2D922E938850088FF37 /* UploadFileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4E2D822E938850088FF37 /* UploadFileResponse.swift */; };
 		73D4E2DC22E94BB00088FF37 /* FWPopupViewUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4E2DB22E94BB00088FF37 /* FWPopupViewUtil.swift */; };
@@ -141,6 +143,8 @@
 		7380EA5622E301FB00628C48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7380EA5C22E302C200628C48 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		738BD9E322E7E02600B7BF75 /* HomeVSendCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVSendCollectionView.swift; sourceTree = "<group>"; };
+		73A3329622EA94560060F281 /* iQiYiPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iQiYiPlayButton.swift; sourceTree = "<group>"; };
+		73C419B722EA87C200D8D412 /* NEPlayerControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEPlayerControlView.swift; sourceTree = "<group>"; };
 		73D4E2D522E92C4A0088FF37 /* YPImagePickerUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YPImagePickerUtil.swift; sourceTree = "<group>"; };
 		73D4E2D822E938850088FF37 /* UploadFileResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadFileResponse.swift; sourceTree = "<group>"; };
 		73D4E2DB22E94BB00088FF37 /* FWPopupViewUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FWPopupViewUtil.swift; sourceTree = "<group>"; };
@@ -434,6 +438,15 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		73C419B622EA859200D8D412 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				73C419B722EA87C200D8D412 /* NEPlayerControlView.swift */,
+				73A3329622EA94560060F281 /* iQiYiPlayButton.swift */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
 		73D4E2D422E92C1A0088FF37 /* YPImagePickerUtil */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,6 +476,7 @@
 		73D4E2DF22E997C20088FF37 /* NetworkPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				73C419B622EA859200D8D412 /* V */,
 				73D4E2E022E998000088FF37 /* NetworkPlayer.swift */,
 			);
 			path = NetworkPlayer;
@@ -933,6 +947,7 @@
 				73DEBAAD22E3119D007EC4E1 /* UIView+Extension.swift in Sources */,
 				738BD9E422E7E02600B7BF75 /* HomeVSendCollectionView.swift in Sources */,
 				733ED19322E4706100B452D4 /* ShowVideoViewCell.swift in Sources */,
+				73A3329722EA94560060F281 /* iQiYiPlayButton.swift in Sources */,
 				7308499122E55DF600958969 /* ServiceCollectionHeader.swift in Sources */,
 				73DEBACE22E3228E007EC4E1 /* BaseViewController.swift in Sources */,
 				7380EA4B22E301FB00628C48 /* AppDelegate.swift in Sources */,
@@ -965,6 +980,7 @@
 				733ED17722E4111B00B452D4 /* HomeVVideoController.swift in Sources */,
 				73DEBAEE22E33109007EC4E1 /* BaseLoginViewController.swift in Sources */,
 				733ED17A22E4153800B452D4 /* NoMoreDataView.swift in Sources */,
+				73C419B822EA87C200D8D412 /* NEPlayerControlView.swift in Sources */,
 				733ED19622E4721E00B452D4 /* ShowListResponseModel.swift in Sources */,
 				7377747F22E8484B00513350 /* ShowImagesCollectionCell.swift in Sources */,
 				7308498F22E5593700958969 /* ServiceSingleNameCell.swift in Sources */,
