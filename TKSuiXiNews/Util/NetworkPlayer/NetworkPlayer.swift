@@ -71,11 +71,11 @@ class NetworkPlayerController: BaseViewController {
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated);
-        
-        setNeedsStatusBarAppearanceUpdate(); //更新StatusBar
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated);
+//
+//        setNeedsStatusBarAppearanceUpdate(); //更新StatusBar
+//    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated);
@@ -248,6 +248,7 @@ extension NetworkPlayerController: NEPlayerControlViewDelegate {
     //MARK: - 拖拉进度条
     func controlViewOnClickSeek(_ controlView: NEPlayerControlView, dstTime: Float) {
         //更新进度条
+        print("更新进度");
         player?.setCurrentPlaybackTime(TimeInterval(exactly: dstTime) ?? TimeInterval())
     }
 }

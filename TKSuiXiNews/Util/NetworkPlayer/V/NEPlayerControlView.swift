@@ -91,9 +91,10 @@ class NEPlayerControlView: UIView {
         let slide = UISlider();
         slide.tintColor = appThemeColor
         slide.isHidden = true;
+//        slide.setThumbImage(K_ImageName("btn_player_slider_thumb"), for: .normal);
         slide.setMaximumTrackImage(K_ImageName("btn_player_slider_all"), for: .normal);
         slide.setMinimumTrackImage(K_ImageName("btn_player_slider_played"), for: .normal);
-        slide.addTarget(self, action: #selector(onClickSeekTouchUpOutside(_:)), for: .touchUpOutside)
+        slide.addTarget(self, action: #selector(onClickSeekTouchUpOutside(_:)), for: .touchUpInside)
         return slide;
     }();
     
@@ -161,6 +162,7 @@ class NEPlayerControlView: UIView {
     
     //MARK: - 点击更新进度条
     @objc private func onClickSeekTouchUpOutside(_ slider: UISlider) {
+        print("更新进度条");
         if let delegate = delegate {
             delegate.controlViewOnClickSeek(self, dstTime: slider.value)
         }
