@@ -13,7 +13,9 @@ enum  BAAPI {
     //用户登录
     case login(account:String, password: String)
     //内容模块
-    case contentList(module:String, page: Int)
+    case contentList(module:String, page: Int )
+    //内容模块
+    case contentSingleList(module:String)
     //会员中心
     case memeberInfo
     //详情
@@ -41,6 +43,8 @@ extension BAAPI: TargetType {
         case .login:
             return K_URL_login;
         case .contentList:
+            return K_URL_contentList;
+        case .contentSingleList:
             return K_URL_contentList;
         case .memeberInfo:
             return K_URL_mineInfo;
@@ -75,6 +79,9 @@ extension BAAPI: TargetType {
         case let .contentList(module, page):
             params["module"] = module;
             params["p"] = page;
+            
+        case let .contentSingleList(module):
+            params["module"] = module;
             
         case .memeberInfo://不需要传参数的接口走这里
             return .requestPlain

@@ -39,6 +39,7 @@ class HomeVVideoBaseView: UIImageView {
     
     //MARK: -初始化页面播放
     private func setupUI() {
+        
         image = K_ImageName(PLACE_HOLDER_IMAGE);
         
         addSubview(playItem);

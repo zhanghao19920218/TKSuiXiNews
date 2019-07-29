@@ -42,6 +42,7 @@ class HomeViewController: BaseViewController {
         style.titleFont = pageViewFontSize;
         style.titleViewHeight = pageViewTitleHeight;
         
+        
         // 设置标题内容
         let titles = ["V视频", "濉溪TV", "新闻", "视讯", "问政"];
         
@@ -50,7 +51,17 @@ class HomeViewController: BaseViewController {
             //V视频
             var controller: UIViewController!
             if index == 0 {
+                //V视频
                 controller = HomeVVideoController();
+            } else if index == 1 {
+                //濉溪TV
+                controller = HomeTVViewController()
+            } else if index == 2 {
+                //濉溪新闻
+                controller = HomeNewsListViewController()
+            } else if index == 3 {
+                //视讯
+                controller = HomeVideoNewsListController()
             } else {
                 controller = UIViewController();
             }

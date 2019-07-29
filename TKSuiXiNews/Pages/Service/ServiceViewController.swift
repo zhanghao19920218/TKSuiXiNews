@@ -51,6 +51,15 @@ class ServiceViewController: BaseViewController {
         setupUI()
         
         getLocaleJson() //获取本地数据
+        
+        configureNavigationBar()
+    }
+    
+    //初始化navigationBar
+    private func configureNavigationBar()
+    {
+        //设置标题为白色
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
     //MARK: - 更新StatusBar
@@ -128,6 +137,13 @@ extension ServiceViewController: UICollectionViewDelegate, UICollectionViewDataS
         }
 
         fatalError()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let model = dataSource[indexPath.section].data[indexPath.row]
+        let vc = ServiceWKWebViewController()
+        navigationController?.pushViewController(vc, animated: true)
+        vc.loadUrl = model.url
     }
     
 }

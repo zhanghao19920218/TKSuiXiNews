@@ -1,17 +1,16 @@
 //
-//  NetworkPlayer.swift
+//  NETLivePlayerController.swift
 //  TKSuiXiNews
 //
-//  Created by Barry Allen on 2019/7/25.
+//  Created by Barry Allen on 2019/7/29.
 //  Copyright © 2019 Barry Allen. All rights reserved.
 //
 
 import UIKit
 import NELivePlayerFramework
 
-//播放器的Controller
-class NetworkPlayerController: BaseViewController {
-    
+class NETLivePlayerController: BaseViewController {
+
     //播放器的控制UI
     private lazy var controlView: NEPlayerControlView = {
         let view = NEPlayerControlView();
@@ -72,11 +71,11 @@ class NetworkPlayerController: BaseViewController {
     }
     
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated);
-//
-//        setNeedsStatusBarAppearanceUpdate(); //更新StatusBar
-//    }
+    //    override func viewWillAppear(_ animated: Bool) {
+    //        super.viewWillAppear(animated);
+    //
+    //        setNeedsStatusBarAppearanceUpdate(); //更新StatusBar
+    //    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated);
@@ -205,12 +204,12 @@ class NetworkPlayerController: BaseViewController {
             if let value = userInfo[NELivePlayerPlaybackDidFinishReasonUserInfoKey] as? Int {
                 //比较是不是这些情况
                 switch value {
-                    //播放结束
-                    case NELPMovieFinishReason.playbackEnded.rawValue:
-                        print("播放完成");
-                        //重复播放
-                        player?.prepareToPlay();
-                        player?.play();
+                //播放结束
+                case NELPMovieFinishReason.playbackEnded.rawValue:
+                    print("播放完成");
+                    //重复播放
+                    player?.prepareToPlay();
+                    player?.play();
                 case NELPMovieFinishReason.playbackError.rawValue:
                     alertController = UIAlertController.init(title: "注意", message: "播放失败", preferredStyle: .alert);
                     action = UIAlertAction(title: "OK", style: .default, handler: { [weak self] (_) in
@@ -236,12 +235,17 @@ class NetworkPlayerController: BaseViewController {
     }
     
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return .portrait;
+        return .landscapeRight
+    }
+    
+    override var shouldAutorotate: Bool
+        {
+        return false;
     }
 }
 
 //MARK: - NEPlayer控制按钮的界面
-extension NetworkPlayerController: NEPlayerControlViewDelegate {
+extension NETLivePlayerController: NEPlayerControlViewDelegate {
     func controlViewOnClickPlay(_ controlView: NEPlayerControlView, isPlay: Bool) {
         if isPlay {
             player?.play(); //播放

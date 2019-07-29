@@ -23,6 +23,6 @@ struct ServerListModelSectionItem: Codable {
 
 // MARK: - DatumDatum
 struct ServiceListItemModel: Codable {
-    let imagename, title, subTitle: String
+    let imagename, title, subTitle, url: String
 }
 

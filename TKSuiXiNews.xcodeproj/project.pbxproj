@@ -15,6 +15,18 @@
 		7308499122E55DF600958969 /* ServiceCollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7308499022E55DF600958969 /* ServiceCollectionHeader.swift */; };
 		7308499422E5683500958969 /* ServiceListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7308499322E5683500958969 /* ServiceListModel.swift */; };
 		7308499622E582C200958969 /* servicelist.json in Resources */ = {isa = PBXBuildFile; fileRef = 7308499522E582C200958969 /* servicelist.json */; };
+		730F178022EECD1600FCD4FF /* HomeTVTitleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F177F22EECD1600FCD4FF /* HomeTVTitleResponse.swift */; };
+		730F178222EED6A200FCD4FF /* HomeNewsBottomTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F178122EED6A200FCD4FF /* HomeNewsBottomTimeView.swift */; };
+		730F178422EEDF5500FCD4FF /* HomeNewsSearchInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F178322EEDF5500FCD4FF /* HomeNewsSearchInfoCell.swift */; };
+		730F178622EEE3C800FCD4FF /* HomeNewsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F178522EEE3C800FCD4FF /* HomeNewsListViewController.swift */; };
+		730F178822EEEB1600FCD4FF /* HomeNewsOnePictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F178722EEEB1600FCD4FF /* HomeNewsOnePictureCell.swift */; };
+		730F178A22EEEFAF00FCD4FF /* HomeNewsThreePictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F178922EEEFAF00FCD4FF /* HomeNewsThreePictureCell.swift */; };
+		730F178C22EEF3A100FCD4FF /* HomeNewsListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F178B22EEF3A100FCD4FF /* HomeNewsListResponse.swift */; };
+		730F178E22EEF83900FCD4FF /* HomeVideoNewsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F178D22EEF83900FCD4FF /* HomeVideoNewsViewCell.swift */; };
+		730F179022EEF9AF00FCD4FF /* BaseVideoNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F178F22EEF9AF00FCD4FF /* BaseVideoNewsView.swift */; };
+		730F179222EEFDD300FCD4FF /* HomeVideoNewsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F179122EEFDD300FCD4FF /* HomeVideoNewsListController.swift */; };
+		730F179422EF077200FCD4FF /* HomeVideoNewsListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F179322EF077200FCD4FF /* HomeVideoNewsListResponse.swift */; };
+		730F179622EF0DC800FCD4FF /* ServiceWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F179522EF0DC800FCD4FF /* ServiceWKWebViewController.swift */; };
 		733742F122E7D6AD006F30C6 /* VVideoShootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733742F022E7D6AD006F30C6 /* VVideoShootViewController.swift */; };
 		733ED17522E40D6900B452D4 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED17422E40D6900B452D4 /* BaseTableViewController.swift */; };
 		733ED17722E4111B00B452D4 /* HomeVVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED17622E4111B00B452D4 /* HomeVVideoController.swift */; };
@@ -29,6 +41,12 @@
 		733ED19122E4660F00B452D4 /* BaseWrapImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED19022E4660F00B452D4 /* BaseWrapImagesView.swift */; };
 		733ED19322E4706100B452D4 /* ShowVideoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED19222E4706100B452D4 /* ShowVideoViewCell.swift */; };
 		733ED19622E4721E00B452D4 /* ShowListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED19522E4721E00B452D4 /* ShowListResponseModel.swift */; };
+		7372C98222EE73EB00BD378D /* HomeTVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372C98122EE73EB00BD378D /* HomeTVViewController.swift */; };
+		7372C98422EE742B00BD378D /* HomeTVChannelNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372C98322EE742B00BD378D /* HomeTVChannelNameView.swift */; };
+		7372C98622EE786500BD378D /* HomeTVChannelFirstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372C98522EE786500BD378D /* HomeTVChannelFirstCell.swift */; };
+		7372C98822EE7C9A00BD378D /* HomeTVOtherSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372C98722EE7C9A00BD378D /* HomeTVOtherSectionCell.swift */; };
+		7372C98A22EE7CB000BD378D /* HomeTVDetailPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372C98922EE7CB000BD378D /* HomeTVDetailPlayerView.swift */; };
+		7372C98C22EE8E4200BD378D /* NETLivePlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372C98B22EE8E4200BD378D /* NETLivePlayerController.swift */; };
 		7377745F22E7E3A200513350 /* HomeVVideoBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7377745E22E7E3A200513350 /* HomeVVideoBaseView.swift */; };
 		7377746322E7EEC300513350 /* BaseShareBottomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7377746222E7EEC300513350 /* BaseShareBottomView.swift */; };
 		7377746522E7F25C00513350 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7377746422E7F25C00513350 /* UIButton+Extension.swift */; };
@@ -107,6 +125,18 @@
 		7308499022E55DF600958969 /* ServiceCollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCollectionHeader.swift; sourceTree = "<group>"; };
 		7308499322E5683500958969 /* ServiceListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceListModel.swift; sourceTree = "<group>"; };
 		7308499522E582C200958969 /* servicelist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = servicelist.json; sourceTree = "<group>"; };
+		730F177F22EECD1600FCD4FF /* HomeTVTitleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVTitleResponse.swift; sourceTree = "<group>"; };
+		730F178122EED6A200FCD4FF /* HomeNewsBottomTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewsBottomTimeView.swift; sourceTree = "<group>"; };
+		730F178322EEDF5500FCD4FF /* HomeNewsSearchInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewsSearchInfoCell.swift; sourceTree = "<group>"; };
+		730F178522EEE3C800FCD4FF /* HomeNewsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeNewsListViewController.swift; path = TKSuiXiNews/Pages/Home/C/HomeNewsListViewController.swift; sourceTree = SOURCE_ROOT; };
+		730F178722EEEB1600FCD4FF /* HomeNewsOnePictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewsOnePictureCell.swift; sourceTree = "<group>"; };
+		730F178922EEEFAF00FCD4FF /* HomeNewsThreePictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewsThreePictureCell.swift; sourceTree = "<group>"; };
+		730F178B22EEF3A100FCD4FF /* HomeNewsListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewsListResponse.swift; sourceTree = "<group>"; };
+		730F178D22EEF83900FCD4FF /* HomeVideoNewsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVideoNewsViewCell.swift; sourceTree = "<group>"; };
+		730F178F22EEF9AF00FCD4FF /* BaseVideoNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVideoNewsView.swift; sourceTree = "<group>"; };
+		730F179122EEFDD300FCD4FF /* HomeVideoNewsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVideoNewsListController.swift; sourceTree = "<group>"; };
+		730F179322EF077200FCD4FF /* HomeVideoNewsListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVideoNewsListResponse.swift; sourceTree = "<group>"; };
+		730F179522EF0DC800FCD4FF /* ServiceWKWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceWKWebViewController.swift; sourceTree = "<group>"; };
 		733742F022E7D6AD006F30C6 /* VVideoShootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VVideoShootViewController.swift; sourceTree = "<group>"; };
 		733ED17422E40D6900B452D4 /* BaseTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		733ED17622E4111B00B452D4 /* HomeVVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVVideoController.swift; sourceTree = "<group>"; };
@@ -122,6 +152,12 @@
 		733ED19222E4706100B452D4 /* ShowVideoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVideoViewCell.swift; sourceTree = "<group>"; };
 		733ED19522E4721E00B452D4 /* ShowListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListResponseModel.swift; sourceTree = "<group>"; };
 		734A72B922E596EC002A6D9C /* TKSuiXiNews-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TKSuiXiNews-Bridging-Header.h"; sourceTree = "<group>"; };
+		7372C98122EE73EB00BD378D /* HomeTVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVViewController.swift; sourceTree = "<group>"; };
+		7372C98322EE742B00BD378D /* HomeTVChannelNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVChannelNameView.swift; sourceTree = "<group>"; };
+		7372C98522EE786500BD378D /* HomeTVChannelFirstCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVChannelFirstCell.swift; sourceTree = "<group>"; };
+		7372C98722EE7C9A00BD378D /* HomeTVOtherSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVOtherSectionCell.swift; sourceTree = "<group>"; };
+		7372C98922EE7CB000BD378D /* HomeTVDetailPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVDetailPlayerView.swift; sourceTree = "<group>"; };
+		7372C98B22EE8E4200BD378D /* NETLivePlayerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NETLivePlayerController.swift; sourceTree = "<group>"; };
 		7377745E22E7E3A200513350 /* HomeVVideoBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVVideoBaseView.swift; sourceTree = "<group>"; };
 		7377746222E7EEC300513350 /* BaseShareBottomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseShareBottomView.swift; sourceTree = "<group>"; };
 		7377746422E7F25C00513350 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
@@ -250,7 +286,10 @@
 		733ED17322E40D4100B452D4 /* C */ = {
 			isa = PBXGroup;
 			children = (
+				730F178522EEE3C800FCD4FF /* HomeNewsListViewController.swift */,
+				730F179122EEFDD300FCD4FF /* HomeVideoNewsListController.swift */,
 				733ED17622E4111B00B452D4 /* HomeVVideoController.swift */,
+				7372C98122EE73EB00BD378D /* HomeTVViewController.swift */,
 				733742F022E7D6AD006F30C6 /* VVideoShootViewController.swift */,
 			);
 			path = C;
@@ -279,6 +318,16 @@
 				733ED18422E449FA00B452D4 /* HomeVVideoNormalCell.swift */,
 				738BD9E322E7E02600B7BF75 /* HomeVSendCollectionView.swift */,
 				7377745E22E7E3A200513350 /* HomeVVideoBaseView.swift */,
+				7372C98322EE742B00BD378D /* HomeTVChannelNameView.swift */,
+				7372C98922EE7CB000BD378D /* HomeTVDetailPlayerView.swift */,
+				7372C98522EE786500BD378D /* HomeTVChannelFirstCell.swift */,
+				7372C98722EE7C9A00BD378D /* HomeTVOtherSectionCell.swift */,
+				730F178122EED6A200FCD4FF /* HomeNewsBottomTimeView.swift */,
+				730F178322EEDF5500FCD4FF /* HomeNewsSearchInfoCell.swift */,
+				730F178722EEEB1600FCD4FF /* HomeNewsOnePictureCell.swift */,
+				730F178922EEEFAF00FCD4FF /* HomeNewsThreePictureCell.swift */,
+				730F178D22EEF83900FCD4FF /* HomeVideoNewsViewCell.swift */,
+				730F178F22EEF9AF00FCD4FF /* BaseVideoNewsView.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -287,6 +336,9 @@
 			isa = PBXGroup;
 			children = (
 				733ED18722E4560800B452D4 /* VVideoListResponseModel.swift */,
+				730F177F22EECD1600FCD4FF /* HomeTVTitleResponse.swift */,
+				730F178B22EEF3A100FCD4FF /* HomeNewsListResponse.swift */,
+				730F179322EF077200FCD4FF /* HomeVideoNewsListResponse.swift */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -478,6 +530,7 @@
 			children = (
 				73C419B622EA859200D8D412 /* V */,
 				73D4E2E022E998000088FF37 /* NetworkPlayer.swift */,
+				7372C98B22EE8E4200BD378D /* NETLivePlayerController.swift */,
 			);
 			path = NetworkPlayer;
 			sourceTree = "<group>";
@@ -698,6 +751,7 @@
 				7308499222E5681F00958969 /* M */,
 				7308498D22E5590D00958969 /* V */,
 				73DEBAE222E32522007EC4E1 /* ServiceViewController.swift */,
+				730F179522EF0DC800FCD4FF /* ServiceWKWebViewController.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -921,29 +975,38 @@
 				7377745F22E7E3A200513350 /* HomeVVideoBaseView.swift in Sources */,
 				733ED18522E449FA00B452D4 /* HomeVVideoNormalCell.swift in Sources */,
 				73D4E2D922E938850088FF37 /* UploadFileResponse.swift in Sources */,
+				730F178C22EEF3A100FCD4FF /* HomeNewsListResponse.swift in Sources */,
 				7377747C22E847B200513350 /* ShowDetailImageViewController.swift in Sources */,
+				730F178222EED6A200FCD4FF /* HomeNewsBottomTimeView.swift in Sources */,
 				7377747722E8378A00513350 /* DetailUserCommentCell.swift in Sources */,
 				73D4E2E122E998000088FF37 /* NetworkPlayer.swift in Sources */,
+				7372C98A22EE7CB000BD378D /* HomeTVDetailPlayerView.swift in Sources */,
 				733742F122E7D6AD006F30C6 /* VVideoShootViewController.swift in Sources */,
+				7372C98222EE73EB00BD378D /* HomeTVViewController.swift in Sources */,
 				73DEBAC822E3224E007EC4E1 /* BaseTabBarController.swift in Sources */,
 				73DEBAE522E3252B007EC4E1 /* MineViewController.swift in Sources */,
 				7308498922E5488300958969 /* MineCollectionView.swift in Sources */,
+				730F178E22EEF83900FCD4FF /* HomeVideoNewsViewCell.swift in Sources */,
 				73DEBAA022E30BDC007EC4E1 /* JsonKeyDefine.swift in Sources */,
 				73DEBAEA22E32AB3007EC4E1 /* AppDelegate+Other.swift in Sources */,
 				73DEBABD22E31A44007EC4E1 /* TSaveFiles.swift in Sources */,
 				73DEBAFF22E34B09007EC4E1 /* CommonLicense.swift in Sources */,
 				733ED18F22E462D000B452D4 /* BaseTimeCommentLikeView.swift in Sources */,
 				73DEBAE822E329D6007EC4E1 /* StaticMethod.swift in Sources */,
+				7372C98822EE7C9A00BD378D /* HomeTVOtherSectionCell.swift in Sources */,
 				73DEBAD522E32495007EC4E1 /* SXLoginViewController.swift in Sources */,
 				7308499422E5683500958969 /* ServiceListModel.swift in Sources */,
 				733ED17D22E43CD200B452D4 /* BannerView.swift in Sources */,
 				73DEBAAB22E31095007EC4E1 /* String+Extension.swift in Sources */,
+				730F178622EEE3C800FCD4FF /* HomeNewsListViewController.swift in Sources */,
 				73DEBAD122E322CD007EC4E1 /* BaseTableViewCell.swift in Sources */,
+				7372C98622EE786500BD378D /* HomeTVChannelFirstCell.swift in Sources */,
 				733ED18B22E45FC200B452D4 /* BaseAvatarImageView.swift in Sources */,
 				7377747122E82C8500513350 /* DetailArticleResponse.swift in Sources */,
 				73DEBADF22E3250E007EC4E1 /* HomeViewController.swift in Sources */,
 				733ED19122E4660F00B452D4 /* BaseWrapImagesView.swift in Sources */,
 				7377746922E8001900513350 /* DetailVideoInfoController.swift in Sources */,
+				730F179422EF077200FCD4FF /* HomeVideoNewsListResponse.swift in Sources */,
 				73DEBAAD22E3119D007EC4E1 /* UIView+Extension.swift in Sources */,
 				738BD9E422E7E02600B7BF75 /* HomeVSendCollectionView.swift in Sources */,
 				733ED19322E4706100B452D4 /* ShowVideoViewCell.swift in Sources */,
@@ -958,8 +1021,10 @@
 				73DEBAB422E3127F007EC4E1 /* API.swift in Sources */,
 				733ED18822E4560800B452D4 /* VVideoListResponseModel.swift in Sources */,
 				73DEBB0C22E35E52007EC4E1 /* BaseNaviRightButton.swift in Sources */,
+				730F178022EECD1600FCD4FF /* HomeTVTitleResponse.swift in Sources */,
 				7377746C22E8064200513350 /* DetailUserInfoAvatarCell.swift in Sources */,
 				73DEBAE122E32517007EC4E1 /* ShowViewController.swift in Sources */,
+				730F179022EEF9AF00FCD4FF /* BaseVideoNewsView.swift in Sources */,
 				73DEBB0222E3531A007EC4E1 /* SXForgetPasswordController.swift in Sources */,
 				733ED18D22E4611000B452D4 /* ShowImageTextCell.swift in Sources */,
 				73DEBAB222E31231007EC4E1 /* SXAPI.swift in Sources */,
@@ -969,8 +1034,11 @@
 				73DEBAF622E33EE8007EC4E1 /* SXSignUpViewController.swift in Sources */,
 				7377747322E82EF200513350 /* DetailVVideoInfoCell.swift in Sources */,
 				73DEBABB22E31A2F007EC4E1 /* TStrInt.swift in Sources */,
+				730F179622EF0DC800FCD4FF /* ServiceWKWebViewController.swift in Sources */,
 				73DEBACA22E3224E007EC4E1 /* BATabBar.swift in Sources */,
+				7372C98C22EE8E4200BD378D /* NETLivePlayerController.swift in Sources */,
 				733ED18022E43D7400B452D4 /* HomeVVideoBannerCell.swift in Sources */,
+				730F178A22EEEFAF00FCD4FF /* HomeNewsThreePictureCell.swift in Sources */,
 				73DEBAB622E315DC007EC4E1 /* MoyaConfig.swift in Sources */,
 				73DEBAA922E30E7F007EC4E1 /* UIViewController+Extesion.swift in Sources */,
 				73DEBABF22E31A65007EC4E1 /* HttpRequest.swift in Sources */,
@@ -979,7 +1047,9 @@
 				7377747522E833E000513350 /* DetailCommentLikeNumCell.swift in Sources */,
 				733ED17722E4111B00B452D4 /* HomeVVideoController.swift in Sources */,
 				73DEBAEE22E33109007EC4E1 /* BaseLoginViewController.swift in Sources */,
+				730F178422EEDF5500FCD4FF /* HomeNewsSearchInfoCell.swift in Sources */,
 				733ED17A22E4153800B452D4 /* NoMoreDataView.swift in Sources */,
+				730F178822EEEB1600FCD4FF /* HomeNewsOnePictureCell.swift in Sources */,
 				73C419B822EA87C200D8D412 /* NEPlayerControlView.swift in Sources */,
 				733ED19622E4721E00B452D4 /* ShowListResponseModel.swift in Sources */,
 				7377747F22E8484B00513350 /* ShowImagesCollectionCell.swift in Sources */,
@@ -987,10 +1057,12 @@
 				7377746322E7EEC300513350 /* BaseShareBottomView.swift in Sources */,
 				73DEBAEC22E32B90007EC4E1 /* SXLoginTextField.swift in Sources */,
 				73DEBAA222E30CA8007EC4E1 /* ColorsDefine.swift in Sources */,
+				730F179222EEFDD300FCD4FF /* HomeVideoNewsListController.swift in Sources */,
 				7308498522E5440B00958969 /* ScroreItemButton.swift in Sources */,
 				73D4E2DE22E97A0D0088FF37 /* MutiImagesResponse.swift in Sources */,
 				73DEBB0922E359A6007EC4E1 /* UserLoginInfo.swift in Sources */,
 				73DEBAF022E3376D007EC4E1 /* SXLoginBaseButton.swift in Sources */,
+				7372C98422EE742B00BD378D /* HomeTVChannelNameView.swift in Sources */,
 				73DEBAC922E3224E007EC4E1 /* BATabBarButton.swift in Sources */,
 				73DEBB0722E35738007EC4E1 /* HttpClient.swift in Sources */,
 				73DEBB0522E35535007EC4E1 /* LoginModel.swift in Sources */,
@@ -1147,8 +1219,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development: Liangbo Yin (W5DUC3DZTS)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = VKSGMUVB34;
 				INFOPLIST_FILE = "$(SRCROOT)/TKSuiXiNews/Resource/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1158,7 +1230,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.barryAllenApplication.TKSuiXiNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = TKSuiXiNews_dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "TKSuiXiNews/Resource/TKSuiXiNews-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1172,8 +1244,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development: Liangbo Yin (W5DUC3DZTS)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = VKSGMUVB34;
 				INFOPLIST_FILE = "$(SRCROOT)/TKSuiXiNews/Resource/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1183,7 +1255,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.barryAllenApplication.TKSuiXiNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = TKSuiXiNews_dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "TKSuiXiNews/Resource/TKSuiXiNews-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
