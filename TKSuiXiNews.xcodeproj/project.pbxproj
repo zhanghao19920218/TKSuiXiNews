@@ -51,6 +51,13 @@
 		734A7BC522EFF18A0016764F /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC422EFF18A0016764F /* UIApplication+Extension.swift */; };
 		734A7BC722EFF3920016764F /* HomeMatrixListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC622EFF3920016764F /* HomeMatrixListController.swift */; };
 		734A7BC922EFF5E40016764F /* HomeTitleHeaderFirstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC822EFF5E40016764F /* HomeTitleHeaderFirstCell.swift */; };
+		736114E122F1A98A00BC5A8E /* ProductDetailTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E022F1A98A00BC5A8E /* ProductDetailTitleCell.swift */; };
+		736114E322F1AE2600BC5A8E /* ProductDetailDescribeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E222F1AE2600BC5A8E /* ProductDetailDescribeCell.swift */; };
+		736114E522F1B48F00BC5A8E /* MallListProductItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E422F1B48F00BC5A8E /* MallListProductItemResponse.swift */; };
+		736114E722F1B89200BC5A8E /* DetailProductItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E622F1B89200BC5A8E /* DetailProductItemResponse.swift */; };
+		736114E922F1BD0E00BC5A8E /* RotatePanelListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E822F1BD0E00BC5A8E /* RotatePanelListItemResponse.swift */; };
+		736114EB22F1C2A100BC5A8E /* AwardDrawResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114EA22F1C2A100BC5A8E /* AwardDrawResponse.swift */; };
+		736114ED22F1C32500BC5A8E /* AwardPanelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114EC22F1C32500BC5A8E /* AwardPanelModel.swift */; };
 		7363F8DF22F01B31000FE663 /* BaseGrouppedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7363F8DE22F01B31000FE663 /* BaseGrouppedTableViewController.swift */; };
 		7363F8E122F02B67000FE663 /* HomeMatrixSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7363F8E022F02B67000FE663 /* HomeMatrixSectionHeaderView.swift */; };
 		7363F8E322F03801000FE663 /* HomeHappyReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7363F8E222F03801000FE663 /* HomeHappyReadViewController.swift */; };
@@ -129,6 +136,13 @@
 		73DF82D822F145520066583B /* ServiceScoreImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82D722F145520066583B /* ServiceScoreImageCell.swift */; };
 		73DF82DC22F1620D0066583B /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82DB22F1620D0066583B /* BaseCollectionViewController.swift */; };
 		73DF82DE22F162FA0066583B /* ScoreMallController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82DD22F162FA0066583B /* ScoreMallController.swift */; };
+		73DF82E022F16D8E0066583B /* MallProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82DF22F16D8E0066583B /* MallProductCollectionViewCell.swift */; };
+		73DF82E222F17B1C0066583B /* RotatePanelScoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82E122F17B1C0066583B /* RotatePanelScoreController.swift */; };
+		73DF82E422F17EB00066583B /* TurntableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82E322F17EB00066583B /* TurntableView.swift */; };
+		73DF82E722F184100066583B /* MallPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82E622F184100066583B /* MallPopMenu.swift */; };
+		73DF82E922F191EA0066583B /* ScoreRuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82E822F191EA0066583B /* ScoreRuleViewController.swift */; };
+		73DF82EB22F198990066583B /* ScoreProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82EA22F198990066583B /* ScoreProductDetailViewController.swift */; };
+		73DF82ED22F19AD20066583B /* ProductDetailImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82EC22F19AD20066583B /* ProductDetailImageCell.swift */; };
 		C584C89EB985E2C38BE1B4E5 /* Pods_TKSuiXiNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A2CB2D5E3372723C1906F23 /* Pods_TKSuiXiNews.framework */; };
 /* End PBXBuildFile section */
 
@@ -179,6 +193,13 @@
 		734A7BC422EFF18A0016764F /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		734A7BC622EFF3920016764F /* HomeMatrixListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMatrixListController.swift; sourceTree = "<group>"; };
 		734A7BC822EFF5E40016764F /* HomeTitleHeaderFirstCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTitleHeaderFirstCell.swift; sourceTree = "<group>"; };
+		736114E022F1A98A00BC5A8E /* ProductDetailTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailTitleCell.swift; sourceTree = "<group>"; };
+		736114E222F1AE2600BC5A8E /* ProductDetailDescribeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailDescribeCell.swift; sourceTree = "<group>"; };
+		736114E422F1B48F00BC5A8E /* MallListProductItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallListProductItemResponse.swift; sourceTree = "<group>"; };
+		736114E622F1B89200BC5A8E /* DetailProductItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailProductItemResponse.swift; sourceTree = "<group>"; };
+		736114E822F1BD0E00BC5A8E /* RotatePanelListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatePanelListItemResponse.swift; sourceTree = "<group>"; };
+		736114EA22F1C2A100BC5A8E /* AwardDrawResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardDrawResponse.swift; sourceTree = "<group>"; };
+		736114EC22F1C32500BC5A8E /* AwardPanelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardPanelModel.swift; sourceTree = "<group>"; };
 		7363F8DE22F01B31000FE663 /* BaseGrouppedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGrouppedTableViewController.swift; sourceTree = "<group>"; };
 		7363F8E022F02B67000FE663 /* HomeMatrixSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMatrixSectionHeaderView.swift; sourceTree = "<group>"; };
 		7363F8E222F03801000FE663 /* HomeHappyReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHappyReadViewController.swift; sourceTree = "<group>"; };
@@ -259,6 +280,13 @@
 		73DF82D722F145520066583B /* ServiceScoreImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceScoreImageCell.swift; sourceTree = "<group>"; };
 		73DF82DB22F1620D0066583B /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
 		73DF82DD22F162FA0066583B /* ScoreMallController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreMallController.swift; sourceTree = "<group>"; };
+		73DF82DF22F16D8E0066583B /* MallProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallProductCollectionViewCell.swift; sourceTree = "<group>"; };
+		73DF82E122F17B1C0066583B /* RotatePanelScoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotatePanelScoreController.swift; sourceTree = "<group>"; };
+		73DF82E322F17EB00066583B /* TurntableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurntableView.swift; sourceTree = "<group>"; };
+		73DF82E622F184100066583B /* MallPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallPopMenu.swift; sourceTree = "<group>"; };
+		73DF82E822F191EA0066583B /* ScoreRuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreRuleViewController.swift; sourceTree = "<group>"; };
+		73DF82EA22F198990066583B /* ScoreProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreProductDetailViewController.swift; sourceTree = "<group>"; };
+		73DF82EC22F19AD20066583B /* ProductDetailImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailImageCell.swift; sourceTree = "<group>"; };
 		7A2CB2D5E3372723C1906F23 /* Pods_TKSuiXiNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TKSuiXiNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A47A8DE8545AE07619BEE145 /* Pods-TKSuiXiNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TKSuiXiNews.debug.xcconfig"; path = "Target Support Files/Pods-TKSuiXiNews/Pods-TKSuiXiNews.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -299,6 +327,11 @@
 				7308498E22E5593700958969 /* ServiceSingleNameCell.swift */,
 				73DF82D722F145520066583B /* ServiceScoreImageCell.swift */,
 				7308499022E55DF600958969 /* ServiceCollectionHeader.swift */,
+				73DF82DF22F16D8E0066583B /* MallProductCollectionViewCell.swift */,
+				73DF82E322F17EB00066583B /* TurntableView.swift */,
+				73DF82EC22F19AD20066583B /* ProductDetailImageCell.swift */,
+				736114E022F1A98A00BC5A8E /* ProductDetailTitleCell.swift */,
+				736114E222F1AE2600BC5A8E /* ProductDetailDescribeCell.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -307,6 +340,11 @@
 			isa = PBXGroup;
 			children = (
 				7308499322E5683500958969 /* ServiceListModel.swift */,
+				736114E422F1B48F00BC5A8E /* MallListProductItemResponse.swift */,
+				736114E622F1B89200BC5A8E /* DetailProductItemResponse.swift */,
+				736114E822F1BD0E00BC5A8E /* RotatePanelListItemResponse.swift */,
+				736114EA22F1C2A100BC5A8E /* AwardDrawResponse.swift */,
+				736114EC22F1C32500BC5A8E /* AwardPanelModel.swift */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -608,6 +646,7 @@
 		73DEBAAE22E311E3007EC4E1 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				73DF82E522F183FF0066583B /* MallPopMenu */,
 				73D4E2DF22E997C20088FF37 /* NetworkPlayer */,
 				73D4E2DA22E94B960088FF37 /* FWPopupViewUtil */,
 				73D4E2D422E92C1A0088FF37 /* YPImagePickerUtil */,
@@ -892,6 +931,9 @@
 				73DEBAE222E32522007EC4E1 /* ServiceViewController.swift */,
 				730F179522EF0DC800FCD4FF /* ServiceWKWebViewController.swift */,
 				73DF82DD22F162FA0066583B /* ScoreMallController.swift */,
+				73DF82E122F17B1C0066583B /* RotatePanelScoreController.swift */,
+				73DF82E822F191EA0066583B /* ScoreRuleViewController.swift */,
+				73DF82EA22F198990066583B /* ScoreProductDetailViewController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -902,6 +944,14 @@
 				73DF82DB22F1620D0066583B /* BaseCollectionViewController.swift */,
 			);
 			path = BaseControllerViewController;
+			sourceTree = "<group>";
+		};
+		73DF82E522F183FF0066583B /* MallPopMenu */ = {
+			isa = PBXGroup;
+			children = (
+				73DF82E622F184100066583B /* MallPopMenu.swift */,
+			);
+			path = MallPopMenu;
 			sourceTree = "<group>";
 		};
 		963EB4ECB6B950073F8B9151 /* Pods */ = {
@@ -1039,6 +1089,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				736114E522F1B48F00BC5A8E /* MallListProductItemResponse.swift in Sources */,
 				7377745F22E7E3A200513350 /* HomeVVideoBaseView.swift in Sources */,
 				733ED18522E449FA00B452D4 /* HomeVVideoNormalCell.swift in Sources */,
 				73D4E2D922E938850088FF37 /* UploadFileResponse.swift in Sources */,
@@ -1050,8 +1101,12 @@
 				73D4E2E122E998000088FF37 /* NetworkPlayer.swift in Sources */,
 				7372C98A22EE7CB000BD378D /* HomeTVDetailPlayerView.swift in Sources */,
 				733742F122E7D6AD006F30C6 /* VVideoShootViewController.swift in Sources */,
+				736114E722F1B89200BC5A8E /* DetailProductItemResponse.swift in Sources */,
 				7372C98222EE73EB00BD378D /* HomeTVViewController.swift in Sources */,
+				73DF82E722F184100066583B /* MallPopMenu.swift in Sources */,
 				73DEBAC822E3224E007EC4E1 /* BaseTabBarController.swift in Sources */,
+				736114E122F1A98A00BC5A8E /* ProductDetailTitleCell.swift in Sources */,
+				73DF82ED22F19AD20066583B /* ProductDetailImageCell.swift in Sources */,
 				73DEBAE522E3252B007EC4E1 /* MineViewController.swift in Sources */,
 				7308498922E5488300958969 /* MineCollectionView.swift in Sources */,
 				730F178E22EEF83900FCD4FF /* HomeVideoNewsViewCell.swift in Sources */,
@@ -1064,6 +1119,7 @@
 				7363F8E322F03801000FE663 /* HomeHappyReadViewController.swift in Sources */,
 				7372C98822EE7C9A00BD378D /* HomeTVOtherSectionCell.swift in Sources */,
 				73DEBAD522E32495007EC4E1 /* SXLoginViewController.swift in Sources */,
+				736114EB22F1C2A100BC5A8E /* AwardDrawResponse.swift in Sources */,
 				734A7BBB22EFD6180016764F /* HomeAskNonePicCell.swift in Sources */,
 				734A7BB722EFCE730016764F /* HomeAskGovBaseBottom.swift in Sources */,
 				7308499422E5683500958969 /* ServiceListModel.swift in Sources */,
@@ -1082,6 +1138,8 @@
 				7377746922E8001900513350 /* DetailVideoInfoController.swift in Sources */,
 				730F179422EF077200FCD4FF /* HomeVideoNewsListResponse.swift in Sources */,
 				73DEBAAD22E3119D007EC4E1 /* UIView+Extension.swift in Sources */,
+				736114ED22F1C32500BC5A8E /* AwardPanelModel.swift in Sources */,
+				73DF82EB22F198990066583B /* ScoreProductDetailViewController.swift in Sources */,
 				734A7BC922EFF5E40016764F /* HomeTitleHeaderFirstCell.swift in Sources */,
 				738BD9E422E7E02600B7BF75 /* HomeVSendCollectionView.swift in Sources */,
 				733ED19322E4706100B452D4 /* ShowVideoViewCell.swift in Sources */,
@@ -1110,15 +1168,20 @@
 				73DEBAA622E30E00007EC4E1 /* UIDefine.swift in Sources */,
 				73DEBACB22E3224E007EC4E1 /* BANavigationController.swift in Sources */,
 				73DEBAFC22E340AF007EC4E1 /* CounterButton.swift in Sources */,
+				736114E922F1BD0E00BC5A8E /* RotatePanelListItemResponse.swift in Sources */,
 				73DEBAF622E33EE8007EC4E1 /* SXSignUpViewController.swift in Sources */,
+				73DF82E022F16D8E0066583B /* MallProductCollectionViewCell.swift in Sources */,
 				7377747322E82EF200513350 /* DetailVVideoInfoCell.swift in Sources */,
+				73DF82E422F17EB00066583B /* TurntableView.swift in Sources */,
 				73DEBABB22E31A2F007EC4E1 /* TStrInt.swift in Sources */,
+				73DF82E922F191EA0066583B /* ScoreRuleViewController.swift in Sources */,
 				730F179622EF0DC800FCD4FF /* ServiceWKWebViewController.swift in Sources */,
 				73DEBACA22E3224E007EC4E1 /* BATabBar.swift in Sources */,
 				7372C98C22EE8E4200BD378D /* NETLivePlayerController.swift in Sources */,
 				733ED18022E43D7400B452D4 /* HomeVVideoBannerCell.swift in Sources */,
 				730F178A22EEEFAF00FCD4FF /* HomeNewsThreePictureCell.swift in Sources */,
 				73DEBAB622E315DC007EC4E1 /* MoyaConfig.swift in Sources */,
+				73DF82E222F17B1C0066583B /* RotatePanelScoreController.swift in Sources */,
 				73DEBAA922E30E7F007EC4E1 /* UIViewController+Extesion.swift in Sources */,
 				73DEBABF22E31A65007EC4E1 /* HttpRequest.swift in Sources */,
 				73D4E2DC22E94BB00088FF37 /* FWPopupViewUtil.swift in Sources */,
@@ -1142,6 +1205,7 @@
 				7308498522E5440B00958969 /* ScroreItemButton.swift in Sources */,
 				73D4E2DE22E97A0D0088FF37 /* MutiImagesResponse.swift in Sources */,
 				73DEBB0922E359A6007EC4E1 /* UserLoginInfo.swift in Sources */,
+				736114E322F1AE2600BC5A8E /* ProductDetailDescribeCell.swift in Sources */,
 				734A7BB522EFCDFD0016764F /* HomeAskGovController.swift in Sources */,
 				73DEBAF022E3376D007EC4E1 /* SXLoginBaseButton.swift in Sources */,
 				7372C98422EE742B00BD378D /* HomeTVChannelNameView.swift in Sources */,

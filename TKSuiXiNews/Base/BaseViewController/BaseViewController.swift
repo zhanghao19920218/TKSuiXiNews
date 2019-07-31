@@ -30,11 +30,12 @@ class BaseViewController: UIViewController {
         }
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated);
-//        
-//        loadData();
-//    }
+    
+    //MARK: - 更新StatusBar
+    override var preferredStatusBarStyle: UIStatusBarStyle
+    {
+        return .lightContent
+    }
     
     //初始化NavigationBar的Logo
     func createNavigationBarLogo()

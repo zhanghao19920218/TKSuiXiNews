@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ESPullToRefresh
 
 //MARK: - 积分商城的Controller
 
@@ -18,6 +19,9 @@ class BaseCollectionViewController: BaseViewController {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0;
         let collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout);
+        collectionView.backgroundColor = RGBA(238, 238, 238, 1)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.alwaysBounceVertical = true
         return collectionView;
     }();
     
@@ -37,20 +41,12 @@ class BaseCollectionViewController: BaseViewController {
     var dataSource: Array<Any> {
         set(value){
             _dataSource = value;
-            //发送通知
-            NotificationCenter.default.post(name: .noData, object: self);
         }
         
         get {
             return _dataSource;
         }
     }
-    
-    //最基本显示没有数据的view
-    private lazy var baseNoDataView: NoMoreDataView = {
-        let view = NoMoreDataView();
-        return view;
-    }();
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,17 +57,10 @@ class BaseCollectionViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated);
-        
-        //监听数据是否为空数组
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(dataSourcesStatusChanged(_:)),
-                                               name: .noData,
-                                               object: self);
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated);
-        NotificationCenter.default.removeObserver(self);
     }
     
     //初始化tableView
@@ -94,12 +83,6 @@ class BaseCollectionViewController: BaseViewController {
             self.pullUpLoadMoreData()
         }
         
-        //添加暂无内容
-        view.addSubview(baseNoDataView);
-        baseNoDataView.snp.makeConstraints { (make) in
-            make.center.equalToSuperview();
-            make.size.equalTo(CGSize(width: 200 * iPHONE_AUTORATIO, height: 184 * iPHONE_AUTORATIO));
-        };
     }
     
     
@@ -118,30 +101,6 @@ class BaseCollectionViewController: BaseViewController {
      */
     func pullUpLoadMoreData()
     {
-    }
-    
-    /**
-     * 监听数据变化
-     */
-    @objc func dataSourcesStatusChanged(_ notification: Notification) {
-        //Do something globally here!
-        let dataSourceNoti = notification.object as! BaseCollectionViewController;
-        
-        //        print("数据变化: \(notification.userInfo)");
-        //监听数据变化
-        if dataSourceNoti._dataSource.isEmpty {
-            print("暂无数据")
-            DispatchQueue.main.async { [weak self] () in
-                //不加这句导致界面还没初始化完成就打开警告框，这样不行
-                self?.baseNoDataView.isHidden = false;
-            }
-        } else {
-            print("有数据")
-            DispatchQueue.main.async { [weak self] () in
-                //不加这句导致界面还没初始化完成就打开警告框，这样不行
-                self?.baseNoDataView.isHidden = true;
-            }
-        }
     }
     
 

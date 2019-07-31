@@ -30,6 +30,14 @@ enum  BAAPI {
     case uploadImages(images:[Image])
     //发布随手拍
     case addsCausualPhotos(name:String, video:String?, images:[String]?, image:String?, time:Int?)
+    //积分商城商城列表
+    case scoreItemList(p: Int)
+    //商品详情
+    case productDetail(id: Int)
+    //积分抽奖奖品列表
+    case awardProductItems
+    //抽奖
+    case awardDraw
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -58,6 +66,18 @@ extension BAAPI: TargetType {
             return K_URL_multiImages
         case .addsCausualPhotos:
             return K_URL_causualShow
+            
+        case .scoreItemList:
+            return K_URL_scoreItemList
+            
+        case .productDetail:
+            return K_URL_productDetail
+            
+        case .awardProductItems:
+            return K_URL_awardProducts
+            
+        case .awardDraw:
+            return K_URL_awardDraw
         }
         
     }
@@ -139,6 +159,12 @@ extension BAAPI: TargetType {
 //                let imagesJson = String(data: data ?? Data.init(), encoding: String.Encoding.unicode);
 //                params["images"] = imagesJson ?? "[]";
             }
+            
+        case let .scoreItemList(p):
+            params["p"] = p;
+            
+        case let .productDetail(id):
+            params["id"] = id
             
         default:
             //不需要传参数的接口走这里

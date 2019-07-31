@@ -97,6 +97,8 @@ class MineViewController: BaseViewController {
         configureNavigationBar()
     }
     
+    
+    
     //MARK: - 更新StatusBar
     override var preferredStatusBarStyle: UIStatusBarStyle
     {
