@@ -11,21 +11,21 @@ import UIKit
 fileprivate let cellIdentifier = "ServiceSingleNameCellIdentifier";
 fileprivate let sectionHeaderIdentifier = "ServiceSectionHeaderIdentifier"
 fileprivate let sectionHeaderSupplement = "UICollectionElementKindSectionHeader"
+fileprivate let scoreMallCellIdentifier = "ServiceScoreImageCellIdentifier"
 
 fileprivate let layoutWidth = K_SCREEN_WIDTH/2
 fileprivate let layoutHeight = 91 * iPHONE_AUTORATIO
 
 class ServiceViewController: BaseViewController {
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout.init()
-        layout.itemSize = CGSize.init(width: layoutWidth, height: layoutHeight)
+        let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0;
-        layout.headerReferenceSize = CGSize(width: K_SCREEN_WIDTH, height: 50 * iPHONE_AUTORATIO)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout);
         collectionView.register(ServiceSingleNameCell.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView.register(ServiceCollectionHeader.self, forSupplementaryViewOfKind: sectionHeaderSupplement, withReuseIdentifier: sectionHeaderIdentifier)
+        collectionView.register(ServiceScoreImageCell.self, forCellWithReuseIdentifier:  scoreMallCellIdentifier);
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .white;
@@ -109,17 +109,26 @@ class ServiceViewController: BaseViewController {
     }
 }
 
-extension ServiceViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension ServiceViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return dataSource.count;
+        return dataSource.count + 1;
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource[section].data.count;
+        if section == 0 {
+            return 1
+        }
+        return dataSource[section-1].data.count;
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let model = dataSource[indexPath.section].data[indexPath.row]
+        if indexPath.section == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: scoreMallCellIdentifier, for: indexPath) as! ServiceScoreImageCell
+            cell.imageName = "rotate_mall_cell_img"
+            return cell
+        }
+        
+        let model = dataSource[indexPath.section-1].data[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ServiceSingleNameCell
         cell.imageName = model.imagename;
         cell.title = model.title;
@@ -129,10 +138,12 @@ extension ServiceViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     //这个是设定header和footer的方法，根据kind不同进行不同的判断即可
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if indexPath.section == 0 {
+            return UICollectionReusableView()
+        }
         if kind == sectionHeaderSupplement {
             let resuableView = collectionView.dequeueReusableSupplementaryView(ofKind: sectionHeaderSupplement, withReuseIdentifier: sectionHeaderIdentifier, for: indexPath) as! ServiceCollectionHeader
-            resuableView.imageName = dataSource[indexPath.section].name
-//            resuableView.imageName = "section_collection_header"
+            resuableView.imageName = dataSource[indexPath.section - 1].name
             return resuableView
         }
 
@@ -140,10 +151,30 @@ extension ServiceViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.section].data[indexPath.row]
-        let vc = ServiceWKWebViewController()
-        navigationController?.pushViewController(vc, animated: true)
-        vc.loadUrl = model.url
+        if indexPath.section != 0 {
+            let model = dataSource[indexPath.section - 1].data[indexPath.row]
+            let vc = ServiceWKWebViewController()
+            navigationController?.pushViewController(vc, animated: true)
+            vc.loadUrl = model.url
+        } else {
+            let vc = ScoreMallController()
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 0 {
+            return CGSize(width: K_SCREEN_WIDTH, height: 110 * iPHONE_AUTORATIO)
+        }
+        
+        return CGSize.init(width: layoutWidth, height: layoutHeight)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 0 {
+            return CGSize(width: 0, height: 0);
+        }
+        
+        return CGSize(width: K_SCREEN_WIDTH, height: 50 * iPHONE_AUTORATIO)
+    }
 }

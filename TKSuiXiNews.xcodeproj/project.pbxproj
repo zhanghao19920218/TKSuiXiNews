@@ -41,6 +41,20 @@
 		733ED19122E4660F00B452D4 /* BaseWrapImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED19022E4660F00B452D4 /* BaseWrapImagesView.swift */; };
 		733ED19322E4706100B452D4 /* ShowVideoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED19222E4706100B452D4 /* ShowVideoViewCell.swift */; };
 		733ED19622E4721E00B452D4 /* ShowListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733ED19522E4721E00B452D4 /* ShowListResponseModel.swift */; };
+		734A7BB522EFCDFD0016764F /* HomeAskGovController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BB422EFCDFD0016764F /* HomeAskGovController.swift */; };
+		734A7BB722EFCE730016764F /* HomeAskGovBaseBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BB622EFCE730016764F /* HomeAskGovBaseBottom.swift */; };
+		734A7BB922EFD1540016764F /* HomeAskGovOnePicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BB822EFD1540016764F /* HomeAskGovOnePicCell.swift */; };
+		734A7BBB22EFD6180016764F /* HomeAskNonePicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BBA22EFD6180016764F /* HomeAskNonePicCell.swift */; };
+		734A7BBD22EFD7E40016764F /* HomeAskThreePicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BBC22EFD7E40016764F /* HomeAskThreePicCell.swift */; };
+		734A7BBF22EFE4DF0016764F /* HomeMatrixBaseImTitleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BBE22EFE4DF0016764F /* HomeMatrixBaseImTitleViewCell.swift */; };
+		734A7BC122EFE5970016764F /* HomeNewsNoPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC022EFE5970016764F /* HomeNewsNoPicCell.swift */; };
+		734A7BC522EFF18A0016764F /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC422EFF18A0016764F /* UIApplication+Extension.swift */; };
+		734A7BC722EFF3920016764F /* HomeMatrixListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC622EFF3920016764F /* HomeMatrixListController.swift */; };
+		734A7BC922EFF5E40016764F /* HomeTitleHeaderFirstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC822EFF5E40016764F /* HomeTitleHeaderFirstCell.swift */; };
+		7363F8DF22F01B31000FE663 /* BaseGrouppedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7363F8DE22F01B31000FE663 /* BaseGrouppedTableViewController.swift */; };
+		7363F8E122F02B67000FE663 /* HomeMatrixSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7363F8E022F02B67000FE663 /* HomeMatrixSectionHeaderView.swift */; };
+		7363F8E322F03801000FE663 /* HomeHappyReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7363F8E222F03801000FE663 /* HomeHappyReadViewController.swift */; };
+		7363F8E522F03976000FE663 /* HomeHappyReadImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7363F8E422F03976000FE663 /* HomeHappyReadImageCell.swift */; };
 		7372C98222EE73EB00BD378D /* HomeTVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372C98122EE73EB00BD378D /* HomeTVViewController.swift */; };
 		7372C98422EE742B00BD378D /* HomeTVChannelNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372C98322EE742B00BD378D /* HomeTVChannelNameView.swift */; };
 		7372C98622EE786500BD378D /* HomeTVChannelFirstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372C98522EE786500BD378D /* HomeTVChannelFirstCell.swift */; };
@@ -112,6 +126,9 @@
 		73DEBB0722E35738007EC4E1 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DEBB0622E35738007EC4E1 /* HttpClient.swift */; };
 		73DEBB0922E359A6007EC4E1 /* UserLoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DEBB0822E359A6007EC4E1 /* UserLoginInfo.swift */; };
 		73DEBB0C22E35E52007EC4E1 /* BaseNaviRightButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DEBB0B22E35E52007EC4E1 /* BaseNaviRightButton.swift */; };
+		73DF82D822F145520066583B /* ServiceScoreImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82D722F145520066583B /* ServiceScoreImageCell.swift */; };
+		73DF82DC22F1620D0066583B /* BaseCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82DB22F1620D0066583B /* BaseCollectionViewController.swift */; };
+		73DF82DE22F162FA0066583B /* ScoreMallController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82DD22F162FA0066583B /* ScoreMallController.swift */; };
 		C584C89EB985E2C38BE1B4E5 /* Pods_TKSuiXiNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A2CB2D5E3372723C1906F23 /* Pods_TKSuiXiNews.framework */; };
 /* End PBXBuildFile section */
 
@@ -152,6 +169,20 @@
 		733ED19222E4706100B452D4 /* ShowVideoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVideoViewCell.swift; sourceTree = "<group>"; };
 		733ED19522E4721E00B452D4 /* ShowListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowListResponseModel.swift; sourceTree = "<group>"; };
 		734A72B922E596EC002A6D9C /* TKSuiXiNews-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TKSuiXiNews-Bridging-Header.h"; sourceTree = "<group>"; };
+		734A7BB422EFCDFD0016764F /* HomeAskGovController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAskGovController.swift; sourceTree = "<group>"; };
+		734A7BB622EFCE730016764F /* HomeAskGovBaseBottom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAskGovBaseBottom.swift; sourceTree = "<group>"; };
+		734A7BB822EFD1540016764F /* HomeAskGovOnePicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAskGovOnePicCell.swift; sourceTree = "<group>"; };
+		734A7BBA22EFD6180016764F /* HomeAskNonePicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAskNonePicCell.swift; sourceTree = "<group>"; };
+		734A7BBC22EFD7E40016764F /* HomeAskThreePicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAskThreePicCell.swift; sourceTree = "<group>"; };
+		734A7BBE22EFE4DF0016764F /* HomeMatrixBaseImTitleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMatrixBaseImTitleViewCell.swift; sourceTree = "<group>"; };
+		734A7BC022EFE5970016764F /* HomeNewsNoPicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewsNoPicCell.swift; sourceTree = "<group>"; };
+		734A7BC422EFF18A0016764F /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
+		734A7BC622EFF3920016764F /* HomeMatrixListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMatrixListController.swift; sourceTree = "<group>"; };
+		734A7BC822EFF5E40016764F /* HomeTitleHeaderFirstCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTitleHeaderFirstCell.swift; sourceTree = "<group>"; };
+		7363F8DE22F01B31000FE663 /* BaseGrouppedTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseGrouppedTableViewController.swift; sourceTree = "<group>"; };
+		7363F8E022F02B67000FE663 /* HomeMatrixSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMatrixSectionHeaderView.swift; sourceTree = "<group>"; };
+		7363F8E222F03801000FE663 /* HomeHappyReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHappyReadViewController.swift; sourceTree = "<group>"; };
+		7363F8E422F03976000FE663 /* HomeHappyReadImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHappyReadImageCell.swift; sourceTree = "<group>"; };
 		7372C98122EE73EB00BD378D /* HomeTVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVViewController.swift; sourceTree = "<group>"; };
 		7372C98322EE742B00BD378D /* HomeTVChannelNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVChannelNameView.swift; sourceTree = "<group>"; };
 		7372C98522EE786500BD378D /* HomeTVChannelFirstCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTVChannelFirstCell.swift; sourceTree = "<group>"; };
@@ -225,6 +256,9 @@
 		73DEBB0622E35738007EC4E1 /* HttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		73DEBB0822E359A6007EC4E1 /* UserLoginInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginInfo.swift; sourceTree = "<group>"; };
 		73DEBB0B22E35E52007EC4E1 /* BaseNaviRightButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNaviRightButton.swift; sourceTree = "<group>"; };
+		73DF82D722F145520066583B /* ServiceScoreImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceScoreImageCell.swift; sourceTree = "<group>"; };
+		73DF82DB22F1620D0066583B /* BaseCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewController.swift; sourceTree = "<group>"; };
+		73DF82DD22F162FA0066583B /* ScoreMallController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreMallController.swift; sourceTree = "<group>"; };
 		7A2CB2D5E3372723C1906F23 /* Pods_TKSuiXiNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TKSuiXiNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A47A8DE8545AE07619BEE145 /* Pods-TKSuiXiNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TKSuiXiNews.debug.xcconfig"; path = "Target Support Files/Pods-TKSuiXiNews/Pods-TKSuiXiNews.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -263,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				7308498E22E5593700958969 /* ServiceSingleNameCell.swift */,
+				73DF82D722F145520066583B /* ServiceScoreImageCell.swift */,
 				7308499022E55DF600958969 /* ServiceCollectionHeader.swift */,
 			);
 			path = V;
@@ -291,6 +326,9 @@
 				733ED17622E4111B00B452D4 /* HomeVVideoController.swift */,
 				7372C98122EE73EB00BD378D /* HomeTVViewController.swift */,
 				733742F022E7D6AD006F30C6 /* VVideoShootViewController.swift */,
+				734A7BB422EFCDFD0016764F /* HomeAskGovController.swift */,
+				734A7BC622EFF3920016764F /* HomeMatrixListController.swift */,
+				7363F8E222F03801000FE663 /* HomeHappyReadViewController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -325,9 +363,18 @@
 				730F178122EED6A200FCD4FF /* HomeNewsBottomTimeView.swift */,
 				730F178322EEDF5500FCD4FF /* HomeNewsSearchInfoCell.swift */,
 				730F178722EEEB1600FCD4FF /* HomeNewsOnePictureCell.swift */,
+				734A7BC022EFE5970016764F /* HomeNewsNoPicCell.swift */,
 				730F178922EEEFAF00FCD4FF /* HomeNewsThreePictureCell.swift */,
 				730F178D22EEF83900FCD4FF /* HomeVideoNewsViewCell.swift */,
 				730F178F22EEF9AF00FCD4FF /* BaseVideoNewsView.swift */,
+				734A7BB622EFCE730016764F /* HomeAskGovBaseBottom.swift */,
+				734A7BB822EFD1540016764F /* HomeAskGovOnePicCell.swift */,
+				734A7BBA22EFD6180016764F /* HomeAskNonePicCell.swift */,
+				734A7BBC22EFD7E40016764F /* HomeAskThreePicCell.swift */,
+				734A7BBE22EFE4DF0016764F /* HomeMatrixBaseImTitleViewCell.swift */,
+				734A7BC822EFF5E40016764F /* HomeTitleHeaderFirstCell.swift */,
+				7363F8E022F02B67000FE663 /* HomeMatrixSectionHeaderView.swift */,
+				7363F8E422F03976000FE663 /* HomeHappyReadImageCell.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -550,6 +597,7 @@
 			isa = PBXGroup;
 			children = (
 				73DEBAA822E30E7F007EC4E1 /* UIViewController+Extesion.swift */,
+				734A7BC422EFF18A0016764F /* UIApplication+Extension.swift */,
 				73DEBAAA22E31095007EC4E1 /* String+Extension.swift */,
 				73DEBAAC22E3119D007EC4E1 /* UIView+Extension.swift */,
 				7377746422E7F25C00513350 /* UIButton+Extension.swift */,
@@ -607,6 +655,7 @@
 		73DEBAC022E32211007EC4E1 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				73DF82DA22F161F90066583B /* BaseControllerViewController */,
 				733ED17822E4151900B452D4 /* BaseView */,
 				73DEBB0A22E35E2E007EC4E1 /* BaseRightItem */,
 				73DEBACF22E3229D007EC4E1 /* BaseTableViewController */,
@@ -656,6 +705,7 @@
 			children = (
 				73DEBAD022E322CD007EC4E1 /* BaseTableViewCell.swift */,
 				733ED17422E40D6900B452D4 /* BaseTableViewController.swift */,
+				7363F8DE22F01B31000FE663 /* BaseGrouppedTableViewController.swift */,
 			);
 			path = BaseTableViewController;
 			sourceTree = "<group>";
@@ -747,11 +797,10 @@
 		73DEBADC22E324FB007EC4E1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				73DF82D922F161130066583B /* C */,
 				7308499522E582C200958969 /* servicelist.json */,
 				7308499222E5681F00958969 /* M */,
 				7308498D22E5590D00958969 /* V */,
-				73DEBAE222E32522007EC4E1 /* ServiceViewController.swift */,
-				730F179522EF0DC800FCD4FF /* ServiceWKWebViewController.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -835,6 +884,24 @@
 				73DEBB0B22E35E52007EC4E1 /* BaseNaviRightButton.swift */,
 			);
 			path = BaseRightItem;
+			sourceTree = "<group>";
+		};
+		73DF82D922F161130066583B /* C */ = {
+			isa = PBXGroup;
+			children = (
+				73DEBAE222E32522007EC4E1 /* ServiceViewController.swift */,
+				730F179522EF0DC800FCD4FF /* ServiceWKWebViewController.swift */,
+				73DF82DD22F162FA0066583B /* ScoreMallController.swift */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		73DF82DA22F161F90066583B /* BaseControllerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				73DF82DB22F1620D0066583B /* BaseCollectionViewController.swift */,
+			);
+			path = BaseControllerViewController;
 			sourceTree = "<group>";
 		};
 		963EB4ECB6B950073F8B9151 /* Pods */ = {
@@ -979,6 +1046,7 @@
 				7377747C22E847B200513350 /* ShowDetailImageViewController.swift in Sources */,
 				730F178222EED6A200FCD4FF /* HomeNewsBottomTimeView.swift in Sources */,
 				7377747722E8378A00513350 /* DetailUserCommentCell.swift in Sources */,
+				73DF82DC22F1620D0066583B /* BaseCollectionViewController.swift in Sources */,
 				73D4E2E122E998000088FF37 /* NetworkPlayer.swift in Sources */,
 				7372C98A22EE7CB000BD378D /* HomeTVDetailPlayerView.swift in Sources */,
 				733742F122E7D6AD006F30C6 /* VVideoShootViewController.swift in Sources */,
@@ -993,8 +1061,11 @@
 				73DEBAFF22E34B09007EC4E1 /* CommonLicense.swift in Sources */,
 				733ED18F22E462D000B452D4 /* BaseTimeCommentLikeView.swift in Sources */,
 				73DEBAE822E329D6007EC4E1 /* StaticMethod.swift in Sources */,
+				7363F8E322F03801000FE663 /* HomeHappyReadViewController.swift in Sources */,
 				7372C98822EE7C9A00BD378D /* HomeTVOtherSectionCell.swift in Sources */,
 				73DEBAD522E32495007EC4E1 /* SXLoginViewController.swift in Sources */,
+				734A7BBB22EFD6180016764F /* HomeAskNonePicCell.swift in Sources */,
+				734A7BB722EFCE730016764F /* HomeAskGovBaseBottom.swift in Sources */,
 				7308499422E5683500958969 /* ServiceListModel.swift in Sources */,
 				733ED17D22E43CD200B452D4 /* BannerView.swift in Sources */,
 				73DEBAAB22E31095007EC4E1 /* String+Extension.swift in Sources */,
@@ -1002,16 +1073,21 @@
 				73DEBAD122E322CD007EC4E1 /* BaseTableViewCell.swift in Sources */,
 				7372C98622EE786500BD378D /* HomeTVChannelFirstCell.swift in Sources */,
 				733ED18B22E45FC200B452D4 /* BaseAvatarImageView.swift in Sources */,
+				73DF82DE22F162FA0066583B /* ScoreMallController.swift in Sources */,
+				734A7BBD22EFD7E40016764F /* HomeAskThreePicCell.swift in Sources */,
 				7377747122E82C8500513350 /* DetailArticleResponse.swift in Sources */,
 				73DEBADF22E3250E007EC4E1 /* HomeViewController.swift in Sources */,
+				73DF82D822F145520066583B /* ServiceScoreImageCell.swift in Sources */,
 				733ED19122E4660F00B452D4 /* BaseWrapImagesView.swift in Sources */,
 				7377746922E8001900513350 /* DetailVideoInfoController.swift in Sources */,
 				730F179422EF077200FCD4FF /* HomeVideoNewsListResponse.swift in Sources */,
 				73DEBAAD22E3119D007EC4E1 /* UIView+Extension.swift in Sources */,
+				734A7BC922EFF5E40016764F /* HomeTitleHeaderFirstCell.swift in Sources */,
 				738BD9E422E7E02600B7BF75 /* HomeVSendCollectionView.swift in Sources */,
 				733ED19322E4706100B452D4 /* ShowVideoViewCell.swift in Sources */,
 				73A3329722EA94560060F281 /* iQiYiPlayButton.swift in Sources */,
 				7308499122E55DF600958969 /* ServiceCollectionHeader.swift in Sources */,
+				734A7BB922EFD1540016764F /* HomeAskGovOnePicCell.swift in Sources */,
 				73DEBACE22E3228E007EC4E1 /* BaseViewController.swift in Sources */,
 				7380EA4B22E301FB00628C48 /* AppDelegate.swift in Sources */,
 				733ED17522E40D6900B452D4 /* BaseTableViewController.swift in Sources */,
@@ -1023,10 +1099,13 @@
 				73DEBB0C22E35E52007EC4E1 /* BaseNaviRightButton.swift in Sources */,
 				730F178022EECD1600FCD4FF /* HomeTVTitleResponse.swift in Sources */,
 				7377746C22E8064200513350 /* DetailUserInfoAvatarCell.swift in Sources */,
+				734A7BC122EFE5970016764F /* HomeNewsNoPicCell.swift in Sources */,
 				73DEBAE122E32517007EC4E1 /* ShowViewController.swift in Sources */,
 				730F179022EEF9AF00FCD4FF /* BaseVideoNewsView.swift in Sources */,
+				734A7BC522EFF18A0016764F /* UIApplication+Extension.swift in Sources */,
 				73DEBB0222E3531A007EC4E1 /* SXForgetPasswordController.swift in Sources */,
 				733ED18D22E4611000B452D4 /* ShowImageTextCell.swift in Sources */,
+				7363F8E522F03976000FE663 /* HomeHappyReadImageCell.swift in Sources */,
 				73DEBAB222E31231007EC4E1 /* SXAPI.swift in Sources */,
 				73DEBAA622E30E00007EC4E1 /* UIDefine.swift in Sources */,
 				73DEBACB22E3224E007EC4E1 /* BANavigationController.swift in Sources */,
@@ -1054,23 +1133,28 @@
 				733ED19622E4721E00B452D4 /* ShowListResponseModel.swift in Sources */,
 				7377747F22E8484B00513350 /* ShowImagesCollectionCell.swift in Sources */,
 				7308498F22E5593700958969 /* ServiceSingleNameCell.swift in Sources */,
+				7363F8E122F02B67000FE663 /* HomeMatrixSectionHeaderView.swift in Sources */,
 				7377746322E7EEC300513350 /* BaseShareBottomView.swift in Sources */,
+				7363F8DF22F01B31000FE663 /* BaseGrouppedTableViewController.swift in Sources */,
 				73DEBAEC22E32B90007EC4E1 /* SXLoginTextField.swift in Sources */,
 				73DEBAA222E30CA8007EC4E1 /* ColorsDefine.swift in Sources */,
 				730F179222EEFDD300FCD4FF /* HomeVideoNewsListController.swift in Sources */,
 				7308498522E5440B00958969 /* ScroreItemButton.swift in Sources */,
 				73D4E2DE22E97A0D0088FF37 /* MutiImagesResponse.swift in Sources */,
 				73DEBB0922E359A6007EC4E1 /* UserLoginInfo.swift in Sources */,
+				734A7BB522EFCDFD0016764F /* HomeAskGovController.swift in Sources */,
 				73DEBAF022E3376D007EC4E1 /* SXLoginBaseButton.swift in Sources */,
 				7372C98422EE742B00BD378D /* HomeTVChannelNameView.swift in Sources */,
 				73DEBAC922E3224E007EC4E1 /* BATabBarButton.swift in Sources */,
 				73DEBB0722E35738007EC4E1 /* HttpClient.swift in Sources */,
 				73DEBB0522E35535007EC4E1 /* LoginModel.swift in Sources */,
 				73DEBAF222E33A8B007EC4E1 /* SXForgetBaseButton.swift in Sources */,
+				734A7BBF22EFE4DF0016764F /* HomeMatrixBaseImTitleViewCell.swift in Sources */,
 				73DEBAB922E3195E007EC4E1 /* THUD.swift in Sources */,
 				73DEBAE322E32522007EC4E1 /* ServiceViewController.swift in Sources */,
 				73DEBAA422E30DBA007EC4E1 /* BaseUrlDefine.swift in Sources */,
 				73D4E2D622E92C4A0088FF37 /* YPImagePickerUtil.swift in Sources */,
+				734A7BC722EFF3920016764F /* HomeMatrixListController.swift in Sources */,
 				7308498722E5467A00958969 /* MineUsualCollCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

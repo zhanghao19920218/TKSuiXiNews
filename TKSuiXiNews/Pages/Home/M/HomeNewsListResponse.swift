@@ -33,8 +33,8 @@ struct HomeNewsListSection: Codable {
 struct HomeNewsListModel: Codable {
     let id, userID, adminID: TStrInt
     let module, moduleSecond, name: TStrInt
-    let image: [String]
-    let images: [JSONAny]
+    let image: TStrInt
+    let images: [String]
     let video, audio, content, nickname: TStrInt
     let avatar, status: TStrInt
     let visitNum, commentNum, likeNum, createtime: TStrInt

@@ -1,18 +1,18 @@
 //
-//  HomeNewsThreePictureCell.swift
+//  HomeAskThreePicCell.swift
 //  TKSuiXiNews
 //
-//  Created by Barry Allen on 2019/7/29.
+//  Created by Barry Allen on 2019/7/30.
 //  Copyright © 2019 Barry Allen. All rights reserved.
 //
 
 import UIKit
 
-class HomeNewsThreePictureCell: BaseTableViewCell {
+class HomeAskThreePicCell: BaseTableViewCell {
 
-    var title:String? {
+    var title: String? {
         willSet(newValue) {
-            titleL.text = newValue ?? "";
+            titleLabel.text = newValue ?? ""
         }
     }
     
@@ -40,37 +40,30 @@ class HomeNewsThreePictureCell: BaseTableViewCell {
         }
     }
     
-    var time:String? {
+    var time: String? {
         willSet(newValue) {
             bottomView.time = newValue
         }
     }
     
-    var review: Int? {
+    var comment: Int? {
         willSet(newValue) {
-            bottomView.review = newValue
+            bottomView.comment = newValue
         }
     }
     
-    var like: Int? {
-        willSet(newValue) {
-            bottomView.like = newValue
-        }
-    }
-    
-    var isLike: Int? {
-        willSet(value) {
-            bottomView.isLike = value
-        }
-    }
-    
-    //标题信息
-    private lazy var titleL: UILabel = {
+    //标题
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = kFont(16 * iPHONE_AUTORATIO)
         label.numberOfLines = 2
         return label
-    }();
+    }()
+    
+    private lazy var bottomView: HomeAskGovBaseBottom = {
+        let view = HomeAskGovBaseBottom()
+        return view
+    }()
     
     //照片信息
     private lazy var imageIcon: UIImageView = {
@@ -97,19 +90,13 @@ class HomeNewsThreePictureCell: BaseTableViewCell {
         return imageView
     }()
     
-    //设置下方的评论列表
-    private lazy var bottomView: HomeNewsBottomTimeView = {
-        let view = HomeNewsBottomTimeView()
-        return view
-    }()
-    
     override func setupUI() {
         super.setupUI()
         
-        contentView.addSubview(titleL);
-        titleL.snp.makeConstraints { (make) in
+        contentView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(13 * iPHONE_AUTORATIO)
-            make.top.equalTo(15 * iPHONE_AUTORATIO)
+            make.top.equalTo(16 * iPHONE_AUTORATIO)
             make.right.equalTo(-13 * iPHONE_AUTORATIO)
         }
         
@@ -138,14 +125,14 @@ class HomeNewsThreePictureCell: BaseTableViewCell {
         contentView.addSubview(bottomView)
         bottomView.snp.makeConstraints { (make) in
             make.left.bottom.right.equalToSuperview()
-            make.height.equalTo(38 * iPHONE_AUTORATIO)
+            make.height.equalTo(40 * iPHONE_AUTORATIO)
         }
         
         contentView.addSubview(bottomLine)
         bottomLine.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview()
             make.left.equalTo(13 * iPHONE_AUTORATIO)
             make.right.equalTo(-13 * iPHONE_AUTORATIO)
+            make.bottom.equalToSuperview()
             make.height.equalTo(1)
         }
     }

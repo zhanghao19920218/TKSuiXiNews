@@ -69,6 +69,7 @@ open class YPImagePickerUtil {
         var config = YPImagePickerConfiguration()
         config.screens = [.video]
         config.video.fileType = .mp4
+        config.video.recordingTimeLimit = TimeInterval(3600)
         
         picker = YPImagePicker(configuration: config)
         picker?.didFinishPicking { [weak self] items, _ in

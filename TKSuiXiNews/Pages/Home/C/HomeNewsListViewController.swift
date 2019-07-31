@@ -12,6 +12,7 @@ fileprivate let bannerIdentifier = "HomeVVideoBannerCellIdentifier";
 fileprivate let searchTitleIdentifier = "HomeNewsSearchInfoCellIdentifier";
 fileprivate let newsOnePicIdentifier = "HomeNewsOnePictureCellIdentifier"
 fileprivate let newsThreePicIdentifier = "HomeNewsThreePictureCellIdentifier"
+fileprivate let newsNoPicIdentifier = "HomeNewsNoPicCellIdentifier"
 
 class HomeNewsListViewController: BaseTableViewController {
 
@@ -30,6 +31,7 @@ class HomeNewsListViewController: BaseTableViewController {
         tableView.register(HomeNewsSearchInfoCell.self, forCellReuseIdentifier: searchTitleIdentifier)
         tableView.register(HomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
         tableView.register(HomeNewsThreePictureCell.self, forCellReuseIdentifier: newsThreePicIdentifier)
+        tableView.register(HomeNewsNoPicCell.self, forCellReuseIdentifier: newsNoPicIdentifier)
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = .none;
@@ -118,21 +120,21 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
         
         let model = dataSource[indexPath.row - 2] as! HomeNewsListModel
         
-        if model.image.count == 1 {
+        if !model.image.string.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell;
             cell.title = model.name.string
-            cell.imageName = model.image[0]
+            cell.imageName = model.image.string
             cell.isLike = model.likeStatus.int
             cell.like = model.likeNum.int
             cell.review = model.visitNum.int
             cell.time = model.begintime.string
             return cell;
-        } else {
+        } else if model.images.count == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: newsThreePicIdentifier) as! HomeNewsThreePictureCell;
             cell.title = model.name.string
-            cell.imageName = model.image[0]
-            cell.imageName2 = model.image[1]
-            cell.imageName3 = model.image[2]
+            cell.imageName = model.images[0]
+            cell.imageName2 = model.images[1]
+            cell.imageName3 = model.images[2]
             cell.isLike = model.likeStatus.int
             cell.like = model.likeNum.int
             cell.review = model.visitNum.int
@@ -140,6 +142,13 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
             return cell;
         }
 
+        let cell = tableView.dequeueReusableCell(withIdentifier: newsNoPicIdentifier) as! HomeNewsNoPicCell
+        cell.title = model.name.string
+        cell.isLike = model.likeStatus.int
+        cell.like = model.likeNum.int
+        cell.review = model.visitNum.int
+        cell.time = model.begintime.string
+        return cell;
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -152,10 +161,10 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
         
         let model = dataSource[indexPath.row - 2] as! HomeNewsListModel
         
-        if model.image.count == 1 {
-            return 118 * iPHONE_AUTORATIO
-        } else {
+        if model.images.count == 3 {
             return 187 * iPHONE_AUTORATIO
+        } else {
+            return 118 * iPHONE_AUTORATIO
         }
     }
     

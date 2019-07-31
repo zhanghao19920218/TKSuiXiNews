@@ -36,7 +36,7 @@ class BATabBarButton: UIButton {
         self.titleLabel?.font = kFont(11);
         //文字颜色
         self.setTitleColor(RGBA(208, 208, 208, 1), for: .normal);
-        self.setTitleColor(RGBA(245, 130, 32, 1), for: .selected);
+        self.setTitleColor(appThemeColor, for: .selected);
         
         //添加一个提醒数字按钮
         let badgeButton = UIButton.init();

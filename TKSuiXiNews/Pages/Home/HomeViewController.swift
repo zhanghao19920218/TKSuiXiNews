@@ -41,10 +41,12 @@ class HomeViewController: BaseViewController {
         style.titleSelectedColor = pageViewSelectedTitleColor;
         style.titleFont = pageViewFontSize;
         style.titleViewHeight = pageViewTitleHeight;
+        //消除系统默认的offset
+        automaticallyAdjustsScrollViewInsets = false
         
         
         // 设置标题内容
-        let titles = ["V视频", "濉溪TV", "新闻", "视讯", "问政"];
+        let titles = ["V视频", "濉溪TV", "新闻", "视讯", "问政", "矩阵", "原创", "悦读", "悦听", "党建", "专栏"];
         
         // 创建每一页对应的controller
         let childViewControllers: [UIViewController] = titles.enumerated().map { (index, _) -> UIViewController in
@@ -62,6 +64,18 @@ class HomeViewController: BaseViewController {
             } else if index == 3 {
                 //视讯
                 controller = HomeVideoNewsListController()
+            } else if index == 4 {
+                //问政
+                controller = HomeAskGovController()
+            } else if index == 5 {
+                //矩阵
+                controller = HomeMatrixListController()
+            } else if index == 6 {
+                //原创
+                controller = ShowViewController()
+            } else if index == 7 {
+                //悦读
+                controller = HomeHappyReadViewController()
             } else {
                 controller = UIViewController();
             }
