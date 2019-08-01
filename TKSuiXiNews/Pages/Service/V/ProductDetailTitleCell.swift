@@ -18,6 +18,20 @@ class ProductDetailTitleCell: BaseTableViewCell {
             titleLabel.text = newValue ?? ""
         }
     }
+    
+    //积分数量
+    var score: Int? {
+        willSet(newValue) {
+            scoreLabel.text = "兑换：\(newValue ?? 0) 积分"
+        }
+    }
+    
+    //库存
+    var storage: Int? {
+        willSet(newValue) {
+            storageNumL.text = "库存：\(newValue ?? 0)"
+        }
+    }
 
     //标题
     private lazy var titleLabel: UILabel = {
@@ -41,7 +55,7 @@ class ProductDetailTitleCell: BaseTableViewCell {
         let label = UILabel()
         label.font = kFont(13 * iPHONE_AUTORATIO)
         label.textColor = RGBA(153, 153, 153, 1)
-        label.text = "库存：3"
+        label.text = "库存：0"
         return label
     }()
 

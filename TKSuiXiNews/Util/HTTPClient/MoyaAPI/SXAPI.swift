@@ -38,6 +38,8 @@ enum  BAAPI {
     case awardProductItems
     //抽奖
     case awardDraw
+    //兑换操作
+    case exchangeAward(id: Int)
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -78,6 +80,9 @@ extension BAAPI: TargetType {
             
         case .awardDraw:
             return K_URL_awardDraw
+            
+        case .exchangeAward:
+            return K_URL_exchangeProduct
         }
         
     }
@@ -164,6 +169,9 @@ extension BAAPI: TargetType {
             params["p"] = p;
             
         case let .productDetail(id):
+            params["id"] = id
+            
+        case let .exchangeAward(id):
             params["id"] = id
             
         default:

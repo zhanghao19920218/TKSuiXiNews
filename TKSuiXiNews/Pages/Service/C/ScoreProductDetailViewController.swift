@@ -69,10 +69,18 @@ class ScoreProductDetailViewController: BaseViewController {
     }
     
     @objc func scoreExchangeButton(_ sender: UIButton) {
-        // 转盘结束后调用，显示获得的对应奖励
-        let view = MallPopMenu(frame: CGRect(x: 0, y: 0, width: K_SCREEN_WIDTH, height: K_SCREEN_HEIGHT))
-        view.isLottery = false
-        navigationController?.view.addSubview(view)
+        // 兑换当前的积分
+        if let model = self.model {
+            let view = MallPopMenu(frame: CGRect(x: 0, y: 0, width: K_SCREEN_WIDTH, height: K_SCREEN_HEIGHT))
+            view.score2 = model.score.int
+            view.productName = model.name.string
+            view.isLottery = false
+            view.block = { [weak self] () in
+                //兑换成功返回
+                self?.exchangeProduct()
+            }
+            navigationController?.view.addSubview(view)
+        }
     }
 }
 
@@ -98,6 +106,8 @@ extension ScoreProductDetailViewController: UITableViewDelegate, UITableViewData
         if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: titleproductIdentifier) as! ProductDetailTitleCell
             cell.name = model?.name.string
+            cell.score = model?.score.int
+            cell.storage = model?.limit.int
             return cell
         }
         
@@ -134,6 +144,14 @@ extension ScoreProductDetailViewController {
             self?.model = forceModel.data
             self?._tableView.reloadData()
             
+            }
+        )
+    }
+    
+    //MARK: - 兑换操作
+    private func exchangeProduct() {
+        HttpClient.shareInstance.request(target: BAAPI.exchangeAward(id: model?.id.int ?? 0), success: { [weak self] (json) in
+            self?.navigationController?.popViewController(animated: true)
             }
         )
     }

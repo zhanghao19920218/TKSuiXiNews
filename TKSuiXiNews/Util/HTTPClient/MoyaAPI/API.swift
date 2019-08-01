@@ -20,3 +20,4 @@ let K_URL_scoreItemList = "api/goods/index" //商品列表
 let K_URL_productDetail = "api/goods/detail" //商品详情
 let K_URL_awardProducts = "api/award/index" //积分抽奖奖品列表
 let K_URL_awardDraw = "api/award/draw" //抽奖
+let K_URL_exchangeProduct = "api/goods/exchange" //兑换操作

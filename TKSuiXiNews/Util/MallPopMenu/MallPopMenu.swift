@@ -9,13 +9,18 @@
 import UIKit
 
 class MallPopMenu: UIView {
-    var string = "转盘送积分活动获得积分"
-    var string2 = "是否消耗0分兑换\nIPhone Xs ?"
-    var newString = ""
+    var block: ()->Void = {}
+    
+    private var string = "转盘送积分活动获得积分"
+    private var string2 = "是否消耗"
+    private var newString = ""
+    private var newString2 = "0"
+    private var _productName = " ?"
     
     //上面的view
     private lazy var backView: UIImageView = {
         let view = UIImageView();
+        view.isUserInteractionEnabled = true
         return view;
     }();
     
@@ -26,11 +31,26 @@ class MallPopMenu: UIView {
         }
     }
     
+    var score2: Int? {
+        willSet(newValue) {
+            string2.append("\(newValue ?? 0)分")
+            newString2 = "\(newValue ?? 0)"
+        }
+    }
+    
+    var productName:String? {
+        willSet(newValue) {
+            _productName = "分兑换\n\(newValue ?? "") ?"
+            string2.append(_productName)
+        }
+    }
+    
     var isLottery:Bool? {
         willSet(newValue) {
             if let value = newValue {
                 backView.image = K_ImageName(value ? "lottery_pop_menu" : "exchange_gift_menu")
                 titleLabel.text = value ? "新 增 积 分" : "商 品 兑 换"
+                knowButton.setTitle(value ? "知道了": "立即兑换")
                 if value {
                     let attrStr = NSMutableAttributedString.init(string: string)
                     attrStr.addAttribute(NSAttributedString.Key.foregroundColor, value:RGBA(102, 102, 102, 1), range:NSRange.init(location:0, length: 11))
@@ -38,10 +58,10 @@ class MallPopMenu: UIView {
                     attrStr.addAttribute(NSAttributedString.Key.foregroundColor, value:RGBA(102, 102, 102, 1), range:NSRange.init(location:10 + newString.count, length: 1))
                     describeLabel.attributedText = attrStr
                 } else {
-                    let attrStr = NSMutableAttributedString.init(string: "是否消耗56789分兑换\nIPhone Xs ?")
+                    let attrStr = NSMutableAttributedString.init(string: string2)
                     attrStr.addAttribute(NSAttributedString.Key.foregroundColor, value:RGBA(102, 102, 102, 1), range:NSRange.init(location:0, length: 4))
-                    attrStr.addAttribute(NSAttributedString.Key.foregroundColor, value:RGBA(255, 74, 92, 1), range:NSRange.init(location:4, length: 5))
-                    attrStr.addAttribute(NSAttributedString.Key.foregroundColor, value:RGBA(102, 102, 102, 1), range:NSRange.init(location:9, length: 15))
+                    attrStr.addAttribute(NSAttributedString.Key.foregroundColor, value:RGBA(255, 74, 92, 1), range:NSRange.init(location:4, length: newString2.count))
+                    attrStr.addAttribute(NSAttributedString.Key.foregroundColor, value:RGBA(102, 102, 102, 1), range:NSRange.init(location:4 + newString2.count, length: _productName.count))
                     describeLabel.attributedText = attrStr
                 }
             }
@@ -58,6 +78,9 @@ class MallPopMenu: UIView {
     private lazy var closeButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage("close_menu_button")
+        button.addTarget(self,
+                         action: #selector(closeButtonTapped(_:)),
+                         for: .touchUpInside)
         return button
     }()
     
@@ -76,6 +99,9 @@ class MallPopMenu: UIView {
         button.backgroundColor = RGBA(255, 74, 92, 1)
         button.layer.cornerRadius = 15 * iPHONE_AUTORATIO
         button.titleLabel?.font = kFont(12 * iPHONE_AUTORATIO)
+        button.addTarget(self,
+                         action: #selector(immdiateButtonTapped(_:)),
+                         for: .touchUpInside)
         return button
     }()
     
@@ -145,4 +171,15 @@ class MallPopMenu: UIView {
         }
     }
 
+    //MARK: - 点击立即兑换按钮
+    @objc private func immdiateButtonTapped(_ sender: UIButton) {
+        if (sender.titleLabel?.text ?? "") == "立即兑换" {
+            block()
+        }
+    }
+    
+    //MARK: - 点击关闭按钮
+    @objc private func closeButtonTapped(_ sender: UIButton) {
+        tappedCancel()
+    }
 }
