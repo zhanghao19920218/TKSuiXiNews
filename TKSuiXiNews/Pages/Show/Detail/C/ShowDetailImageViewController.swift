@@ -42,6 +42,23 @@ class ShowDetailImageViewController: BaseViewController {
     //底部的评论
     private lazy var bottomView: ResendButtonBottom = {
         let view = ResendButtonBottom();
+        view.bottomBlock = { [weak self](type) in
+            if type == .comment {
+                //评论的弹窗
+                let view = CommentPopMenu(frame: CGRect(x: 0, y: 0, width: K_SCREEN_WIDTH, height: K_SCREEN_HEIGHT - NAVIGATION_BAR_HEIGHT))
+                self?.view.addSubview(view)
+                view.sendBlock = { (comment) in
+                    self?.sendComment(comment)
+                }
+            }
+        }
+        view.isTappedBlock = { [weak self] isChoosed in
+            if isChoosed {
+                self?.disLikeArticle()
+            } else {
+                self?.likeArticle()
+            }
+        }
         return view;
     }();
     
@@ -88,6 +105,34 @@ extension ShowDetailImageViewController {
             self?.model = forceModel.data
             
             self?.tableView.reloadData();
+            self?.bottomView.isLike = forceModel.data.likeStatus.int
+            }
+        )
+    }
+    
+    //MARK: - 上传新闻评论信息
+    private func sendComment(_ msg: String) {
+        HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: Int(id) ?? 0, detail: msg), success: { [weak self] (json) in
+            TProgressHUD.show(text: "发表评论成功")
+            self?.loadDetailData()
+            }
+        )
+    }
+    
+    //MARK: - 点赞信息
+    private func likeArticle() {
+        HttpClient.shareInstance.request(target: BAAPI.addLikeNum(id: Int(id) ?? 0), success: { [weak self] (json) in
+            TProgressHUD.show(text: "点赞成功")
+            self?.loadDetailData()
+            }
+        )
+    }
+    
+    //MARK: - 取消点赞
+    private func disLikeArticle() {
+        HttpClient.shareInstance.request(target: BAAPI.dislikeComment(id: Int(id) ?? 0), success: { [weak self] (json) in
+            TProgressHUD.show(text: "取消点赞成功")
+            self?.loadDetailData()
             }
         )
     }
@@ -165,7 +210,7 @@ extension ShowDetailImageViewController: UITableViewDelegate, UITableViewDataSou
         }
         if indexPath.row == 2 {
             //判断是不是图片
-            let count = model?.images?.count ?? 0;
+            let count = model?.images.count ?? 0;
             if count <= 3 {
                 return 140 * iPHONE_AUTORATIO
             } else if count <= 6 {

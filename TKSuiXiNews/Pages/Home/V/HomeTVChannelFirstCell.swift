@@ -15,22 +15,54 @@ import UIKit
 fileprivate let boxSize = CGSize(width: 110 * iPHONE_AUTORATIO, height: 100 * iPHONE_AUTORATIO)
 
 class HomeTVChannelFirstCell: BaseTableViewCell {
+    var firstImage:String? {
+        willSet(newValue) {
+            newsChannel.imageName = newValue
+        }
+    }
+    
+    var secondImage:String? {
+        willSet(newValue) {
+            movieChannel.imageName = newValue
+        }
+    }
+    
+    var thirdImage:String? {
+        willSet(newValue) {
+            fmChannel.imageName = newValue
+        }
+    }
+    
+    var firstName:String? {
+        willSet(newValue) {
+            newsChannel.title = newValue
+        }
+    }
+    
+    var movieName:String? {
+        willSet(newValue) {
+            movieChannel.title = newValue
+        }
+    }
+    
+    var thirdName:String? {
+        willSet(newValue) {
+            fmChannel.title = newValue
+        }
+    }
 
     private lazy var newsChannel: HomeTVChannelNameView = {
         let view = HomeTVChannelNameView();
-        view.title = "新闻频道"
         return view;
     }();
     
     private lazy var movieChannel: HomeTVChannelNameView = {
         let view = HomeTVChannelNameView();
-        view.title = "影视频道"
         return view;
     }();
     
     private lazy var fmChannel: HomeTVChannelNameView = {
         let view = HomeTVChannelNameView();
-        view.title = "FM 93.7"
         return view;
     }();
 

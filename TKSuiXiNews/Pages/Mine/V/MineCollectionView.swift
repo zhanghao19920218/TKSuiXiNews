@@ -12,7 +12,12 @@ fileprivate let cellIdentifier = "BaseWrapCollectionCellIdentifier";
 
 fileprivate let layoutWidth = 90 * iPHONE_AUTORATIO
 
+typealias ClickIndexBlock = (_ index:Int)->(Void)
+
 class MineCollectionView: UIView {
+    
+    var mb:ClickIndexBlock?
+
     //数据
     fileprivate let dataSource:[(imageName:String, title: String)] = [
         (imageName: "favorite_icon", title: "我的收藏"),
@@ -73,5 +78,11 @@ extension MineCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
         cell.imageName = dataSource[indexPath.row].imageName;
         cell.title = dataSource[indexPath.row].title;
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if mb != nil{
+            mb!(indexPath.item)
+        }
     }
 }

@@ -9,6 +9,8 @@
 import UIKit
 
 class HomeTVOtherSectionCell: BaseTableViewCell {
+    var checkTotalBlock: ()-> Void = {  }
+    
     var title:String? {
         willSet(newValue) {
             titleLabel.text = newValue ?? "";
@@ -64,19 +66,20 @@ class HomeTVOtherSectionCell: BaseTableViewCell {
     //两个内容
     private lazy var news_first: HomeTVDetailPlayerView = {
         let view = HomeTVDetailPlayerView();
-        view.title = "濉溪20年变化 10分钟回顾"
         return view;
     }();
     
     private lazy var news_second: HomeTVDetailPlayerView = {
         let view = HomeTVDetailPlayerView();
-        view.title = "濉溪即将全面实行垃圾分类政策"
         return view;
     }();
     
     //全部按钮
     private lazy var indicationButton: UIButton = {
         let button = UIButton(type: .custom);
+        button.addTarget(self,
+                         action: #selector(didTappedTotalButton(_:)),
+                         for: .touchUpInside)
         return button;
     }();
     
@@ -143,10 +146,10 @@ class HomeTVOtherSectionCell: BaseTableViewCell {
         
         contentView.addSubview(news_first);
         news_first.snp.makeConstraints { (make) in
-            make.left.equalToSuperview();
-            make.top.equalTo(self.line.snp_bottom);
-            make.bottom.equalToSuperview();
-            make.width.equalTo(K_SCREEN_WIDTH/2)
+            make.left.equalTo(13 * iPHONE_AUTORATIO);
+            make.top.equalTo(self.line.snp_bottom).offset(15 * iPHONE_AUTORATIO);
+            make.bottom.equalTo(-10 * iPHONE_AUTORATIO);
+            make.width.equalTo(K_SCREEN_WIDTH/2 - 21 * iPHONE_AUTORATIO)
         }
         
         news_first.videoBlock = { [weak self] () in
@@ -155,10 +158,10 @@ class HomeTVOtherSectionCell: BaseTableViewCell {
         
         contentView.addSubview(news_second);
         news_second.snp.makeConstraints { (make) in
-            make.right.equalToSuperview();
-            make.top.equalTo(self.line.snp_bottom);
-            make.bottom.equalToSuperview();
-            make.width.equalTo(K_SCREEN_WIDTH/2)
+            make.right.equalTo(-13 * iPHONE_AUTORATIO);
+            make.top.equalTo(self.line.snp_bottom).offset(15 * iPHONE_AUTORATIO);
+            make.bottom.equalTo(-10 * iPHONE_AUTORATIO);
+            make.width.equalTo(K_SCREEN_WIDTH/2 - 21 * iPHONE_AUTORATIO)
         }
         
         news_second.videoBlock = { [weak self] () in
@@ -166,4 +169,7 @@ class HomeTVOtherSectionCell: BaseTableViewCell {
         }
     }
 
+    @objc private func didTappedTotalButton(_ sender: UIButton) {
+        checkTotalBlock()
+    }
 }

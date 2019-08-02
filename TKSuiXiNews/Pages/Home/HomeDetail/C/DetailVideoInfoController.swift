@@ -42,6 +42,23 @@ class DetailVideoInfoController: BaseViewController {
     //底部的评论
     private lazy var bottomView: ResendButtonBottom = {
         let view = ResendButtonBottom();
+        view.bottomBlock = { [weak self](type) in
+            if type == .comment {
+                //评论的弹窗
+                let view = CommentPopMenu(frame: CGRect(x: 0, y: 0, width: K_SCREEN_WIDTH, height: K_SCREEN_HEIGHT - NAVIGATION_BAR_HEIGHT))
+                self?.view.addSubview(view)
+                view.sendBlock = { (comment) in
+                    self?.sendComment(comment)
+                }
+            }
+        }
+        view.isTappedBlock = { [weak self] isChoosed in
+            if isChoosed {
+                self?.disLikeArticle()
+            } else {
+                self?.likeArticle()
+            }
+        }
         return view;
     }();
 
@@ -88,6 +105,35 @@ extension DetailVideoInfoController {
             self?.model = forceModel.data
             
             self?.tableView.reloadData();
+            
+            self?.bottomView.isLike = forceModel.data.likeStatus.int
+            }
+        )
+    }
+    
+    //MARK: - 上传新闻评论信息
+    private func sendComment(_ msg: String) {
+        HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: Int(id) ?? 0, detail: msg), success: { [weak self] (json) in
+            TProgressHUD.show(text: "发表评论成功")
+            self?.loadDetailData()
+            }
+        )
+    }
+    
+    //MARK: - 点赞信息
+    private func likeArticle() {
+        HttpClient.shareInstance.request(target: BAAPI.addLikeNum(id: Int(id) ?? 0), success: { [weak self] (json) in
+            TProgressHUD.show(text: "点赞成功")
+            self?.loadDetailData()
+            }
+        )
+    }
+    
+    //MARK: - 取消点赞
+    private func disLikeArticle() {
+        HttpClient.shareInstance.request(target: BAAPI.dislikeComment(id: Int(id) ?? 0), success: { [weak self] (json) in
+            TProgressHUD.show(text: "取消点赞成功")
+            self?.loadDetailData()
             }
         )
     }
@@ -175,5 +221,12 @@ extension DetailVideoInfoController: UITableViewDelegate, UITableViewDataSource 
         }
         
         return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 5].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2 {
+            let vc = NELivePlayerVC.init(url: URL(string: model?.video.string ?? ""))
+            navigationController?.pushViewController(vc ?? UIViewController(), animated: true);
+        }
     }
 }

@@ -20,7 +20,7 @@ private let key = Key<String>(K_JT_token);
  **/
 enum HttpCode : Int {
     case success = 1 //请求成功的状态吗
-    case needLogin = 2  // 返回需要登录的错误码
+    case needLogin = 401  // 返回需要登录的错误码
 }
 
 /**

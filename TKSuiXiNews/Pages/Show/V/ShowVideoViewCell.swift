@@ -9,6 +9,7 @@
 import UIKit
 
 class ShowVideoViewCell: BaseTableViewCell {
+    var block: () -> Void = {}
     //MARK: -设置参数
     var describe: String? {
         willSet(value) {
@@ -104,6 +105,7 @@ class ShowVideoViewCell: BaseTableViewCell {
         //增加一个变灰色的view
         let view = UIView();
         imageView.addSubview(view);
+        imageView.isUserInteractionEnabled = true
         view.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview();
         });
@@ -116,6 +118,9 @@ class ShowVideoViewCell: BaseTableViewCell {
     private lazy var playItem: UIButton = {
         let button = UIButton(type: .custom);
         button.setImage(K_ImageName("play_video"), for: .normal);
+        button.addTarget(self,
+                         action: #selector(tappedPlayItem(_:)),
+                         for: .touchUpInside)
         return button;
     }();
     
@@ -179,6 +184,11 @@ class ShowVideoViewCell: BaseTableViewCell {
             make.left.equalTo(65 * iPHONE_AUTORATIO);
             make.right.equalTo(-13 * iPHONE_AUTORATIO);
         };
+    }
+    
+    //MARK: - 点击播放按钮
+    @objc private func tappedPlayItem(_ sender: UIButton) {
+        block()
     }
 
 }

@@ -22,6 +22,8 @@ pod 'KMPlaceholderTextView' #带placeholder的UITextView
 pod 'YPImagePicker' #图片选择器
 pod 'NELivePlayer' #网易云播放器
 pod 'WaterfallLayout' #瀑布流
+pod 'SwiftySound' #音频播放
+pod 'SKPhotoBrowser' #图片浏览器
 #pod 'BSText' #富文本
 
 end

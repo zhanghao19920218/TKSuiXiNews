@@ -7,16 +7,28 @@
 //
 
 import UIKit
+import DefaultsKit
 
 //MARK: - 立即注册页面
+private let key = Key<String>(K_JT_token);
 
 class SXSignUpViewController: BaseLoginViewController {
+    //手机号码
+    private var mobile:String = ""
+    private var messageCode:String = ""
+    private var password:String = ""
+    private var confirmPassword:String = ""
+    
     //输入手机号码
     private lazy var phoneTextF: SXLoginTextField = {
         let textField = SXLoginTextField.init();
         textField.prefix.image = K_ImageName("phone");
         textField.placeholder = "请输入手机号";
         textField.isSuffixHidden = false;
+        textField.textField.addTarget(self,
+                                      action: #selector(textFieldValueDidChanged(_:)),
+                                      for: .editingChanged)
+        textField.textField.tag = 1
         return textField;
     }()
     
@@ -26,6 +38,13 @@ class SXSignUpViewController: BaseLoginViewController {
         textField.prefix.image = K_ImageName("safe");
         textField.placeholder = "请输入验证码";
         textField.isShowButton = true;
+        textField.suffixButton.addTarget(self,
+                                         action: #selector(sendMssageButton(_:)),
+                                         for: .touchUpInside)
+        textField.textField.tag = 2
+        textField.textField.addTarget(self,
+                                      action: #selector(textFieldValueDidChanged(_:)),
+                                      for: .editingChanged)
         return textField;
     }();
     
@@ -34,6 +53,10 @@ class SXSignUpViewController: BaseLoginViewController {
         let textField = SXLoginTextField.init();
         textField.prefix.image = K_ImageName("psw");
         textField.placeholder = "请输入密码";
+        textField.textField.tag = 3
+        textField.textField.addTarget(self,
+                                      action: #selector(textFieldValueDidChanged(_:)),
+                                      for: .editingChanged)
         return textField;
     }();
     
@@ -42,6 +65,10 @@ class SXSignUpViewController: BaseLoginViewController {
         let textField = SXLoginTextField.init();
         textField.prefix.image = K_ImageName("psw");
         textField.placeholder = "请确认密码";
+        textField.textField.tag = 4
+        textField.textField.addTarget(self,
+                                      action: #selector(textFieldValueDidChanged(_:)),
+                                      for: .editingChanged)
         return textField;
     }();
     
@@ -117,5 +144,67 @@ class SXSignUpViewController: BaseLoginViewController {
     
     override func buttonTapped(_ sender: UIButton) {
         print("点击注册按钮");
+        if !licenseView.button.isSelected {
+            TProgressHUD.show(text: "请同意注册协议")
+            return
+        }
+        
+        if messageCode.isEmpty || password.isEmpty || confirmPassword.isEmpty {
+            TProgressHUD.show(text: "请填写资料完全")
+            return
+        }
+        
+        if confirmPassword != password {
+            TProgressHUD.show(text: "两次密码输入不一致")
+            return
+        }
+        
+        signInUserInfo()
+    }
+    
+    @objc private func sendMssageButton(_ sender: UIButton) {
+        
+        if !(mobile.isPhoneNumber()) {
+            TProgressHUD.show(text: "手机号码错误")
+            return
+        }
+        
+        sendMessageCode()
+    }
+    
+    @objc private func textFieldValueDidChanged(_ sender: UITextField) {
+        if sender.tag == 1 { mobile = sender.text ?? "" }
+        if sender.tag == 2 { messageCode = sender.text ?? "" }
+        if sender.tag == 3 { password = sender.text ?? "" }
+        if sender.tag == 4 { confirmPassword = sender.text ?? "" }
+    }
+}
+
+extension SXSignUpViewController {
+    //MARK: - 发送验证码
+    private func sendMessageCode(){
+        
+        HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: mobile, event: "register"), success: { (json) in
+            TProgressHUD.show(text: "发送验证码成功")
+        }
+        )
+    }
+    
+    //注册会员
+    private func signInUserInfo() {
+        HttpClient.shareInstance.request(target: BAAPI.registerUserInfo(password: password, captcha: messageCode, mobile: mobile), success: { (json) in
+            TProgressHUD.show(text: "注册成功")
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(UserSignInModuleResponse.self, from: json)
+            guard let userModel = model else {
+                return;
+            }
+            let token = userModel.data.userinfo.token.string;
+            Defaults.shared.set(token, for: key);
+            //更新rootVC
+            let rootVC = BaseTabBarController.init();
+            UIViewController.restoreRootViewController(rootVC);
+        }
+        )
     }
 }

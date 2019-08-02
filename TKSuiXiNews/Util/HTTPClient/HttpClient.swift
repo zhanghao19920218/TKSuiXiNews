@@ -8,6 +8,9 @@
 
 import Foundation
 import Moya
+import DefaultsKit
+
+private let key = Key<String>(K_JT_token);
 
 class HttpClient
 {
@@ -26,4 +29,13 @@ class HttpClient
         }
     
     }
+    
+    //MARK: 是不是需要显示登陆的警告, 更换显示的路由器
+    func userSignOutByTokenOutData()
+    {
+        let navigationVC = BANavigationController.init(rootViewController:SXLoginViewController());
+        Defaults.shared.clear(key);
+        UIViewController.restoreRootViewController(navigationVC);
+    }
+    
 }

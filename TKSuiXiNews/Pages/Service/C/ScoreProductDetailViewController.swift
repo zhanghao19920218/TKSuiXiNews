@@ -78,6 +78,7 @@ class ScoreProductDetailViewController: BaseViewController {
             view.block = { [weak self] () in
                 //兑换成功返回
                 self?.exchangeProduct()
+                
             }
             navigationController?.view.addSubview(view)
         }
@@ -107,7 +108,7 @@ extension ScoreProductDetailViewController: UITableViewDelegate, UITableViewData
             let cell = tableView.dequeueReusableCell(withIdentifier: titleproductIdentifier) as! ProductDetailTitleCell
             cell.name = model?.name.string
             cell.score = model?.score.int
-            cell.storage = model?.limit.int
+            cell.storage = model?.stock.int
             return cell
         }
         
@@ -152,6 +153,7 @@ extension ScoreProductDetailViewController {
     private func exchangeProduct() {
         HttpClient.shareInstance.request(target: BAAPI.exchangeAward(id: model?.id.int ?? 0), success: { [weak self] (json) in
             self?.navigationController?.popViewController(animated: true)
+            TProgressHUD.show(text: "兑换成功")
             }
         )
     }

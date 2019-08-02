@@ -11,11 +11,22 @@ import FSPagerView
 import Kingfisher
 
 class BannerView: UIView,FSPagerViewDelegate, FSPagerViewDataSource {
-    fileprivate var numberOfItems = 7
-    lazy var imageNames:Array<String> = {
-        let array = Array<String>();
+    var block: (HomeVVideoBannerDatum) -> Void = { _ in }
+    
+    var dataSources:[HomeVVideoBannerDatum]? {
+        willSet(newValue) {
+            imageNames = newValue ?? []
+            pageControl.numberOfPages = imageNames.count
+            pageView.reloadData()
+        }
+    }
+    
+    private lazy var imageNames:Array<HomeVVideoBannerDatum> = {
+        let array = Array<HomeVVideoBannerDatum>();
         return array;
     }();
+    
+    
 
     private lazy var pageView: FSPagerView = {
         let pageView = FSPagerView.init();
@@ -28,7 +39,6 @@ class BannerView: UIView,FSPagerViewDelegate, FSPagerViewDataSource {
 
     private lazy var pageControl: FSPageControl = {
         let pageControl = FSPageControl();
-        pageControl.numberOfPages = 7
         pageControl.contentHorizontalAlignment = .right
         pageControl.contentInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         return pageControl;
@@ -61,24 +71,26 @@ class BannerView: UIView,FSPagerViewDelegate, FSPagerViewDataSource {
     // MARK:- FSPagerView DataSource
     
     public func numberOfItems(in pagerView: FSPagerView) -> Int {
-        return self.numberOfItems
+        return self.imageNames.count
     }
     
     public func pagerView(_ pagerView: FSPagerView, cellForItemAt index: Int) -> FSPagerViewCell {
+        let model = imageNames[index]
         let cell = pagerView.dequeueReusableCell(withReuseIdentifier: "cell", at: index)
-        cell.imageView?.kf.setImage(with: URL(string: "https://cdn.jiemodui.com/img/Public/Uploads/item/20190424/1556091557677850.png"));
-        cell.textLabel?.text = "安徽高考：6月23日放榜26日填志愿";
+        cell.imageView?.kf.setImage(with: URL(string: model.image.string));
+        cell.textLabel?.text = model.name.string
         cell.imageView?.contentMode = .scaleAspectFill
         cell.imageView?.clipsToBounds = true
-//        cell.textLabel?.text = index.description+index.description
         return cell
     }
     
     // MARK:- FSPagerView Delegate
     
     func pagerView(_ pagerView: FSPagerView, didSelectItemAt index: Int) {
+        let model = imageNames[index]
         pagerView.deselectItem(at: index, animated: true)
         pagerView.scrollToItem(at: index, animated: true)
+        block(model)
     }
     
     func pagerViewWillEndDragging(_ pagerView: FSPagerView, targetIndex: Int) {

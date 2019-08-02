@@ -37,20 +37,15 @@ struct ShowListDataModel: Codable {
 // MARK: - Datum
 struct ShowListItemModel: Codable {
     let id, userID, adminID: TStrInt
-    let module: TStrInt
-    let moduleSecond, name: TStrInt
+    let module, moduleSecond, name: TStrInt
     let image: TStrInt?
     let images: [String]
     let video: TStrInt
-    let audio: TStrInt
-    let content: JSONNull?
-    let nickname: TStrInt
-    let avatar: TStrInt
+    let audio, content, nickname, avatar: TStrInt
     let status: TStrInt
     let visitNum, commentNum, likeNum, createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
-    let time: TStrInt?
-    let begintime: TStrInt
+    let time, type, begintime: TStrInt
     let likeStatus, collectStatus: TStrInt
     
     enum CodingKeys: String, CodingKey {
@@ -65,7 +60,7 @@ struct ShowListItemModel: Codable {
         case likeNum = "like_num"
         case createtime, updatetime
         case voteID = "vote_id"
-        case weigh, time, begintime
+        case weigh, time, type, begintime
         case likeStatus = "like_status"
         case collectStatus = "collect_status"
     }

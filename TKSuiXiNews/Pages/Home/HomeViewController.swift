@@ -76,6 +76,13 @@ class HomeViewController: BaseViewController {
             } else if index == 7 {
                 //悦读
                 controller = HomeHappyReadViewController()
+                
+            } else if index == 8 {
+                //悦听
+                controller = HomeHappyListenController()
+            } else if index == 9 {
+                //党建
+                controller = HomePartyBuildViewController()
             } else {
                 controller = UIViewController();
             }

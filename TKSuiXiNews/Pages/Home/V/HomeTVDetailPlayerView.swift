@@ -55,9 +55,7 @@ class HomeTVDetailPlayerView: UIView {
         addSubview(player);
         player.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview();
-            make.top.equalTo(15 * iPHONE_AUTORATIO);
-            make.left.equalTo(10 * iPHONE_AUTORATIO);
-            make.right.equalTo(-9 * iPHONE_AUTORATIO);
+            make.top.left.right.equalToSuperview()
             make.height.equalTo(94 * iPHONE_AUTORATIO);
         }
         

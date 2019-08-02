@@ -147,19 +147,4 @@ extension ServiceWKWebViewController: WKUIDelegate, WKNavigationDelegate {
 
         decisionHandler(.allow)
     }
-    
-    
-    
-//    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-//        if !(navigationAction.targetFrame?.isMainFrame ?? true) {
-//            if let newUrl = navigationAction.request.url?.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "`#%^{}\"[]|\\<> ").inverted) {
-//                if let url = URL(string: newUrl) {
-//                    print(url);
-//                    webView.load(URLRequest(url: url))
-//                }
-//            }
-//        }
-//
-//        return nil
-//    }
 }

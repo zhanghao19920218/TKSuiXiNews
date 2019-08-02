@@ -29,6 +29,8 @@ class HomeHappyReadViewController: BaseViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = RGBA(239, 239, 239, 1)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.alwaysBounceVertical = true
         return collectionView
     }()
 
@@ -37,14 +39,117 @@ class HomeHappyReadViewController: BaseViewController {
 
         // Do any additional setup after loading the view.
         _setupUI()
+        
+        requestData()
     }
     
     private func _setupUI() {
+        
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
             make.left.right.top.equalToSuperview()
             make.bottom.equalTo(-TAB_BAR_HEIGHT)
         }
+        
+        //增加下拉刷新
+        collectionView.es.addPullToRefresh {
+            [unowned self] in
+            //加载更多数据
+            self.pullDownRefreshData();
+        }
+        
+        //增加上拉加载更多
+        collectionView.es.addInfiniteScrolling {
+            [unowned self] in
+            /// Do anything you want...
+            /// ...
+            /// If common end
+            self.pullUpLoadMoreData()
+        }
+    }
+    
+    //当前页码
+    lazy var page:Int = {
+        let int = 1;
+        return int;
+    }();
+    
+    //当前的数据
+    private lazy var _dataSource:Array<Any> = {
+        let array = [Any]();
+        return array;
+    }();
+    
+    //设置
+    var dataSource: Array<Any> {
+        set(value){
+            _dataSource = value;
+        }
+        
+        get {
+            return _dataSource;
+        }
+    }
+    
+    
+    /**
+     * 下拉加载是否可以显示
+     */
+    func pullDownRefreshData()
+    {
+        page = 1;
+        _dataSource = [];
+        collectionView.es.resetNoMoreData();
+        
+        //请求成功进行再次刷新数据
+        HttpClient.shareInstance.request(target: BAAPI.contentList(module: "悦读", page: page), success:{ [weak self] (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(HomeHappyReadResponse.self, from: json)
+            guard let forceModel = model else {
+                return;
+            }
+            
+            self?.dataSource = forceModel.data.data
+            self?.collectionView.es.stopPullToRefresh();
+            self?.collectionView.reloadData();
+            }, failure:{ [weak self] () in
+                self?.collectionView.es.stopPullToRefresh();
+                self?.collectionView.reloadData();
+            }
+        )
+    }
+    
+    /**
+     * 上拉可以加载更多
+     */
+    func pullUpLoadMoreData()
+    {
+        page = (page == 1 ? 2 : page);
+        
+        //请求成功进行再次刷新数据
+        HttpClient.shareInstance.request(target: BAAPI.contentList(module: "悦读", page: page), success:{ [weak self] (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(HomeHappyReadResponse.self, from: json)
+            guard let forceModel = model else {
+                return;
+            }
+            
+            if forceModel.data.data.count != 0 {
+                //页数+1
+                self?.page += 1;
+                self?.dataSource += forceModel.data.data;
+                self?.collectionView.es.stopLoadingMore();
+                self?.collectionView.reloadData();
+            } else {
+                //没有更多数据
+                self?.collectionView.es.noticeNoMoreData();
+            }
+            
+            }, failure:{ [weak self] () in
+                self?.collectionView.es.stopLoadingMore();
+                self?.collectionView.reloadData();
+            }
+        )
     }
 }
 
@@ -55,17 +160,18 @@ extension HomeHappyReadViewController: UICollectionViewDataSource, UICollectionV
             return cell
         }
         
+        let model = dataSource[indexPath.row - 1] as! HomeHappyReadListItemModel
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! HomeHappyReadImageCell
-        cell.imagename = "http://medium.tklvyou.cn/uploads/20190729/561891ee5604094965343ca574ae170b.jpg"
-        cell.title = "文章名称文章名称文章名称文章名称文章名称"
-        cell.reviewNum = 1265
-        cell.time = "3小时前"
+        cell.imagename = model.image.string
+        cell.title = model.name.string
+        cell.reviewNum = model.visitNum.int
+        cell.time = model.begintime.string
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 11
+        return self.dataSource.count + 1
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -85,5 +191,22 @@ extension HomeHappyReadViewController: WaterfallLayoutDelegate {
             return CGSize(width: 165 * iPHONE_AUTORATIO, height: 25 * iPHONE_AUTORATIO)
         }
         return CGSize(width: 165 * iPHONE_AUTORATIO, height: 200 * iPHONE_AUTORATIO)
+    }
+}
+
+extension HomeHappyReadViewController {
+    //MARK: - 请求数据
+    private func requestData() {
+        HttpClient.shareInstance.request(target: BAAPI.contentList(module: "悦读", page: page), success: { [weak self] (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(HomeHappyReadResponse.self, from: json)
+            guard let forceModel = model else {
+                return;
+            }
+
+            self?.dataSource = forceModel.data.data
+            self?.collectionView.reloadData()
+            }
+        )
     }
 }

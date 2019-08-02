@@ -119,6 +119,13 @@ extension HomeVideoNewsListController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 113 * iPHONE_AUTORATIO;
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = dataSource[indexPath.row] as! HomeVideoNewsListModel
+        let vc = VideoNewsDetailController()
+        vc.id = model.id.string
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension HomeVideoNewsListController {

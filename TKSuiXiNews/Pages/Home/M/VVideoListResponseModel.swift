@@ -42,7 +42,7 @@ struct VVideoListModel: Codable {
     let images: [JSONAny]
     let video: TStrInt
     let audio: TStrInt
-    let content: JSONNull?
+    let content: TStrInt?
     let nickname, avatar, status: TStrInt
     let visitNum, commentNum, likeNum, createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt

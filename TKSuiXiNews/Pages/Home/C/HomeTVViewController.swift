@@ -15,6 +15,9 @@ fileprivate let sectionFirstCellIdentifier = "HomeTVChannelFirstCellIdentifier";
 fileprivate let sectionOtherCellIdentifier = "HomeTVOtherSectionCellIdentifier";
 
 class HomeTVViewController: BaseViewController {
+    //获取基本的标题model
+    private var topModel: HomeTVTitleResponseDatum?
+    
     //基类的tableView
     lazy var tableView:UITableView = {
         let tableView = UITableView.init(frame: .zero);
@@ -65,6 +68,14 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: sectionFirstCellIdentifier) as! HomeTVChannelFirstCell;
+            if let model = self.topModel {
+                cell.firstImage = model.data[0].image.string
+                cell.secondImage = model.data[1].image.string
+                cell.thirdImage = model.data[2].image.string
+                cell.firstName = model.data[0].name.string
+                cell.movieName = model.data[1].name.string
+                cell.thirdName = model.data[2].name.string
+            }
             return cell;
         }
         
@@ -76,13 +87,18 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
         cell.titleFirst = model.data[0].name.string
         cell.titleSecond = model.data[1].name.string
         cell.videoBlock = { [weak self] () in
-            let vc = NETLivePlayerController(url: "https://hwapi.yunshicloud.com/m87oxo/251011.m3u8");
-            self?.navigationController?.pushViewController(vc, animated: true);
+            let vc = NELivePlayerVC(url: URL(string: "https://hwapi.yunshicloud.com/m87oxo/251011.m3u8"))
+            self?.navigationController?.pushViewController(vc ?? UIViewController(), animated: true);
         }
         
         cell.videoSecondBlock = { [weak self] () in
-            let vc = NETLivePlayerController(url: "https://hwapi.yunshicloud.com/m87oxo/251011.m3u8");
-            self?.navigationController?.pushViewController(vc, animated: true);
+            let vc = NELivePlayerVC(url: URL(string: "https://hwapi.yunshicloud.com/m87oxo/251011.m3u8"))
+            self?.navigationController?.pushViewController(vc ?? UIViewController(), animated: true);
+        }
+        cell.checkTotalBlock = { [weak self] () in
+            let vc = HomeTotalVideoController()
+            vc.startIndex = (indexPath.row - 1)
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
         return cell;
     }
@@ -105,8 +121,11 @@ extension HomeTVViewController {
             guard let forceModel = model else {
                 return;
             }
-
-            self?.dataSource = forceModel.data;
+            
+            self?.dataSource = forceModel.data
+            for (index, item) in (self?.dataSource.enumerated() ?? [].enumerated()) {
+                if item.moduleSecond == "置顶频道" { self?.topModel = item; self?.dataSource.remove(at: index) }
+            }
             self?.tableView.reloadData();
             }
         )

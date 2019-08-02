@@ -19,14 +19,13 @@ struct DetailArticleModel: Codable {
     let id, userID, adminID: TStrInt
     let module, moduleSecond, name: TStrInt
     let image: TStrInt
-    let images: [String]?
+    let images: [String]
     let video: TStrInt
-    let audio: TStrInt
-    let content: JSONNull?
-    let nickname, avatar, status: TStrInt
+    let audio, content, nickname, avatar: TStrInt
+    let status: TStrInt
     let visitNum, commentNum, likeNum, createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
-    let time: TStrInt
+    let time, type: TStrInt
     let comment: [DetailInfoComment]?
     let begintime: TStrInt
     let likeStatus, collectStatus: TStrInt
@@ -43,7 +42,7 @@ struct DetailArticleModel: Codable {
         case likeNum = "like_num"
         case createtime, updatetime
         case voteID = "vote_id"
-        case weigh, time, comment, begintime
+        case weigh, time, type, comment, begintime
         case likeStatus = "like_status"
         case collectStatus = "collect_status"
     }

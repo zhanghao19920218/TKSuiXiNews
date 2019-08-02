@@ -33,7 +33,7 @@ class DetailVVideoInfoCell: BaseTableViewCell {
     }
     
     var videoItem: HomeVVideoBaseView = {
-        let view = HomeVVideoBaseView(frame: .zero);
+        let view = HomeVVideoBaseView(frame: .zero)
         return view;
     }();
     
@@ -41,7 +41,6 @@ class DetailVVideoInfoCell: BaseTableViewCell {
         super.setupUI()
         
         contentView.addSubview(videoItem);
-        videoItem.videoBlock = self.block;
         videoItem.snp.makeConstraints { (make) in
             make.top.equalTo(20 * iPHONE_AUTORATIO)
             make.left.equalTo(13 * iPHONE_AUTORATIO);

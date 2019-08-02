@@ -67,6 +67,7 @@ public class HttpRequest {
                     success(response.data)
                 case HttpCode.needLogin.rawValue:
                     //请重新登录
+                    HttpClient.shareInstance.userSignOutByTokenOutData()//退出登录
                     failure?(model.generalStatus ,model.generalErrmsg)
                     alertLogin(model.generalErrmsg)
                 default:

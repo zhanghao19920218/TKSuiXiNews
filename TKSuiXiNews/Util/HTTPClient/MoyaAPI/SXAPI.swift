@@ -40,6 +40,26 @@ enum  BAAPI {
     case awardDraw
     //兑换操作
     case exchangeAward(id: Int)
+    //修改会员信息
+    case changeMemberInfo(avatar:String,nickname:String)
+    //积分明细
+    case integralDetail(page: Int)
+    //二级模块
+    case secondModule(module: String, module_second: String, page: Int)
+    //发表评论
+    case commentAdd(id: Int, detail:String)
+    //发送验证码
+    case sendMessageCode(mobile: String, event: String)
+    //注册会员
+    case registerUserInfo(password:String, captcha: String, mobile:String)
+    //点赞
+    case addLikeNum(id: Int)
+    //取消点赞
+    case dislikeComment(id: Int)
+    //注销登录
+    case logoutLogin
+    //顶部banner
+    case topBanner(module: String)
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -83,6 +103,27 @@ extension BAAPI: TargetType {
             
         case .exchangeAward:
             return K_URL_exchangeProduct
+            
+        case .changeMemberInfo:
+            return K_URL_changeMemberInfo
+        case .integralDetail:
+            return K_URL_IntegralDetail
+        case .secondModule:
+            return K_URL_contentList
+        case .commentAdd:
+            return K_URL_commentAdd
+        case .sendMessageCode:
+            return K_URL_sendMassage
+        case .registerUserInfo:
+            return K_URL_signIn
+        case .addLikeNum:
+            return K_URL_addLike
+        case .dislikeComment:
+            return K_URL_disLike
+        case .logoutLogin:
+            return K_URL_logOut
+        case .topBanner:
+            return K_URL_banner
         }
         
     }
@@ -159,10 +200,6 @@ extension BAAPI: TargetType {
                     params["images"] = array;
                     print(array);
                 }
-//                let array = images
-//                let data = try? JSONSerialization.data(withJSONObject: images ?? [String](), options: .prettyPrinted);
-//                let imagesJson = String(data: data ?? Data.init(), encoding: String.Encoding.unicode);
-//                params["images"] = imagesJson ?? "[]";
             }
             
         case let .scoreItemList(p):
@@ -173,6 +210,33 @@ extension BAAPI: TargetType {
             
         case let .exchangeAward(id):
             params["id"] = id
+            
+        case let .secondModule(module, module_second, page):
+            params["module"] = module
+            params["module_second"] = module_second
+            params["page"] = page
+            
+        case let .commentAdd(id, detail):
+            params["article_id"] = id
+            params["detail"] = detail
+            
+        case let .sendMessageCode(mobile, event):
+            params["mobile"] = mobile
+            params["event"] = event
+            
+        case let .registerUserInfo(password, captcha, mobile):
+            params["password"] = password
+            params["captcha"] = captcha
+            params["mobile"] = mobile
+            
+        case let .addLikeNum(id):
+            params["article_id"] = id
+        
+        case let .dislikeComment(id):
+            params["article_id"] = id
+
+        case let .topBanner(module):
+            params["module"] = module
             
         default:
             //不需要传参数的接口走这里

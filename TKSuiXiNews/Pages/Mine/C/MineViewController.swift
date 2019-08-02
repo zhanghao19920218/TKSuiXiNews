@@ -9,6 +9,9 @@
 import UIKit
 
 class MineViewController: BaseViewController {
+    
+    private var infoModel : MemberInfoModel?
+    
     //设置背景的view
     private lazy var backImageView: UIImageView = {
         let imageView = UIImageView.init();
@@ -63,6 +66,7 @@ class MineViewController: BaseViewController {
         button.layer.shadowOffset = CGSize(width: 1 , height: 1)
         button.layer.shadowOpacity = 0.5;
         button.layer.shadowColor = UIColor.lightGray.cgColor
+        button.addTarget(self, action: #selector(clickIntegralDetailAction), for: .touchUpInside)
         return button;
     }();
     
@@ -77,6 +81,7 @@ class MineViewController: BaseViewController {
         let button = UIButton(type: .custom);
         button.setImage(K_ImageName("setting_icon"), for: .normal);
         button.frame = CGRect(x: 0, y: 0, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO)
+        button.addTarget(self, action: #selector(self.clickSettingAction), for: .touchUpInside)
         return button;
     }();
     
@@ -87,17 +92,29 @@ class MineViewController: BaseViewController {
         // Do any additional setup after loading the view.
         createNavigationBarLogo();
         
+        navigationController?.navigationBar.barTintColor = appThemeColor;
         //设置背景透明
-        setupTransaleBar();
+//        setupTransaleBar();
         
         setupUI()
         
         requestData()
         
         configureNavigationBar()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(requestData), name: NSNotification.Name(rawValue: "refreshMemberInfo"), object: nil)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isTranslucent = true;
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isTranslucent = false
+    }
     
     //MARK: - 更新StatusBar
     override var preferredStatusBarStyle: UIStatusBarStyle
@@ -113,9 +130,9 @@ class MineViewController: BaseViewController {
     
     
     //MARK: - 设置透明NavigationBar
-    private func setupTransaleBar(){
-        navigationController?.navigationBar.isTranslucent = true;
-    }
+//    private func setupTransaleBar(){
+//        navigationController?.navigationBar.isTranslucent = true;
+//    }
     
 
     //MARK: -更新个人页面背景
@@ -127,6 +144,9 @@ class MineViewController: BaseViewController {
             make.top.equalTo(0);
             make.height.equalTo(311 * iPHONE_AUTORATIO);
         };
+        backImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer.init(target: self, action: #selector(self.clickInfoAction))
+        backImageView.addGestureRecognizer(tap)
         
         //头像
         view.addSubview(avatarImageView);
@@ -172,21 +192,56 @@ class MineViewController: BaseViewController {
             make.left.right.equalToSuperview();
             make.height.equalTo(200 * iPHONE_AUTORATIO)
         }
+        //CollectionViewCell点击
+        mineCollectionView.mb = {(index:Int)->(Void) in
+            if index == 0 {
+                //我的收藏
+                let vc = MineCollectionViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }else if(index == 7){
+                //关于我们
+                let vc = AboutUsViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+    
+    //点击设置按钮
+    @objc public func clickSettingAction(){
+        let vc = MineSettingViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    //进入个人中心
+    @objc func clickInfoAction(){
+        let vc = MineInfoViewController()
+        navigationController?.pushViewController(vc, animated: true)
+        vc.infoModel = self.infoModel
+    }
+    
+    //进入积分明细
+    @objc func clickIntegralDetailAction(){
+        let vc = MineIntegralDetailViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 
 extension MineViewController {
     //MARK: - 请求个人中心数据
-    private func requestData(){
+    @objc private func requestData(){
         HttpClient.shareInstance.request(target: BAAPI.memeberInfo, success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(MemeberInfoResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
-            
-            self?.avatarImageView.kf.setImage(with: URL(string: forceModel.data.avatar.string), placeholder: K_ImageName(PLACE_HOLDER_IMAGE))
+            self?.infoModel = model?.data
+            var avatar = forceModel.data.avatar.string
+            if !avatar.contains("http") || !avatar.contains("https"){
+                avatar = K_URL_Base + avatar
+            }
+            self?.avatarImageView.kf.setImage(with: URL(string: avatar), placeholder: K_ImageName(PLACE_HOLDER_IMAGE))
             self?.nicknameLabel.text = forceModel.data.nickname.string
             self?.mobileLabel.text = forceModel.data.mobile.string
             self?.scoreBackButton.score = forceModel.data.score.string;

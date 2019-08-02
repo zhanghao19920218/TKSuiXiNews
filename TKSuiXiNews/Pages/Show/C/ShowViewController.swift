@@ -171,8 +171,12 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
             cell.comment = model.commentNum.string;
             cell.isLike = model.likeStatus.int;
             cell.like = model.likeNum.string;
-            cell.videoLength = model.time?.string;
+            cell.videoLength = model.time.string;
             cell.beginTime = model.begintime.string;
+            cell.block = { [weak self] () in
+                let vc = NELivePlayerVC.init(url: URL(string: model.video.string))
+                self?.navigationController?.pushViewController(vc ?? UIViewController(), animated: true);
+            }
             return cell;
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! ShowImageTextCell;

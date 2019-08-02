@@ -169,10 +169,10 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let model = dataSource[indexPath.row - 1] as! VVideoListModel;
-//        let vc = DetailVideoInfoController();
-//        vc.id = model.id.string
-//        parent?.navigationController?.pushViewController(vc, animated: true);
+        let model = dataSource[indexPath.row - 2] as! HomeNewsListModel;
+        let vc = HomeNewsDetailInfoController();
+        vc.id = model.id.string
+        parent?.navigationController?.pushViewController(vc, animated: true);
     }
 }
 

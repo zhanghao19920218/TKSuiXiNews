@@ -15,6 +15,10 @@ fileprivate let bannerIdentifier = "HomeVVideoBannerCellIdentifier";
 fileprivate let normalIdentifier = "HomeVVideoNormalCellIdentifier";
 
 class HomeVVideoController: BaseTableViewController {
+    //banner的model
+    private var model: HomeVVideoBannerResponse?
+    
+    private lazy var images:[HomeVVideoBannerDatum] = [];
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +27,7 @@ class HomeVVideoController: BaseTableViewController {
         
         setupUI()
 
+        requestBanner()
     }
     
     
@@ -50,6 +55,8 @@ class HomeVVideoController: BaseTableViewController {
             let decoder = JSONDecoder()
             let model = try? decoder.decode(VVideoListResponseModel.self, from: json)
             guard let forceModel = model else {
+                self?.tableView.es.stopPullToRefresh();
+                self?.tableView.reloadData();
                 return;
             }
             
@@ -74,6 +81,8 @@ class HomeVVideoController: BaseTableViewController {
             let decoder = JSONDecoder()
             let model = try? decoder.decode(VVideoListResponseModel.self, from: json)
             guard let forceModel = model else {
+                self?.tableView.es.stopPullToRefresh();
+                self?.tableView.reloadData();
                 return;
             }
             
@@ -108,6 +117,13 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: bannerIdentifier) as! HomeVVideoBannerCell;
+            if let model = model { cell.images = model.data }
+            cell.block = { [weak self] (model) in
+                let vc = HomeBannerDetailViewController()
+                vc.loadUrl = model.content.string
+                vc.name = model.name.string
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
             return cell;
         }
         
@@ -124,8 +140,8 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
         cell.like = model.likeNum.string;
         cell.videoLength = model.time.string;
         cell.block = { [weak self] () in
-            let vc = NetworkPlayerController(url: model.video.string);
-            self?.navigationController?.pushViewController(vc, animated: true);
+            let vc = NELivePlayerVC.init(url: URL(string: model.video.string))
+            self?.navigationController?.pushViewController(vc ?? UIViewController(), animated: true);
         }
         return cell;
     }
@@ -156,6 +172,21 @@ extension HomeVVideoController {
             }
             
             self?.dataSource = forceModel.data.data;
+            self?.tableView.reloadData();
+            }
+        )
+    }
+    
+    //MARK: - 请求Banner
+    private func requestBanner() {
+        HttpClient.shareInstance.request(target: BAAPI.topBanner(module: "V视频"), success: { [weak self] (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(HomeVVideoBannerResponse.self, from: json)
+            guard let forceModel = model else {
+                return;
+            }
+
+            self?.model = forceModel
             self?.tableView.reloadData();
             }
         )

@@ -21,6 +21,16 @@ class ResendButtonBottom: UIView {
     //按钮点击
     var bottomBlock: BottomButtonBlock?
     
+    //是不是已经点赞
+    var isLike:Int? {
+        willSet(newValue) {
+            if let value = newValue {
+                likeButton.isSelected = (value == 1)
+            }
+        }
+    }
+    
+    var isTappedBlock: (Bool) -> Void = { _ in }
     
     //转发按钮
     private lazy var resendButton: UIButton = {
@@ -55,6 +65,7 @@ class ResendButtonBottom: UIView {
         let button = UIButton(type: .custom);
         button.setTitleColor(RGBA(153, 153, 153, 1))
         button.setImage("unlike_button_icon")
+        button.setSelectedImage("like")
         button.setTitle(" 赞")
         button.titleLabel?.font = textFont
         button.tag = 3;
@@ -137,7 +148,7 @@ class ResendButtonBottom: UIView {
         } else if sender.tag == 2 {
             block(BottomButtonType.comment);
         } else {
-            block(BottomButtonType.like)
+            isTappedBlock(sender.isSelected)
         }
     }
 }

@@ -176,6 +176,7 @@ class MallPopMenu: UIView {
         if (sender.titleLabel?.text ?? "") == "立即兑换" {
             block()
         }
+        tappedCancel()
     }
     
     //MARK: - 点击关闭按钮

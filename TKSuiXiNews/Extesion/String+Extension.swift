@@ -21,6 +21,14 @@ extension String {
         return encodeUrlString ?? ""
     }
     
+    //MARK: - 手机号码判断
+    func isPhoneNumber() -> Bool {
+        if let _ = self.range(of: "^1[3|4|5|7|8][0-9]{9}$", options: .regularExpression) {
+            return true
+        }
+        return false
+    }
+    
     //MARK: - 将编码后的url转换回原始的url
     func urlDecoded() -> String {
         return self.removingPercentEncoding ?? ""

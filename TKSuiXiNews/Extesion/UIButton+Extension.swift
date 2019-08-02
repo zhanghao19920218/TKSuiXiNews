@@ -14,6 +14,10 @@ extension UIButton {
         setImage(K_ImageName(imagename), for: .normal);
     }
     
+    open func setSelectedImage(_ imagename: String) {
+        setImage(K_ImageName(imagename), for: .selected);
+    }
+    
     //MARK: - 设置标题
     open func setTitle(_ title: String) {
         setTitle(title, for: .normal);
