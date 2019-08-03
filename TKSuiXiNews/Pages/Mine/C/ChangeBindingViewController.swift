@@ -9,27 +9,162 @@
 import UIKit
 
 class ChangeBindingViewController: BaseViewController {
+    private var _mobile:String = ""
+    
+    private var _code:String = ""
+    
+    private lazy var backView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private lazy var mobileTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = kFont(14 * iPHONE_AUTORATIO)
+        label.text = "手机号"
+        return label
+    }()
+    
+    private lazy var textField:UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "请输入手机号"
+        textField.font = kFont(14 * iPHONE_AUTORATIO)
+        textField.textAlignment = .right
+        textField.keyboardType = .numberPad
+        textField.tag = 1
+        textField.addTarget(self,
+                            action: #selector(textFieldValueDidChanged(_:)),
+                            for: .editingChanged)
+        return textField
+    }()
+    
+    private lazy var codeTitleLabel: UILabel = {
+        let label = UILabel()
+        label.font = kFont(14 * iPHONE_AUTORATIO)
+        label.text = "验证码"
+        return label
+    }()
+    
+    private lazy var sendCodeButton: CounterButton = {
+        let button = CounterButton(type: .custom)
+        button.setTitleColor(RGBA(255, 74, 92, 1))
+        button.titleLabel?.font = kFont(12 * iPHONE_AUTORATIO)
+        button.setTitle("发送验证码")
+        button.addTarget(self,
+                         action: #selector(sendMessageCode(_:)),
+                         for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var line1: UIView = {
+        let view = UIView()
+        view.backgroundColor = RGBA(238, 238, 238, 1)
+        return view
+    }()
+    
+    private lazy var messageTextField:UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "请输入验证码"
+        textField.keyboardType = .numberPad
+        textField.tag = 2
+        textField.addTarget(self,
+                            action: #selector(textFieldValueDidChanged(_:)),
+                            for: .editingChanged)
+        return textField
+    }()
+    
+    private lazy var confirmBindButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.backgroundColor = RGBA(255, 74, 92, 1)
+        button.setTitle("确 认 绑 定")
+        button.titleLabel?.font = kFont(16 * iPHONE_AUTORATIO)
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "更换绑定"
-        //设置标题为白色
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        createView()
+        
+        navigationItem.title = "更换绑定"
+        
+        setupUI()
     }
     
-    func createView(){
+    
+    func setupUI()  {
+        view.backgroundColor = RGBA(245, 245, 245, 1)
         
+        view.addSubview(backView)
+        backView.snp.makeConstraints { (make) in
+            make.left.top.equalTo(15 * iPHONE_AUTORATIO)
+            make.right.equalTo(-15 * iPHONE_AUTORATIO)
+            make.height.equalTo(106 * iPHONE_AUTORATIO)
+        }
+        
+        backView.addSubview(mobileTitleLabel)
+        mobileTitleLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(16 * iPHONE_AUTORATIO)
+            make.top.equalTo(20 * iPHONE_AUTORATIO)
+        }
+        
+        backView.addSubview(textField)
+        textField.snp.makeConstraints { (make) in
+            make.right.equalTo(-15 * iPHONE_AUTORATIO)
+            make.centerY.equalTo(mobileTitleLabel.snp_centerY)
+        }
+        
+        backView.addSubview(line1)
+        line1.snp.makeConstraints { (make) in
+            make.left.equalTo(15 * iPHONE_AUTORATIO)
+            make.right.equalTo(-15 * iPHONE_AUTORATIO)
+            make.top.equalTo(53 * iPHONE_AUTORATIO)
+            make.height.equalTo(1)
+        }
+        
+        backView.addSubview(codeTitleLabel)
+        codeTitleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(73 * iPHONE_AUTORATIO)
+            make.left.equalTo(15 * iPHONE_AUTORATIO)
+        }
+        
+        backView.addSubview(sendCodeButton)
+        sendCodeButton.snp.makeConstraints { (make) in
+            make.right.bottom.equalToSuperview()
+            make.size.equalTo(CGSize(width: 90 * iPHONE_AUTORATIO, height: 52 * iPHONE_AUTORATIO))
+        }
+        
+        backView.addSubview(messageTextField)
+        messageTextField.snp.makeConstraints { (make) in
+            make.right.equalTo(sendCodeButton.snp_left)
+            make.centerY.equalTo(codeTitleLabel.snp_centerY)
+        }
+        
+        view.addSubview(confirmBindButton)
+        confirmBindButton.snp.makeConstraints { (make) in
+            make.left.bottom.right.equalToSuperview()
+            make.height.equalTo(49 * iPHONE_AUTORATIO)
+        }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @objc private func textFieldValueDidChanged(_ sender: UITextField) {
+        if sender.tag == 1 {
+            _mobile = sender.text ?? ""
+        } else {
+            _code = sender.text ?? ""
+        }
     }
-    */
+    
+    @objc private func sendMessageCode(_ sender: UIButton) {
+        if _mobile.isEmpty || _mobile.isPhoneNumber() {
+            TProgressHUD.show(text: "请输入正确的手机号码")
+            return
+        }
+        
+        //MARK: - 发送验证码
+//        HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: mobile, event: "register"), success: { (json) in
+//            TProgressHUD.show(text: "发送验证码成功")
+//        }
+//        )
+    }
 
 }

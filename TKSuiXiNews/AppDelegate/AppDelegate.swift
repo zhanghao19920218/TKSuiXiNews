@@ -11,6 +11,7 @@ import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    @objc var allowrRotate:NSInteger = 0
 
     var window: UIWindow?
 
@@ -50,6 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if allowrRotate == 1 {
+            return .all
+        } else {
+            return .portrait
+        }
+    }
 
 }
 

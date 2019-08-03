@@ -60,6 +60,16 @@ enum  BAAPI {
     case logoutLogin
     //顶部banner
     case topBanner(module: String)
+    //消息模块
+    case messageBlock(page: Int)
+    //最近浏览
+    case recentlyReview(page: Int)
+    //添加收藏
+    case addFavorite(id: Int)
+    //收藏列表
+    case favoriteList(page: Int)
+    //兑换列表
+    case exchangeProduct(page: Int)
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -124,6 +134,16 @@ extension BAAPI: TargetType {
             return K_URL_logOut
         case .topBanner:
             return K_URL_banner
+        case .messageBlock:
+            return K_URL_messageList
+        case .recentlyReview:
+            return K_URL_recentlyReview
+        case .addFavorite:
+            return K_URL_addFavorite
+        case .favoriteList:
+            return K_URL_favoriteList
+        case .exchangeProduct:
+            return K_URL_exchangeRecord
         }
         
     }
@@ -237,6 +257,21 @@ extension BAAPI: TargetType {
 
         case let .topBanner(module):
             params["module"] = module
+            
+        case let .messageBlock(page):
+            params["p"] = page
+            
+        case let .recentlyReview(page):
+            params["p"] = page
+            
+        case let .addFavorite(id):
+            params["article_id"] = id
+            
+        case let .favoriteList(page):
+            params["p"] = page
+            
+        case let .exchangeProduct(page):
+            params["p"] = page
             
         default:
             //不需要传参数的接口走这里

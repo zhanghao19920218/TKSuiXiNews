@@ -46,7 +46,7 @@ class HomeViewController: BaseViewController {
         
         
         // 设置标题内容
-        let titles = ["V视频", "濉溪TV", "新闻", "视讯", "问政", "矩阵", "原创", "悦读", "悦听", "党建", "专栏"];
+        let titles = ["V视频", "濉溪TV", "新闻", "视讯", "问政", "矩阵", "原创", "悦读", "悦听"];
         
         // 创建每一页对应的controller
         let childViewControllers: [UIViewController] = titles.enumerated().map { (index, _) -> UIViewController in

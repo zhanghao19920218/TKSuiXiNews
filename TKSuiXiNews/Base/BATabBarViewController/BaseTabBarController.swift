@@ -24,6 +24,8 @@ class BaseTabBarController: UITabBarController, tabBarDelegate {
         
         self.tabBar.backgroundImage = UIImage.init();
         self.tabBar.shadowImage = UIImage.init();
+        
+        tabBar.isTranslucent = false
     }
     
     func tabBar(_ tabBar: BATabBar, didSelectedButtonFrom from: Int, toIndex to: Int) {

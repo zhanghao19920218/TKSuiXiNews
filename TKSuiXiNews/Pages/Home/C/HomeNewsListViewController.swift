@@ -15,6 +15,8 @@ fileprivate let newsThreePicIdentifier = "HomeNewsThreePictureCellIdentifier"
 fileprivate let newsNoPicIdentifier = "HomeNewsNoPicCellIdentifier"
 
 class HomeNewsListViewController: BaseTableViewController {
+    //banner的model
+    private var model: HomeVVideoBannerResponse?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +44,8 @@ class HomeNewsListViewController: BaseTableViewController {
         super.loadData();
         
         requestData(); //请求数据
+        
+        requestBanner()
     }
     
     override func pullDownRefreshData() {
@@ -115,6 +119,13 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
         
         if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: bannerIdentifier) as! HomeVVideoBannerCell;
+            if let model = model { cell.images = model.data }
+            cell.block = { [weak self] (model) in
+                let vc = HomeBannerDetailViewController()
+                vc.loadUrl = model.content.string
+                vc.name = model.name.string
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
             return cell;
         }
         
@@ -161,6 +172,10 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
         
         let model = dataSource[indexPath.row - 2] as! HomeNewsListModel
         
+        if !model.image.string.isEmpty {
+            return 118 * iPHONE_AUTORATIO
+        }
+        
         if model.images.count == 3 {
             return 187 * iPHONE_AUTORATIO
         } else {
@@ -187,6 +202,21 @@ extension HomeNewsListViewController {
             }
 
             self?.dataSource = forceModel.data.data;
+            self?.tableView.reloadData();
+            }
+        )
+    }
+    
+    //MARK: - 请求Banner
+    private func requestBanner() {
+        HttpClient.shareInstance.request(target: BAAPI.topBanner(module: "新闻"), success: { [weak self] (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(HomeVVideoBannerResponse.self, from: json)
+            guard let forceModel = model else {
+                return;
+            }
+            
+            self?.model = forceModel
             self?.tableView.reloadData();
             }
         )

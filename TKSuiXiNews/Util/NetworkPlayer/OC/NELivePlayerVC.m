@@ -9,6 +9,7 @@
 #import "NELivePlayerVC.h"
 #import "NELivePlayerControlView.h"
 #import <NELivePlayerFramework/NELivePlayerFramework.h>
+#import "TKSuiXiNews-Swift.h"
 
 @interface NELivePlayerVC ()<NELivePlayerControlViewProtocol>
 {
@@ -54,6 +55,38 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //在视图出现的时候，将allowRotate改为1，
+    AppDelegate * delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.allowrRotate = 1;
+    self.navigationController.navigationBar.translucent = true;
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBar.translucent = false;
+    
+    AppDelegate * delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.allowrRotate = 0;
+    
+    [self doDestroyPlayer];
+    
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(setOrientation:)]) {
+        SEL selector = NSSelectorFromString(@"setOrientation:");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setTarget:[UIDevice currentDevice]];
+        int val = UIInterfaceOrientationPortrait;
+        [invocation setArgument:&val atIndex:2];
+        [invocation invoke];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -68,22 +101,6 @@
     [self doInitPlayerNotication];
     
     [self addBackImageBtnInTopBar];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    self.navigationController.navigationBar.translucent = true;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    self.navigationController.navigationBar.translucent = false;
-    
-    [self doDestroyPlayer];
 }
 
 // MARK: 修改返回按钮
@@ -115,15 +132,11 @@
 }
 
 - (BOOL)shouldAutorotate {
-    return NO;
+    return YES;
 }
 
 - (BOOL)prefersStatusBarHidden {
     return YES;
-}
-
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    return UIInterfaceOrientationPortrait;
 }
 
 - (void)setupSubviews {

@@ -12,7 +12,7 @@ pod 'DefaultsKit'
 pod 'IQKeyboardManagerSwift'
 pod 'ESPullToRefresh'
 pod 'EmptyDataSet-Swift', '~> 4.2.0' #空数据Swift
-pod 'PPBadgeViewSwift'
+pod 'PPBadgeViewSwift' #角标
 pod 'Kingfisher'
 pod 'DNSPageView' #仿今日头条的PageView
 pod 'FSPagerView' #首页的Banner

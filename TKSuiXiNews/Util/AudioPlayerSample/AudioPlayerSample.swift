@@ -41,7 +41,7 @@ class AudioPlayerSample:NSObject {
     }
     
     //MAKR: - 开始播放
-    open func play() {
+    open func play(timeChangeBlock: @escaping (Int) -> Void) {
         //跳转到当前指定时间
         player?.seek(to: CMTime(seconds: currentTime, preferredTimescale: 1))
         player?.play()
@@ -49,12 +49,14 @@ class AudioPlayerSample:NSObject {
             //当前播放的时间
             let current = time.seconds
             self?.currentTime = current
+            timeChangeBlock(Int(self?.currentTime ?? 0))
         })
     }
     
     //MARK: - 停止播放
-    open func pause() {
+    open func pause() -> Int {
         player?.pause()
+        return Int(currentTime)
     }
     
     private func setupPlayerNoti(){

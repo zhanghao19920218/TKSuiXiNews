@@ -72,8 +72,7 @@ class ServiceViewController: BaseViewController {
     private func setupUI(){
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
-            make.left.right.top.equalToSuperview();
-            make.bottom.equalTo(-TAB_BAR_HEIGHT)
+            make.edges.equalToSuperview()
         }
     }
 

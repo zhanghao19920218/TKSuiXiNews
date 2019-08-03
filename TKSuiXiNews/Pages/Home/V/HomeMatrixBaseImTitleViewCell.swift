@@ -19,6 +19,12 @@ class HomeMatrixBaseImTitleViewCell: BaseTableViewCell {
         }
     }
     
+    var imagename:String? {
+        willSet(newValue) {
+            iconView.kf.setImage(with: URL(string: newValue ?? ""), placeholder: K_ImageName(PLACE_HOLDER_IMAGE))
+        }
+    }
+    
     //矩阵图片
     private lazy var iconView: UIImageView = {
         let imageView = UIImageView()

@@ -116,7 +116,6 @@
 		73D4520622F42C4700DAE835 /* integral_detail_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 73D451EC22F42C4700DAE835 /* integral_detail_top.png */; };
 		73D4520722F42C4700DAE835 /* MemberInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451EE22F42C4700DAE835 /* MemberInfoResponse.swift */; };
 		73D4520822F42C4700DAE835 /* IntegralDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451EF22F42C4700DAE835 /* IntegralDetailResponse.swift */; };
-		73D4520922F42C4700DAE835 /* MineCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F122F42C4700DAE835 /* MineCollectionViewController.swift */; };
 		73D4520A22F42C4700DAE835 /* MineInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F222F42C4700DAE835 /* MineInfoViewController.swift */; };
 		73D4520B22F42C4700DAE835 /* MineSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F322F42C4700DAE835 /* MineSettingViewController.swift */; };
 		73D4520C22F42C4700DAE835 /* ChangeBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F422F42C4700DAE835 /* ChangeBindingViewController.swift */; };
@@ -183,6 +182,27 @@
 		73DF82E922F191EA0066583B /* ScoreRuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82E822F191EA0066583B /* ScoreRuleViewController.swift */; };
 		73DF82EB22F198990066583B /* ScoreProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82EA22F198990066583B /* ScoreProductDetailViewController.swift */; };
 		73DF82ED22F19AD20066583B /* ProductDetailImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF82EC22F19AD20066583B /* ProductDetailImageCell.swift */; };
+		73E4103A22F55669009E9DA6 /* HomeMatrixListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4103922F55669009E9DA6 /* HomeMatrixListItemResponse.swift */; };
+		73E4103E22F56AE6009E9DA6 /* HomeHappyDetailListenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4103D22F56AE6009E9DA6 /* HomeHappyDetailListenController.swift */; };
+		73E4104022F56B38009E9DA6 /* DetailHappyMusicListenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4103F22F56B38009E9DA6 /* DetailHappyMusicListenCell.swift */; };
+		73E4104322F57C51009E9DA6 /* BocastDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4104222F57C51009E9DA6 /* BocastDetailViewController.swift */; };
+		73E4104622F57C9F009E9DA6 /* BocastShareBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4104522F57C9F009E9DA6 /* BocastShareBottom.swift */; };
+		73E4104822F57E78009E9DA6 /* BoardCastVideoNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4104722F57E78009E9DA6 /* BoardCastVideoNewsCell.swift */; };
+		73E4104A22F58035009E9DA6 /* BoardCastTVDatePickCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4104922F58035009E9DA6 /* BoardCastTVDatePickCell.swift */; };
+		73E4104C22F58280009E9DA6 /* TelevisonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4104B22F58280009E9DA6 /* TelevisonButton.swift */; };
+		73E4104E22F58445009E9DA6 /* DetailTelevisonInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4104D22F58445009E9DA6 /* DetailTelevisonInfoController.swift */; };
+		73E4105022F58C50009E9DA6 /* SuiXiTelevisionDetailPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4104F22F58C50009E9DA6 /* SuiXiTelevisionDetailPageResponse.swift */; };
+		73E4105322F597A6009E9DA6 /* SuiXiBocastListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105222F597A6009E9DA6 /* SuiXiBocastListItemResponse.swift */; };
+		73E4105522F59CD7009E9DA6 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105422F59CD7009E9DA6 /* MessageViewController.swift */; };
+		73E4105722F59D07009E9DA6 /* CDLMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105622F59D07009E9DA6 /* CDLMessageCell.swift */; };
+		73E4105922F59E61009E9DA6 /* MyMessageListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105822F59E61009E9DA6 /* MyMessageListItemResponse.swift */; };
+		73E4105B22F5A198009E9DA6 /* MineReviewListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105A22F5A198009E9DA6 /* MineReviewListController.swift */; };
+		73E4105D22F5A1FC009E9DA6 /* ReviewListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105C22F5A1FC009E9DA6 /* ReviewListItemResponse.swift */; };
+		73E4105F22F5A5BF009E9DA6 /* MineFavoriteListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105E22F5A5BF009E9DA6 /* MineFavoriteListController.swift */; };
+		73E4106122F5A5CF009E9DA6 /* FavoriteListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4106022F5A5CF009E9DA6 /* FavoriteListItemResponse.swift */; };
+		73E4106322F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4106222F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift */; };
+		73E4106522F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4106422F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift */; };
+		73E4106722F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4106622F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift */; };
 		C584C89EB985E2C38BE1B4E5 /* Pods_TKSuiXiNews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A2CB2D5E3372723C1906F23 /* Pods_TKSuiXiNews.framework */; };
 /* End PBXBuildFile section */
 
@@ -303,7 +323,6 @@
 		73D451EC22F42C4700DAE835 /* integral_detail_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = integral_detail_top.png; sourceTree = "<group>"; };
 		73D451EE22F42C4700DAE835 /* MemberInfoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberInfoResponse.swift; sourceTree = "<group>"; };
 		73D451EF22F42C4700DAE835 /* IntegralDetailResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegralDetailResponse.swift; sourceTree = "<group>"; };
-		73D451F122F42C4700DAE835 /* MineCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineCollectionViewController.swift; sourceTree = "<group>"; };
 		73D451F222F42C4700DAE835 /* MineInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineInfoViewController.swift; sourceTree = "<group>"; };
 		73D451F322F42C4700DAE835 /* MineSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineSettingViewController.swift; sourceTree = "<group>"; };
 		73D451F422F42C4700DAE835 /* ChangeBindingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeBindingViewController.swift; sourceTree = "<group>"; };
@@ -370,6 +389,27 @@
 		73DF82E822F191EA0066583B /* ScoreRuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreRuleViewController.swift; sourceTree = "<group>"; };
 		73DF82EA22F198990066583B /* ScoreProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreProductDetailViewController.swift; sourceTree = "<group>"; };
 		73DF82EC22F19AD20066583B /* ProductDetailImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailImageCell.swift; sourceTree = "<group>"; };
+		73E4103922F55669009E9DA6 /* HomeMatrixListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMatrixListItemResponse.swift; sourceTree = "<group>"; };
+		73E4103D22F56AE6009E9DA6 /* HomeHappyDetailListenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHappyDetailListenController.swift; sourceTree = "<group>"; };
+		73E4103F22F56B38009E9DA6 /* DetailHappyMusicListenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHappyMusicListenCell.swift; sourceTree = "<group>"; };
+		73E4104222F57C51009E9DA6 /* BocastDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BocastDetailViewController.swift; sourceTree = "<group>"; };
+		73E4104522F57C9F009E9DA6 /* BocastShareBottom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BocastShareBottom.swift; sourceTree = "<group>"; };
+		73E4104722F57E78009E9DA6 /* BoardCastVideoNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCastVideoNewsCell.swift; sourceTree = "<group>"; };
+		73E4104922F58035009E9DA6 /* BoardCastTVDatePickCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCastTVDatePickCell.swift; sourceTree = "<group>"; };
+		73E4104B22F58280009E9DA6 /* TelevisonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelevisonButton.swift; sourceTree = "<group>"; };
+		73E4104D22F58445009E9DA6 /* DetailTelevisonInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTelevisonInfoController.swift; sourceTree = "<group>"; };
+		73E4104F22F58C50009E9DA6 /* SuiXiTelevisionDetailPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuiXiTelevisionDetailPageResponse.swift; sourceTree = "<group>"; };
+		73E4105222F597A6009E9DA6 /* SuiXiBocastListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuiXiBocastListItemResponse.swift; sourceTree = "<group>"; };
+		73E4105422F59CD7009E9DA6 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		73E4105622F59D07009E9DA6 /* CDLMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDLMessageCell.swift; sourceTree = "<group>"; };
+		73E4105822F59E61009E9DA6 /* MyMessageListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessageListItemResponse.swift; sourceTree = "<group>"; };
+		73E4105A22F5A198009E9DA6 /* MineReviewListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineReviewListController.swift; sourceTree = "<group>"; };
+		73E4105C22F5A1FC009E9DA6 /* ReviewListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListItemResponse.swift; sourceTree = "<group>"; };
+		73E4105E22F5A5BF009E9DA6 /* MineFavoriteListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineFavoriteListController.swift; sourceTree = "<group>"; };
+		73E4106022F5A5CF009E9DA6 /* FavoriteListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListItemResponse.swift; sourceTree = "<group>"; };
+		73E4106222F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeProductInfoCell.swift; sourceTree = "<group>"; };
+		73E4106422F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineExchangeHistoryListController.swift; sourceTree = "<group>"; };
+		73E4106622F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeProductListItemResponse.swift; sourceTree = "<group>"; };
 		7A2CB2D5E3372723C1906F23 /* Pods_TKSuiXiNews.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TKSuiXiNews.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A47A8DE8545AE07619BEE145 /* Pods-TKSuiXiNews.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TKSuiXiNews.debug.xcconfig"; path = "Target Support Files/Pods-TKSuiXiNews/Pods-TKSuiXiNews.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -538,6 +578,7 @@
 				730F179322EF077200FCD4FF /* HomeVideoNewsListResponse.swift */,
 				732606C122F27A1000ED0A72 /* HomeHappyReadResponse.swift */,
 				73D4521522F43B9600DAE835 /* HomeVVideoBannerResponse.swift */,
+				73E4103922F55669009E9DA6 /* HomeMatrixListItemResponse.swift */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -585,6 +626,7 @@
 				73D451A322F40EB000DAE835 /* VideoNewsDetailInfoCell.swift */,
 				73D451A822F4135800DAE835 /* CommonDetailTitleNameCell.swift */,
 				73D451AA22F41E3800DAE835 /* HomeArticleContentWebCell.swift */,
+				73E4103F22F56B38009E9DA6 /* DetailHappyMusicListenCell.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -595,6 +637,7 @@
 				7377746822E8001900513350 /* DetailVideoInfoController.swift */,
 				7349C47622F2F11900ACDF41 /* VideoNewsDetailController.swift */,
 				73D451AC22F41F7400DAE835 /* HomeNewsDetailInfoController.swift */,
+				73E4103D22F56AE6009E9DA6 /* HomeHappyDetailListenController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -764,6 +807,10 @@
 			children = (
 				73D451EE22F42C4700DAE835 /* MemberInfoResponse.swift */,
 				73D451EF22F42C4700DAE835 /* IntegralDetailResponse.swift */,
+				73E4105822F59E61009E9DA6 /* MyMessageListItemResponse.swift */,
+				73E4105C22F5A1FC009E9DA6 /* ReviewListItemResponse.swift */,
+				73E4106022F5A5CF009E9DA6 /* FavoriteListItemResponse.swift */,
+				73E4106622F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -771,13 +818,16 @@
 		73D451F022F42C4700DAE835 /* C */ = {
 			isa = PBXGroup;
 			children = (
-				73D451F122F42C4700DAE835 /* MineCollectionViewController.swift */,
 				73D451F222F42C4700DAE835 /* MineInfoViewController.swift */,
 				73D451F322F42C4700DAE835 /* MineSettingViewController.swift */,
 				73D451F422F42C4700DAE835 /* ChangeBindingViewController.swift */,
 				73D451F522F42C4700DAE835 /* MineViewController.swift */,
 				73D451F622F42C4700DAE835 /* MineIntegralDetailViewController.swift */,
 				73D451F722F42C4700DAE835 /* AboutUsViewController.swift */,
+				73E4105422F59CD7009E9DA6 /* MessageViewController.swift */,
+				73E4105A22F5A198009E9DA6 /* MineReviewListController.swift */,
+				73E4105E22F5A5BF009E9DA6 /* MineFavoriteListController.swift */,
+				73E4106422F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -785,11 +835,13 @@
 		73D451F822F42C4700DAE835 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				73E4105622F59D07009E9DA6 /* CDLMessageCell.swift */,
 				73D451F922F42C4700DAE835 /* MineUsualCollCell.swift */,
 				73D451FA22F42C4700DAE835 /* MineIntegralDetailTableViewCell.swift */,
 				73D451FB22F42C4700DAE835 /* MineCollectionView.swift */,
 				73D451FC22F42C4700DAE835 /* MineSettingTableViewCell.swift */,
 				73D451FD22F42C4700DAE835 /* ScroreItemButton.swift */,
+				73E4106222F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1027,6 +1079,7 @@
 		73DEBADA22E324EC007EC4E1 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				73E4104122F57A07009E9DA6 /* TelevisonDetail */,
 				7326073722F2D76E00ED0A72 /* TotalVideo */,
 				7377746022E7EE8B00513350 /* HomeDetail */,
 				733ED17E22E43D5E00B452D4 /* V */,
@@ -1158,6 +1211,37 @@
 				73DF82E622F184100066583B /* MallPopMenu.swift */,
 			);
 			path = MallPopMenu;
+			sourceTree = "<group>";
+		};
+		73E4104122F57A07009E9DA6 /* TelevisonDetail */ = {
+			isa = PBXGroup;
+			children = (
+				73E4105122F58C54009E9DA6 /* M */,
+				73E4104422F57C6F009E9DA6 /* V */,
+				73E4104222F57C51009E9DA6 /* BocastDetailViewController.swift */,
+				73E4104D22F58445009E9DA6 /* DetailTelevisonInfoController.swift */,
+			);
+			path = TelevisonDetail;
+			sourceTree = "<group>";
+		};
+		73E4104422F57C6F009E9DA6 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				73E4104522F57C9F009E9DA6 /* BocastShareBottom.swift */,
+				73E4104722F57E78009E9DA6 /* BoardCastVideoNewsCell.swift */,
+				73E4104922F58035009E9DA6 /* BoardCastTVDatePickCell.swift */,
+				73E4104B22F58280009E9DA6 /* TelevisonButton.swift */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		73E4105122F58C54009E9DA6 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				73E4104F22F58C50009E9DA6 /* SuiXiTelevisionDetailPageResponse.swift */,
+				73E4105222F597A6009E9DA6 /* SuiXiBocastListItemResponse.swift */,
+			);
+			path = M;
 			sourceTree = "<group>";
 		};
 		963EB4ECB6B950073F8B9151 /* Pods */ = {
@@ -1305,6 +1389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				736114E522F1B48F00BC5A8E /* MallListProductItemResponse.swift in Sources */,
+				73E4104E22F58445009E9DA6 /* DetailTelevisonInfoController.swift in Sources */,
 				7377745F22E7E3A200513350 /* HomeVVideoBaseView.swift in Sources */,
 				733ED18522E449FA00B452D4 /* HomeVVideoNormalCell.swift in Sources */,
 				73D4E2D922E938850088FF37 /* UploadFileResponse.swift in Sources */,
@@ -1313,6 +1398,7 @@
 				73D451AD22F41F7400DAE835 /* HomeNewsDetailInfoController.swift in Sources */,
 				730F178222EED6A200FCD4FF /* HomeNewsBottomTimeView.swift in Sources */,
 				7377747722E8378A00513350 /* DetailUserCommentCell.swift in Sources */,
+				73E4105B22F5A198009E9DA6 /* MineReviewListController.swift in Sources */,
 				73DF82DC22F1620D0066583B /* BaseCollectionViewController.swift in Sources */,
 				73D4521422F42C4700DAE835 /* ScroreItemButton.swift in Sources */,
 				73D4E2E122E998000088FF37 /* NetworkPlayer.swift in Sources */,
@@ -1323,8 +1409,8 @@
 				73DF82E722F184100066583B /* MallPopMenu.swift in Sources */,
 				73DEBAC822E3224E007EC4E1 /* BaseTabBarController.swift in Sources */,
 				736114E122F1A98A00BC5A8E /* ProductDetailTitleCell.swift in Sources */,
-				73D4520922F42C4700DAE835 /* MineCollectionViewController.swift in Sources */,
 				73DF82ED22F19AD20066583B /* ProductDetailImageCell.swift in Sources */,
+				73E4103E22F56AE6009E9DA6 /* HomeHappyDetailListenController.swift in Sources */,
 				73D4520F22F42C4700DAE835 /* AboutUsViewController.swift in Sources */,
 				730F178E22EEF83900FCD4FF /* HomeVideoNewsViewCell.swift in Sources */,
 				73DEBAA022E30BDC007EC4E1 /* JsonKeyDefine.swift in Sources */,
@@ -1342,8 +1428,11 @@
 				734A7BBB22EFD6180016764F /* HomeAskNonePicCell.swift in Sources */,
 				734A7BB722EFCE730016764F /* HomeAskGovBaseBottom.swift in Sources */,
 				7308499422E5683500958969 /* ServiceListModel.swift in Sources */,
+				73E4105522F59CD7009E9DA6 /* MessageViewController.swift in Sources */,
+				73E4104022F56B38009E9DA6 /* DetailHappyMusicListenCell.swift in Sources */,
 				733ED17D22E43CD200B452D4 /* BannerView.swift in Sources */,
 				73DEBAAB22E31095007EC4E1 /* String+Extension.swift in Sources */,
+				73E4105322F597A6009E9DA6 /* SuiXiBocastListItemResponse.swift in Sources */,
 				730F178622EEE3C800FCD4FF /* HomeNewsListViewController.swift in Sources */,
 				73DEBAD122E322CD007EC4E1 /* BaseTableViewCell.swift in Sources */,
 				7372C98622EE786500BD378D /* HomeTVChannelFirstCell.swift in Sources */,
@@ -1354,6 +1443,8 @@
 				7377747122E82C8500513350 /* DetailArticleResponse.swift in Sources */,
 				73DEBADF22E3250E007EC4E1 /* HomeViewController.swift in Sources */,
 				73DF82D822F145520066583B /* ServiceScoreImageCell.swift in Sources */,
+				73E4104322F57C51009E9DA6 /* BocastDetailViewController.swift in Sources */,
+				73E4103A22F55669009E9DA6 /* HomeMatrixListItemResponse.swift in Sources */,
 				733ED19122E4660F00B452D4 /* BaseWrapImagesView.swift in Sources */,
 				7377746922E8001900513350 /* DetailVideoInfoController.swift in Sources */,
 				730F179422EF077200FCD4FF /* HomeVideoNewsListResponse.swift in Sources */,
@@ -1362,6 +1453,7 @@
 				73D4520C22F42C4700DAE835 /* ChangeBindingViewController.swift in Sources */,
 				73DF82EB22F198990066583B /* ScoreProductDetailViewController.swift in Sources */,
 				7326073F22F2E46F00ED0A72 /* HomeTotalChildVideoController.swift in Sources */,
+				73E4104822F57E78009E9DA6 /* BoardCastVideoNewsCell.swift in Sources */,
 				734A7BC922EFF5E40016764F /* HomeTitleHeaderFirstCell.swift in Sources */,
 				738BD9E422E7E02600B7BF75 /* HomeVSendCollectionView.swift in Sources */,
 				733ED19322E4706100B452D4 /* ShowVideoViewCell.swift in Sources */,
@@ -1383,12 +1475,15 @@
 				73D4521022F42C4700DAE835 /* MineUsualCollCell.swift in Sources */,
 				73D4519722F3D48600DAE835 /* NELivePlayerVC.m in Sources */,
 				73D451AB22F41E3800DAE835 /* HomeArticleContentWebCell.swift in Sources */,
+				73E4104622F57C9F009E9DA6 /* BocastShareBottom.swift in Sources */,
 				73DEBAE122E32517007EC4E1 /* ShowViewController.swift in Sources */,
 				730F179022EEF9AF00FCD4FF /* BaseVideoNewsView.swift in Sources */,
+				73E4104C22F58280009E9DA6 /* TelevisonButton.swift in Sources */,
 				734A7BC522EFF18A0016764F /* UIApplication+Extension.swift in Sources */,
 				73DEBB0222E3531A007EC4E1 /* SXForgetPasswordController.swift in Sources */,
 				73D4520A22F42C4700DAE835 /* MineInfoViewController.swift in Sources */,
 				733ED18D22E4611000B452D4 /* ShowImageTextCell.swift in Sources */,
+				73E4105022F58C50009E9DA6 /* SuiXiTelevisionDetailPageResponse.swift in Sources */,
 				7363F8E522F03976000FE663 /* HomeHappyReadImageCell.swift in Sources */,
 				73DEBAB222E31231007EC4E1 /* SXAPI.swift in Sources */,
 				73D451A222F401D000DAE835 /* UserSignInModuleResponse.swift in Sources */,
@@ -1403,13 +1498,17 @@
 				73DF82E022F16D8E0066583B /* MallProductCollectionViewCell.swift in Sources */,
 				7377747322E82EF200513350 /* DetailVVideoInfoCell.swift in Sources */,
 				73DF82E422F17EB00066583B /* TurntableView.swift in Sources */,
+				73E4106122F5A5CF009E9DA6 /* FavoriteListItemResponse.swift in Sources */,
 				73D4519D22F3D8DB00DAE835 /* CommentPopMenu.swift in Sources */,
+				73E4105922F59E61009E9DA6 /* MyMessageListItemResponse.swift in Sources */,
+				73E4105D22F5A1FC009E9DA6 /* ReviewListItemResponse.swift in Sources */,
 				73DEBABB22E31A2F007EC4E1 /* TStrInt.swift in Sources */,
 				73DF82E922F191EA0066583B /* ScoreRuleViewController.swift in Sources */,
 				730F179622EF0DC800FCD4FF /* ServiceWKWebViewController.swift in Sources */,
 				73DEBACA22E3224E007EC4E1 /* BATabBar.swift in Sources */,
 				7372C98C22EE8E4200BD378D /* NETLivePlayerController.swift in Sources */,
 				733ED18022E43D7400B452D4 /* HomeVVideoBannerCell.swift in Sources */,
+				73E4106322F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift in Sources */,
 				73D4521122F42C4700DAE835 /* MineIntegralDetailTableViewCell.swift in Sources */,
 				730F178A22EEEFAF00FCD4FF /* HomeNewsThreePictureCell.swift in Sources */,
 				7326073C22F2DF4300ED0A72 /* HomeTotalCollectionCell.swift in Sources */,
@@ -1427,6 +1526,7 @@
 				73D4521322F42C4700DAE835 /* MineSettingTableViewCell.swift in Sources */,
 				730F178422EEDF5500FCD4FF /* HomeNewsSearchInfoCell.swift in Sources */,
 				733ED17A22E4153800B452D4 /* NoMoreDataView.swift in Sources */,
+				73E4105722F59D07009E9DA6 /* CDLMessageCell.swift in Sources */,
 				732606C622F287A700ED0A72 /* HomeHappyListenController.swift in Sources */,
 				730F178822EEEB1600FCD4FF /* HomeNewsOnePictureCell.swift in Sources */,
 				732606C422F2818E00ED0A72 /* HomeHappyListenCell.swift in Sources */,
@@ -1439,9 +1539,12 @@
 				7308498F22E5593700958969 /* ServiceSingleNameCell.swift in Sources */,
 				732606C922F2927E00ED0A72 /* AudioPlayerSample.swift in Sources */,
 				73D451A722F40FA200DAE835 /* ImageBrowser.swift in Sources */,
+				73E4105F22F5A5BF009E9DA6 /* MineFavoriteListController.swift in Sources */,
 				7363F8E122F02B67000FE663 /* HomeMatrixSectionHeaderView.swift in Sources */,
+				73E4104A22F58035009E9DA6 /* BoardCastTVDatePickCell.swift in Sources */,
 				732606C222F27A1000ED0A72 /* HomeHappyReadResponse.swift in Sources */,
 				7377746322E7EEC300513350 /* BaseShareBottomView.swift in Sources */,
+				73E4106722F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift in Sources */,
 				7363F8DF22F01B31000FE663 /* BaseGrouppedTableViewController.swift in Sources */,
 				73DEBAEC22E32B90007EC4E1 /* SXLoginTextField.swift in Sources */,
 				73DEBAA222E30CA8007EC4E1 /* ColorsDefine.swift in Sources */,
@@ -1454,6 +1557,7 @@
 				73D451A422F40EB000DAE835 /* VideoNewsDetailInfoCell.swift in Sources */,
 				7349C47722F2F11900ACDF41 /* VideoNewsDetailController.swift in Sources */,
 				73DEBAF022E3376D007EC4E1 /* SXLoginBaseButton.swift in Sources */,
+				73E4106522F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift in Sources */,
 				7372C98422EE742B00BD378D /* HomeTVChannelNameView.swift in Sources */,
 				73DEBAC922E3224E007EC4E1 /* BATabBarButton.swift in Sources */,
 				73DEBB0722E35738007EC4E1 /* HttpClient.swift in Sources */,

@@ -9,6 +9,7 @@
 import UIKit
 
 class BaseLoginViewController: BaseViewController {
+    
     //登录界面的Logo
     private lazy var logo: UIImageView = {
         let imageView = UIImageView.init();
@@ -30,6 +31,11 @@ class BaseLoginViewController: BaseViewController {
 
         // Do any additional setup after loading the view.
         setupUI(); //初始化页面
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle
+    {
+        return .default
     }
     
 

@@ -81,8 +81,7 @@ class BaseTableViewController: BaseViewController {
         //添加tableView
         view.addSubview(tableView);
         tableView.snp.makeConstraints({ (make) in
-            make.left.top.right.equalTo(0);
-            make.bottom.equalTo(-TAB_BAR_HEIGHT);
+            make.edges.equalToSuperview()
         });
 
         tableView.tableFooterView = UIView.init();

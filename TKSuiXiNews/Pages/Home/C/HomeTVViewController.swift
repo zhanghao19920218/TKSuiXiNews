@@ -49,8 +49,7 @@ class HomeTVViewController: BaseViewController {
     private func setupUI() {
         view.addSubview(tableView);
         tableView.snp.makeConstraints { (make) in
-            make.left.top.right.equalToSuperview();
-            make.bottom.equalTo(-TAB_BAR_HEIGHT)
+            make.edges.equalToSuperview()
         }
     }
 
@@ -75,6 +74,18 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.firstName = model.data[0].name.string
                 cell.movieName = model.data[1].name.string
                 cell.thirdName = model.data[2].name.string
+                cell.block = { [weak self] (index) in
+                    let category:String = model.data[index - 1].type.string
+                    if category == "tv" {
+                        let vc = DetailTelevisonInfoController()
+                        vc.id = model.data[index - 1].id.int
+                        self?.navigationController?.pushViewController(vc, animated: true)
+                    } else {
+                        let vc = BocastDetailViewController()
+                        vc.id = model.data[index - 1].id.int
+                        self?.navigationController?.pushViewController(vc, animated: true)
+                    }
+                }
             }
             return cell;
         }

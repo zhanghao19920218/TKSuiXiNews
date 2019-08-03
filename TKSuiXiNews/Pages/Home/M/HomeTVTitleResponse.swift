@@ -36,9 +36,10 @@ struct HomeTVTitleModel: Codable {
     let video: TStrInt
     let time: TStrInt?
     let createtime: TStrInt
+    let type: TStrInt
     
     enum CodingKeys: String, CodingKey {
-        case id, module
+        case id, module, type
         case moduleSecond = "module_second"
         case name, image, video, time, createtime
     }

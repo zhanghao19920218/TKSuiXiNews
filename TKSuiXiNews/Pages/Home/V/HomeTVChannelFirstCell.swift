@@ -15,6 +15,8 @@ import UIKit
 fileprivate let boxSize = CGSize(width: 110 * iPHONE_AUTORATIO, height: 100 * iPHONE_AUTORATIO)
 
 class HomeTVChannelFirstCell: BaseTableViewCell {
+    var block:(Int) -> Void = { _ in }
+    
     var firstImage:String? {
         willSet(newValue) {
             newsChannel.imageName = newValue
@@ -53,16 +55,25 @@ class HomeTVChannelFirstCell: BaseTableViewCell {
 
     private lazy var newsChannel: HomeTVChannelNameView = {
         let view = HomeTVChannelNameView();
+        view.tag = 1
+        view.addTarget(self,
+                       action: #selector(channelVersionTapped(_:)), for: .touchUpInside)
         return view;
     }();
     
     private lazy var movieChannel: HomeTVChannelNameView = {
         let view = HomeTVChannelNameView();
+        view.tag = 2
+        view.addTarget(self,
+                       action: #selector(channelVersionTapped(_:)), for: .touchUpInside)
         return view;
     }();
     
     private lazy var fmChannel: HomeTVChannelNameView = {
         let view = HomeTVChannelNameView();
+        view.tag = 3
+        view.addTarget(self,
+                       action: #selector(channelVersionTapped(_:)), for: .touchUpInside)
         return view;
     }();
 
@@ -90,5 +101,9 @@ class HomeTVChannelFirstCell: BaseTableViewCell {
             make.left.equalTo(self.movieChannel.snp_right).offset(10 * iPHONE_AUTORATIO);
             make.size.equalTo(boxSize)
         }
+    }
+    
+    @objc private func channelVersionTapped(_ sender: UIButton) {
+        block(sender.tag)
     }
 }

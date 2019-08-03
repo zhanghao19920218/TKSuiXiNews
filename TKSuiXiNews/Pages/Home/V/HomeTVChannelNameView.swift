@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeTVChannelNameView: UIView {
+class HomeTVChannelNameView: UIButton {
     //设置新闻标题
     var title:String? {
         willSet(newValue) {

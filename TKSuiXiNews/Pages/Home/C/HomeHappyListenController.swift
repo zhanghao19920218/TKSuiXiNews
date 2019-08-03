@@ -117,7 +117,6 @@ extension HomeHappyListenController: UITableViewDelegate, UITableViewDataSource 
         let model = dataSource[indexPath.row] as! HomeHappyReadListItemModel
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! HomeHappyListenCell
         cell.title = model.name.string
-        cell.audioLength = "13’ 39”"
         //确定是不是播放中
         if let index = _selectedIndex, index == indexPath.row { cell.isPlay = true  } else { cell.isPlay = false }
         cell.beginTime = model.begintime.string
@@ -131,11 +130,12 @@ extension HomeHappyListenController: UITableViewDelegate, UITableViewDataSource 
                 if isPlay {
                     //判断是不是在播放音频
                     self?._selectedIndex = nil
-                    AudioPlayerSample.share.pause()
                 } else {
                     //判断是不是在播放音频
                     self?._selectedIndex = indexPath.row //确定选中的index
-                    AudioPlayerSample.share.play()
+                    AudioPlayerSample.share.play(timeChangeBlock: { (time) in
+                        cell.audioLength = time
+                    })
                 }
             }
             
@@ -145,6 +145,13 @@ extension HomeHappyListenController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 187 * iPHONE_AUTORATIO
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let model = dataSource[indexPath.row] as! HomeHappyReadListItemModel
+        let vc = HomeHappyDetailListenController()
+        vc.id = model.id.string
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

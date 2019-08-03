@@ -47,8 +47,7 @@ class HomeHappyReadViewController: BaseViewController {
         
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { (make) in
-            make.left.right.top.equalToSuperview()
-            make.bottom.equalTo(-TAB_BAR_HEIGHT)
+            make.edges.equalToSuperview()
         }
         
         //增加下拉刷新
@@ -177,6 +176,15 @@ extension HomeHappyReadViewController: UICollectionViewDataSource, UICollectionV
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row != 0 {
+            let model = dataSource[indexPath.row - 1] as! HomeHappyReadListItemModel
+            let vc = HomeNewsDetailInfoController();
+            vc.id = model.id.string
+            parent?.navigationController?.pushViewController(vc, animated: true);
+        }
+    }
 }
 
 extension HomeHappyReadViewController: WaterfallLayoutDelegate {
@@ -192,6 +200,7 @@ extension HomeHappyReadViewController: WaterfallLayoutDelegate {
         }
         return CGSize(width: 165 * iPHONE_AUTORATIO, height: 200 * iPHONE_AUTORATIO)
     }
+
 }
 
 extension HomeHappyReadViewController {

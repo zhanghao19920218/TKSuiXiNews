@@ -32,7 +32,7 @@ class VideoNewsDetailController: BaseViewController {
         tableView.register(BaseShareBottomView.self, forCellReuseIdentifier: shareCellIdentifier);
         tableView.register(DetailCommentLikeNumCell.self, forCellReuseIdentifier: likeCellIdentifier)
         tableView.register(DetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
-        tableView.register(DetailUserInfoNameCell.self, forCellReuseIdentifier: nameCellIdentifier)
+        tableView.register(ProductDetailDescribeCell.self, forCellReuseIdentifier: nameCellIdentifier)
         return tableView;
     }();
     
@@ -169,8 +169,8 @@ extension VideoNewsDetailController: UITableViewDelegate, UITableViewDataSource 
         
         //用户发表内容
         if indexPath.row == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: nameCellIdentifier) as! DetailUserInfoNameCell
-            cell.name = model?.content.string
+            let cell = tableView.dequeueReusableCell(withIdentifier: nameCellIdentifier) as! ProductDetailDescribeCell
+            cell.content = model?.content.string
             return cell
         }
         

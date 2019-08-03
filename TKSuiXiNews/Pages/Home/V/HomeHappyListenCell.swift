@@ -23,9 +23,9 @@ class HomeHappyListenCell: BaseTableViewCell {
         }
     }
     
-    var audioLength: String? {
+    var audioLength: Int? {
         willSet(newValue) {
-            audioPlayLabel.text = newValue ?? "00:00"
+            audioPlayLabel.text = "\(newValue ?? 0)"
         }
     }
     
@@ -96,7 +96,7 @@ class HomeHappyListenCell: BaseTableViewCell {
     private lazy var audioPlayLabel: UILabel = {
         let label = UILabel()
         label.textColor = RGBA(255, 74, 92, 1)
-        label.text = "00:00"
+        label.text = "0"
         label.font = fontSize
         return label
     }()

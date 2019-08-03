@@ -132,6 +132,11 @@ extension HomeAskGovController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let model = dataSource[indexPath.row] as! HomeNewsListModel
+        
+        if !model.image.string.isEmpty {
+            return 118 * iPHONE_AUTORATIO
+        }
+        
         if model.images.count == 3 {
             return 193 * iPHONE_AUTORATIO
         }

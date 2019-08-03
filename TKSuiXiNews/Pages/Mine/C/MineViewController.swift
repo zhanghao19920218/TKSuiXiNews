@@ -126,13 +126,9 @@ class MineViewController: BaseViewController {
     private func configureNavigationBar()
     {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem);
+        //初始化navigationBar
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
-    
-    
-    //MARK: - 设置透明NavigationBar
-//    private func setupTransaleBar(){
-//        navigationController?.navigationBar.isTranslucent = true;
-//    }
     
 
     //MARK: -更新个人页面背景
@@ -193,15 +189,27 @@ class MineViewController: BaseViewController {
             make.height.equalTo(200 * iPHONE_AUTORATIO)
         }
         //CollectionViewCell点击
-        mineCollectionView.mb = {(index:Int)->(Void) in
+        mineCollectionView.mb = {[weak self](index:Int)->(Void) in
             if index == 0 {
                 //我的收藏
-                let vc = MineCollectionViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
-            }else if(index == 7){
+                let vc = MineFavoriteListController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            } else if index == 4 {
+                let vc = MessageViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+                
+            } else if index == 1 {
+                //最近浏览
+                let vc = MineReviewListController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            } else if index == 5 {
+                //兑换记录
+                let vc = MineExchangeHistoryListController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            } else if(index == 6){
                 //关于我们
                 let vc = AboutUsViewController()
-                self.navigationController?.pushViewController(vc, animated: true)
+                self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
     }

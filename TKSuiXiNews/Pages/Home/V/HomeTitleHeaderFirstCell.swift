@@ -11,6 +11,14 @@ import UIKit
 fileprivate let cellIdentifier = "HomeMatrixBaseImTitleViewIdentifier"
 
 class HomeTitleHeaderFirstCell: BaseTableViewCell {
+    private var _dataSource:  [HomeMatrixListItemModel] = []
+    
+    var dataSource: [HomeMatrixListItemModel]? {
+        willSet(newValue) {
+            _dataSource = newValue ?? []
+            tableView.reloadData()
+        }
+    }
     
     private lazy var tableView: UITableView = {
         let view = UITableView()
@@ -41,14 +49,16 @@ extension HomeTitleHeaderFirstCell: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return _dataSource.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = _dataSource[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! HomeMatrixBaseImTitleViewCell
         //横向
         cell.contentView.transform = CGAffineTransform(rotationAngle: .pi/2)
-        cell.title = "矩阵号名称"
+        cell.title = model.nickname?.string
+        cell.imagename = model.avatar?.string
         return cell
     }
     

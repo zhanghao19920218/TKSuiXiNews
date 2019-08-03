@@ -15,6 +15,14 @@ fileprivate let likeCellIdentifier = "DetailCommentLikeNumCellIdentifier"
 fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
 
 class HomeNewsDetailInfoController: BaseViewController {
+    //设置右侧的navigationItem
+    private lazy var rightNavigatorItem: UIButton = {
+        let button = UIButton(type: .custom);
+        button.setImage(K_ImageName("article_favorite"), for: .normal);
+        button.frame = CGRect(x: 0, y: 0, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO)
+        button.addTarget(self, action: #selector(addFavoriteButton), for: .touchUpInside)
+        return button;
+    }();
 
     var model: DetailArticleModel?
     //获取详情的id
@@ -83,6 +91,12 @@ class HomeNewsDetailInfoController: BaseViewController {
             make.left.bottom.right.equalToSuperview();
             make.height.equalTo(49 * iPHONE_AUTORATIO);
         }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem);
+    }
+    
+    @objc private func addFavoriteButton(){
+        addFavorte()
     }
     
 }
@@ -128,6 +142,15 @@ extension HomeNewsDetailInfoController {
     private func disLikeArticle() {
         HttpClient.shareInstance.request(target: BAAPI.dislikeComment(id: Int(id) ?? 0), success: { [weak self] (json) in
             TProgressHUD.show(text: "取消点赞成功")
+            self?.loadDetailData()
+            }
+        )
+    }
+    
+    //MARK: - 添加收藏
+    private func addFavorte(){
+        HttpClient.shareInstance.request(target: BAAPI.addFavorite(id:  Int(id) ?? 0), success: { [weak self] (json) in
+            TProgressHUD.show(text: "添加收藏成功")
             self?.loadDetailData()
             }
         )
@@ -206,12 +229,5 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
         }
         
         return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 4].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            let vc = NELivePlayerVC.init(url: URL(string: model?.video.string ?? ""))
-            navigationController?.pushViewController(vc ?? UIViewController(), animated: true);
-        }
     }
 }

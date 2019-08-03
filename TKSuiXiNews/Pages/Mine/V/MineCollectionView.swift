@@ -26,7 +26,6 @@ class MineCollectionView: UIView {
         (imageName: "ask_gov_icon", title: "问政记录"),
         (imageName: "message_icon", title: "我的消息"),
         (imageName: "change_icon", title: "兑换记录"),
-        (imageName: "notice_place_icon", title: "关注板块"),
         (imageName: "about_us_icon", title: "关于我们"),
     ];
 
