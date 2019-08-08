@@ -26,6 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //解决MBHud卡住
         UIApplication.mainThreadApplicationState()
         
+        //注册登录
+        ThirdPartyLogin.share.register()
+        
         return true
     }
 

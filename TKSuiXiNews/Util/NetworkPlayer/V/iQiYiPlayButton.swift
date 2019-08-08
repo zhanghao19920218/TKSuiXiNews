@@ -23,6 +23,36 @@ class LYCopyQIYButton: UIButton, CAAnimationDelegate {
     static let lineAnimationDuration: Float = 0.3
     static let transformAnimationDuration: Float = 0.5
     
+    init() {
+        super.init(frame: .zero)
+        lineWidth = self.frame.size.width*0.2
+        strokColor = .white
+        buttonSize = frame.size
+        //        self.backgroundColor = UIColor.black
+        self.isSelected = true
+        self.addTarget(self, action: #selector(stateChangeAction), for: .touchUpInside)
+        
+        setupLeftLineLayer()
+        setupRightLineLayer()
+        setupTriangleLayer()
+        setupArcLayer()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        lineWidth = self.frame.size.width*0.2
+        strokColor = .white
+        buttonSize = frame.size
+        //        self.backgroundColor = UIColor.black
+        self.isSelected = true
+        self.addTarget(self, action: #selector(stateChangeAction), for: .touchUpInside)
+        
+        setupLeftLineLayer()
+        setupRightLineLayer()
+        setupTriangleLayer()
+        setupArcLayer()
+    }
+    
     init(frame: CGRect, color:UIColor) {
         super.init(frame: frame)
         lineWidth = self.frame.size.width*0.2

@@ -70,6 +70,12 @@ enum  BAAPI {
     case favoriteList(page: Int)
     //兑换列表
     case exchangeProduct(page: Int)
+    //第三方登录
+    case thirdPartyLogin(platform: String, code: String)
+    //修改密码
+    case resetPassword(mobile: String, newpassword: String, captcha: String)
+    //请求获取七牛云token
+    case qiniuyunToken
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -144,6 +150,12 @@ extension BAAPI: TargetType {
             return K_URL_favoriteList
         case .exchangeProduct:
             return K_URL_exchangeRecord
+        case .thirdPartyLogin:
+            return K_URL_thirdLibLogin
+        case .resetPassword:
+            return K_URL_resetPassword
+        case .qiniuyunToken:
+            return K_URL_sevenBeffToken
         }
         
     }
@@ -272,6 +284,15 @@ extension BAAPI: TargetType {
             
         case let .exchangeProduct(page):
             params["p"] = page
+            
+        case let .thirdPartyLogin(platform, code):
+            params["platform"] = platform
+            params["code"] = code
+            
+        case let .resetPassword(mobile, newpassword, captcha):
+            params["mobile"] = mobile
+            params["newpassword"] = newpassword
+            params["captcha"] = captcha
             
         default:
             //不需要传参数的接口走这里

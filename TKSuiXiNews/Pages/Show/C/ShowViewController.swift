@@ -174,8 +174,8 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
             cell.videoLength = model.time.string;
             cell.beginTime = model.begintime.string;
             cell.block = { [weak self] () in
-                let vc = NELivePlayerVC.init(url: URL(string: model.video.string))
-                self?.navigationController?.pushViewController(vc ?? UIViewController(), animated: true);
+                let vc = NETLivePlayerController.init(url: model.video.string)
+                self?.navigationController?.pushViewController(vc, animated: true);
             }
             return cell;
         } else {

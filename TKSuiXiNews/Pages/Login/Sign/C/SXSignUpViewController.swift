@@ -10,7 +10,6 @@ import UIKit
 import DefaultsKit
 
 //MARK: - 立即注册页面
-private let key = Key<String>(K_JT_token);
 
 class SXSignUpViewController: BaseLoginViewController {
     //手机号码
@@ -24,7 +23,7 @@ class SXSignUpViewController: BaseLoginViewController {
         let textField = SXLoginTextField.init();
         textField.prefix.image = K_ImageName("phone");
         textField.placeholder = "请输入手机号";
-        textField.isSuffixHidden = false;
+        textField.isSuffixHidden = true;
         textField.textField.addTarget(self,
                                       action: #selector(textFieldValueDidChanged(_:)),
                                       for: .editingChanged)
@@ -173,7 +172,10 @@ class SXSignUpViewController: BaseLoginViewController {
     }
     
     @objc private func textFieldValueDidChanged(_ sender: UITextField) {
-        if sender.tag == 1 { mobile = sender.text ?? "" }
+        if sender.tag == 1 {
+            mobile = sender.text ?? ""
+            if mobile.isPhoneNumber() { phoneTextF.isSuffixHidden = false } else { phoneTextF.isSuffixHidden = true }
+        }
         if sender.tag == 2 { messageCode = sender.text ?? "" }
         if sender.tag == 3 { password = sender.text ?? "" }
         if sender.tag == 4 { confirmPassword = sender.text ?? "" }
@@ -192,7 +194,7 @@ extension SXSignUpViewController {
     
     //注册会员
     private func signInUserInfo() {
-        HttpClient.shareInstance.request(target: BAAPI.registerUserInfo(password: password, captcha: messageCode, mobile: mobile), success: { (json) in
+        HttpClient.shareInstance.request(target: BAAPI.registerUserInfo(password: password, captcha: messageCode, mobile: mobile), success: { [weak self] (json) in
             TProgressHUD.show(text: "注册成功")
             let decoder = JSONDecoder()
             let model = try? decoder.decode(UserSignInModuleResponse.self, from: json)
@@ -201,10 +203,25 @@ extension SXSignUpViewController {
             }
             let token = userModel.data.userinfo.token.string;
             Defaults.shared.set(token, for: key);
+            Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey);
+            //获取七牛云token
+            self?.requestSevenBeefToken()
+        }
+        )
+    }
+    
+    //MARK: - 请求七牛云token
+    private func requestSevenBeefToken(){
+        HttpClient.shareInstance.request(target: BAAPI.qiniuyunToken, success: { (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(SevenBeefModelResponse.self, from: json)
+            guard let userModel = model else {
+                return;
+            }
+            Defaults.shared.set(userModel.data.string, for: sevenToken);
             //更新rootVC
             let rootVC = BaseTabBarController.init();
             UIViewController.restoreRootViewController(rootVC);
-        }
-        )
+        })
     }
 }

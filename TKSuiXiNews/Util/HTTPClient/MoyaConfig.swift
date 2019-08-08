@@ -12,7 +12,6 @@ import DefaultsKit
 
 #warning("下面的代码需要根据项目进行更改")
 // Define a key
-private let key = Key<String>(K_JT_token);
 /**
  1.状态码 根据自家后台数据更改
  

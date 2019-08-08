@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import DefaultsKit
 
 //MARK: - K_(里面和接口字段保持一致)
 let K_JT_data:String = "data";
@@ -14,3 +15,14 @@ let K_JT_list:String = "list";
 let K_JT_msg: String = "msg";
 let K_JT_code: String = "code";
 let K_JT_token: String = "token";
+let K_JT_sevenToken: String = "sevenToken"
+let K_JT_userId: String = "userId"
+
+//MARK: - 登录的appKey
+let wechatAppKey = "wx3314443bcadc6e01"
+let sinaWeiboAppKey = "3823885346"
+let redirectURI = K_URL_Base + "api/third/weibocallback"
+let qqAppKey = "101717196"
+let key = Key<String>(K_JT_token)
+let sevenToken = Key<String>(K_JT_sevenToken)
+let userIdKey = Key<String>(K_JT_userId)

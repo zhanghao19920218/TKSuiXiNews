@@ -38,15 +38,16 @@ class BaseTabBarController: UITabBarController, tabBarDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated);
         for child in self.tabBar.subviews {
-            if (child.isKind(of: UIControl.self)) {
-                child.isHidden = true;
+            if child is UIControl {
+                child.isHidden = true
             }
         }
     }
     
     private func setupTabBar() {
         let customTabBar:BATabBar = BATabBar.init();
-        self.tabBar.backgroundColor = RGBA(255, 255, 255, 1);
+        self.tabBar.backgroundColor = RGBA(255, 255, 255, 1)
+//        customTabBar.backgroundColor = .red
         customTabBar.delegate = self;
         customTabBar.frame = self.tabBar.bounds;
         self.costomTabBar = customTabBar;

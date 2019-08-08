@@ -11,22 +11,20 @@ import UIKit
 let TGTabBarButtonImageRatio:CGFloat = 0.6;
 
 class BATabBarButton: UIButton {
-    fileprivate var newItem: UITabBarItem!;
+    private var _newItem: UITabBarItem!;
 
     var item: UITabBarItem! {
-        get {
-            return self.newItem;
-        }
-        set (newValue) {
-            self.setTitle(newValue.title, for: .normal);
-            self.setImage(newValue.image, for: .normal);
-            self.setImage(newValue.selectedImage, for: .selected);
-            self.newItem = newValue;
+        willSet(newValue) {
+            setTitle(newValue.title, for: .normal);
+            setImage(newValue.image, for: .normal);
+            setImage(newValue.selectedImage, for: .selected);
+            _newItem = newValue;
         }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame);
+        
         
         //图片居中
         self.imageView?.contentMode = .center;
@@ -55,7 +53,11 @@ class BATabBarButton: UIButton {
     }
     
     override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
-        let titleY = contentRect.size.height * TGTabBarButtonImageRatio;
+        let titleY = contentRect.size.height * TGTabBarButtonImageRatio
+//        //MARK: - 适配视频返回横屏的BUG
+//        if iPhoneX || iPhoneXR || iPhoneMax {
+//            titleY = contentRect.size.height * TGTabBarButtonImageRatio - 20 * iPHONE_AUTORATIO
+//        }
         let titleW = contentRect.size.width;
         let titleH = contentRect.size.height - titleY;
         return CGRect(x: 0, y: titleY, width: titleW, height: titleH);

@@ -177,6 +177,21 @@ extension VideoNewsDetailController: UITableViewDelegate, UITableViewDataSource 
         //用户分享的Cell
         if indexPath.row == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: shareCellIdentifier) as! BaseShareBottomView
+            cell.shareBlock = { type in
+                let url = K_URL_Share + (self.model?.id.string ?? "0")
+                if type == .qqShare { //QQ分享
+                    QQShareInstance.share.shareQQ(title: self.model?.name.string ?? "", url: url)
+                }
+                if type == .weiboShare { //微博分享
+                    ThirdPartyLogin.share.shareWebToSina(title: self.model?.name.string ?? "", url: url)
+                }
+                if type == .circleShare { //朋友圈
+                    ThirdPartyLogin.share.shareWechatTimeline(title: self.model?.name.string ?? "", url: url)
+                }
+                if type == .wechatShare {
+                    ThirdPartyLogin.share.shareWechatFriend(title: self.model?.name.string ?? "", url: url)
+                }
+            }
             return cell
         }
         
@@ -223,7 +238,7 @@ extension VideoNewsDetailController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            let vc = NELivePlayerVC.init(url: URL(string: model?.video.string ?? ""))
+            let vc = NETLivePlayerController(url: model?.video.string ?? "")
             navigationController?.pushViewController(vc ?? UIViewController(), animated: true);
         }
     }

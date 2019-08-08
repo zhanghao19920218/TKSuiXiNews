@@ -8,6 +8,7 @@
 
 import Foundation
 import MBProgressHUD
+import Toast_Swift
 
 class TAlert: NSObject {
     enum AlertType {
@@ -43,34 +44,27 @@ class TAlert: NSObject {
 class TProgressHUD {
     class func show() {
         if let window = UIApplication.shared.delegate?.window {
-            let animation:CABasicAnimation = CABasicAnimation.init(keyPath: "transform.rotation.z");
-            animation.fromValue = NSNumber.init(value: 0.0);
-            animation.toValue = NSNumber.init(value: Double.pi * 2);
-            animation.duration = 1;
-            animation.autoreverses = false;
-            animation.fillMode = CAMediaTimingFillMode.forwards;
-            animation.repeatCount = MAXFLOAT;
+            let animation:CABasicAnimation = CABasicAnimation.init(keyPath: "transform.rotation.z")
+            animation.fromValue = NSNumber.init(value: 0.0)
+            animation.toValue = NSNumber.init(value: Double.pi * 2)
+            animation.duration = 1
+            animation.autoreverses = false
+            animation.fillMode = CAMediaTimingFillMode.forwards
+            animation.repeatCount = MAXFLOAT
             //如果这里想设置成一直自旋转，可以设置为MAXFLOAT，否则设置具体的数值则代表执行多少次
-            let hub = MBProgressHUD.showAdded(to: window!, animated: true);
-            hub.mode = MBProgressHUDMode.indeterminate;
-//            hub.bezelView.color = UIColor.black;
-            let xOffset:CGFloat = hub.offset.x;
-            hub.offset = CGPoint(x: xOffset, y: -80);
+            let hub = MBProgressHUD.showAdded(to: window!, animated: true)
+            hub.mode = MBProgressHUDMode.indeterminate
+            let xOffset:CGFloat = hub.offset.x
+            hub.offset = CGPoint(x: xOffset, y: -80)
         }
     }
     
     class func show(text: String) {
-        if let window = UIApplication.shared.delegate?.window {
-            //如果这里想设置成一直自旋转，可以设置为MAXFLOAT，否则设置具体的数值则代表执行多少次
-            let hub = MBProgressHUD.showAdded(to: window!, animated: true);
-            hub.mode = MBProgressHUDMode.indeterminate;
-//            hub.bezelView.color = UIColor.black;
-//            hub.label.textColor = UIColor.white;
-            hub.label.text = text;
-            let xOffset:CGFloat = hub.offset.x;
-            hub.offset = CGPoint(x: xOffset, y: -80);
-            hub.hide(animated: true, afterDelay: 1.5);
-        }
+        let vc = UIViewController.current()
+        var style = ToastStyle()
+        style.messageColor = .white
+        
+        vc?.view.makeToast(text, duration: 2.0, position: .center, style: style)
     }
     
     class func hide() {

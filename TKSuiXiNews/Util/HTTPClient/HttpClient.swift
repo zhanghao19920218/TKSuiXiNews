@@ -10,8 +10,6 @@ import Foundation
 import Moya
 import DefaultsKit
 
-private let key = Key<String>(K_JT_token);
-
 class HttpClient
 {
     public static let shareInstance = HttpClient();

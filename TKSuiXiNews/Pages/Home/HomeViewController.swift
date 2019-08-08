@@ -8,7 +8,7 @@
 
 import UIKit
 import DNSPageView
-import YPImagePicker
+//import YPImagePicker
 
 //PageView的frame
 fileprivate let pageViewRect = CGRect(x: 0, y: 0, width: K_SCREEN_WIDTH, height: K_SCREEN_HEIGHT - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT);

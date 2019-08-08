@@ -11,3 +11,4 @@ import Foundation
 //融媒体的基本请求URL
 
 let K_URL_Base = "http://medium.tklvyou.cn/";
+let K_URL_Share = "http://mediumweb.tklvyou.cn/#/articleDetail/"

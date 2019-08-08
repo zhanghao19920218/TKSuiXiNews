@@ -21,4 +21,26 @@ extension AppDelegate
             self.window?.rootViewController = rootVC;
         }
     }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        return ThirdPartyLogin.share.handleOpenUrl(url, "")
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let urlKey:String = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String
+        
+        return ThirdPartyLogin.share.handleOpenUrl(url, urlKey)
+    }
+    
+    // 新浪微博的H5网页登录回调需要实现这个方法
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        // 这里的URL Schemes是配置在 info -> URL types中, 添加的新浪微博的URL schemes
+        // 例如: 你的新浪微博的AppKey为: 123456789, 那么这个值就是: wb123456789
+        if url.scheme == "wb3823885346" {
+            // 新浪微博 的回调
+            return ThirdPartyLogin.share.handle(url)
+        }
+        
+        return true
+    }
 }

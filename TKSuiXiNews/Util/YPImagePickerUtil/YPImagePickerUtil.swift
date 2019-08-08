@@ -9,7 +9,6 @@
 import Foundation
 import CoreMedia
 import AVFoundation
-import YPImagePicker
 
 //typealias YPImagePickerBlock = (_ imageUrl:String, _ videoUrl: String, _ videoLength: Int)->Void
 
@@ -96,7 +95,9 @@ open class YPImagePickerUtil {
             self?.videoImageFirst = video.thumbnail;
             
             //上传照片信息
-            self?.uploadDetailVideo(videoUrl: video.url);
+            let data = try? Data(contentsOf: video.url);
+            if let _ = data { SevenBeefUpload.uploadVideoFile(filePath: data!) }
+            self?.picker?.dismiss(animated: true, completion: nil);
         }
         
         if let picker = self.picker {

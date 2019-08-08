@@ -137,8 +137,8 @@ extension DetailTelevisonInfoController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            let vc = NELivePlayerVC.init(url: URL(string: model?.video.string ?? ""))
-            navigationController?.pushViewController(vc ?? UIViewController(), animated: true);
+            let vc = NETLivePlayerController.init(url: model?.video.string ?? "")
+            navigationController?.pushViewController(vc, animated: true);
         }
     }
     

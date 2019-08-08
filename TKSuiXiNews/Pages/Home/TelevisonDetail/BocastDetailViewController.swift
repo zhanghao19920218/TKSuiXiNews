@@ -196,8 +196,8 @@ extension BocastDetailViewController: UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            let vc = NELivePlayerVC.init(url: URL(string: model?.audio.string ?? ""))
-            navigationController?.pushViewController(vc ?? UIViewController(), animated: true);
+            let vc = NETLivePlayerController(url: model?.video.string ?? "")
+            navigationController?.pushViewController(vc, animated: true);
         }
     }
 }

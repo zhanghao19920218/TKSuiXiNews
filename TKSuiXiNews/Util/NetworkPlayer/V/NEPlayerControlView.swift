@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
+import CoreMedia
 
 protocol NEPlayerControlViewDelegate {
     //点击更新播放和暂停按钮
@@ -14,6 +16,9 @@ protocol NEPlayerControlViewDelegate {
     
     //点击更新播放进度条
     func controlViewOnClickSeek(_ controlView: NEPlayerControlView, dstTime:Float)
+    
+    //拖动更新界面进度
+    func controlViewOnSeekTouch(_ controlView: NEPlayerControlView, dstTime:CMTime)
 }
 
 class NEPlayerControlView: UIView {
@@ -25,9 +30,6 @@ class NEPlayerControlView: UIView {
             if let value = value {
                 let time = secondsToHoursMinutesSeconds(seconds: Int(value));
                 durationTimeLabel.text = "\(time.hour):\(time.min):\(time.sec)"
-                videoProgress.maximumValue = Float(value);
-            } else {
-                videoProgress.maximumValue = 0
             }
         }
     }
@@ -36,12 +38,10 @@ class NEPlayerControlView: UIView {
     var currentPos: TimeInterval? {
         willSet(value) {
             if let value = value {
-                videoProgress.value = Float(value);
-//                let time = secondsToHoursMinutesSeconds(seconds: Int(value));
-//                durationTimeLabel.text = "\(time.hour):\(time.min):\(time.sec)"
-//                videoProgress.maximumValue = Float(value);
-            } else {
-                videoProgress.value = 0;
+                slider.value = Float(value);
+                let time = secondsToHoursMinutesSeconds(seconds: Int(value));
+                currentTimeLabel.text = "\(time.hour):\(time.min):\(time.sec)"
+                videoProgress.progress = Float((value / (duration ?? 1)))
             }
         }
     }
@@ -51,6 +51,12 @@ class NEPlayerControlView: UIView {
             return false;
         }
     }
+    
+    //设置当前加载的动画
+    private lazy var cacheLoading: NVActivityIndicatorView = {
+        let view = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .white)
+        return view
+    }()
     
     //增加控制点击的效果
     private lazy var control: UIControl = {
@@ -67,9 +73,11 @@ class NEPlayerControlView: UIView {
     }();
     
     //设置爱奇艺按钮
-    private lazy var playButton: LYCopyQIYButton = {
-        let button = LYCopyQIYButton(frame: CGRect(x: K_SCREEN_WIDTH/2 - 15 * iPHONE_AUTORATIO , y: K_SCREEN_HEIGHT/2 - 15 * iPHONE_AUTORATIO, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO), color: .white)
+    private lazy var playButton: UIButton = {
+        let button = UIButton(type: .custom)
         button.isHidden = true;
+        button.setSelectedImage("video_play_btn")
+        button.setImage("video_pause_btn")
         button.addTarget(self,
                          action: #selector(tappedPlayOrPause(_:)),
                          for: .touchUpInside);
@@ -82,19 +90,39 @@ class NEPlayerControlView: UIView {
         label.font = kFont(14 * iPHONE_AUTORATIO);
         label.textColor = .white;
         label.text = "--:--"
-        return label;
+        return label
     }();
+    
+    //目前播放的时间
+    private lazy var currentTimeLabel: UILabel = {
+        let label = UILabel()
+        label.font = kFont(14 * iPHONE_AUTORATIO);
+        label.textColor = .white;
+        label.text = "--:--"
+        return label
+    }()
+    
+    //设置slider
+    lazy var slider: UISlider = {
+        let slider = UISlider()
+        slider.isContinuous = false
+        slider.setThumbImage(K_ImageName("slider_thumb"), for: .normal)
+        slider.maximumTrackTintColor = .clear
+        slider.minimumTrackTintColor = appThemeColor
+        slider.addTarget(self, action: #selector(sliderValueChange), for: .valueChanged)
+        return slider
+    }()
     
     
     //播放器进度条
-    private lazy var videoProgress: UISlider = {
-        let slide = UISlider();
+    private lazy var videoProgress: UIProgressView = {
+        let slide = UIProgressView();
         slide.tintColor = appThemeColor
         slide.isHidden = true;
 //        slide.setThumbImage(K_ImageName("btn_player_slider_thumb"), for: .normal);
-        slide.setMaximumTrackImage(K_ImageName("btn_player_slider_all"), for: .normal);
-        slide.setMinimumTrackImage(K_ImageName("btn_player_slider_played"), for: .normal);
-        slide.addTarget(self, action: #selector(onClickSeekTouchUpOutside(_:)), for: .touchUpInside)
+//        slide.setMaximumTrackImage(K_ImageName("btn_player_slider_all"), for: .normal);
+//        slide.setMinimumTrackImage(K_ImageName("btn_player_slider_played"), for: .normal);
+//        slide.addTarget(self, action: #selector(onClickSeekTouchUpOutside(_:)), for: .touchUpInside)
         return slide;
     }();
     
@@ -119,12 +147,23 @@ class NEPlayerControlView: UIView {
         }
         
         addSubview(playButton);
+        playButton.snp.makeConstraints { (make) in
+            make.left.equalTo(5 * iPHONE_AUTORATIO)
+            make.bottom.equalTo(-30 * iPHONE_AUTORATIO)
+            make.size.equalTo(CGSize(width: 40 * iPHONE_AUTORATIO, height: 40 * iPHONE_AUTORATIO))
+        }
         
+        //加载框
+        addSubview(cacheLoading)
+        cacheLoading.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.size.equalTo(CGSize(width: 50 * iPHONE_AUTORATIO, height: 50 * iPHONE_AUTORATIO))
+        }
         
         //进度条按钮
         addSubview(videoProgress)
         videoProgress.snp.makeConstraints { (make) in
-            make.left.equalTo(10 * iPHONE_AUTORATIO);
+            make.left.equalTo(50 * iPHONE_AUTORATIO);
             make.right.equalTo(-10 * iPHONE_AUTORATIO)
             make.bottom.equalTo(-50 * iPHONE_AUTORATIO);
             make.height.equalTo(5);
@@ -136,6 +175,31 @@ class NEPlayerControlView: UIView {
             make.right.equalTo(-15 * iPHONE_AUTORATIO);
             make.bottom.equalTo(self.videoProgress.snp_top).offset(-10 * iPHONE_AUTORATIO);
         }
+        
+        //目前的时间
+        addSubview(currentTimeLabel)
+        currentTimeLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(15 * iPHONE_AUTORATIO + STATUS_BAR_HEIGHT)
+            make.bottom.equalTo(self.videoProgress.snp_top).offset(-10 * iPHONE_AUTORATIO)
+        }
+        
+        addSubview(slider)
+        slider.snp.makeConstraints { (make) in
+            make.left.equalTo(50 * iPHONE_AUTORATIO);
+            make.right.equalTo(-10 * iPHONE_AUTORATIO)
+            make.bottom.equalTo(-50 * iPHONE_AUTORATIO);
+            make.height.equalTo(5);
+        }
+    }
+    
+    //MARK: - 缓冲加载
+    func startLoading() {
+        cacheLoading.startAnimating()
+    }
+    
+    //MARK: - 缓冲加载完成
+    func stopLoading() {
+        cacheLoading.stopAnimating()
     }
     
     //MARK: - 点击跳转控制文件
@@ -150,6 +214,7 @@ class NEPlayerControlView: UIView {
     @objc private func tappedPlayOrPause(_ sender: LYCopyQIYButton) {
         if let delegate = delegate {
             delegate.controlViewOnClickPlay(self, isPlay: sender.isSelected);
+            sender.isSelected = !sender.isSelected
         }
     }
     
@@ -165,6 +230,12 @@ class NEPlayerControlView: UIView {
         print("更新进度条");
         if let delegate = delegate {
             delegate.controlViewOnClickSeek(self, dstTime: slider.value)
+        }
+    }
+    
+    @objc private func sliderValueChange() {
+        if let delegate = delegate {
+            delegate.controlViewOnSeekTouch(self, dstTime: CMTimeMake(value: Int64(self.slider.value * 1000), timescale: 1000))
         }
     }
     

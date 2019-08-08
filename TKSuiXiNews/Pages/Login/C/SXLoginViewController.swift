@@ -11,7 +11,6 @@ import DefaultsKit
 
 //MARK - 登录页面
 // Define a key
-private let key = Key<String>(K_JT_token);
 
 fileprivate let fontStyle = kFont(12 * iPHONE_AUTORATIO);
 fileprivate let buttonSize = CGSize(width: 40 * iPHONE_AUTORATIO, height: 40 * iPHONE_AUTORATIO);
@@ -22,7 +21,8 @@ class SXLoginViewController: BaseLoginViewController {
         let textField = SXLoginTextField.init();
         textField.prefix.image = K_ImageName("phone");
         textField.placeholder = "请输入手机号";
-        textField.isSuffixHidden = false;
+        textField.isSuffixHidden = true
+        textField.textField.keyboardType = .numberPad
         textField.textField.tag = 1;
         textField.textField.addTarget(self,
                                       action: #selector(textFieldValueDidChanged(_:)),
@@ -120,6 +120,8 @@ class SXLoginViewController: BaseLoginViewController {
         navigationItem.title = "登录"
         
         setupUI()
+        
+        ThirdPartyLogin.share.delegate = self
     }
     
     //初始化页面
@@ -204,17 +206,18 @@ class SXLoginViewController: BaseLoginViewController {
         }
         
         //请求参数登录
-        HttpClient.shareInstance.request(target: BAAPI.login(account: model.account, password: model.password), success: { (json) in
+        HttpClient.shareInstance.request(target: BAAPI.login(account: model.account, password: model.password), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(UserLoginInfo.self, from: json)
             guard let userModel = model else {
                 return;
             }
+            
             let token = userModel.data.userinfo.token.string;
             Defaults.shared.set(token, for: key);
-            //更新rootVC
-            let rootVC = BaseTabBarController.init();
-            UIViewController.restoreRootViewController(rootVC);
+            Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey);
+            self?.requestSevenBeefToken()
+            
         }
         )
     }
@@ -236,12 +239,21 @@ class SXLoginViewController: BaseLoginViewController {
         switch sender.tag {
         case 1:
             print("QQ登录");
+            
+            ThirdPartyLogin.share.qqLogin()
+            
             break;
         case 2:
             print("微信登录");
+            
+            ThirdPartyLogin.share.wxLogin()
+            
             break;
         case 3:
             print("新浪登录");
+            
+            ThirdPartyLogin.share.sinaLogin()
+            
             break;
         default:
             print("没有登录");
@@ -253,9 +265,43 @@ class SXLoginViewController: BaseLoginViewController {
         //更新账户
         if (sender.tag == 1) {
             model.account = sender.text ?? "";
+            if model.account.isPhoneNumber() { phoneTextF.isSuffixHidden = false } else { phoneTextF.isSuffixHidden = true }
         } else {
             model.password = sender.text ?? "";
         }
     }
 
+}
+
+
+extension SXLoginViewController:ThirdPartyLoginDelegate {
+    func thirdPartyLoginSuccess(with code: String, platform: String) {
+        login(with: platform, code: code)
+    }
+    
+    
+    
+    //MARK: - 登录回调接口
+    private func login(with platform:String, code:String) {
+        //请求参数登录
+        HttpClient.shareInstance.request(target: BAAPI.thirdPartyLogin(platform: platform, code: code), success: { (json) in
+            
+        }
+        )
+    }
+    
+    //MARK: - 请求七牛云token
+    private func requestSevenBeefToken(){
+        HttpClient.shareInstance.request(target: BAAPI.qiniuyunToken, success: { (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(SevenBeefModelResponse.self, from: json)
+            guard let userModel = model else {
+                return;
+            }
+            Defaults.shared.set(userModel.data.string, for: sevenToken);
+            //更新rootVC
+            let rootVC = BaseTabBarController.init();
+            UIViewController.restoreRootViewController(rootVC);
+        })
+    }
 }

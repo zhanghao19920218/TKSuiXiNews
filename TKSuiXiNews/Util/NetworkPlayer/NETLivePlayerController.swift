@@ -7,9 +7,11 @@
 //
 
 import UIKit
-import NELivePlayerFramework
+import PLPlayerKit
 
 class NETLivePlayerController: BaseViewController {
+    //时间的进度
+    private var playerTimer: Timer?
 
     //播放器的控制UI
     private lazy var controlView: NEPlayerControlView = {
@@ -18,18 +20,21 @@ class NETLivePlayerController: BaseViewController {
         return view;
     }();
     
+    //方法内实例化PLPlayOption
+    private lazy var option:PLPlayerOption = {
+        let option = PLPlayerOption.default()
+        option.setOptionValue(15, forKey: PLPlayerOptionKeyTimeoutIntervalForMediaPackets) //播放器所用 RTMP 连接的超时断开时间长度，单位为秒。小于等于 0 表示无超时限制
+        option.setOptionValue(1000, forKey: PLPlayerOptionKeyMaxL1BufferDuration) //一级缓存大小，单位为 ms，默认为 1000ms，增大该值可以减小播放过程中的卡顿率，但会增大弱网环境的最大累积延迟。
+        option.setOptionValue(1000, forKey: PLPlayerOptionKeyMaxL2BufferDuration) //二级缓存大小，单位为 ms，默认为 1000ms，增大该值可以减小播放过程中的卡顿率，但会增大弱网环境的最大累积延迟
+        option.setOptionValue(true, forKey: PLPlayerOptionKeyVideoToolbox)  //使用 video toolbox 硬解码
+        return option
+    }()
+    
     //播放器的url
     private var _url:String = "";
     
     //懒加载播放器
-    private var player: NELivePlayerController?
-    
-    //播放视频的界面
-    private var playerContainerView: UIView = {
-        let view = UIView();
-        view.backgroundColor = .black;
-        return view;
-    }()
+    private var player: PLPlayer?
     
     //进度条
     private var timer: DispatchSource?
@@ -43,204 +48,86 @@ class NETLivePlayerController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        print("[NELivePlayer Demo] NELivePlayerVC 已经释放！")
-        NotificationCenter.default.removeObserver(self);
-    }
-    
-    //MARK: - 更新StatusBar
-    override var preferredStatusBarStyle: UIStatusBarStyle
-    {
-        return .lightContent
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        //设置标题为isTransport false
-        navigationController?.navigationBar.isTranslucent = true;
-        
-        view.backgroundColor = .black;
-        
-        setupUI()
+        view.backgroundColor = .white
         
         configurePlayer()
         
-        doInitPlayerNotification()
+    }
+    
+    //返回如果是横屏先竖屏再返回
+    override func popViewControllerBtnPressed() {
+        if UIDevice.current.orientation != .portrait {
+            let value = UIInterfaceOrientation.portrait.rawValue
+            UIDevice.current.setValue(value, forKey: "orientation")
+        }
         
+        super.popViewControllerBtnPressed()
     }
     
     
-    //    override func viewWillAppear(_ animated: Bool) {
-    //        super.viewWillAppear(animated);
-    //
-    //        setNeedsStatusBarAppearanceUpdate(); //更新StatusBar
-    //    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isTranslucent = true;
+        //在视图出现的时候，将allowRotate改为1，
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.allowrRotate = 1
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated);
         
         //设置标题为isTransport false
-        navigationController?.navigationBar.isTranslucent = false;
+        navigationController?.navigationBar.isTranslucent = false
         //更新标题为默认
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.allowrRotate = 0
         
         //销毁播放器
         doDestoryPlayer()
-    }
-    
-    //MARK: - 初始化页面
-    private func setupUI() {
-        //初始化播放图层
-        view.addSubview(playerContainerView);
-        playerContainerView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview();
-        }
         
-        
-        //初始化背景配置
-        view.addSubview(controlView);
-        controlView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview();
-        }
+        removeTimer()
     }
     
     //MARK: - 初始化播放器
     private func configurePlayer() {
-        //配置缓存
-        let config = NELPUrlConfig()
-        config.cacheConfig?.isCache = true
-        
         //初始化播放器
-        player = try? NELivePlayerController.init(contentURL: URL(string: _url), config: config);
-        
-        player?.setScalingMode(.none);
-        player?.shouldAutoplay = true;
-        player?.setHardwareDecoder(true); //用硬编码
-        player?.setPauseInBackground(false);
-        player?.setPlaybackTimeout(15 * 1000);
-        
-        player?.prepareToPlay();
-        
-        playerContainerView.addSubview(player?.view ?? UIView());
-        
-    }
-    
-    //MARK: - 初始化播放器通知
-    private func doInitPlayerNotification() {
-        //准备播放视频
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(NELivePlayerDidPreparedToPlay(notification:)),
-                                               name: .NELivePlayerDidPreparedToPlay,
-                                               object: player);
-        //播放状态发生改变
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(NELivePlayerPlaybackStateChanged(notification:)),
-                                               name: .NELivePlayerPlaybackStateChanged,
-                                               object: player);
-        
-        //播放器加载状态发生改变时的消息通知
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(NeLivePlayerloadStateChanged(notification:)),
-                                               name: .NELivePlayerLoadStateChanged,
-                                               object: player);
-        
-        //播放器播放完成
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(NELivePlayerPlayBackFinished(notification:)),
-                                               name: .NELivePlayerPlaybackFinished,
-                                               object: player);
-    }
-    
-    //MARK: - 播放器通知事件
-    @objc private func NELivePlayerDidPreparedToPlay(notification: Notification) {
-        //准备好播放视频
-        print("[NELivePlayer Demo] 收到 NELivePlayerDidPreparedToPlayNotification 通知");
-        
-        //获取视频信息，主要是为了告诉界面的可视范围，方便字幕显示
-        var info: NELPVideoInfo = NELPVideoInfo();
-        memset(&info, 0, MemoryLayout.size(ofValue: NELPVideoInfo.self))
-        player?.getVideoInfo(&info);
-        
-        player?.play();
-        //开
-        player?.setRealTimeListenerWithIntervalMS(500, callback: { (realTime) in
-            print("当前时间戳: [\(realTime)]");
+        player = PLPlayer.init(url: URL(string: _url), option: option)
+        print("播放地址: \(_url)")
+        player?.delegate = self
+        view.addSubview(player!.playerView!);
+        player?.playerView?.snp.makeConstraints({ (make) in
+            make.edges.equalToSuperview()
         })
         
-        //关
-        player?.setRealTimeListenerWithIntervalMS(500, callback: nil);
+        //自适应的界面
+        player?.playerView?.contentMode = UIView.ContentMode.scaleAspectFit;
+        //重复播放
+        player?.loopPlay = true
+        //线程
+        player?.delegateQueue = DispatchQueue.main
         
-        //更新播放器时间
-        controlView.duration = player?.duration;
-        //更新数据
-        controlView.currentPos = player?.currentPlaybackTime()
-    }
-    
-    //MARK: - 播放状态改变
-    @objc private func NELivePlayerPlaybackStateChanged(notification: Notification) {
-        print("[NELivePlayer Demo] 收到 NELivePlayerPlaybackStateChangedNotification 通知");
-    }
-    
-    //MARK: - 播放器加载状态改变
-    @objc private func NeLivePlayerloadStateChanged(notification: Notification) {
-        print("[NELivePlayer Demo] 收到 NELivePlayerLoadStateChangedNotification 通知");
-        
-        let nelpLoadState = NELPMovieLoadState.playthroughOK;
-        
-        if nelpLoadState == .playthroughOK {
-            print("完成缓冲");
-        } else if nelpLoadState == .stalled {
-            print("开始缓冲")
-        }
-    }
-    
-    //MARK: - 播放器播放完毕后状态改变
-    @objc private func NELivePlayerPlayBackFinished(notification: Notification) {
-        print("[NELivePlayer Demo] 收到 NELivePlayerPlaybackFinishedNotification 通知");
-        
-        let alertController:UIAlertController?
-        let action: UIAlertAction?
-        if let userInfo = notification.userInfo as? [String: Any] {
-            if let value = userInfo[NELivePlayerPlaybackDidFinishReasonUserInfoKey] as? Int {
-                //比较是不是这些情况
-                switch value {
-                //播放结束
-                case NELPMovieFinishReason.playbackEnded.rawValue:
-                    print("播放完成");
-                    //重复播放
-                    player?.prepareToPlay();
-                    player?.play();
-                case NELPMovieFinishReason.playbackError.rawValue:
-                    alertController = UIAlertController.init(title: "注意", message: "播放失败", preferredStyle: .alert);
-                    action = UIAlertAction(title: "OK", style: .default, handler: { [weak self] (_) in
-                        self?.doDestoryPlayer();
-                        self?.navigationController?.popViewController(animated: true);
-                    })
-                    alertController?.addAction(action!);
-                    self.present(alertController!, animated: true, completion: nil);
-                    
-                default:
-                    print("监听失败");
-                    break;
-                }
-            }
+        view.addSubview(controlView)
+        controlView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
         }
         
+        player?.play()
+        
+        addTimer()
     }
     
     //MARK: - 摧毁播放器
     private func doDestoryPlayer() {
-        player?.shutdown();
+        player?.stop()
         player = nil;
     }
     
-    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return .landscapeRight
-    }
-    
-    override var shouldAutorotate: Bool
-        {
-        return false;
+    override var shouldAutorotate: Bool {
+        return true
     }
 }
 
@@ -248,7 +135,7 @@ class NETLivePlayerController: BaseViewController {
 extension NETLivePlayerController: NEPlayerControlViewDelegate {
     func controlViewOnClickPlay(_ controlView: NEPlayerControlView, isPlay: Bool) {
         if isPlay {
-            player?.play(); //播放
+            player?.resume(); //继续播放
         } else {
             player?.pause(); //暂停
         }
@@ -258,6 +145,55 @@ extension NETLivePlayerController: NEPlayerControlViewDelegate {
     func controlViewOnClickSeek(_ controlView: NEPlayerControlView, dstTime: Float) {
         //更新进度条
         print("更新进度");
-        player?.setCurrentPlaybackTime(TimeInterval(exactly: dstTime) ?? TimeInterval())
+//        player?.setCurrentPlaybackTime(TimeInterval(exactly: dstTime) ?? TimeInterval())
+    }
+    
+    func controlViewOnSeekTouch(_ controlView: NEPlayerControlView, dstTime: CMTime) {
+        player?.seek(to: dstTime)
+    }
+}
+
+//MARK: - 支持七牛云播放器的Delegate
+extension NETLivePlayerController: PLPlayerDelegate {
+    // 实现 <PLPlayerDelegate> 来控制流状态的变更
+    func player(_ player: PLPlayer, statusDidChange state: PLPlayerStatus) {
+        if state == .statusCaching {
+            controlView.startLoading()
+        }
+        if state == .statusReady {
+            //获取视频长度
+            controlView.duration = player.totalDuration.seconds
+        }
+        
+        if state == .statusPlaying {
+            controlView.stopLoading()
+        }
+    }
+    
+    
+    func player(_ player: PLPlayer, firstRender firstRenderType: PLPlayerFirstRenderType) {
+        controlView.slider.maximumValue = Float(player.totalDuration.seconds)
+        controlView.slider.minimumValue = 0
+    }
+}
+
+extension NETLivePlayerController {
+    //MARK: 获取时间进度
+    private func addTimer() {
+        removeTimer()
+        playerTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
+    }
+    
+    //MARK: - 删除时间进度
+    private func removeTimer() {
+        if let _ = playerTimer {
+            playerTimer?.invalidate()
+            playerTimer = nil
+        }
+    }
+    
+    //MARK: - 记载进度条的Action
+    @objc private func timerAction() {
+        controlView.currentPos = player?.currentTime.seconds
     }
 }

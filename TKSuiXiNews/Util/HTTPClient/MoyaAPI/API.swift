@@ -35,3 +35,6 @@ let K_URL_recentlyReview = "api/userlog/index" //最近浏览
 let K_URL_addFavorite = "api/collect/add" //添加收藏
 let K_URL_favoriteList = "api/collect/index" //收藏列表
 let K_URL_exchangeRecord = "api/goods/record" //兑换产品列表
+let K_URL_thirdLibLogin = "api/user/third" //第三方登录
+let K_URL_resetPassword = "api/user/resetpwd" //重置密码
+let K_URL_sevenBeffToken = "/api/index/qiniutoken" //获取七牛云token
