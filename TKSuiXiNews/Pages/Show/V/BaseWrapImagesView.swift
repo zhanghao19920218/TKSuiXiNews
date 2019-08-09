@@ -12,6 +12,7 @@ fileprivate let layoutWidth = 90 * iPHONE_AUTORATIO;
 
 //MARK: - 里面的collectionViewCell
 class BaseWrapCollectionCell: UICollectionViewCell {
+    
     //照片名称
     var imageName:String? {
         willSet(value) {
@@ -21,9 +22,17 @@ class BaseWrapCollectionCell: UICollectionViewCell {
         }
     }
     
+    lazy var deleteButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage("delete_btn_icon")
+        button.isHidden = true
+        return button
+    }()
+    
     lazy var imagev:UIImageView = {
         let imageView = UIImageView.init();
-        imageView.image = K_ImageName(PLACE_HOLDER_IMAGE);
+        imageView.image = K_ImageName(PLACE_HOLDER_IMAGE)
+        imageView.isUserInteractionEnabled = true
         return imageView;
     }()
     
@@ -41,7 +50,13 @@ class BaseWrapCollectionCell: UICollectionViewCell {
         contentView.addSubview(imagev);
         imagev.snp.makeConstraints { (make) in
             make.edges.equalToSuperview();
-        };
+        }
+        
+        contentView.addSubview(deleteButton)
+        deleteButton.snp.makeConstraints { (make) in
+            make.left.top.equalToSuperview()
+            make.size.equalTo(CGSize(width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO))
+        }
     }
     
 }
@@ -49,6 +64,7 @@ class BaseWrapCollectionCell: UICollectionViewCell {
 fileprivate let cellIdentifier = "BaseWrapCollectionCellIdentifier";
 
 class BaseWrapImagesView: UIView {
+    
     //获取照片的数据
     var images:Array<String>? {
         willSet(value) {
@@ -95,7 +111,6 @@ class BaseWrapImagesView: UIView {
             make.edges.equalToSuperview();
         }
     }
-
 }
 
 extension BaseWrapImagesView: UICollectionViewDelegate, UICollectionViewDataSource {

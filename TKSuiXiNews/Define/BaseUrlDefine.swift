@@ -12,3 +12,4 @@ import Foundation
 
 let K_URL_Base = "http://medium.tklvyou.cn/";
 let K_URL_Share = "http://mediumweb.tklvyou.cn/#/articleDetail/"
+let K_URL_CDN = "http://pvuzg1gum.bkt.clouddn.com/"

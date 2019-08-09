@@ -222,7 +222,7 @@ extension ThirdPartyLogin: TencentSessionDelegate {
             print(jsonString)
             
             if let delegate = delegate  {
-                delegate.thirdPartyLoginSuccess(with: jsonString, platform: "weibo")
+                delegate.thirdPartyLoginSuccess(with: jsonString, platform: "qq")
             }
             TProgressHUD.show(text: "登录成功")
         } else {

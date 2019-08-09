@@ -13,9 +13,7 @@ import KMPlaceholderTextView
  * 录制V视频和拍摄的Controller
  */
 
-fileprivate let fontSize = kFont(14 * iPHONE_AUTORATIO);
-
-fileprivate let baseUrl = "http://medium.tklvyou.cn"
+fileprivate let fontSize = kFont(14 * iPHONE_AUTORATIO)
 
 class VVideoShootViewController: BaseViewController {
     //判断是不是发V视频
@@ -85,7 +83,7 @@ class VVideoShootViewController: BaseViewController {
     //播放的界面
     private lazy var videoPlayerScreen: HomeVVideoBaseView = {
         let view = HomeVVideoBaseView(frame: .zero);
-        return view;
+        return view
     }();
     
     //显示图片的界面
@@ -143,7 +141,7 @@ class VVideoShootViewController: BaseViewController {
             }
             
             //更新视图
-            videoPlayerScreen.kf.setImage(with: URL(string: baseUrl + self.videoImageUrl), placeholder: K_ImageName(PLACE_HOLDER_IMAGE));
+            videoPlayerScreen.kf.setImage(with: URL(string: videoImageUrl), placeholder: K_ImageName(PLACE_HOLDER_IMAGE));
         } else {
             view.addSubview(imagesScreen)
             imagesScreen.snp.makeConstraints { (make) in
@@ -152,12 +150,11 @@ class VVideoShootViewController: BaseViewController {
                 make.size.equalTo(CGSize(width: 315 * iPHONE_AUTORATIO, height: 315 * iPHONE_AUTORATIO))
             }
             
-            let newImages = images.map({ (val) in
-                return K_URL_Base + val;
-            })
-            
             //更新collection界面
-            imagesScreen.images = newImages;
+            imagesScreen.images = images
+            imagesScreen.deleteBlock = { [weak self] (index) in
+                self?.images.remove(at: index)
+            }
         }
     }
 
@@ -167,6 +164,7 @@ class VVideoShootViewController: BaseViewController {
             TProgressHUD.show(text: "请输入发表内容");
             return;
         }
+        
         
         
         if isVVideo && isVideo {
@@ -182,6 +180,11 @@ class VVideoShootViewController: BaseViewController {
                 }
             )
         } else {
+            if images.count == 0 {
+                TProgressHUD.show(text: "请选择照片")
+                return
+            }
+            
             HttpClient.shareInstance.request(target: BAAPI.addsCausualPhotos(name: describe, video: nil, images: images, image: videoImageUrl, time: videoLength), success: { [weak self] (json) in
                 self?.navigationController?.popViewController(animated: true)
                 TProgressHUD.show(text: "发表随手拍成功");
@@ -218,10 +221,7 @@ extension VVideoShootViewController: YPImagePickerUtilDelegate {
     //选择增加照片
     func imagePicker(images: [String], isSuccess: Bool) {
         //更新照片图库
-        let newImages = images.map({ (val) in
-            return K_URL_Base + val;
-        })
-        self.images += newImages;
+        self.images += images
         self.imagesScreen.images = self.images;
     }
     

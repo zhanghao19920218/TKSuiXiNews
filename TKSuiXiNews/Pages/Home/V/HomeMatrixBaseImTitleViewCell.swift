@@ -13,6 +13,23 @@ import UIKit
  */
 
 class HomeMatrixBaseImTitleViewCell: BaseTableViewCell {
+    //是不是被选中
+    var isChoose:Bool = false {
+        willSet(newValue) {
+            if newValue {
+                backView.backgroundColor = RGBA(255, 74, 92, 0.1)
+            } else {
+                backView.backgroundColor = .white
+            }
+        }
+    }
+    
+    var backView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 10 * iPHONE_AUTORATIO
+        return view
+    }()
+    
     var title:String? {
         willSet(newValue) {
             titleLabel.text = newValue ?? "";
@@ -45,15 +62,20 @@ class HomeMatrixBaseImTitleViewCell: BaseTableViewCell {
     //初始化页面
     override func setupUI() {
         super.setupUI()
+        contentView.addSubview(backView)
+        backView.snp.makeConstraints { (make) in
+            make.top.equalTo(15 * iPHONE_AUTORATIO)
+            make.left.right.bottom.equalToSuperview()
+        }
         
-        contentView.addSubview(iconView)
+        backView.addSubview(iconView)
         iconView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(25 * iPHONE_AUTORATIO)
+            make.top.equalTo(10 * iPHONE_AUTORATIO)
             make.size.equalTo(CGSize(width: 50 * iPHONE_AUTORATIO, height: 50 * iPHONE_AUTORATIO))
         }
         
-        contentView.addSubview(titleLabel)
+        backView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
             make.top.equalTo(iconView.snp_bottom).offset(13 * iPHONE_AUTORATIO)
             make.centerX.equalToSuperview()

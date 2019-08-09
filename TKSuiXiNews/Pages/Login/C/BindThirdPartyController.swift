@@ -1,22 +1,22 @@
 //
-//  SXSignUpViewController.swift
+//  BindThirdPartyController.swift
 //  TKSuiXiNews
 //
-//  Created by Barry Allen on 2019/7/20.
+//  Created by Barry Allen on 2019/8/9.
 //  Copyright © 2019 Barry Allen. All rights reserved.
 //
 
 import UIKit
 import DefaultsKit
+/*
+ * 绑定登录页面
+ */
 
-//MARK: - 立即注册页面
-
-class SXSignUpViewController: BaseLoginViewController {
+class BindThirdPartyController: BaseLoginViewController {
+    var thirdId:String = ""
     //手机号码
     private var mobile:String = ""
     private var messageCode:String = ""
-    private var password:String = ""
-    private var confirmPassword:String = ""
     
     //输入手机号码
     private lazy var phoneTextF: SXLoginTextField = {
@@ -45,43 +45,13 @@ class SXSignUpViewController: BaseLoginViewController {
                                       action: #selector(textFieldValueDidChanged(_:)),
                                       for: .editingChanged)
         return textField;
-    }();
+    }()
     
-    //输入验证码
-    private lazy var passwordTextF: SXLoginTextField = {
-        let textField = SXLoginTextField.init();
-        textField.prefix.image = K_ImageName("psw");
-        textField.placeholder = "请输入密码";
-        textField.textField.tag = 3
-        textField.textField.addTarget(self,
-                                      action: #selector(textFieldValueDidChanged(_:)),
-                                      for: .editingChanged)
-        return textField;
-    }();
-    
-    //输入验证码
-    private lazy var confirmPasswordTextF: SXLoginTextField = {
-        let textField = SXLoginTextField.init();
-        textField.prefix.image = K_ImageName("psw");
-        textField.placeholder = "请确认密码";
-        textField.textField.tag = 4
-        textField.textField.addTarget(self,
-                                      action: #selector(textFieldValueDidChanged(_:)),
-                                      for: .editingChanged)
-        return textField;
-    }();
-    
-    //注册同意的按钮
-    private lazy var licenseView: CommonLicense = {
-        let view = CommonLicense();
-        return view;
-    }();
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        navigationItem.title = "立即注册";
+        navigationItem.title = "绑定注册";
         
         setupUI();
     }
@@ -102,63 +72,29 @@ class SXSignUpViewController: BaseLoginViewController {
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
-        };
-        
-        view.addSubview(passwordTextF);
-        passwordTextF.snp.makeConstraints { (make) in
-            make.top.equalTo(self.codeTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
-            make.left.equalTo(38 * iPHONE_AUTORATIO);
-            make.right.equalTo(-38 * iPHONE_AUTORATIO);
-            make.height.equalTo(44 * iPHONE_AUTORATIO);
-        };
-        
-        view.addSubview(confirmPasswordTextF);
-        confirmPasswordTextF.snp.makeConstraints { (make) in
-            make.top.equalTo(self.passwordTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
-            make.left.equalTo(38 * iPHONE_AUTORATIO);
-            make.right.equalTo(-38 * iPHONE_AUTORATIO);
-            make.height.equalTo(44 * iPHONE_AUTORATIO);
-        };
+        }
         
         //注册按钮
         view.addSubview(button);
-        button.setTitle("注 册", for: .normal);
+        button.setTitle("绑 定", for: .normal);
         button.snp.makeConstraints { (make) in
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
-            make.top.equalTo(self.confirmPasswordTextF.snp_bottom).offset(25 * iPHONE_AUTORATIO);
+            make.top.equalTo(self.codeTextF.snp_bottom).offset(25 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
-        };
-        
-        //用户协议
-        view.addSubview(licenseView);
-        licenseView.snp.makeConstraints { (make) in
-            make.left.equalTo(40 * iPHONE_AUTORATIO);
-            make.top.equalTo(self.button.snp_bottom).offset(25 * iPHONE_AUTORATIO);
-            make.height.equalTo(20 * iPHONE_AUTORATIO);
-            make.width.equalTo(210 * iPHONE_AUTORATIO);
-        };
+        }
     }
-
+    
     
     override func buttonTapped(_ sender: UIButton) {
-        print("点击注册按钮");
-        if !licenseView.button.isSelected {
-            TProgressHUD.show(text: "请同意注册协议")
-            return
-        }
+        print("点击绑定按钮");
         
-        if messageCode.isEmpty || password.isEmpty || confirmPassword.isEmpty {
+        if messageCode.isEmpty || mobile.isEmpty {
             TProgressHUD.show(text: "请填写资料完全")
             return
         }
         
-        if confirmPassword != password {
-            TProgressHUD.show(text: "两次密码输入不一致")
-            return
-        }
-        
-        signInUserInfo()
+        bindingUserInfo()
     }
     
     @objc private func sendMssageButton(_ sender: UIButton) {
@@ -177,25 +113,23 @@ class SXSignUpViewController: BaseLoginViewController {
             if mobile.isPhoneNumber() { phoneTextF.isSuffixHidden = false } else { phoneTextF.isSuffixHidden = true }
         }
         if sender.tag == 2 { messageCode = sender.text ?? "" }
-        if sender.tag == 3 { password = sender.text ?? "" }
-        if sender.tag == 4 { confirmPassword = sender.text ?? "" }
     }
 }
 
-extension SXSignUpViewController {
+extension BindThirdPartyController {
     //MARK: - 发送验证码
     private func sendMessageCode(){
         
-        HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: mobile, event: "register"), success: { (json) in
+        HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: mobile, event: "bindmobile"), success: { (json) in
             TProgressHUD.show(text: "发送验证码成功")
         }
         )
     }
     
     //注册会员
-    private func signInUserInfo() {
-        HttpClient.shareInstance.request(target: BAAPI.registerUserInfo(password: password, captcha: messageCode, mobile: mobile), success: { (json) in
-            TProgressHUD.show(text: "注册成功")
+    private func bindingUserInfo() {
+        HttpClient.shareInstance.request(target: BAAPI.bindingMobile(thirdId: thirdId, mobile: mobile, captcha: messageCode), success: { (json) in
+            TProgressHUD.show(text: "绑定成功")
             let decoder = JSONDecoder()
             let model = try? decoder.decode(UserSignInModuleResponse.self, from: json)
             guard let userModel = model else {

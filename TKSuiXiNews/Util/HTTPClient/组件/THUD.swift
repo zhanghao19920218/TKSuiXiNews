@@ -64,7 +64,7 @@ class TProgressHUD {
         var style = ToastStyle()
         style.messageColor = .white
         
-        vc?.view.makeToast(text, duration: 2.0, position: .center, style: style)
+        vc?.view.makeToast(text, duration: 2.0, position: .bottom, style: style)
     }
     
     class func hide() {

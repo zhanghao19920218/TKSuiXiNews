@@ -206,7 +206,7 @@ class SXLoginViewController: BaseLoginViewController {
         }
         
         //请求参数登录
-        HttpClient.shareInstance.request(target: BAAPI.login(account: model.account, password: model.password), success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.login(account: model.account, password: model.password), success: { (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(UserLoginInfo.self, from: json)
             guard let userModel = model else {
@@ -216,8 +216,9 @@ class SXLoginViewController: BaseLoginViewController {
             let token = userModel.data.userinfo.token.string;
             Defaults.shared.set(token, for: key);
             Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey);
-            self?.requestSevenBeefToken()
-            
+            //更新rootVC
+            let rootVC = BaseTabBarController.init();
+            UIViewController.restoreRootViewController(rootVC);
         }
         )
     }
@@ -284,24 +285,38 @@ extension SXLoginViewController:ThirdPartyLoginDelegate {
     //MARK: - 登录回调接口
     private func login(with platform:String, code:String) {
         //请求参数登录
-        HttpClient.shareInstance.request(target: BAAPI.thirdPartyLogin(platform: platform, code: code), success: { (json) in
+        HttpClient.shareInstance.request(target: BAAPI.thirdPartyLogin(platform: platform, code: code), success: { [weak self] (json) in
+            let decoder = JSONDecoder()
+            let baseModel = try? decoder.decode(BaseModel.self, from: json)
+            guard let model = baseModel else {
+                return
+            }
+            if model.code == 1 {
+                let userModels = try? decoder.decode(UserLoginInfo.self, from: json)
+                guard let userModel = userModels else {
+                    return;
+                }
+                
+                let token = userModel.data.userinfo.token.string;
+                Defaults.shared.set(token, for: key);
+                Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey);
+                //更新rootVC
+                let rootVC = BaseTabBarController.init();
+                UIViewController.restoreRootViewController(rootVC)
+            }
+            
+            if model.code == 5 {
+                let thirdModel = try? decoder.decode(ThirdPartyModelResponse.self, from: json)
+                guard let thirdmodel = thirdModel else {
+                    return
+                }
+                
+                let vc = BindThirdPartyController()
+                vc.thirdId = thirdmodel.data.thirdID.string
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
             
         }
         )
-    }
-    
-    //MARK: - 请求七牛云token
-    private func requestSevenBeefToken(){
-        HttpClient.shareInstance.request(target: BAAPI.qiniuyunToken, success: { (json) in
-            let decoder = JSONDecoder()
-            let model = try? decoder.decode(SevenBeefModelResponse.self, from: json)
-            guard let userModel = model else {
-                return;
-            }
-            Defaults.shared.set(userModel.data.string, for: sevenToken);
-            //更新rootVC
-            let rootVC = BaseTabBarController.init();
-            UIViewController.restoreRootViewController(rootVC);
-        })
     }
 }

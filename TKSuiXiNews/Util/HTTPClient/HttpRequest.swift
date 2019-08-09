@@ -57,7 +57,7 @@ public class HttpRequest {
                 
                 //状态码：后台会规定数据正确的状态码，未登录的状态码等，可以统一处理
                 switch (model.generalStatus) {
-                case HttpCode.success.rawValue :
+                case HttpCode.success.rawValue, HttpCode.thirdLogin.rawValue :
                     //数据返回正确
                     if cache {
                         //缓存

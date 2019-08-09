@@ -61,6 +61,7 @@ open class YPImagePickerUtil {
     
     //单视频的获取
     open func singleVideoPicker() {
+        SevenBeefUpload.share.getSevenBeefToken() //请求七牛云token
         //获取当前的viewController
         let vc = UIViewController.current()
         
@@ -86,7 +87,7 @@ open class YPImagePickerUtil {
                 self?.picker?.dismiss(animated: true, completion: {
                     TProgressHUD.show(text: "录制时间过短");
                 });
-                return;
+                return
             }
             
             self?.videoLength = durationTime;
@@ -94,9 +95,8 @@ open class YPImagePickerUtil {
             //获取封面照片
             self?.videoImageFirst = video.thumbnail;
             
-            //上传照片信息
-            let data = try? Data(contentsOf: video.url);
-            if let _ = data { SevenBeefUpload.uploadVideoFile(filePath: data!) }
+            //上传视频信息
+            self?.uploadDetailVideo(videoUrl: video.url)
             self?.picker?.dismiss(animated: true, completion: nil);
         }
         
@@ -108,49 +108,33 @@ open class YPImagePickerUtil {
     //上传视频获取videoUrl
     private func uploadDetailVideo(videoUrl:URL ){
         //上传视频的数据
-        let data = try? Data(contentsOf: videoUrl);
-        
-        HttpClient.shareInstance.request(target: BAAPI.uploadVideo(data: data  ?? Data()), success: { [weak self] (json) in
-            let decoder = JSONDecoder()
-            let model = try? decoder.decode(UploadFileResponse.self, from: json)
-            guard let forceModel = model else {
-                return;
-            }
-            
+        guard let data = try? Data(contentsOf: videoUrl) else { return }
+        SevenBeefUpload.share.uploadVideoToQNFilePath(data: data) { [weak self] (videoUrl) in
             //更新视频地址
-            self?.videoUploadUrl = forceModel.data.url.string
+            self?.videoUploadUrl = videoUrl
             
             //上传图片
-            self?.uploadDetailImage();
-            
-            }
-        )
+            self?.uploadDetailImage()
+        }
     }
     
     //上传图像
     private func uploadDetailImage(){
-        let imageData = self.videoImageFirst.jpegData(compressionQuality: 0.75);
-        HttpClient.shareInstance.request(target: BAAPI.uploadImage(data: imageData ?? Data()), success: { [weak self] (json) in
-            let decoder = JSONDecoder()
-            let model = try? decoder.decode(UploadFileResponse.self, from: json)
-            guard let forceModel = model else {
-                return;
-            }
+        SevenBeefUpload.share.uploadSingleImage(videoImageFirst) { [weak self] (fileUrl) in
             
-            self?.imageFirstUrl = forceModel.data.url.string;
+            self?.imageFirstUrl = fileUrl
             
             if let delegate = self?.delegate {
                 delegate.imagePicker(imageUrl: self?.imageFirstUrl ?? "", videoUrl: self?.videoUploadUrl ?? "", videoLength: self?.videoLength ?? 0, isSuccess: true)
                 self?.picker?.dismiss(animated: true, completion: nil);
             }
-            
-            }
-        )
+        }
     }
     
     
     //拍摄或者录制视频
     open func cameraOrVideo() {
+        SevenBeefUpload.share.getSevenBeefToken() //请求七牛云token
         //获取当前的viewController
         let vc = UIViewController.current()
         
@@ -183,13 +167,13 @@ open class YPImagePickerUtil {
                 self?.videoImageFirst = video.thumbnail;
                 
                 //上传照片信息
-                self?.uploadDetailVideo(videoUrl: video.url);
+                self?.uploadDetailVideo(videoUrl: video.url)
             }
             
             if let image = items.singlePhoto {
                 self?.singleFirstImage = image.modifiedImage ?? image.originalImage;
                 
-                self?.uploadSinglePhoto();
+                self?.uploadSinglePhoto()
             }
             
             self?.picker?.dismiss(animated: true, completion: nil);
@@ -202,27 +186,20 @@ open class YPImagePickerUtil {
     
     //MARK: - 拍客上传单照片
     private func uploadSinglePhoto() {
-        let imageData = self.singleFirstImage.jpegData(compressionQuality: 0.75);
-        HttpClient.shareInstance.request(target: BAAPI.uploadImage(data: imageData ?? Data()), success: { [weak self] (json) in
-            let decoder = JSONDecoder()
-            let model = try? decoder.decode(UploadFileResponse.self, from: json)
-            guard let forceModel = model else {
-                return;
-            }
+        SevenBeefUpload.share.uploadSingleImage(singleFirstImage) { [weak self](fileUrl) in
             
-            self?.singleImageUrl = forceModel.data.url.string;
+            self?.singleImageUrl = fileUrl
             
             if let delegate = self?.delegate {
-                delegate.imagePicker(imageUrl: K_URL_Base + (self?.singleImageUrl ?? ""), isSuccess: true)
+                delegate.imagePicker(imageUrl: (self?.singleImageUrl ?? ""), isSuccess: true)
                 self?.picker?.dismiss(animated: true, completion: nil);
             }
-            
-            }
-        )
+        }
     }
     
     //MARK: - 拍客上传多照片
     open func multiPickerPhotosLibary(maxCount:Int) {
+        SevenBeefUpload.share.getSevenBeefToken() //请求七牛云token
         //获取当前的viewController
         let vc = UIViewController.current()
         
@@ -252,7 +229,8 @@ open class YPImagePickerUtil {
                     }
                 }
                 
-                self?.uploadPhotosImage(images: images);
+                self?.uploadPhotosImage(images: images)
+                self?.picker?.dismiss(animated: true, completion: nil)
             }
             
         }
@@ -264,22 +242,12 @@ open class YPImagePickerUtil {
     
     //上传单照片
     private func uploadPhotosImage(images: [UIImage]) {
-        HttpClient.shareInstance.request(target: BAAPI.uploadImages(images: images), success: { [weak self] (json) in
-            let decoder = JSONDecoder()
-            let model = try? decoder.decode(MutiImagesResponse.self, from: json)
-            guard let forceModel = model else {
-                return;
-            }
-            
-            //增加一个头部地址
-            self?.mutilImages = forceModel.data;
-
+        SevenBeefUpload.share.uploadImages(images) { [weak self](result) in
+            self?.mutilImages = result
             if let delegate = self?.delegate {
                 delegate.imagePicker(images: self?.mutilImages ?? [String](), isSuccess: true)
-                self?.picker?.dismiss(animated: true, completion: nil);
             }
-            
-            }
-        )
+
+        }
     }
 }

@@ -69,4 +69,16 @@ extension String {
         let timeStamp = Int(timeInterval)
         return timeStamp
     }
+    
+    //MARK: - 获取时间格式
+    static func getTimeFormat() -> String {
+        //获取当前时间
+        let now = Date()
+        
+        // 创建一个日期格式器
+        let dformatter = DateFormatter()
+        dformatter.dateFormat = "yyyyMMdd"
+        let result = dformatter.string(from: now)
+        return result
+    }
 }

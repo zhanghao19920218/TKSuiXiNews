@@ -17,6 +17,7 @@ fileprivate let cellIdentifier = "BaseWrapCollectionCellIdentifier";
 fileprivate let layoutWidth = 90 * iPHONE_AUTORATIO;
 
 class HomeVSendCollectionView: UIView {
+    var deleteBlock: (Int) -> Void = { _ in }
     /*
      * 点击选择更多照片的Block
      */
@@ -69,6 +70,12 @@ class HomeVSendCollectionView: UIView {
         }
     }
     
+    @objc private func deleteImageButton(_ sender: UIButton) {
+        deleteBlock(sender.tag)
+        dataSource.remove(at: sender.tag)
+        collectionView.reloadData()
+    }
+    
 }
 
 extension HomeVSendCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -87,11 +94,17 @@ extension HomeVSendCollectionView: UICollectionViewDelegate, UICollectionViewDat
         if indexPath.row == dataSource.count {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! BaseWrapCollectionCell
             cell.imagev.image = K_ImageName("add_photo");
+            cell.deleteButton.isHidden = true
             return cell
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! BaseWrapCollectionCell
         cell.imageName = dataSource[indexPath.row];
+        cell.deleteButton.tag = indexPath.row
+        cell.deleteButton.isHidden = false
+        cell.deleteButton.addTarget(self,
+                                    action: #selector(deleteImageButton(_:)),
+                                    for: .touchUpInside)
         return cell
     }
     

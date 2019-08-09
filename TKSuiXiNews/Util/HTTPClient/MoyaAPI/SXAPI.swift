@@ -76,6 +76,8 @@ enum  BAAPI {
     case resetPassword(mobile: String, newpassword: String, captcha: String)
     //请求获取七牛云token
     case qiniuyunToken
+    //绑定手机号码
+    case bindingMobile(thirdId:String, mobile:String, captcha:String)
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -156,6 +158,8 @@ extension BAAPI: TargetType {
             return K_URL_resetPassword
         case .qiniuyunToken:
             return K_URL_sevenBeffToken
+        case .bindingMobile:
+            return K_URL_bindingMobile
         }
         
     }
@@ -292,6 +296,11 @@ extension BAAPI: TargetType {
         case let .resetPassword(mobile, newpassword, captcha):
             params["mobile"] = mobile
             params["newpassword"] = newpassword
+            params["captcha"] = captcha
+            
+        case let .bindingMobile(thirdId, mobile, captcha):
+            params["third_id"] = thirdId
+            params["mobile"] = mobile
             params["captcha"] = captcha
             
         default:

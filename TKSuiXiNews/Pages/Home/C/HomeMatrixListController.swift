@@ -11,8 +11,7 @@ import UIKit
 /*
  * 矩阵ViewController
  */
-fileprivate let bannerIdentifier = "HomeVVideoBannerCellIdentifier";
-fileprivate let titlePickIdentifier = "HomeTitleHeaderFirstCellIdentifier"
+fileprivate let titlePickIdentifier = "MatrixBannerPagerViewCellIdentifier"
 fileprivate let newsOnePicIdentifier = "HomeNewsOnePictureCellIdentifier"
 
 
@@ -34,8 +33,7 @@ class HomeMatrixListController: BaseGrouppedTableViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.register(HomeVVideoBannerCell.self, forCellReuseIdentifier: bannerIdentifier)
-        tableView.register(HomeTitleHeaderFirstCell.self, forCellReuseIdentifier: titlePickIdentifier)
+        tableView.register(MatrixBannerPagerViewCell.self, forCellReuseIdentifier: titlePickIdentifier)
         tableView.register(HomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
         
         tableView.es.removeRefreshHeader()
@@ -59,7 +57,7 @@ extension HomeMatrixListController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 2
+            return 1
         }
         let model = dataSource[section-1] as! HomeMatrixListItemResponseDatum
         
@@ -68,21 +66,9 @@ extension HomeMatrixListController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: bannerIdentifier) as! HomeVVideoBannerCell
-                if let model = model { cell.images = model.data }
-                cell.block = { [weak self] (model) in
-                    let vc = HomeBannerDetailViewController()
-                    vc.loadUrl = model.content.string
-                    vc.name = model.name.string
-                    self?.navigationController?.pushViewController(vc, animated: true)
-                }
-                return cell;
-            }
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: titlePickIdentifier) as! HomeTitleHeaderFirstCell
-            cell.dataSource = topModel?.data
-            return cell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: titlePickIdentifier) as! MatrixBannerPagerViewCell
+//            cell.dataSource = topModel?.data
+            return cell
         }
         
         let model = dataSource[indexPath.section-1] as! HomeMatrixListItemResponseDatum
@@ -99,9 +85,6 @@ extension HomeMatrixListController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            if indexPath.row == 0 {
-                return 188 * iPHONE_AUTORATIO
-            }
             return 124 * iPHONE_AUTORATIO
         }
         return 112 * iPHONE_AUTORATIO

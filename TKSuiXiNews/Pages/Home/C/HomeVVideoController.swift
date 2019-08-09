@@ -141,7 +141,7 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
         cell.videoLength = model.time.string;
         cell.block = { [weak self] () in
             let vc = NETLivePlayerController(url: model.video.string)
-            self?.navigationController?.pushViewController(vc ?? UIViewController(), animated: true);
+            self?.navigationController?.pushViewController(vc, animated: true);
         }
         return cell;
     }
