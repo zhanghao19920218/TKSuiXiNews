@@ -15,7 +15,7 @@ class BaseVoteButtonCell: BaseTableViewCell {
         }
     }
     
-    var progress: Float = 0.0 {
+    var progress: Float? {
         willSet(newValue) {
             button.progress = newValue
         }
@@ -27,14 +27,14 @@ class BaseVoteButtonCell: BaseTableViewCell {
         }
     }
     
-    var isCustomerIsSelected: Bool = false {
+    var isCustomerIsSelected: Bool? {
         willSet(newValue) {
             button.isCustomerIsSelected = newValue
         }
     }
     
     //是不是点击的属性
-    var isCustomerShow:Bool = false {
+    var isCustomerShow:Bool? {
         willSet(newValue) {
             button.isCustomerShow = newValue
         }

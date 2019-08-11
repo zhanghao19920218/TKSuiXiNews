@@ -21,7 +21,7 @@ struct VoteContentDetailModelDataClass: Codable {
     let name, image, content, status: TStrInt
     let createtime, updatetime: TStrInt
     let option: [VoteOption]
-    let optionID: TStrInt
+    let optionID: TStrInt?
     
     enum CodingKeys: String, CodingKey {
         case id

@@ -87,11 +87,11 @@ struct VoteOption: Codable {
     let name, image: TStrInt
     let count: TStrInt
     let status: TStrInt
-    let createtime: TStrInt
+    let createtime, check: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case id
         case voteID = "vote_id"
-        case name, image, count, status, createtime
+        case name, image, count, status, createtime, check
     }
 }

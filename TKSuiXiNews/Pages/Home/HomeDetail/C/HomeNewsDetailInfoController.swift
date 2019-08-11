@@ -275,13 +275,24 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
             if indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: voteCellIdentifier) as! DetailInfoVoteSectionCell
                 if let _ = voteModel {
-                    cell.title = voteModel!.data.name.string
-                    cell.dataSource = voteModel!.data.option
-                    cell.currentIndex = _currentVoteIndex
-                    //发起投票的Block
-                    cell.currentVoteBlock = { [weak self] (id, index) in
-                        self?.voteSuccess(optionId: id)
-                        self?._currentVoteIndex = index
+                    if let _ = voteModel?.data.optionID {
+                        cell.title = voteModel!.data.name.string
+                        cell.dataSource = voteModel!.data.option
+                        cell.currentIndex = _currentVoteIndex
+                        //发起投票的Block
+                        cell.currentVoteBlock = { [weak self] (id, index) in
+                            self?.voteSuccess(optionId: id)
+                            self?._currentVoteIndex = index
+                        }
+                    } else {
+                        //获取当前check得索引
+                        cell.title = voteModel!.data.name.string
+                        cell.dataSource = voteModel!.data.option
+                        for (index, item) in voteModel!.data.option.enumerated() {
+                            if item.check.int != 0 {
+                                cell.currentIndex = index
+                            }
+                        }
                     }
                 }
                 return cell

@@ -21,11 +21,19 @@ fileprivate let selectedColor = RGBA(255, 146, 157, 1)
 
 class BaseVoteButton: UIButton {
     //显示背景的投票进度
-    var progress: Float = 0.0 {
+    var progress: Float?
+    {
         willSet(newValue) {
-            let width = CGFloat(newValue) * self.bounds.width
-            _voteNumBackView.frame = CGRect(x: 0, y: 0, width: width, height: 34 * iPHONE_AUTORATIO)
-            _voteNumBackView.corner(byRoundingCorners: [.bottomLeft, .topLeft], radii: 5 * iPHONE_AUTORATIO)
+            if let value = newValue {
+                let width = CGFloat(value) * 325 * iPHONE_AUTORATIO
+                _voteNumBackView.frame = CGRect(x: 0, y: 0, width: width, height: 34 * iPHONE_AUTORATIO)
+                if newValue != 1.0 {
+                    _voteNumBackView.corner(byRoundingCorners: [.bottomLeft, .topLeft], radii: 5 * iPHONE_AUTORATIO)
+                } else {
+                    _voteNumBackView.layer.cornerRadius = 5 * iPHONE_AUTORATIO
+                }
+            }
+            
         }
     }
     
@@ -44,9 +52,10 @@ class BaseVoteButton: UIButton {
     }
     
     //是不是点击的属性
-    var isCustomerShow:Bool = false {
+    var isCustomerShow:Bool?
+    {
         willSet(newValue) {
-            if newValue {
+            if let value = newValue, value {
                 _voteNumLabel.isHidden = false
                 _voteNumBackView.isHidden = false
             } else {
@@ -57,16 +66,18 @@ class BaseVoteButton: UIButton {
     }
     
     //是不是点击了
-    var isCustomerIsSelected: Bool = false {
+    var isCustomerIsSelected: Bool?
+    {
         willSet(newValue) {
             isCustomerShow = true
-            if newValue {
+            if let value = newValue, value {
                 _voteNumBackView.backgroundColor = selectedColor
                 layer.borderColor = selectedColor.cgColor
             } else {
                 _voteNumBackView.backgroundColor = normalColor
                 layer.borderColor = normalColor.cgColor
             }
+
         }
     }
     
@@ -97,8 +108,6 @@ class BaseVoteButton: UIButton {
         let view = UIView()
         view.backgroundColor = normalColor
         view.isHidden = true
-        //设置圆角
-//        view.corner(byRoundingCorners: [.bottomLeft, .topLeft], radii: 5 * iPHONE_AUTORATIO)
         return view
     }()
     
@@ -124,7 +133,7 @@ class BaseVoteButton: UIButton {
         titleLabel?.removeFromSuperview()
         imageView?.removeFromSuperview()
         
-        _voteNumBackView.frame = CGRect(x: 0, y: 0, width: CGFloat(_progress), height: 34 * iPHONE_AUTORATIO)
+        _voteNumBackView.frame = CGRect(x: 0, y: 0, width: 0, height: 34 * iPHONE_AUTORATIO)
         addSubview(_voteNumBackView)
         
         addSubview(_voteLabel)
