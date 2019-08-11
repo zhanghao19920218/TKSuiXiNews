@@ -31,6 +31,7 @@ pod 'Qiniu' #七牛云
 pod 'PLShortVideoKit'
 pod 'SteviaLayout'
 pod 'PryntTrimmerView' #封面选择器
+pod 'UITextView+Placeholder'
 #pod 'BSText' #富文本
 
 end

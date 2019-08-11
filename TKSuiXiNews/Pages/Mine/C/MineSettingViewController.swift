@@ -130,7 +130,8 @@ extension MineSettingViewController : UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let vc = ChangePasswordController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

@@ -16,6 +16,16 @@ fileprivate let cellTextIdentifier = "HomeAskNonePicCellIdentifier"
 fileprivate let cellThreePicIdentifier = "HomeAskThreePicCellIdentifier"
 
 class HomeAskGovController: BaseTableViewController {
+    
+    //问政按钮
+    private lazy var addAskButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage("home_ask_gov_add")
+        button.addTarget(self,
+                         action: #selector(didTapJumpAskGovermenyPage(_:)),
+                         for: .touchUpInside)
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +41,12 @@ class HomeAskGovController: BaseTableViewController {
         tableView.register(HomeAskNonePicCell.self, forCellReuseIdentifier: cellTextIdentifier)
         tableView.register(HomeAskThreePicCell.self, forCellReuseIdentifier: cellThreePicIdentifier)
         tableView.separatorStyle = .none
+        
+        view.addSubview(addAskButton)
+        addAskButton.snp.makeConstraints { (make) in
+            make.right.equalTo(-18 * iPHONE_AUTORATIO)
+            make.bottom.equalTo(-25 * iPHONE_AUTORATIO)
+        }
     }
     
     override func loadData() {
@@ -90,6 +106,12 @@ class HomeAskGovController: BaseTableViewController {
                 self?.tableView.reloadData();
             }
         )
+    }
+    
+    //MARK: - 点击跳转问政页面
+    @objc private func didTapJumpAskGovermenyPage(_ sender: UIButton) {
+        let vc = AskGovermentDetailController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

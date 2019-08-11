@@ -113,6 +113,7 @@ extension HomeVideoNewsListController: UITableViewDelegate, UITableViewDataSourc
         cell.isLike = model.likeStatus.int
         cell.like = model.likeNum.int
         cell.review = model.visitNum.int
+        cell.timeLength = model.time.int
         return cell;
     }
 

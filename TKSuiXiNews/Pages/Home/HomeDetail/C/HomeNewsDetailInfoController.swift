@@ -13,18 +13,25 @@ fileprivate let articleTitleIdentifier = "CommonDetailTitleNameCellIdentifier"
 fileprivate let shareCellIdentifier = "BaseShareBottomViewIdentifier"
 fileprivate let likeCellIdentifier = "DetailCommentLikeNumCellIdentifier"
 fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
+fileprivate let voteCellIdentifier = "DetailInfoVoteSectionCellIdentifier" //投票的Cell
 
 class HomeNewsDetailInfoController: BaseViewController {
+    //获取当前投票的index
+    private var _currentVoteIndex: Int?
+    
     //设置右侧的navigationItem
     private lazy var rightNavigatorItem: UIButton = {
         let button = UIButton(type: .custom);
-        button.setImage(K_ImageName("article_favorite"), for: .normal);
+        button.setSelectedImage("article_favorite")
+        button.setImage("detail_unfavo_icon")
         button.frame = CGRect(x: 0, y: 0, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO)
-        button.addTarget(self, action: #selector(addFavoriteButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(addFavoriteButton(_:)), for: .touchUpInside)
         return button;
     }();
 
     var model: DetailArticleModel?
+    
+    var voteModel: VoteContentDetailModelResponse?
     //获取详情的id
     var id: String = "0"
     
@@ -39,6 +46,7 @@ class HomeNewsDetailInfoController: BaseViewController {
         tableView.register(BaseShareBottomView.self, forCellReuseIdentifier: shareCellIdentifier);
         tableView.register(DetailCommentLikeNumCell.self, forCellReuseIdentifier: likeCellIdentifier)
         tableView.register(DetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
+        tableView.register(DetailInfoVoteSectionCell.self, forCellReuseIdentifier: voteCellIdentifier) //投票的Cell
         return tableView;
     }();
     
@@ -53,6 +61,22 @@ class HomeNewsDetailInfoController: BaseViewController {
                 view.sendBlock = { (comment) in
                     self?.sendComment(comment)
                 }
+            } else if type == .resend {
+                ShareBottomPopMenu.show(success: { [weak self](type) in
+                    let url = K_URL_Share + (self?.model?.id.string ?? "0")
+                    if type == .qq { //QQ分享
+                        QQShareInstance.share.shareQQ(title: self?.model?.name.string ?? "", url: url)
+                    }
+                    if type == .weibo { //微博分享
+                        ThirdPartyLogin.share.shareWebToSina(title: self?.model?.name.string ?? "", url: url)
+                    }
+                    if type == .circle { //朋友圈
+                        ThirdPartyLogin.share.shareWechatTimeline(title: self?.model?.name.string ?? "", url: url)
+                    }
+                    if type == .wechat {
+                        ThirdPartyLogin.share.shareWechatFriend(title: self?.model?.name.string ?? "", url: url)
+                    }
+                })
             }
         }
         view.isTappedBlock = { [weak self] isChoosed in
@@ -95,8 +119,12 @@ class HomeNewsDetailInfoController: BaseViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem);
     }
     
-    @objc private func addFavoriteButton(){
-        addFavorte()
+    @objc private func addFavoriteButton(_ sender: UIButton){
+        if sender.isSelected {
+            deleteFavorte()
+        } else {
+            addFavorte()
+        }
     }
     
 }
@@ -115,7 +143,20 @@ extension HomeNewsDetailInfoController {
             
             self?.tableView.reloadData();
             
+            //判断是不是已经收藏
+            if forceModel.data.collectStatus.int == 1 {
+                self?.rightNavigatorItem.isSelected = true
+            } else {
+                self?.rightNavigatorItem.isSelected = false
+            }
+            
             self?.bottomView.isLike = forceModel.data.likeStatus.int
+            
+            //如果有投票请求投票接口
+            if forceModel.data.voteID.int != 0 {
+                self?.getVoteContent(id: forceModel.data.voteID.int)
+            }
+            
             }
         )
     }
@@ -155,6 +196,41 @@ extension HomeNewsDetailInfoController {
             }
         )
     }
+    
+    //MARK: - 取消收藏
+    private func deleteFavorte() {
+        HttpClient.shareInstance.request(target: BAAPI.cancelFavorite(articleId: Int(id) ?? 0), success: { [weak self] (json) in
+            TProgressHUD.show(text: "取消收藏成功")
+            self?.loadDetailData()
+            }
+        )
+    }
+    
+    //MARK: - 点击投票
+    private func voteSuccess(optionId: Int) {
+        HttpClient.shareInstance.request(target: BAAPI.addVoteInArticle(id: self.model?.voteID.int ?? 0, optionId: optionId), success: { [weak self] (json) in
+            TProgressHUD.show(text: "投票成功")
+            //刷新页面
+            self?.loadDetailData()
+            }
+        )
+    }
+    
+    //MARK: - 获取投票内容
+    private func getVoteContent(id: Int) {
+        HttpClient.shareInstance.request(target: BAAPI.voteDetailContent(id: id), success: { [weak self] (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(VoteContentDetailModelResponse.self, from: json)
+            guard let forceModel = model else {
+                return;
+            }
+            
+            self?.voteModel = forceModel
+            self?.tableView.reloadData()
+            
+            }
+        )
+    }
 }
 
 extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSource {
@@ -167,7 +243,12 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4 + (model?.comment?.count ?? 0);
+        //判断是不是有投票内容
+        if let detailModel = model, detailModel.voteID.int != 0 {
+            //有投票内容
+            return 5 + (model?.comment?.count ?? 0)
+        }
+        return 4 + (model?.comment?.count ?? 0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -188,7 +269,64 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
             return cell
         }
         
-        //用户分享的Cell
+        //判断是不是有投票内容
+        if let detailModel = model, detailModel.voteID.int != 0 {
+            //是不是用户投票的界面
+            if indexPath.row == 2 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: voteCellIdentifier) as! DetailInfoVoteSectionCell
+                if let _ = voteModel {
+                    cell.title = voteModel!.data.name.string
+                    cell.dataSource = voteModel!.data.option
+                    cell.currentIndex = _currentVoteIndex
+                    //发起投票的Block
+                    cell.currentVoteBlock = { [weak self] (id, index) in
+                        self?.voteSuccess(optionId: id)
+                        self?._currentVoteIndex = index
+                    }
+                }
+                return cell
+            }
+            
+            //用户分享的Cell
+            if indexPath.row == 3 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: shareCellIdentifier) as! BaseShareBottomView
+                cell.shareBlock = { type in
+                    let url = K_URL_Share + (self.model?.id.string ?? "0")
+                    if type == .qqShare { //QQ分享
+                        QQShareInstance.share.shareQQ(title: self.model?.name.string ?? "", url: url)
+                    }
+                    if type == .weiboShare { //微博分享
+                        ThirdPartyLogin.share.shareWebToSina(title: self.model?.name.string ?? "", url: url)
+                    }
+                    if type == .circleShare { //朋友圈
+                        ThirdPartyLogin.share.shareWechatTimeline(title: self.model?.name.string ?? "", url: url)
+                    }
+                    if type == .wechatShare {
+                        ThirdPartyLogin.share.shareWechatFriend(title: self.model?.name.string ?? "", url: url)
+                    }
+                }
+                return cell
+            }
+            
+            
+            //用户称赞数量和评论数量
+            if indexPath.row == 4 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: likeCellIdentifier) as! DetailCommentLikeNumCell
+                cell.comment = model?.commentNum.int
+                cell.like = model?.likeNum.int
+                return cell
+            }
+            
+            //用户评论
+            let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! DetailUserCommentCell
+            cell.avatar = model?.comment?[indexPath.row - 5].avatar.string
+            cell.nickname = model?.comment?[indexPath.row - 5].nickname.string
+            cell.comment = model?.comment?[indexPath.row - 5].detail.string
+            cell.time = model?.comment?[indexPath.row - 5].createtime.string
+            return cell
+        }
+        
+        //如果没有投票内容
         if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: shareCellIdentifier) as! BaseShareBottomView
             cell.shareBlock = { type in
@@ -209,6 +347,7 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
             return cell
         }
         
+        
         //用户称赞数量和评论数量
         if indexPath.row == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: likeCellIdentifier) as! DetailCommentLikeNumCell
@@ -224,7 +363,6 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
         cell.comment = model?.comment?[indexPath.row - 4].detail.string
         cell.time = model?.comment?[indexPath.row - 4].createtime.string
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -236,9 +374,29 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
             return 400 * iPHONE_AUTORATIO
         }
         
+        //判断是不是有投票内容
+        if let detailModel = model, detailModel.voteID.int != 0 {
+            //有投票内容
+            if indexPath.row == 2 {
+                let height = 44 * iPHONE_AUTORATIO * CGFloat((detailModel.voteOption?.count ?? 0))
+                return 80 * iPHONE_AUTORATIO + height
+            }
+            
+            if indexPath.row == 3 {
+                return 72 * iPHONE_AUTORATIO
+            }
+            
+            if indexPath.row == 4 {
+                return 59 * iPHONE_AUTORATIO;
+            }
+            
+            return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 5].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
+        }
+        
         if indexPath.row == 2 {
             return 72 * iPHONE_AUTORATIO
         }
+        
         if indexPath.row == 3 {
             return 59 * iPHONE_AUTORATIO;
         }

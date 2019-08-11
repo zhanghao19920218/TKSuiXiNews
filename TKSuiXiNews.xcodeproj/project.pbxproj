@@ -24,6 +24,22 @@
 		730F179222EEFDD300FCD4FF /* HomeVideoNewsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F179122EEFDD300FCD4FF /* HomeVideoNewsListController.swift */; };
 		730F179422EF077200FCD4FF /* HomeVideoNewsListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F179322EF077200FCD4FF /* HomeVideoNewsListResponse.swift */; };
 		730F179622EF0DC800FCD4FF /* ServiceWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730F179522EF0DC800FCD4FF /* ServiceWKWebViewController.swift */; };
+		7319509C22FFB41E00E2FB0B /* OnlineTVShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7319509B22FFB41E00E2FB0B /* OnlineTVShowViewController.swift */; };
+		7319509E22FFBFB600E2FB0B /* Int+Extesion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7319509D22FFBFB600E2FB0B /* Int+Extesion.swift */; };
+		731950A122FFC13C00E2FB0B /* BaseVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950A022FFC13C00E2FB0B /* BaseVoteView.swift */; };
+		731950A322FFC5A800E2FB0B /* BaseVoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950A222FFC5A800E2FB0B /* BaseVoteButton.swift */; };
+		731950A522FFCD9D00E2FB0B /* BaseVoteButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950A422FFCD9D00E2FB0B /* BaseVoteButtonCell.swift */; };
+		731950A722FFCFBE00E2FB0B /* DetailInfoVoteSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950A622FFCFBE00E2FB0B /* DetailInfoVoteSectionCell.swift */; };
+		731950A922FFEFCF00E2FB0B /* VoteContentDetailModelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950A822FFEFCF00E2FB0B /* VoteContentDetailModelResponse.swift */; };
+		731950AB22FFF37600E2FB0B /* ExchangeNewPersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950AA22FFF37600E2FB0B /* ExchangeNewPersonCell.swift */; };
+		731950AD2300013C00E2FB0B /* ChangePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950AC2300013C00E2FB0B /* ChangePasswordController.swift */; };
+		731950AF230004B500E2FB0B /* ChangePasswordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950AE230004B500E2FB0B /* ChangePasswordCell.swift */; };
+		731950B12300060C00E2FB0B /* ChangePasswordCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950B02300060C00E2FB0B /* ChangePasswordCodeCell.swift */; };
+		731950B323000B3900E2FB0B /* MineSendArticlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950B223000B3900E2FB0B /* MineSendArticlesController.swift */; };
+		731950B623000E3200E2FB0B /* MineVShootVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950B523000E3200E2FB0B /* MineVShootVideoController.swift */; };
+		731950B823000E5400E2FB0B /* MineVVideoShootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950B723000E5400E2FB0B /* MineVVideoShootController.swift */; };
+		731950BB2300110E00E2FB0B /* MineArticleListModelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950BA2300110E00E2FB0B /* MineArticleListModelResponse.swift */; };
+		731950BD2300147A00E2FB0B /* MineAskGovListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950BC2300147A00E2FB0B /* MineAskGovListViewController.swift */; };
 		732606C222F27A1000ED0A72 /* HomeHappyReadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732606C122F27A1000ED0A72 /* HomeHappyReadResponse.swift */; };
 		732606C422F2818E00ED0A72 /* HomeHappyListenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732606C322F2818E00ED0A72 /* HomeHappyListenCell.swift */; };
 		732606C622F287A700ED0A72 /* HomeHappyListenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732606C522F287A700ED0A72 /* HomeHappyListenController.swift */; };
@@ -68,7 +84,6 @@
 		734A7BC122EFE5970016764F /* HomeNewsNoPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC022EFE5970016764F /* HomeNewsNoPicCell.swift */; };
 		734A7BC522EFF18A0016764F /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC422EFF18A0016764F /* UIApplication+Extension.swift */; };
 		734A7BC722EFF3920016764F /* HomeMatrixListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC622EFF3920016764F /* HomeMatrixListController.swift */; };
-		734A7BC922EFF5E40016764F /* HomeTitleHeaderFirstCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC822EFF5E40016764F /* HomeTitleHeaderFirstCell.swift */; };
 		736114E122F1A98A00BC5A8E /* ProductDetailTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E022F1A98A00BC5A8E /* ProductDetailTitleCell.swift */; };
 		736114E322F1AE2600BC5A8E /* ProductDetailDescribeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E222F1AE2600BC5A8E /* ProductDetailDescribeCell.swift */; };
 		736114E522F1B48F00BC5A8E /* MallListProductItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E422F1B48F00BC5A8E /* MallListProductItemResponse.swift */; };
@@ -222,6 +237,19 @@
 		73E4106322F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4106222F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift */; };
 		73E4106522F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4106422F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift */; };
 		73E4106722F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4106622F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift */; };
+		73ECFF1B22FEB65D003F8C5D /* ArticleAdminModelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF1A22FEB65D003F8C5D /* ArticleAdminModelResponse.swift */; };
+		73ECFF1D22FECDFF003F8C5D /* HomeSpecialColumnChildController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF1C22FECDFF003F8C5D /* HomeSpecialColumnChildController.swift */; };
+		73ECFF2022FECE8C003F8C5D /* SpecialColumnSingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF1F22FECE8C003F8C5D /* SpecialColumnSingleCell.swift */; };
+		73ECFF2222FECED7003F8C5D /* SpecialHomeTitleBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF2122FECED7003F8C5D /* SpecialHomeTitleBannerCell.swift */; };
+		73ECFF2422FED0D5003F8C5D /* HomeSpecialSectionBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF2322FED0D5003F8C5D /* HomeSpecialSectionBannerCell.swift */; };
+		73ECFF2622FED920003F8C5D /* HomeSpecialColumnResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF2522FED920003F8C5D /* HomeSpecialColumnResponse.swift */; };
+		73ECFF2922FEDC25003F8C5D /* AskGovermentDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF2822FEDC25003F8C5D /* AskGovermentDetailController.swift */; };
+		73ECFF2C22FEEBE8003F8C5D /* AskGovermentDetailNormalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF2B22FEEBE8003F8C5D /* AskGovermentDetailNormalCell.swift */; };
+		73ECFF2E22FEF1A8003F8C5D /* AskGovermentContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF2D22FEF1A8003F8C5D /* AskGovermentContentCell.swift */; };
+		73ECFF3022FEF6F7003F8C5D /* AskGovermentAddPhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF2F22FEF6F7003F8C5D /* AskGovermentAddPhotosCell.swift */; };
+		73ECFF3322FEFA61003F8C5D /* AskGovPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF3222FEFA61003F8C5D /* AskGovPopMenu.swift */; };
+		73ECFF3622FF0A0A003F8C5D /* ShareBottomPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF3522FF0A0A003F8C5D /* ShareBottomPopMenu.swift */; };
+		73ECFF3822FF0B42003F8C5D /* ShareDetailButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF3722FF0B42003F8C5D /* ShareDetailButton.swift */; };
 		73FE5FC122FBB7D90047DB02 /* YPVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FE5F6222FBB7D90047DB02 /* YPVideoView.swift */; };
 		73FE5FC222FBB7D90047DB02 /* YPVideoFiltersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FE5F6322FBB7D90047DB02 /* YPVideoFiltersVC.swift */; };
 		73FE5FC322FBB7D90047DB02 /* YPVideoFiltersVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73FE5F6422FBB7D90047DB02 /* YPVideoFiltersVC.xib */; };
@@ -326,6 +354,22 @@
 		730F179122EEFDD300FCD4FF /* HomeVideoNewsListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVideoNewsListController.swift; sourceTree = "<group>"; };
 		730F179322EF077200FCD4FF /* HomeVideoNewsListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVideoNewsListResponse.swift; sourceTree = "<group>"; };
 		730F179522EF0DC800FCD4FF /* ServiceWKWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceWKWebViewController.swift; sourceTree = "<group>"; };
+		7319509B22FFB41E00E2FB0B /* OnlineTVShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineTVShowViewController.swift; sourceTree = "<group>"; };
+		7319509D22FFBFB600E2FB0B /* Int+Extesion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extesion.swift"; sourceTree = "<group>"; };
+		731950A022FFC13C00E2FB0B /* BaseVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVoteView.swift; sourceTree = "<group>"; };
+		731950A222FFC5A800E2FB0B /* BaseVoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVoteButton.swift; sourceTree = "<group>"; };
+		731950A422FFCD9D00E2FB0B /* BaseVoteButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVoteButtonCell.swift; sourceTree = "<group>"; };
+		731950A622FFCFBE00E2FB0B /* DetailInfoVoteSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoVoteSectionCell.swift; sourceTree = "<group>"; };
+		731950A822FFEFCF00E2FB0B /* VoteContentDetailModelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteContentDetailModelResponse.swift; sourceTree = "<group>"; };
+		731950AA22FFF37600E2FB0B /* ExchangeNewPersonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeNewPersonCell.swift; sourceTree = "<group>"; };
+		731950AC2300013C00E2FB0B /* ChangePasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordController.swift; sourceTree = "<group>"; };
+		731950AE230004B500E2FB0B /* ChangePasswordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordCell.swift; sourceTree = "<group>"; };
+		731950B02300060C00E2FB0B /* ChangePasswordCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordCodeCell.swift; sourceTree = "<group>"; };
+		731950B223000B3900E2FB0B /* MineSendArticlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSendArticlesController.swift; sourceTree = "<group>"; };
+		731950B523000E3200E2FB0B /* MineVShootVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineVShootVideoController.swift; sourceTree = "<group>"; };
+		731950B723000E5400E2FB0B /* MineVVideoShootController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineVVideoShootController.swift; sourceTree = "<group>"; };
+		731950BA2300110E00E2FB0B /* MineArticleListModelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineArticleListModelResponse.swift; sourceTree = "<group>"; };
+		731950BC2300147A00E2FB0B /* MineAskGovListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAskGovListViewController.swift; sourceTree = "<group>"; };
 		732606C122F27A1000ED0A72 /* HomeHappyReadResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHappyReadResponse.swift; sourceTree = "<group>"; };
 		732606C322F2818E00ED0A72 /* HomeHappyListenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHappyListenCell.swift; sourceTree = "<group>"; };
 		732606C522F287A700ED0A72 /* HomeHappyListenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHappyListenController.swift; sourceTree = "<group>"; };
@@ -373,7 +417,6 @@
 		734A7BC022EFE5970016764F /* HomeNewsNoPicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewsNoPicCell.swift; sourceTree = "<group>"; };
 		734A7BC422EFF18A0016764F /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		734A7BC622EFF3920016764F /* HomeMatrixListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMatrixListController.swift; sourceTree = "<group>"; };
-		734A7BC822EFF5E40016764F /* HomeTitleHeaderFirstCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTitleHeaderFirstCell.swift; sourceTree = "<group>"; };
 		736114E022F1A98A00BC5A8E /* ProductDetailTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailTitleCell.swift; sourceTree = "<group>"; };
 		736114E222F1AE2600BC5A8E /* ProductDetailDescribeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailDescribeCell.swift; sourceTree = "<group>"; };
 		736114E422F1B48F00BC5A8E /* MallListProductItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallListProductItemResponse.swift; sourceTree = "<group>"; };
@@ -529,6 +572,19 @@
 		73E4106222F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeProductInfoCell.swift; sourceTree = "<group>"; };
 		73E4106422F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineExchangeHistoryListController.swift; sourceTree = "<group>"; };
 		73E4106622F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeProductListItemResponse.swift; sourceTree = "<group>"; };
+		73ECFF1A22FEB65D003F8C5D /* ArticleAdminModelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAdminModelResponse.swift; sourceTree = "<group>"; };
+		73ECFF1C22FECDFF003F8C5D /* HomeSpecialColumnChildController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSpecialColumnChildController.swift; sourceTree = "<group>"; };
+		73ECFF1F22FECE8C003F8C5D /* SpecialColumnSingleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialColumnSingleCell.swift; sourceTree = "<group>"; };
+		73ECFF2122FECED7003F8C5D /* SpecialHomeTitleBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialHomeTitleBannerCell.swift; sourceTree = "<group>"; };
+		73ECFF2322FED0D5003F8C5D /* HomeSpecialSectionBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSpecialSectionBannerCell.swift; sourceTree = "<group>"; };
+		73ECFF2522FED920003F8C5D /* HomeSpecialColumnResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSpecialColumnResponse.swift; sourceTree = "<group>"; };
+		73ECFF2822FEDC25003F8C5D /* AskGovermentDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskGovermentDetailController.swift; sourceTree = "<group>"; };
+		73ECFF2B22FEEBE8003F8C5D /* AskGovermentDetailNormalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskGovermentDetailNormalCell.swift; sourceTree = "<group>"; };
+		73ECFF2D22FEF1A8003F8C5D /* AskGovermentContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskGovermentContentCell.swift; sourceTree = "<group>"; };
+		73ECFF2F22FEF6F7003F8C5D /* AskGovermentAddPhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskGovermentAddPhotosCell.swift; sourceTree = "<group>"; };
+		73ECFF3222FEFA61003F8C5D /* AskGovPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskGovPopMenu.swift; sourceTree = "<group>"; };
+		73ECFF3522FF0A0A003F8C5D /* ShareBottomPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareBottomPopMenu.swift; sourceTree = "<group>"; };
+		73ECFF3722FF0B42003F8C5D /* ShareDetailButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareDetailButton.swift; sourceTree = "<group>"; };
 		73FE5F6222FBB7D90047DB02 /* YPVideoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPVideoView.swift; sourceTree = "<group>"; };
 		73FE5F6322FBB7D90047DB02 /* YPVideoFiltersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YPVideoFiltersVC.swift; sourceTree = "<group>"; };
 		73FE5F6422FBB7D90047DB02 /* YPVideoFiltersVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YPVideoFiltersVC.xib; sourceTree = "<group>"; };
@@ -680,6 +736,35 @@
 			path = ThirdPartyLogin;
 			sourceTree = "<group>";
 		};
+		7319509F22FFC0E800E2FB0B /* VoteSection */ = {
+			isa = PBXGroup;
+			children = (
+				731950A022FFC13C00E2FB0B /* BaseVoteView.swift */,
+				731950A222FFC5A800E2FB0B /* BaseVoteButton.swift */,
+				731950A422FFCD9D00E2FB0B /* BaseVoteButtonCell.swift */,
+				731950A622FFCFBE00E2FB0B /* DetailInfoVoteSectionCell.swift */,
+			);
+			path = VoteSection;
+			sourceTree = "<group>";
+		};
+		731950B423000E1000E2FB0B /* MineArticles */ = {
+			isa = PBXGroup;
+			children = (
+				731950B223000B3900E2FB0B /* MineSendArticlesController.swift */,
+				731950B523000E3200E2FB0B /* MineVShootVideoController.swift */,
+				731950B723000E5400E2FB0B /* MineVVideoShootController.swift */,
+			);
+			path = MineArticles;
+			sourceTree = "<group>";
+		};
+		731950B9230010F400E2FB0B /* MineArticles */ = {
+			isa = PBXGroup;
+			children = (
+				731950BA2300110E00E2FB0B /* MineArticleListModelResponse.swift */,
+			);
+			path = MineArticles;
+			sourceTree = "<group>";
+		};
 		732606C722F2920600ED0A72 /* AudioPlayerSample */ = {
 			isa = PBXGroup;
 			children = (
@@ -735,6 +820,7 @@
 		733ED17322E40D4100B452D4 /* C */ = {
 			isa = PBXGroup;
 			children = (
+				73ECFF2722FEDBDE003F8C5D /* AskGovermentDetail */,
 				730F178522EEE3C800FCD4FF /* HomeNewsListViewController.swift */,
 				730F179122EEFDD300FCD4FF /* HomeVideoNewsListController.swift */,
 				733ED17622E4111B00B452D4 /* HomeVVideoController.swift */,
@@ -746,6 +832,7 @@
 				732606C522F287A700ED0A72 /* HomeHappyListenController.swift */,
 				732606F122F2CDB200ED0A72 /* HomePartyBuildViewController.swift */,
 				73D4521722F43F1100DAE835 /* HomeBannerDetailViewController.swift */,
+				73ECFF1C22FECDFF003F8C5D /* HomeSpecialColumnChildController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -769,6 +856,8 @@
 		733ED17E22E43D5E00B452D4 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				7319509F22FFC0E800E2FB0B /* VoteSection */,
+				73ECFF2A22FEEBD4003F8C5D /* AskGovermentDetail */,
 				733ED17F22E43D7400B452D4 /* HomeVVideoBannerCell.swift */,
 				733ED18422E449FA00B452D4 /* HomeVVideoNormalCell.swift */,
 				738BD9E322E7E02600B7BF75 /* HomeVSendCollectionView.swift */,
@@ -789,12 +878,12 @@
 				734A7BBA22EFD6180016764F /* HomeAskNonePicCell.swift */,
 				734A7BBC22EFD7E40016764F /* HomeAskThreePicCell.swift */,
 				734A7BBE22EFE4DF0016764F /* HomeMatrixBaseImTitleViewCell.swift */,
-				734A7BC822EFF5E40016764F /* HomeTitleHeaderFirstCell.swift */,
 				7363F8E022F02B67000FE663 /* HomeMatrixSectionHeaderView.swift */,
 				7363F8E422F03976000FE663 /* HomeHappyReadImageCell.swift */,
 				732606C322F2818E00ED0A72 /* HomeHappyListenCell.swift */,
 				73E2793722FD7BB3002E0712 /* MatrixBannerPagerViewCell.swift */,
 				73E2793922FD7BE0002E0712 /* BannerMatrixSingleCell.swift */,
+				73ECFF1E22FECE52003F8C5D /* SpecialCoulumn */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -809,6 +898,8 @@
 				732606C122F27A1000ED0A72 /* HomeHappyReadResponse.swift */,
 				73D4521522F43B9600DAE835 /* HomeVVideoBannerResponse.swift */,
 				73E4103922F55669009E9DA6 /* HomeMatrixListItemResponse.swift */,
+				73ECFF1A22FEB65D003F8C5D /* ArticleAdminModelResponse.swift */,
+				73ECFF2522FED920003F8C5D /* HomeSpecialColumnResponse.swift */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -900,6 +991,7 @@
 			isa = PBXGroup;
 			children = (
 				7377747022E82C8500513350 /* DetailArticleResponse.swift */,
+				731950A822FFEFCF00E2FB0B /* VoteContentDetailModelResponse.swift */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1047,6 +1139,7 @@
 		73D451ED22F42C4700DAE835 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				731950B9230010F400E2FB0B /* MineArticles */,
 				73D451EE22F42C4700DAE835 /* MemberInfoResponse.swift */,
 				73D451EF22F42C4700DAE835 /* IntegralDetailResponse.swift */,
 				73E4105822F59E61009E9DA6 /* MyMessageListItemResponse.swift */,
@@ -1070,6 +1163,9 @@
 				73E4105A22F5A198009E9DA6 /* MineReviewListController.swift */,
 				73E4105E22F5A5BF009E9DA6 /* MineFavoriteListController.swift */,
 				73E4106422F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift */,
+				731950AC2300013C00E2FB0B /* ChangePasswordController.swift */,
+				731950BC2300147A00E2FB0B /* MineAskGovListViewController.swift */,
+				731950B423000E1000E2FB0B /* MineArticles */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1084,6 +1180,9 @@
 				73D451FC22F42C4700DAE835 /* MineSettingTableViewCell.swift */,
 				73D451FD22F42C4700DAE835 /* ScroreItemButton.swift */,
 				73E4106222F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift */,
+				731950AA22FFF37600E2FB0B /* ExchangeNewPersonCell.swift */,
+				731950AE230004B500E2FB0B /* ChangePasswordCell.swift */,
+				731950B02300060C00E2FB0B /* ChangePasswordCodeCell.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1119,6 +1218,7 @@
 			children = (
 				73C419B622EA859200D8D412 /* V */,
 				7372C98B22EE8E4200BD378D /* NETLivePlayerController.swift */,
+				7319509B22FFB41E00E2FB0B /* OnlineTVShowViewController.swift */,
 			);
 			path = NetworkPlayer;
 			sourceTree = "<group>";
@@ -1138,6 +1238,7 @@
 			isa = PBXGroup;
 			children = (
 				73DEBAA822E30E7F007EC4E1 /* UIViewController+Extesion.swift */,
+				7319509D22FFBFB600E2FB0B /* Int+Extesion.swift */,
 				734A7BC422EFF18A0016764F /* UIApplication+Extension.swift */,
 				73DEBAAA22E31095007EC4E1 /* String+Extension.swift */,
 				73DEBAAC22E3119D007EC4E1 /* UIView+Extension.swift */,
@@ -1152,6 +1253,8 @@
 		73DEBAAE22E311E3007EC4E1 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				73ECFF3422FF09F5003F8C5D /* ShareBottomPopMenu */,
+				73ECFF3122FEFA47003F8C5D /* AskGovPopMenu */,
 				7372605D22FC0E1100652586 /* SevenBeefUpload */,
 				7372605522FBEC1300652586 /* AlertPopMenu */,
 				73FE5F5E22FBB7C20047DB02 /* YPImagePicker */,
@@ -1493,6 +1596,51 @@
 				73E4105222F597A6009E9DA6 /* SuiXiBocastListItemResponse.swift */,
 			);
 			path = M;
+			sourceTree = "<group>";
+		};
+		73ECFF1E22FECE52003F8C5D /* SpecialCoulumn */ = {
+			isa = PBXGroup;
+			children = (
+				73ECFF1F22FECE8C003F8C5D /* SpecialColumnSingleCell.swift */,
+				73ECFF2122FECED7003F8C5D /* SpecialHomeTitleBannerCell.swift */,
+				73ECFF2322FED0D5003F8C5D /* HomeSpecialSectionBannerCell.swift */,
+			);
+			path = SpecialCoulumn;
+			sourceTree = "<group>";
+		};
+		73ECFF2722FEDBDE003F8C5D /* AskGovermentDetail */ = {
+			isa = PBXGroup;
+			children = (
+				73ECFF2822FEDC25003F8C5D /* AskGovermentDetailController.swift */,
+			);
+			path = AskGovermentDetail;
+			sourceTree = "<group>";
+		};
+		73ECFF2A22FEEBD4003F8C5D /* AskGovermentDetail */ = {
+			isa = PBXGroup;
+			children = (
+				73ECFF2B22FEEBE8003F8C5D /* AskGovermentDetailNormalCell.swift */,
+				73ECFF2D22FEF1A8003F8C5D /* AskGovermentContentCell.swift */,
+				73ECFF2F22FEF6F7003F8C5D /* AskGovermentAddPhotosCell.swift */,
+			);
+			path = AskGovermentDetail;
+			sourceTree = "<group>";
+		};
+		73ECFF3122FEFA47003F8C5D /* AskGovPopMenu */ = {
+			isa = PBXGroup;
+			children = (
+				73ECFF3222FEFA61003F8C5D /* AskGovPopMenu.swift */,
+			);
+			path = AskGovPopMenu;
+			sourceTree = "<group>";
+		};
+		73ECFF3422FF09F5003F8C5D /* ShareBottomPopMenu */ = {
+			isa = PBXGroup;
+			children = (
+				73ECFF3522FF0A0A003F8C5D /* ShareBottomPopMenu.swift */,
+				73ECFF3722FF0B42003F8C5D /* ShareDetailButton.swift */,
+			);
+			path = ShareBottomPopMenu;
 			sourceTree = "<group>";
 		};
 		73FE5F5E22FBB7C20047DB02 /* YPImagePicker */ = {
@@ -1877,8 +2025,11 @@
 				73E4104E22F58445009E9DA6 /* DetailTelevisonInfoController.swift in Sources */,
 				7372605A22FBF66300652586 /* ForgetPassModel.swift in Sources */,
 				73FE5FC722FBB7D90047DB02 /* YPFiltersView.swift in Sources */,
+				7319509C22FFB41E00E2FB0B /* OnlineTVShowViewController.swift in Sources */,
+				73ECFF2022FECE8C003F8C5D /* SpecialColumnSingleCell.swift in Sources */,
 				73FE600122FBB7D90047DB02 /* AVAssetTrack+Extensions.swift in Sources */,
 				7377745F22E7E3A200513350 /* HomeVVideoBaseView.swift in Sources */,
+				731950A522FFCD9D00E2FB0B /* BaseVoteButtonCell.swift in Sources */,
 				733ED18522E449FA00B452D4 /* HomeVVideoNormalCell.swift in Sources */,
 				73D4E2D922E938850088FF37 /* UploadFileResponse.swift in Sources */,
 				730F178C22EEF3A100FCD4FF /* HomeNewsListResponse.swift in Sources */,
@@ -1893,15 +2044,19 @@
 				7377747722E8378A00513350 /* DetailUserCommentCell.swift in Sources */,
 				73E4105B22F5A198009E9DA6 /* MineReviewListController.swift in Sources */,
 				7372605722FBEC3100652586 /* AlertPopMenu.swift in Sources */,
+				73ECFF3822FF0B42003F8C5D /* ShareDetailButton.swift in Sources */,
+				731950AB22FFF37600E2FB0B /* ExchangeNewPersonCell.swift in Sources */,
 				73DF82DC22F1620D0066583B /* BaseCollectionViewController.swift in Sources */,
 				739585D622FA609300D40D06 /* UITabBar+Extension.swift in Sources */,
 				73D4521422F42C4700DAE835 /* ScroreItemButton.swift in Sources */,
 				73FE5FF322FBB7D90047DB02 /* YPCameraView.swift in Sources */,
 				7372C98A22EE7CB000BD378D /* HomeTVDetailPlayerView.swift in Sources */,
+				731950B823000E5400E2FB0B /* MineVVideoShootController.swift in Sources */,
 				733742F122E7D6AD006F30C6 /* VVideoShootViewController.swift in Sources */,
 				73FE5FF222FBB7D90047DB02 /* YPPhotoCapture.swift in Sources */,
 				732E3AAD22FD3E0F00BDF8DF /* UIImage+Extension.swift in Sources */,
 				73FE5FD222FBB7D90047DB02 /* YPLibrarySelection.swift in Sources */,
+				731950A922FFEFCF00E2FB0B /* VoteContentDetailModelResponse.swift in Sources */,
 				736114E722F1B89200BC5A8E /* DetailProductItemResponse.swift in Sources */,
 				7372C98222EE73EB00BD378D /* HomeTVViewController.swift in Sources */,
 				73FE5FE122FBB7D90047DB02 /* YPAssetZoomableView.swift in Sources */,
@@ -1921,6 +2076,7 @@
 				73DEBABD22E31A44007EC4E1 /* TSaveFiles.swift in Sources */,
 				73FE5FDF22FBB7D90047DB02 /* YPLibraryViewDelegate.swift in Sources */,
 				73DEBAFF22E34B09007EC4E1 /* CommonLicense.swift in Sources */,
+				73ECFF2622FED920003F8C5D /* HomeSpecialColumnResponse.swift in Sources */,
 				733ED18F22E462D000B452D4 /* BaseTimeCommentLikeView.swift in Sources */,
 				73DEBAE822E329D6007EC4E1 /* StaticMethod.swift in Sources */,
 				7363F8E322F03801000FE663 /* HomeHappyReadViewController.swift in Sources */,
@@ -1928,6 +2084,7 @@
 				73FE5FC822FBB7D90047DB02 /* YPFilterCollectionViewCell.swift in Sources */,
 				73FE5FD822FBB7D90047DB02 /* YPSelectionsGalleryView.swift in Sources */,
 				73FE600F22FBB7D90047DB02 /* YPLoadingView.swift in Sources */,
+				7319509E22FFBFB600E2FB0B /* Int+Extesion.swift in Sources */,
 				7372C98822EE7C9A00BD378D /* HomeTVOtherSectionCell.swift in Sources */,
 				73D4520D22F42C4700DAE835 /* MineViewController.swift in Sources */,
 				73DEBAD522E32495007EC4E1 /* SXLoginViewController.swift in Sources */,
@@ -1938,6 +2095,7 @@
 				734A7BBB22EFD6180016764F /* HomeAskNonePicCell.swift in Sources */,
 				734A7BB722EFCE730016764F /* HomeAskGovBaseBottom.swift in Sources */,
 				7308499422E5683500958969 /* ServiceListModel.swift in Sources */,
+				731950B12300060C00E2FB0B /* ChangePasswordCodeCell.swift in Sources */,
 				73E4105522F59CD7009E9DA6 /* MessageViewController.swift in Sources */,
 				73E4104022F56B38009E9DA6 /* DetailHappyMusicListenCell.swift in Sources */,
 				733ED17D22E43CD200B452D4 /* BannerView.swift in Sources */,
@@ -1948,14 +2106,17 @@
 				73E4105322F597A6009E9DA6 /* SuiXiBocastListItemResponse.swift in Sources */,
 				730F178622EEE3C800FCD4FF /* HomeNewsListViewController.swift in Sources */,
 				73DEBAD122E322CD007EC4E1 /* BaseTableViewCell.swift in Sources */,
+				73ECFF2C22FEEBE8003F8C5D /* AskGovermentDetailNormalCell.swift in Sources */,
 				7372C98622EE786500BD378D /* HomeTVChannelFirstCell.swift in Sources */,
 				73D4520B22F42C4700DAE835 /* MineSettingViewController.swift in Sources */,
+				73ECFF2922FEDC25003F8C5D /* AskGovermentDetailController.swift in Sources */,
 				733ED18B22E45FC200B452D4 /* BaseAvatarImageView.swift in Sources */,
 				73DF82DE22F162FA0066583B /* ScoreMallController.swift in Sources */,
 				734A7BBD22EFD7E40016764F /* HomeAskThreePicCell.swift in Sources */,
 				7377747122E82C8500513350 /* DetailArticleResponse.swift in Sources */,
 				73DEBADF22E3250E007EC4E1 /* HomeViewController.swift in Sources */,
 				73FE5FFC22FBB7D90047DB02 /* AVMutableComposition+Extensions.swift in Sources */,
+				731950B323000B3900E2FB0B /* MineSendArticlesController.swift in Sources */,
 				73FE5FCC22FBB7D90047DB02 /* YPImagePickerConfiguration.swift in Sources */,
 				73FE600622FBB7D90047DB02 /* AVFoundation+Extensions.swift in Sources */,
 				73FE5FD522FBB7D90047DB02 /* YPPermissionDeniedPopup.swift in Sources */,
@@ -1978,7 +2139,6 @@
 				7326073F22F2E46F00ED0A72 /* HomeTotalChildVideoController.swift in Sources */,
 				73E4104822F57E78009E9DA6 /* BoardCastVideoNewsCell.swift in Sources */,
 				73FE5FD322FBB7D90047DB02 /* YPMediaItem.swift in Sources */,
-				734A7BC922EFF5E40016764F /* HomeTitleHeaderFirstCell.swift in Sources */,
 				738BD9E422E7E02600B7BF75 /* HomeVSendCollectionView.swift in Sources */,
 				733ED19322E4706100B452D4 /* ShowVideoViewCell.swift in Sources */,
 				73A3329722EA94560060F281 /* iQiYiPlayButton.swift in Sources */,
@@ -2007,11 +2167,15 @@
 				73E4104622F57C9F009E9DA6 /* BocastShareBottom.swift in Sources */,
 				73DEBAE122E32517007EC4E1 /* ShowViewController.swift in Sources */,
 				730F179022EEF9AF00FCD4FF /* BaseVideoNewsView.swift in Sources */,
+				73ECFF3322FEFA61003F8C5D /* AskGovPopMenu.swift in Sources */,
 				73E4104C22F58280009E9DA6 /* TelevisonButton.swift in Sources */,
+				731950A722FFCFBE00E2FB0B /* DetailInfoVoteSectionCell.swift in Sources */,
 				73FE5FEB22FBB7D90047DB02 /* LibraryMediaManager.swift in Sources */,
 				73FE5FE022FBB7D90047DB02 /* YPGridView.swift in Sources */,
 				734A7BC522EFF18A0016764F /* UIApplication+Extension.swift in Sources */,
+				73ECFF2222FECED7003F8C5D /* SpecialHomeTitleBannerCell.swift in Sources */,
 				73DEBB0222E3531A007EC4E1 /* SXForgetPasswordController.swift in Sources */,
+				731950A122FFC13C00E2FB0B /* BaseVoteView.swift in Sources */,
 				73D4520A22F42C4700DAE835 /* MineInfoViewController.swift in Sources */,
 				73FE5FE722FBB7D90047DB02 /* YPBottomPager.swift in Sources */,
 				73FE5FEA22FBB7D90047DB02 /* YPLibraryVC.swift in Sources */,
@@ -2031,8 +2195,10 @@
 				7326074222F2E91C00ED0A72 /* TVSecondModuleResponse.swift in Sources */,
 				73DEBAFC22E340AF007EC4E1 /* CounterButton.swift in Sources */,
 				73FE600B22FBB7D90047DB02 /* CGFloat+Extensions.swift in Sources */,
+				73ECFF3622FF0A0A003F8C5D /* ShareBottomPopMenu.swift in Sources */,
 				73D4521822F43F1100DAE835 /* HomeBannerDetailViewController.swift in Sources */,
 				736114E922F1BD0E00BC5A8E /* RotatePanelListItemResponse.swift in Sources */,
+				73ECFF2E22FEF1A8003F8C5D /* AskGovermentContentCell.swift in Sources */,
 				73FE5FC522FBB7D90047DB02 /* YPCropVC.swift in Sources */,
 				73D4520722F42C4700DAE835 /* MemberInfoResponse.swift in Sources */,
 				73FE5FE522FBB7D90047DB02 /* YPLibrary+LibraryChange.swift in Sources */,
@@ -2056,6 +2222,7 @@
 				7372C98C22EE8E4200BD378D /* NETLivePlayerController.swift in Sources */,
 				73FE600A22FBB7D90047DB02 /* AVCaptureSession+Extensions.swift in Sources */,
 				733ED18022E43D7400B452D4 /* HomeVVideoBannerCell.swift in Sources */,
+				73ECFF2422FED0D5003F8C5D /* HomeSpecialSectionBannerCell.swift in Sources */,
 				73FE5FF822FBB7D90047DB02 /* YPPermissionCheckable.swift in Sources */,
 				73E2793A22FD7BE0002E0712 /* BannerMatrixSingleCell.swift in Sources */,
 				73E4106322F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift in Sources */,
@@ -2069,9 +2236,11 @@
 				73DEBABF22E31A65007EC4E1 /* HttpRequest.swift in Sources */,
 				73FE5FD622FBB7D90047DB02 /* YPTrimError.swift in Sources */,
 				73FE5FC422FBB7D90047DB02 /* YPCropView.swift in Sources */,
+				731950A322FFC5A800E2FB0B /* BaseVoteButton.swift in Sources */,
 				73FE5FD922FBB7D90047DB02 /* YPSelectionsGalleryCell.swift in Sources */,
 				73FE5FDB22FBB7D90047DB02 /* YPVideoCaptureVC.swift in Sources */,
 				73D4E2DC22E94BB00088FF37 /* FWPopupViewUtil.swift in Sources */,
+				73ECFF1B22FEB65D003F8C5D /* ArticleAdminModelResponse.swift in Sources */,
 				73D4521222F42C4700DAE835 /* MineCollectionView.swift in Sources */,
 				73BB1CFC22FD049F00AA86EE /* Print+Extension.swift in Sources */,
 				7377746E22E82A8500513350 /* DetailUserInfoNameCell.swift in Sources */,
@@ -2082,6 +2251,7 @@
 				73D4521322F42C4700DAE835 /* MineSettingTableViewCell.swift in Sources */,
 				730F178422EEDF5500FCD4FF /* HomeNewsSearchInfoCell.swift in Sources */,
 				733ED17A22E4153800B452D4 /* NoMoreDataView.swift in Sources */,
+				73ECFF1D22FECDFF003F8C5D /* HomeSpecialColumnChildController.swift in Sources */,
 				73E4105722F59D07009E9DA6 /* CDLMessageCell.swift in Sources */,
 				732606C622F287A700ED0A72 /* HomeHappyListenController.swift in Sources */,
 				730F178822EEEB1600FCD4FF /* HomeNewsOnePictureCell.swift in Sources */,
@@ -2104,6 +2274,7 @@
 				73E4104A22F58035009E9DA6 /* BoardCastTVDatePickCell.swift in Sources */,
 				732606C222F27A1000ED0A72 /* HomeHappyReadResponse.swift in Sources */,
 				7377746322E7EEC300513350 /* BaseShareBottomView.swift in Sources */,
+				731950AD2300013C00E2FB0B /* ChangePasswordController.swift in Sources */,
 				73E4106722F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift in Sources */,
 				7363F8DF22F01B31000FE663 /* BaseGrouppedTableViewController.swift in Sources */,
 				73DEBAEC22E32B90007EC4E1 /* SXLoginTextField.swift in Sources */,
@@ -2116,7 +2287,9 @@
 				736114E322F1AE2600BC5A8E /* ProductDetailDescribeCell.swift in Sources */,
 				732606F222F2CDB200ED0A72 /* HomePartyBuildViewController.swift in Sources */,
 				73FE5FFF22FBB7D90047DB02 /* UIColor+Extensions.swift in Sources */,
+				731950B623000E3200E2FB0B /* MineVShootVideoController.swift in Sources */,
 				73FE600822FBB7D90047DB02 /* CGRect+Extensions.swift in Sources */,
+				731950BB2300110E00E2FB0B /* MineArticleListModelResponse.swift in Sources */,
 				734A7BB522EFCDFD0016764F /* HomeAskGovController.swift in Sources */,
 				73FE5FF922FBB7D90047DB02 /* AVCaptureDevice+Extensions.swift in Sources */,
 				73FE5FCF22FBB7D90047DB02 /* YPPickerScreen.swift in Sources */,
@@ -2127,12 +2300,14 @@
 				7349C47722F2F11900ACDF41 /* VideoNewsDetailController.swift in Sources */,
 				73DEBAF022E3376D007EC4E1 /* SXLoginBaseButton.swift in Sources */,
 				73E4106522F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift in Sources */,
+				73ECFF3022FEF6F7003F8C5D /* AskGovermentAddPhotosCell.swift in Sources */,
 				7372C98422EE742B00BD378D /* HomeTVChannelNameView.swift in Sources */,
 				73FE5FEF22FBB7D90047DB02 /* YPLibraryViewCell.swift in Sources */,
 				73DEBAC922E3224E007EC4E1 /* BATabBarButton.swift in Sources */,
 				73FE600D22FBB7D90047DB02 /* IndexSet+Extensions.swift in Sources */,
 				73DEBB0722E35738007EC4E1 /* HttpClient.swift in Sources */,
 				73DEBB0522E35535007EC4E1 /* LoginModel.swift in Sources */,
+				731950BD2300147A00E2FB0B /* MineAskGovListViewController.swift in Sources */,
 				73FE5FC922FBB7D90047DB02 /* YPFilter.swift in Sources */,
 				73FE601022FBB7D90047DB02 /* YPPhotoSaver.swift in Sources */,
 				73DEBAF222E33A8B007EC4E1 /* SXForgetBaseButton.swift in Sources */,
@@ -2143,6 +2318,7 @@
 				73DEBAA422E30DBA007EC4E1 /* BaseUrlDefine.swift in Sources */,
 				73D4E2D622E92C4A0088FF37 /* YPImagePickerUtil.swift in Sources */,
 				73FE5FC622FBB7D90047DB02 /* YPPhotoFiltersVC.swift in Sources */,
+				731950AF230004B500E2FB0B /* ChangePasswordCell.swift in Sources */,
 				734A7BC722EFF3920016764F /* HomeMatrixListController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

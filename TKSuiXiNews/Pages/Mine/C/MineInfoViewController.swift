@@ -59,10 +59,7 @@ class MineInfoViewController: BaseViewController,UIImagePickerControllerDelegate
         leftArray = ["头像","昵称","手机号"]
         avatar = infoModel?.avatar.string
         nickname = infoModel?.nickname.string
-//        let avatar = infoModel?.avatar.string
-//        let nickname = infoModel?.nickname.string
-//        let mobile = infoModel?.mobile.string
-//        rightArray = [avatar,nickname,mobile] as! [String]
+        SevenBeefUpload.share.getSevenBeefToken() //请求七牛云token
         createView()
     }
     
@@ -123,17 +120,12 @@ class MineInfoViewController: BaseViewController,UIImagePickerControllerDelegate
     
     //上传图像
     private func uploadDetailImage(imageData:Data,image:UIImage){
-        HttpClient.shareInstance.request(target: BAAPI.uploadImage(data: imageData ), success: {(json) in
-            let decoder = JSONDecoder()
-            let model = try? decoder.decode(UploadFileResponse.self, from: json)
-            guard let forceModel = model else {
-                return;
-            }
-            self.avatar = forceModel.data.url.string
-            let cell = self.tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! MineSettingTableViewCell
+        SevenBeefUpload.share.uploadSingleImage(image) { [weak self](fileUrl) in
+            
+            self?.avatar = fileUrl
+            let cell = self?.tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! MineSettingTableViewCell
             cell.iconImageView.image = image
-            }
-        )
+        }
     }
     
     //保存按钮
@@ -141,9 +133,11 @@ class MineInfoViewController: BaseViewController,UIImagePickerControllerDelegate
         if avatar == infoModel?.avatar.string  && nickname == infoModel?.nickname.string{
             TProgressHUD.show(text: "请填写修改内容")
         }else{
-            HttpClient.shareInstance.request(target: BAAPI.changeMemberInfo(avatar: avatar ?? "", nickname: nickname ?? ""), success: {(json) in
-                TProgressHUD.show(text: "修改成功")
+            HttpClient.shareInstance.request(target: BAAPI.changeMemberInfo(avatar: avatar ?? "", nickname: nickname ?? ""), success: { [weak self] (json) in
                 NotificationCenter.default.post(name: NSNotification.Name.init("refreshMemberInfo"), object: nil);
+                self?.popViewControllerBtnPressed()
+                TProgressHUD.show(text: "修改成功")
+                
                 }
             )
         }
@@ -163,10 +157,7 @@ extension MineInfoViewController : UITableViewDelegate,UITableViewDataSource{
         if indexPath.row == 0 {
             cell.iconImageView.isHidden = false
             cell.rightImageView.isHidden = true
-            var avatar = infoModel?.avatar.string ?? ""
-            if !avatar.contains("http") || !avatar.contains("https"){
-                avatar = K_URL_Base + avatar
-            }
+            let avatar = infoModel?.avatar.string ?? ""
             cell.iconImageView.kf.setImage(with: URL(string: avatar), placeholder: K_ImageName(PLACE_HOLDER_IMAGE))
         }else if indexPath.row == 1{
             cell.rightLab.isHidden = false

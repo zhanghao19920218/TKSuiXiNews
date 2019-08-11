@@ -215,7 +215,8 @@ class SXLoginViewController: BaseLoginViewController {
             
             let token = userModel.data.userinfo.token.string;
             Defaults.shared.set(token, for: key);
-            Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey);
+            Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey)
+            Defaults.shared.set(userModel.data.userinfo.groupId.int, for: userGroupId)
             //更新rootVC
             let rootVC = BaseTabBarController.init();
             UIViewController.restoreRootViewController(rootVC);
@@ -299,7 +300,8 @@ extension SXLoginViewController:ThirdPartyLoginDelegate {
                 
                 let token = userModel.data.userinfo.token.string;
                 Defaults.shared.set(token, for: key);
-                Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey);
+                Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey)
+                Defaults.shared.set(userModel.data.userinfo.groupId.int, for: userGroupId)
                 //更新rootVC
                 let rootVC = BaseTabBarController.init();
                 UIViewController.restoreRootViewController(rootVC)

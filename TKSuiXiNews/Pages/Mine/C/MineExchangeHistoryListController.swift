@@ -9,6 +9,7 @@
 import UIKit
 
 fileprivate let exchangeCellIdentifier = "ExchangeProductInfoCellIdentifier"
+fileprivate let historyExchangeIdentifier = "ExchangeNewPersonCellIdentifier"
 
 class MineExchangeHistoryListController: BaseTableViewController {
     
@@ -26,6 +27,7 @@ class MineExchangeHistoryListController: BaseTableViewController {
     //初始化页面
     private func setupUI() {
         tableView.register(ExchangeProductInfoCell.self, forCellReuseIdentifier: exchangeCellIdentifier)
+        tableView.register(ExchangeNewPersonCell.self, forCellReuseIdentifier: historyExchangeIdentifier)
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = .none;
@@ -103,19 +105,32 @@ extension MineExchangeHistoryListController: UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let model = dataSource[indexPath.row] as! ExchangeProductListItemDatum
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: exchangeCellIdentifier) as! ExchangeProductInfoCell
-        cell.imageName = model.image.string
-        cell.productTitle = model.name.string
-        cell.isHiddenPick = model.status.string
-        cell.score = model.score.int
-        return cell;
+        if model.registerStatus.int != 0  {
+            let cell = tableView.dequeueReusableCell(withIdentifier: historyExchangeIdentifier) as! ExchangeNewPersonCell
+            cell.block = { [weak self] () in
+                let id = model.id.int
+                self?.onStargeReward(id: id)
+            }
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: exchangeCellIdentifier) as! ExchangeProductInfoCell
+            cell.imageName = model.image.string
+            cell.productTitle = model.name.string
+            cell.isHiddenPick = model.status.string
+            cell.score = model.score.int
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 115 * iPHONE_AUTORATIO
+        let model = dataSource[indexPath.row] as! ExchangeProductListItemDatum
+        if model.registerStatus.int != 0 {
+            return 125 * iPHONE_AUTORATIO
+        } else {
+            return 115 * iPHONE_AUTORATIO
+        }
     }
 }
 
@@ -131,6 +146,15 @@ extension MineExchangeHistoryListController {
             
             self?.dataSource = forceModel.data.data;
             self?.tableView.reloadData();
+            }
+        )
+    }
+    
+    //MARK: - 现场领取奖励
+    private func onStargeReward(id: Int){
+        HttpClient.shareInstance.request(target: BAAPI.stargeOnShowReceive(id: id), success: { [weak self] (json) in
+            TProgressHUD.show(text: "兑换成功")
+            self?.pullDownRefreshData()
             }
         )
     }

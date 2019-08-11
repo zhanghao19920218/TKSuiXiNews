@@ -15,12 +15,12 @@ fileprivate let titlePickIdentifier = "MatrixBannerPagerViewCellIdentifier"
 fileprivate let newsOnePicIdentifier = "HomeNewsOnePictureCellIdentifier"
 
 
-class HomeMatrixListController: BaseGrouppedTableViewController {
-    //banner的model
-    private var model: HomeVVideoBannerResponse?
-    
+class HomeMatrixListController: BaseTableViewController {
     //置顶的model
-    var topModel: HomeMatrixListItemResponseDatum?
+    var topModel: ArticleAdminModelResponse?
+    
+    //设置当前的二级分类
+    var secondCategory: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +35,6 @@ class HomeMatrixListController: BaseGrouppedTableViewController {
         tableView.separatorStyle = .none
         tableView.register(MatrixBannerPagerViewCell.self, forCellReuseIdentifier: titlePickIdentifier)
         tableView.register(HomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
-        
-        tableView.es.removeRefreshHeader()
-        tableView.es.removeRefreshFooter()
     }
 
     override func loadData() {
@@ -48,113 +45,146 @@ class HomeMatrixListController: BaseGrouppedTableViewController {
         requestBanner()
     }
     
+    override func pullDownRefreshData() {
+        super.pullDownRefreshData()
+        
+        //请求成功进行再次刷新数据
+        HttpClient.shareInstance.request(target: BAAPI.secondModule(module: "矩阵", module_second: secondCategory, page: page), success:{ [weak self] (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(HomeMatrixListItemResponse.self, from: json)
+            guard let forceModel = model else {
+                self?.tableView.es.stopPullToRefresh();
+                self?.tableView.reloadData();
+                return;
+            }
+            
+            self?.dataSource = forceModel.data.data;
+            self?.tableView.es.stopPullToRefresh();
+            self?.tableView.reloadData();
+            }, failure:{ [weak self] () in
+                self?.tableView.es.stopPullToRefresh();
+                self?.tableView.reloadData();
+            }
+        )
+    };
+    
+    
+    override func pullUpLoadMoreData() {
+        super.pullUpLoadMoreData()
+        
+        page = (page == 1 ? 2 : page);
+        
+        //请求成功进行再次刷新数据
+        HttpClient.shareInstance.request(target: BAAPI.secondModule(module: "矩阵", module_second: secondCategory, page: page), success:{ [weak self] (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(HomeMatrixListItemResponse.self, from: json)
+            guard let forceModel = model else {
+                self?.tableView.es.stopPullToRefresh();
+                self?.tableView.reloadData();
+                return;
+            }
+            
+            if forceModel.data.data.count != 0 {
+                //页数+1
+                self?.page += 1;
+                self?.dataSource += forceModel.data.data;
+                self?.tableView.es.stopLoadingMore();
+                self?.tableView.reloadData();
+            } else {
+                //没有更多数据
+                self?.tableView.es.noticeNoMoreData();
+            }
+            
+            }, failure:{ [weak self] () in
+                self?.tableView.es.stopLoadingMore();
+                self?.tableView.reloadData();
+            }
+        )
+    }
+    
 }
 
 extension HomeMatrixListController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1 + dataSource.count
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return 1
         }
-        let model = dataSource[section-1] as! HomeMatrixListItemResponseDatum
         
-        return model.data.count
+        return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: titlePickIdentifier) as! MatrixBannerPagerViewCell
-//            cell.dataSource = topModel?.data
+            cell.dataSources = topModel?.data ?? []
+            cell.currentBlock = { [weak self] (result) in
+                self?.secondCategory = result
+                self?.pullDownRefreshData() //刷新数据
+            }
             return cell
+        } else {
+            let model = dataSource[indexPath.row] as! HomeMatrixListItemDataClassDatum
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell;
+            if !model.image.string.isEmpty {
+                cell.title = model.name.string
+                cell.imageName = model.image.string
+                cell.like = model.likeNum.int
+                cell.review = model.visitNum.int
+            }
+            return cell;
         }
         
-        let model = dataSource[indexPath.section-1] as! HomeMatrixListItemResponseDatum
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell;
-        if !(model.data[indexPath.row].image?.string.isEmpty ?? true){
-            cell.title = model.data[indexPath.row].name?.string
-            cell.imageName = model.data[indexPath.row].image?.string
-            cell.like = model.data[indexPath.row].likeNum?.int
-            cell.review = model.data[indexPath.row].visitNum?.int
-        }
-        return cell;
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 124 * iPHONE_AUTORATIO
+            return 139 * iPHONE_AUTORATIO
         }
         return 112 * iPHONE_AUTORATIO
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section != 0 {
-            let model = dataSource[indexPath.section-1] as! HomeMatrixListItemResponseDatum
+            let model = dataSource[indexPath.row] as! HomeMatrixListItemDataClassDatum
             let vc = HomeNewsDetailInfoController();
-            vc.id = model.data[indexPath.row].id.string
+            vc.id = model.id.string
             parent?.navigationController?.pushViewController(vc, animated: true);
         }
-    }
-    
-    //把sectionViewHeader设置为空
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            return UIView()
-        }
-        let model = dataSource[section - 1] as! HomeMatrixListItemResponseDatum
-        let view = HomeMatrixSectionHeaderView()
-        view.name = model.moduleSecond
-        return view
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0.001
-        }
-        return 87 * iPHONE_AUTORATIO
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.001
     }
 }
 
 extension HomeMatrixListController {
     //MARK: - 请求首页数据
     private func requestData(){
-        HttpClient.shareInstance.request(target: BAAPI.contentSingleList(module: "矩阵"), success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.secondModule(module: "矩阵", module_second: secondCategory, page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(HomeMatrixListItemResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
             
-            self?.dataSource = forceModel.data
-            for (index, item) in (self?.dataSource as! [HomeMatrixListItemResponseDatum]).enumerated() {
-                if item.moduleSecond == "矩阵列表" { self?.topModel = item; self?.dataSource.remove(at: index) }
-            }
+            self?.dataSource = forceModel.data.data
             self?.tableView.reloadData()
             }
         )
     }
     
-    //MARK: - 请求Banner
+    //MARK: - 请求矩阵
     private func requestBanner() {
-        HttpClient.shareInstance.request(target: BAAPI.topBanner(module: "矩阵"), success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.articleAdmin(module: "矩阵"), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(HomeVVideoBannerResponse.self, from: json)
+            let model = try? decoder.decode(ArticleAdminModelResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
             
-            self?.model = forceModel
+            self?.topModel = forceModel
+            //刷新矩阵号页面
             self?.tableView.reloadData();
             }
         )

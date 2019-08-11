@@ -13,6 +13,14 @@ import UIKit
  */
 
 class ShowImageTextCell: BaseTableViewCell {
+    var isShowDelete: Bool? {
+        willSet(newValue) {
+            bottomView.isShowDelete = newValue
+        }
+    }
+    
+    var deleteBlock: () -> Void = { }
+    
     //MARK: -设置参数
     var describe: String? {
         willSet(value) {
@@ -126,7 +134,12 @@ class ShowImageTextCell: BaseTableViewCell {
             make.bottom.equalTo(-15 * iPHONE_AUTORATIO);
             make.left.equalTo(65 * iPHONE_AUTORATIO);
             make.right.equalTo(-13 * iPHONE_AUTORATIO);
-        };
+            make.height.equalTo(40 * iPHONE_AUTORATIO)
+        }
+        
+        bottomView.block = { [weak self] () in
+            self?.deleteBlock()
+        }
         
         addSubview(imagesContentView);
         imagesContentView.snp.makeConstraints { (make) in

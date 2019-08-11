@@ -79,6 +79,9 @@ class ChangeBindingViewController: BaseViewController {
         button.backgroundColor = RGBA(255, 74, 92, 1)
         button.setTitle("确 认 绑 定")
         button.titleLabel?.font = kFont(16 * iPHONE_AUTORATIO)
+        button.addTarget(self,
+                         action: #selector(confirmBinding(_:)),
+                         for: .touchUpInside)
         return button
     }()
 
@@ -155,16 +158,34 @@ class ChangeBindingViewController: BaseViewController {
     }
     
     @objc private func sendMessageCode(_ sender: UIButton) {
-        if _mobile.isEmpty || _mobile.isPhoneNumber() {
+        if _mobile.isEmpty || !_mobile.isPhoneNumber() {
             TProgressHUD.show(text: "请输入正确的手机号码")
             return
         }
         
         //MARK: - 发送验证码
-//        HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: mobile, event: "register"), success: { (json) in
-//            TProgressHUD.show(text: "发送验证码成功")
-//        }
-//        )
+        HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: _mobile, event: "changemobile"), success: { (json) in
+            TProgressHUD.show(text: "发送验证码成功")
+        }
+        )
     }
 
+    @objc private func confirmBinding(_ sender: UIButton) {
+        if _mobile.isEmpty || !_mobile.isPhoneNumber() {
+            TProgressHUD.show(text: "请输入正确的手机号码")
+            return
+        }
+        
+        if _code.isEmpty {
+            TProgressHUD.show(text: "请输入验证码")
+            return
+        }
+        
+        //MARK: - 发送验证码
+        HttpClient.shareInstance.request(target: BAAPI.changeMobile(mobile: _mobile, code: _code), success: { [weak self] (json) in
+            self?.popViewControllerBtnPressed()
+            TProgressHUD.show(text: "确定绑定成功")
+        }
+        )
+    }
 }

@@ -204,6 +204,7 @@ extension SXSignUpViewController {
             let token = userModel.data.userinfo.token.string;
             Defaults.shared.set(token, for: key);
             Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey);
+            Defaults.shared.set(userModel.data.userinfo.groupId.int, for: userGroupId)
             //获取七牛云token
             //更新rootVC
             let rootVC = BaseTabBarController.init();

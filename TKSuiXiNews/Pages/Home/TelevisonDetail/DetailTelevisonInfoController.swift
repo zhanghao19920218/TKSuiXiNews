@@ -104,18 +104,22 @@ extension DetailTelevisonInfoController: UITableViewDelegate, UITableViewDataSou
         
         if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: televisonPickIdentifier) as! BoardCastTVDatePickCell
-            cell.firstDate = model?.telList[0].date.string
-            cell.secondDate = model?.telList[1].date.string
-            cell.thirdDate = model?.telList[2].date.string
-            cell.block = { [weak self] (index) in
-                self?.currentIndex = (index - 1)
-                self?.tableView.reloadData()
+            if model?.telList.count == 3 {
+                cell.firstDate = model?.telList[0].date.string
+                cell.secondDate = model?.telList[1].date.string
+                cell.thirdDate = model?.telList[2].date.string
+                cell.block = { [weak self] (index) in
+                    self?.currentIndex = (index - 1)
+                    self?.tableView.reloadData()
+                }
             }
             return cell
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: contentInfoIdentifier) as! ProductDetailDescribeCell
-        cell.content = model?.telList[currentIndex].content.string
+        if model?.telList.count == 3 {
+            cell.content = model?.telList[currentIndex].content.string
+        }
         return cell
     }
     

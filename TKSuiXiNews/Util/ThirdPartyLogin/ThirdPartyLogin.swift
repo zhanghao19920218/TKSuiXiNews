@@ -299,7 +299,7 @@ extension QQShareInstance: QQApiInterfaceDelegate {
     }
     
     func onResp(_ resp: QQBaseResp!) {
-        print("QQ回调")
+        print("QQ回调: \(resp)")
     }
     
     func isOnlineResponse(_ response: [AnyHashable : Any]!) {

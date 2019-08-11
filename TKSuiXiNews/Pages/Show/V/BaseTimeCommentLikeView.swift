@@ -12,6 +12,18 @@ fileprivate let textStyle = kFont(13 * iPHONE_AUTORATIO);
 fileprivate let fontColor = RGBA(153, 153, 153, 1);
 
 class BaseTimeCommentLikeView: UIView {
+    var block: () -> Void = {}
+    
+    var isShowDelete: Bool? {
+        willSet(newValue) {
+            if let value = newValue, value {
+                deleteButton.isHidden = false
+            } else {
+                deleteButton.isHidden = true
+            }
+        }
+    }
+    
     var time:String? {
         willSet(value) {
             timeLabel.text = value ?? "0小时前";
@@ -75,7 +87,17 @@ class BaseTimeCommentLikeView: UIView {
         label.text = "0";
         label.textColor = fontColor;
         return label;
-    }();
+    }()
+    
+    //显示删除按钮
+    private lazy var deleteButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("删 除")
+        button.setTitleColor(appThemeColor)
+        button.titleLabel?.font = textStyle
+        button.isHidden = true
+        return button
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -121,7 +143,22 @@ class BaseTimeCommentLikeView: UIView {
         likeLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self.likeIcon.snp_right).offset(5 * iPHONE_AUTORATIO);
             make.centerY.equalToSuperview();
-        };
+        }
+        
+        addSubview(deleteButton)
+        deleteButton.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.left.equalTo(50 * iPHONE_AUTORATIO)
+            make.size.equalTo(CGSize(width: 80 * iPHONE_AUTORATIO, height: 40 * iPHONE_AUTORATIO))
+        }
+        
+        deleteButton.addTarget(self,
+                         action: #selector(deleteButtonTapped(_:)),
+                         for: .touchUpInside)
+    }
+    
+    @objc private func deleteButtonTapped(_ sender: UIButton) {
+        block()
     }
 
 }

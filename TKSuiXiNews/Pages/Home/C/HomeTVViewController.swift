@@ -98,12 +98,12 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
         cell.titleFirst = model.data[0].name.string
         cell.titleSecond = model.data[1].name.string
         cell.videoBlock = { [weak self] () in
-            let vc = NETLivePlayerController(url: "https://hwapi.yunshicloud.com/m87oxo/251011.m3u8")
+            let vc = OnlineTVShowViewController(url: model.data[0].video.string)
             self?.navigationController?.pushViewController(vc, animated: true);
         }
         
         cell.videoSecondBlock = { [weak self] () in
-            let vc = NETLivePlayerController(url: "https://hwapi.yunshicloud.com/m87oxo/251011.m3u8")
+            let vc = OnlineTVShowViewController(url: model.data[1].video.string)
             self?.navigationController?.pushViewController(vc, animated: true);
         }
         cell.checkTotalBlock = { [weak self] () in

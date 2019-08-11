@@ -22,7 +22,7 @@ fileprivate let pageViewTitleHeight = 40 * iPHONE_AUTORATIO;
 
 class HomeTotalVideoController: BaseViewController {
     //初始化
-    var startIndex:Int = 0;
+    var startIndex:Int = 0
     
     //初始化页面选择器
     lazy var pageViewManager: DNSPageViewManager = {

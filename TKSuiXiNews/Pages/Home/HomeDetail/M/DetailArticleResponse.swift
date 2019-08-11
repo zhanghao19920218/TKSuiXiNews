@@ -20,12 +20,15 @@ struct DetailArticleModel: Codable {
     let module, moduleSecond, name: TStrInt
     let image: TStrInt
     let images: [String]
-    let video: TStrInt
-    let audio, content, nickname, avatar: TStrInt
-    let status: TStrInt
+    let video, audio, content, nickname: TStrInt
+    let avatar, status: TStrInt
     let visitNum, commentNum, likeNum, createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
-    let time, type: TStrInt
+    let time: TStrInt?
+    let type: TStrInt
+    let vote: Vote?
+    let voteOption: [VoteOption]?
+    let voteStatus: TStrInt?
     let comment: [DetailInfoComment]?
     let begintime: TStrInt
     let likeStatus, collectStatus: TStrInt
@@ -42,7 +45,10 @@ struct DetailArticleModel: Codable {
         case likeNum = "like_num"
         case createtime, updatetime
         case voteID = "vote_id"
-        case weigh, time, type, comment, begintime
+        case weigh, time, type, vote
+        case voteOption = "vote_option"
+        case voteStatus = "vote_status"
+        case comment, begintime
         case likeStatus = "like_status"
         case collectStatus = "collect_status"
     }
@@ -59,5 +65,33 @@ struct DetailInfoComment: Codable {
         case userID = "user_id"
         case articleID = "article_id"
         case detail, nickname, avatar, status, createtime, updatetime
+    }
+}
+
+// MARK: - Vote
+struct Vote: Codable {
+    let id, adminID: TStrInt
+    let name, image, content, status: TStrInt
+    let createtime, updatetime: TStrInt
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case adminID = "admin_id"
+        case name, image, content, status, createtime, updatetime
+    }
+}
+
+// MARK: - VoteOption
+struct VoteOption: Codable {
+    let id, voteID: TStrInt
+    let name, image: TStrInt
+    let count: TStrInt
+    let status: TStrInt
+    let createtime: TStrInt
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case voteID = "vote_id"
+        case name, image, count, status, createtime
     }
 }

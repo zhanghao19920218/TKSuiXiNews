@@ -9,6 +9,14 @@
 import UIKit
 
 class ShowVideoViewCell: BaseTableViewCell {
+    var isShowDelete: Bool? {
+        willSet(newValue) {
+            bottomView.isShowDelete = newValue
+        }
+    }
+    
+    var deleteBlock: () -> Void = {  }
+    
     var block: () -> Void = {}
     //MARK: -设置参数
     var describe: String? {
@@ -97,7 +105,7 @@ class ShowVideoViewCell: BaseTableViewCell {
     private lazy var bottomView: BaseTimeCommentLikeView = {
         let view = BaseTimeCommentLikeView();
         return view;
-    }();
+    }()
     
     //照片
     private lazy var videoImageView: UIImageView = {
@@ -183,7 +191,13 @@ class ShowVideoViewCell: BaseTableViewCell {
             make.bottom.equalTo(-15 * iPHONE_AUTORATIO);
             make.left.equalTo(65 * iPHONE_AUTORATIO);
             make.right.equalTo(-13 * iPHONE_AUTORATIO);
-        };
+            make.height.equalTo(40 * iPHONE_AUTORATIO)
+        }
+        
+        bottomView.block = { [weak self] () in
+            self?.deleteBlock()
+        }
+        
     }
     
     //MARK: - 点击播放按钮

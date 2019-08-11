@@ -18,6 +18,7 @@ fileprivate let imageViewIdentifier = "DetailVVideoInfoCellIdentifier"
 fileprivate let shareCellIdentifier = "BaseShareBottomViewIdentifier"
 fileprivate let likeCellIdentifier = "DetailCommentLikeNumCellIdentifier"
 fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
+fileprivate let voteCellIdentifier = "DetailInfoVoteSectionCellIdentifier" //投票的Cell
 
 class DetailVideoInfoController: BaseViewController {
     var model: DetailArticleModel?
@@ -35,7 +36,8 @@ class DetailVideoInfoController: BaseViewController {
         tableView.register(DetailVVideoInfoCell.self, forCellReuseIdentifier: imageViewIdentifier)
         tableView.register(BaseShareBottomView.self, forCellReuseIdentifier: shareCellIdentifier);
         tableView.register(DetailCommentLikeNumCell.self, forCellReuseIdentifier: likeCellIdentifier)
-        tableView.register(DetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier);
+        tableView.register(DetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
+        tableView.register(DetailInfoVoteSectionCell.self, forCellReuseIdentifier: voteCellIdentifier) //投票的Cell
         return tableView;
     }();
     
@@ -50,6 +52,22 @@ class DetailVideoInfoController: BaseViewController {
                 view.sendBlock = { (comment) in
                     self?.sendComment(comment)
                 }
+            } else if type == .resend {
+                ShareBottomPopMenu.show(success: { [weak self](type) in
+                    let url = K_URL_Share + (self?.model?.id.string ?? "0")
+                    if type == .qq { //QQ分享
+                        QQShareInstance.share.shareQQ(title: self?.model?.name.string ?? "", url: url)
+                    }
+                    if type == .weibo { //微博分享
+                        ThirdPartyLogin.share.shareWebToSina(title: self?.model?.name.string ?? "", url: url)
+                    }
+                    if type == .circle { //朋友圈
+                        ThirdPartyLogin.share.shareWechatTimeline(title: self?.model?.name.string ?? "", url: url)
+                    }
+                    if type == .wechat {
+                        ThirdPartyLogin.share.shareWechatFriend(title: self?.model?.name.string ?? "", url: url)
+                    }
+                })
             }
         }
         view.isTappedBlock = { [weak self] isChoosed in
@@ -149,7 +167,7 @@ extension DetailVideoInfoController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5 + (model?.comment?.count ?? 0);
+        return 6 + (model?.comment?.count ?? 0);
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -177,8 +195,16 @@ extension DetailVideoInfoController: UITableViewDelegate, UITableViewDataSource 
             return cell
         }
         
-        //用户分享的Cell
+        //是不是用户投票的界面
         if indexPath.row == 3 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: voteCellIdentifier) as! DetailInfoVoteSectionCell
+//            cell.title = "你是否关注此次会议？"
+//            cell.dataSource = ["选项1", "选项2", "选项3"]
+            return cell
+        }
+        
+        //用户分享的Cell
+        if indexPath.row == 4 {
             let cell = tableView.dequeueReusableCell(withIdentifier: shareCellIdentifier) as! BaseShareBottomView
             cell.shareBlock = { type in
                 let url = K_URL_Share + (self.model?.id.string ?? "0")
@@ -199,7 +225,7 @@ extension DetailVideoInfoController: UITableViewDelegate, UITableViewDataSource 
         }
         
         //用户称赞数量和评论数量
-        if indexPath.row == 4 {
+        if indexPath.row == 5 {
             let cell = tableView.dequeueReusableCell(withIdentifier: likeCellIdentifier) as! DetailCommentLikeNumCell
             cell.comment = model?.commentNum.int
             cell.like = model?.likeNum.int
@@ -208,10 +234,10 @@ extension DetailVideoInfoController: UITableViewDelegate, UITableViewDataSource 
         
         //用户评论
         let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! DetailUserCommentCell
-        cell.avatar = model?.comment?[indexPath.row - 5].avatar.string
-        cell.nickname = model?.comment?[indexPath.row - 5].nickname.string
-        cell.comment = model?.comment?[indexPath.row - 5].detail.string
-        cell.time = model?.comment?[indexPath.row - 5].createtime.string
+        cell.avatar = model?.comment?[indexPath.row - 6].avatar.string
+        cell.nickname = model?.comment?[indexPath.row - 6].nickname.string
+        cell.comment = model?.comment?[indexPath.row - 6].detail.string
+        cell.time = model?.comment?[indexPath.row - 6].createtime.string
         return cell
         
         
@@ -228,19 +254,23 @@ extension DetailVideoInfoController: UITableViewDelegate, UITableViewDataSource 
         if indexPath.row == 2 {
             return 196 * iPHONE_AUTORATIO
         }
+        //投票数据
         if indexPath.row == 3 {
-            return 72 * iPHONE_AUTORATIO
+            return 209 * iPHONE_AUTORATIO
         }
         if indexPath.row == 4 {
+            return 72 * iPHONE_AUTORATIO
+        }
+        if indexPath.row == 5 {
             return 59 * iPHONE_AUTORATIO;
         }
         
-        return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 5].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
+        return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 6].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
-            let vc = NETLivePlayerController(url: model?.video.string ?? "")
+            let vc = OnlineTVShowViewController(url: model?.video.string ?? "")
             navigationController?.pushViewController(vc, animated: true);
         }
     }

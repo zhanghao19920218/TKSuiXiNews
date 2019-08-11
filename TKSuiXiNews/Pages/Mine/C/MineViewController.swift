@@ -98,7 +98,6 @@ class MineViewController: BaseViewController {
         
         setupUI()
         
-        requestData()
         
         configureNavigationBar()
         
@@ -108,7 +107,9 @@ class MineViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.isTranslucent = true;
+        navigationController?.navigationBar.isTranslucent = true
+        
+        requestData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -210,6 +211,14 @@ class MineViewController: BaseViewController {
                 //关于我们
                 let vc = AboutUsViewController()
                 self?.navigationController?.pushViewController(vc, animated: true)
+            } else if index == 2 {
+                //我的帖子
+                let vc = MineSendArticlesController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            } else if index == 3 {
+                //问政记录
+                let vc = MineAskGovListViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
     }
@@ -245,10 +254,7 @@ extension MineViewController {
                 return;
             }
             self?.infoModel = model?.data
-            var avatar = forceModel.data.avatar.string
-            if !avatar.contains("http") || !avatar.contains("https"){
-                avatar = K_URL_Base + avatar
-            }
+            let avatar = forceModel.data.avatar.string
             self?.avatarImageView.kf.setImage(with: URL(string: avatar), placeholder: K_ImageName(PLACE_HOLDER_IMAGE))
             self?.nicknameLabel.text = forceModel.data.nickname.string
             self?.mobileLabel.text = forceModel.data.mobile.string

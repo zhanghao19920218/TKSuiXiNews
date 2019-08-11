@@ -12,7 +12,12 @@ import FSPagerView
 fileprivate let cellIdentifier = "HomeMatrixBaseImTitleViewCellIdentifier"
 
 class BannerMatrixSingleCell: FSPagerViewCell {
-    private var _dataSource = [Any]()
+    //数据
+    var dataSource:[ArticleAdminModelDatum] = [ArticleAdminModelDatum]() {
+        willSet(newValue) {
+            tableView.reloadData()
+        }
+    }
     
     //MARK: - 选择的cell索引
     var _selectedIndex: Int?
@@ -69,13 +74,15 @@ extension BannerMatrixSingleCell: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = dataSource[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! HomeMatrixBaseImTitleViewCell
-//        cell.isChoose = true
         cell.contentView.transform = CGAffineTransform(rotationAngle: .pi/2)
+        cell.imagename = model.avatar.string //头像
+        cell.title = model.nickname.string //昵称
         if let index = _selectedIndex, index == indexPath.row { cell.isChoose = true } else { cell.isChoose = false }
         return cell
     }

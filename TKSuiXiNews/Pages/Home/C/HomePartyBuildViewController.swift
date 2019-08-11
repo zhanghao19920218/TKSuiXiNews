@@ -12,7 +12,6 @@ import UIKit
  * 党建
  */
 
-fileprivate let searchTitleIdentifier = "HomeNewsSearchInfoCellIdentifier";
 fileprivate let newsOnePicIdentifier = "HomeNewsOnePictureCellIdentifier"
 fileprivate let newsThreePicIdentifier = "HomeNewsThreePictureCellIdentifier"
 fileprivate let newsNoPicIdentifier = "HomeNewsNoPicCellIdentifier"
@@ -30,7 +29,6 @@ class HomePartyBuildViewController: BaseTableViewController {
     
     //初始化页面
     private func setupUI() {
-        tableView.register(HomeNewsSearchInfoCell.self, forCellReuseIdentifier: searchTitleIdentifier)
         tableView.register(HomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
         tableView.register(HomeNewsThreePictureCell.self, forCellReuseIdentifier: newsThreePicIdentifier)
         tableView.register(HomeNewsNoPicCell.self, forCellReuseIdentifier: newsNoPicIdentifier)
@@ -120,6 +118,14 @@ extension HomePartyBuildViewController: UITableViewDelegate, UITableViewDataSour
             cell.like = model.likeNum.int
             cell.review = model.visitNum.int
             cell.time = model.begintime.string
+            
+            //显示置顶标签
+            if indexPath.row <= 1 {
+                cell.isHiddenTop = false
+            } else {
+                cell.isHiddenTop = true
+            }
+            
             return cell;
         } else if model.images.count == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: newsThreePicIdentifier) as! HomeNewsThreePictureCell;
@@ -131,6 +137,14 @@ extension HomePartyBuildViewController: UITableViewDelegate, UITableViewDataSour
             cell.like = model.likeNum.int
             cell.review = model.visitNum.int
             cell.time = model.begintime.string
+            
+            //显示置顶标签
+            if indexPath.row <= 1 {
+                cell.isHiddenTop = false
+            } else {
+                cell.isHiddenTop = true
+            }
+            
             return cell;
         }
         
@@ -140,12 +154,24 @@ extension HomePartyBuildViewController: UITableViewDelegate, UITableViewDataSour
         cell.like = model.likeNum.int
         cell.review = model.visitNum.int
         cell.time = model.begintime.string
+        
+        //显示置顶标签
+        if indexPath.row <= 1 {
+            cell.isHiddenTop = false
+        } else {
+            cell.isHiddenTop = true
+        }
+        
         return cell;
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         let model = dataSource[indexPath.row] as! HomeNewsListModel
+        
+        if !model.image.string.isEmpty {
+            return 118 * iPHONE_AUTORATIO
+        }
         
         if model.images.count == 3 {
             return 187 * iPHONE_AUTORATIO

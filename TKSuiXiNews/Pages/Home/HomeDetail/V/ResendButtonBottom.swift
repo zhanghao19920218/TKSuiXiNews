@@ -36,7 +36,7 @@ class ResendButtonBottom: UIView {
     private lazy var resendButton: UIButton = {
         let button = UIButton(type: .custom);
         button.setTitleColor(RGBA(153, 153, 153, 1))
-        button.setImage("resend_button_icon")
+        button.setImage("detail_bottom_share")
         button.setTitle(" 转发")
         button.titleLabel?.font = textFont
         button.tag = 1;

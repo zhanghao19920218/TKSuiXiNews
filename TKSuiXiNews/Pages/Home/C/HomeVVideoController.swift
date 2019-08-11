@@ -138,7 +138,9 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
         cell.comment = model.commentNum.string;
         cell.isLike = model.likeStatus.int;
         cell.like = model.likeNum.string;
-        cell.videoLength = model.time.string;
+        //获取时间
+        let timeLength = model.time.int.secondsToHoursMinutesSeconds()
+        cell.videoLength = "\(timeLength.min):\(timeLength.sec)"
         cell.block = { [weak self] () in
             let vc = NETLivePlayerController(url: model.video.string)
             self?.navigationController?.pushViewController(vc, animated: true);

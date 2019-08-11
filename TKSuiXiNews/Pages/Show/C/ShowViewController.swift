@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import DefaultsKit
 
-fileprivate let textImageIdentifier = "ShowImageTextCellIdentifier";
-fileprivate let videoIdentifier = "ShowVideoViewCellIdentifier";
+fileprivate let textImageIdentifier = "ShowImageTextCellIdentifier"
+fileprivate let videoIdentifier = "ShowVideoViewCellIdentifier"
 
 /*
  * 随手拍
@@ -147,6 +148,15 @@ extension ShowViewController {
             }
         )
     }
+    
+    //MARK: - 删除随手拍
+    private func deleteData(id: Int) {
+        HttpClient.shareInstance.request(target: BAAPI.deleteCausualVideo(id: id), success: { [weak self] (json) in
+            //刷新数据
+            self?.pullDownRefreshData()
+            }
+        )
+    }
 }
 
 extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
@@ -160,6 +170,8 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = dataSource[indexPath.row] as! ShowListItemModel;
+        
+        let isShowDelete = ((Defaults.shared.get(for: userGroupId) ?? 0) == 3)
         
         if model.images.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: videoIdentifier) as! ShowVideoViewCell;
@@ -177,6 +189,10 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
                 let vc = NETLivePlayerController.init(url: model.video.string)
                 self?.navigationController?.pushViewController(vc, animated: true);
             }
+            cell.isShowDelete = isShowDelete
+            cell.deleteBlock = {[weak self] () in
+                self?.deleteCurrentPageItem(with: indexPath.row)
+            }
             return cell;
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! ShowImageTextCell;
@@ -188,6 +204,10 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
             cell.isLike = model.likeStatus.int;
             cell.like = model.likeNum.string;
             cell.beginTime = model.begintime.string;
+            cell.isShowDelete = isShowDelete
+            cell.deleteBlock = { [weak self] () in
+                self?.deleteCurrentPageItem(with: indexPath.row)
+            }
             return cell;
         }
     }
@@ -226,6 +246,16 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    //删除当前的页面数据
+    private func deleteCurrentPageItem(with index: Int) {
+        let model = dataSource[index] as! ShowListItemModel
+        //先确定是不是退出页面
+        AlertPopMenu.show(title: "删除随手拍", detail: "是否删除这条随手拍", confirmTitle: "确定", doubleTitle: "取消", confrimBlock: { [weak self] () in
+            self?.deleteData(id: model.id.int)
+        }) {
+            
+        }
+    }
 }
 
 

@@ -78,6 +78,24 @@ enum  BAAPI {
     case qiniuyunToken
     //绑定手机号码
     case bindingMobile(thirdId:String, mobile:String, captcha:String)
+    //请求Banner的公众号
+    case articleAdmin(module: String)
+    //删除随手拍
+    case deleteCausualVideo(id: Int)
+    //发布问政
+    case sendAskGoverment(moduleSecond: String, name:String, content:String, images:[String])
+    //取消收藏
+    case cancelFavorite(articleId:Int)
+    //发起投票
+    case addVoteInArticle(id: Int, optionId:Int)
+    //获取投票内容
+    case voteDetailContent(id: Int)
+    //现场领取
+    case stargeOnShowReceive(id: Int)
+    //修改手机号码
+    case changeMobile(mobile:String, code: String)
+    //我的帖子
+    case myArticle(module:String, p: Int)
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -160,6 +178,24 @@ extension BAAPI: TargetType {
             return K_URL_sevenBeffToken
         case .bindingMobile:
             return K_URL_bindingMobile
+        case .articleAdmin:
+            return K_URL_articleAdmin
+        case .deleteCausualVideo:
+            return K_URL_deleteArticle
+        case .sendAskGoverment:
+            return K_URL_askGoverment
+        case .cancelFavorite:
+            return K_URL_deleteFavorite
+        case .addVoteInArticle:
+            return K_URL_voteSend
+        case .voteDetailContent:
+            return K_URL_voteContentId
+        case .stargeOnShowReceive:
+            return K_URL_receiveGoods
+        case .changeMobile:
+            return K_URL_changeMobile
+        case .myArticle:
+            return K_URL_mineArticle
         }
         
     }
@@ -303,6 +339,48 @@ extension BAAPI: TargetType {
             params["mobile"] = mobile
             params["captcha"] = captcha
             
+        case let .articleAdmin(module):
+            params["module"] = module
+            
+        case let .deleteCausualVideo(id):
+            params["id"] = id
+            
+        case let .sendAskGoverment(moduleSecond, name, content, images):
+            params["module_second"] = moduleSecond
+            params["name"] = name
+            params["content"] = content
+            if images.count > 0 {
+                let array:String = images.joined(separator: ",");
+                params["images"] = array
+            }
+            
+        case let .cancelFavorite(articleId):
+            params["article_id"] = articleId
+            
+        case let .addVoteInArticle(id, optionId):
+            params["id"] = id
+            params["option_id"] = optionId
+            
+        case let .voteDetailContent(id):
+            params["id"] = id
+            
+        case let .stargeOnShowReceive(id):
+            params["id"] = id
+            
+        case let .changeMobile(mobile, code):
+            params["mobile"] = mobile
+            params["captcha"] = code
+            
+        case let .changeMemberInfo(avatar, nickname):
+            params["avatar"] = avatar
+            params["nickname"] = nickname
+            params["username"] = nickname
+            params["bio"] = ""
+            
+        case let .myArticle(module, p):
+            params["module"] = module
+            params["p"] = p
+
         default:
             //不需要传参数的接口走这里
             return .requestPlain

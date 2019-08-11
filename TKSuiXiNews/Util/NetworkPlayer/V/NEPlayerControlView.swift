@@ -24,6 +24,18 @@ protocol NEPlayerControlViewDelegate {
 class NEPlayerControlView: UIView {
     var delegate: NEPlayerControlViewDelegate?
     
+    var isRemove: Bool? {
+        willSet(newValue) {
+            if let value = newValue, value {
+                playButton.removeFromSuperview()
+                durationTimeLabel.removeFromSuperview()
+                currentTimeLabel.removeFromSuperview()
+                slider.removeFromSuperview()
+                videoProgress.removeFromSuperview()
+            }
+        }
+    }
+    
     //设置总时长
     var duration: TimeInterval? {
         willSet(value) {

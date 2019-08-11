@@ -18,6 +18,13 @@ class HomeVideoNewsViewCell: BaseTableViewCell {
         }
     }
     
+    var timeLength: Int = 0{
+        willSet(newValue) {
+            let result = newValue.secondsToHoursMinutesSeconds()
+            videoImg.timeLength = "\(result.min):\(result.sec)"
+        }
+    }
+    
     var imageName: String? {
         willSet(newValue) {
             if let value = newValue {

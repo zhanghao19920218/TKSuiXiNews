@@ -9,6 +9,16 @@
 import UIKit
 
 class HomeNewsOnePictureCell: BaseTableViewCell {
+    
+    var isHiddenTop: Bool? {
+        willSet(newValue) {
+            if let value = newValue, !value {
+                isTopLabelView.isHidden = false
+                titleL.text = ("         " + (titleL.text ?? ""))
+            }
+        }
+    }
+    
     var title:String? {
         willSet(newValue) {
             titleL.text = newValue ?? "";
@@ -64,11 +74,31 @@ class HomeNewsOnePictureCell: BaseTableViewCell {
         return imageView
     }()
     
+    //置顶
+    private lazy var isTopLabelView: UIView = {
+        let view = UIView()
+        view.backgroundColor = RGBA(255, 74, 92, 1)
+        view.layer.cornerRadius = 3 * iPHONE_AUTORATIO
+        view.isHidden = true
+        return view
+    }()
+    
+    //置顶的Label
+    private lazy var isTopLabel: UILabel = {
+        let label = UILabel()
+        label.font = kFont(10 * iPHONE_AUTORATIO)
+        label.textColor = .white
+        label.text = "置顶"
+        label.textAlignment = .center
+        return label
+    }()
+    
     //设置下方的评论列表
     private lazy var bottomView: HomeNewsBottomTimeView = {
         let view = HomeNewsBottomTimeView()
         return view
     }()
+    
     
     override func setupUI() {
         super.setupUI()
@@ -100,6 +130,18 @@ class HomeNewsOnePictureCell: BaseTableViewCell {
             make.left.equalTo(13 * iPHONE_AUTORATIO)
             make.right.equalTo(-13 * iPHONE_AUTORATIO)
             make.height.equalTo(1)
+        }
+        
+        contentView.addSubview(isTopLabelView)
+        isTopLabelView.snp.makeConstraints { (make) in
+            make.left.equalTo(13 * iPHONE_AUTORATIO)
+            make.top.equalTo(23 * iPHONE_AUTORATIO)
+            make.size.equalTo(CGSize(width: 27 * iPHONE_AUTORATIO, height: 17 * iPHONE_AUTORATIO))
+        }
+        
+        isTopLabelView.addSubview(isTopLabel)
+        isTopLabel.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
         }
     }
 }

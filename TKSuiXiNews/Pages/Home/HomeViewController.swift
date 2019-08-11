@@ -8,7 +8,7 @@
 
 import UIKit
 import DNSPageView
-//import YPImagePicker
+import DefaultsKit
 
 //PageView的frame
 fileprivate let pageViewRect = CGRect(x: 0, y: 0, width: K_SCREEN_WIDTH, height: K_SCREEN_HEIGHT - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT);
@@ -28,6 +28,13 @@ class HomeViewController: BaseViewController {
         button.addTarget(self,
                          action: #selector(didSelectedVVideo),
                          for: .touchUpInside);
+        //获取用户是不是管理员
+        let groupId =  Defaults.shared.get(for: userGroupId)
+        if let groupid = groupId, groupid == 2 {
+            button.isHidden = false
+        } else {
+            button.isHidden = true
+        }
         return button;
     }();
     
@@ -46,7 +53,7 @@ class HomeViewController: BaseViewController {
         
         
         // 设置标题内容
-        let titles = ["V视频", "濉溪TV", "新闻", "视讯", "问政", "矩阵", "原创", "悦读", "悦听"];
+        let titles = ["V视频", "濉溪TV", "新闻", "视讯", "问政", "矩阵", "原创", "悦读", "悦听", "党建", "专栏"];
         
         // 创建每一页对应的controller
         let childViewControllers: [UIViewController] = titles.enumerated().map { (index, _) -> UIViewController in
@@ -83,6 +90,9 @@ class HomeViewController: BaseViewController {
             } else if index == 9 {
                 //党建
                 controller = HomePartyBuildViewController()
+            } else if index == 10 {
+                //专栏
+                controller = HomeSpecialColumnChildController()
             } else {
                 controller = UIViewController();
             }
@@ -94,13 +104,13 @@ class HomeViewController: BaseViewController {
     }();
     
     //轮播右侧的增加按钮
-    private lazy var button: UIButton = {
-        let button = UIButton.init(type: .custom);
-        button.setImage(K_ImageName("add"), for: .normal);
-        button.imageEdgeInsets = UIEdgeInsets(top: 6 * iPHONE_AUTORATIO, left: 6 * iPHONE_AUTORATIO, bottom: 6 * iPHONE_AUTORATIO, right: 6 * iPHONE_AUTORATIO);
-        button.backgroundColor = .white;
-        return button;
-    }()
+//    private lazy var button: UIButton = {
+//        let button = UIButton.init(type: .custom);
+//        button.setImage(K_ImageName("add"), for: .normal);
+//        button.imageEdgeInsets = UIEdgeInsets(top: 6 * iPHONE_AUTORATIO, left: 6 * iPHONE_AUTORATIO, bottom: 6 * iPHONE_AUTORATIO, right: 6 * iPHONE_AUTORATIO);
+//        button.backgroundColor = .white;
+//        return button;
+//    }()
     
     //MARK: - 更新StatusBar
     override var preferredStatusBarStyle: UIStatusBarStyle
@@ -135,8 +145,8 @@ class HomeViewController: BaseViewController {
         let titleView = pageViewManager.titleView;
         view.addSubview(pageViewManager.titleView)
         titleView.snp.makeConstraints { (maker) in
-            maker.left.top.equalToSuperview();
-            maker.right.equalTo(-40 * iPHONE_AUTORATIO);
+            maker.left.top.right.equalToSuperview();
+//            maker.right.equalTo(-40 * iPHONE_AUTORATIO);
             maker.height.equalTo(40 * iPHONE_AUTORATIO);
         }
         
@@ -149,11 +159,11 @@ class HomeViewController: BaseViewController {
         }
         
         //增加更多频道按钮
-        view.addSubview(button);
-        button.snp.makeConstraints { (make) in
-            make.top.right.equalToSuperview();
-            make.size.equalTo(CGSize(width: pageViewTitleHeight, height: pageViewTitleHeight));
-        }
+//        view.addSubview(button);
+//        button.snp.makeConstraints { (make) in
+//            make.top.right.equalToSuperview();
+//            make.size.equalTo(CGSize(width: pageViewTitleHeight, height: pageViewTitleHeight));
+//        }
     }
     
     //MARK: - 点击V视频sheet

@@ -27,12 +27,13 @@ struct UserSignInModuleModel: Codable {
     let avatar: TStrInt
     let score: TStrInt
     let token: TStrInt
-    let userID, createtime, expiretime, expiresIn: TStrInt
+    let userID, createtime, expiretime, expiresIn, groupId: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case id, username, nickname, mobile, avatar, score, token
         case userID = "user_id"
         case createtime, expiretime
         case expiresIn = "expires_in"
+        case groupId = "group_id"
     }
 }

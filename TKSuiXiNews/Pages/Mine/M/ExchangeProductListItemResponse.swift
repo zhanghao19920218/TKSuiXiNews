@@ -38,6 +38,7 @@ struct ExchangeProductListItemDatum: Codable {
     let status: TStrInt
     let createtime: TStrInt
     let updatetime, adminID: TStrInt
+    let registerStatus: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -45,5 +46,6 @@ struct ExchangeProductListItemDatum: Codable {
         case goodsID = "goods_id"
         case name, image, score, status, createtime, updatetime
         case adminID = "admin_id"
+        case registerStatus = "register_status"
     }
 }

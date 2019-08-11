@@ -163,7 +163,7 @@ extension ServiceViewController: UICollectionViewDelegate, UICollectionViewDataS
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 0 {
-            return CGSize(width: K_SCREEN_WIDTH, height: 110 * iPHONE_AUTORATIO)
+            return CGSize(width: K_SCREEN_WIDTH, height: K_SCREEN_WIDTH)
         }
         
         return CGSize.init(width: layoutWidth, height: layoutHeight)

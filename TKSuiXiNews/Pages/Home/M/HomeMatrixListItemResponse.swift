@@ -12,39 +12,51 @@ import Foundation
 struct HomeMatrixListItemResponse: Codable {
     let code: Int
     let msg, time: String
-    let data: [HomeMatrixListItemResponseDatum]
+    let data: HomeMatrixListItemDataClass
 }
 
-// MARK: - HomeMatrixListItemResponseDatum
-struct HomeMatrixListItemResponseDatum: Codable {
-    let moduleSecond: String
-    let data: [HomeMatrixListItemModel]
+// MARK: - DataClass
+struct HomeMatrixListItemDataClass: Codable {
+    let total, perPage, currentPage, lastPage: Int
+    let data: [HomeMatrixListItemDataClassDatum]
     
     enum CodingKeys: String, CodingKey {
-        case moduleSecond = "module_second"
+        case total
+        case perPage = "per_page"
+        case currentPage = "current_page"
+        case lastPage = "last_page"
         case data
     }
 }
 
-// MARK: - DatumDatum
-struct HomeMatrixListItemModel: Codable {
-    let id: TStrInt
-    let module, moduleSecond, name: TStrInt?
-    let image: TStrInt?
-    let video: TStrInt?
+// MARK: - Datum
+struct HomeMatrixListItemDataClassDatum: Codable {
+    let id, userID, adminID: TStrInt
+    let module, moduleSecond, name: TStrInt
+    let image: TStrInt
+    let images: [String]
+    let video, audio, content, nickname: TStrInt
+    let avatar, status: TStrInt
+    let visitNum, commentNum, likeNum, createtime: TStrInt
+    let updatetime, voteID, weigh: TStrInt
     let time: TStrInt?
-    let createtime: TStrInt?
-    let type: TStrInt?
-    let visitNum, likeNum: TStrInt?
-    let nickname: TStrInt?
-    let avatar: TStrInt?
+    let type, begintime: TStrInt
+    let likeStatus, collectStatus: TStrInt
     
     enum CodingKeys: String, CodingKey {
-        case id, module
+        case id
+        case userID = "user_id"
+        case adminID = "admin_id"
+        case module
         case moduleSecond = "module_second"
-        case name, image, video, time, createtime, type
+        case name, image, images, video, audio, content, nickname, avatar, status
         case visitNum = "visit_num"
+        case commentNum = "comment_num"
         case likeNum = "like_num"
-        case nickname, avatar
+        case createtime, updatetime
+        case voteID = "vote_id"
+        case weigh, time, type, begintime
+        case likeStatus = "like_status"
+        case collectStatus = "collect_status"
     }
 }

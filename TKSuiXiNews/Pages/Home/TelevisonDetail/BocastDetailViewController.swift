@@ -29,7 +29,7 @@ class BocastDetailViewController: BaseViewController {
                 view.sendBlock = { (comment) in
                     self?.sendComment(comment)
                 }
-            }
+            } 
         }
         view.isTappedBlock = { [weak self] isChoosed in
             if isChoosed {
