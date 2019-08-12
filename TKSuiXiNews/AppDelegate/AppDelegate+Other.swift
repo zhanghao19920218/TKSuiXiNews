@@ -27,9 +27,16 @@ extension AppDelegate
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let vc = UIViewController.current() //判断当前是QQ登录页面还是分享页面
         let urlKey:String = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String
-        
+        if vc is SXLoginViewController {
+            return ThirdPartyLogin.share.handleOpenUrl(url, urlKey)
+        }
+        if urlKey.contains("com.tencent.mqq") { //QQ分享
+            return  QQShareInstance.share.handleOpenUrl(url, urlKey)
+        }
         return ThirdPartyLogin.share.handleOpenUrl(url, urlKey)
+        
     }
     
     // 新浪微博的H5网页登录回调需要实现这个方法

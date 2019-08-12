@@ -14,6 +14,12 @@ import UIKit
 
 class ExchangeNewPersonCell: BaseTableViewCell {
     var block: () -> Void = {}
+    
+    var title: String? {
+        willSet(newValue) {
+            button.setTitle(newValue ?? "")
+        }
+    }
 
     private lazy var personGiftView: UIImageView = {
         let imageView = UIImageView()

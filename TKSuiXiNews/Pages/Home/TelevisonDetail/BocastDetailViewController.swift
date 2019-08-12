@@ -57,6 +57,7 @@ class BocastDetailViewController: BaseViewController {
     
 
     override func viewDidLoad() {
+        timerTravel = 360
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -65,6 +66,13 @@ class BocastDetailViewController: BaseViewController {
         setupUI()
         
         loadDetailData()
+    }
+    
+    //请求定时器进行加分
+    override func counterAction() {
+        super.counterAction()
+        
+        readGetScore()
     }
     
     private func setupUI()
@@ -107,7 +115,9 @@ extension BocastDetailViewController
     //MARK: - 上传新闻评论信息
     private func sendComment(_ msg: String) {
         HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: id, detail: msg), success: { [weak self] (json) in
-            TProgressHUD.show(text: "发表评论成功")
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(BaseModel.self, from: json)
+            TProgressHUD.show(text: model?.msg ?? "评论失败")
             self?.loadDetailData()
             }
         )
@@ -129,6 +139,17 @@ extension BocastDetailViewController
             self?.loadDetailData()
             }
         )
+    }
+    
+    //MARK: - 阅读获得积分
+    private func readGetScore() {
+        HttpClient.shareInstance.request(target: BAAPI.readGetScore(id: Int(id) ?? 0), success: { (json) in
+            let decoder = JSONDecoder()
+            let baseModel = try? decoder.decode(BaseModel.self, from: json)
+            if let model = baseModel, !model.msg.isEmpty {
+                TProgressHUD.show(text: model.msg)
+            }
+        })
     }
 }
 
@@ -196,7 +217,7 @@ extension BocastDetailViewController: UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            let vc = NETLivePlayerController(url: model?.video.string ?? "")
+            let vc = OnlineTVShowViewController(url: model?.video.string ?? "")
             navigationController?.pushViewController(vc, animated: true);
         }
     }

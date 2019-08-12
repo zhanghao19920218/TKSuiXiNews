@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import DefaultsKit
 
 /*
  * 搜索新闻
  */
 class HomeNewsSearchInfoCell: BaseTableViewCell {
+    var block: () -> Void = { }
     //设置背景
     private lazy var contentBackView: UIView = {
         let view = UIView()
@@ -31,8 +33,9 @@ class HomeNewsSearchInfoCell: BaseTableViewCell {
     private lazy var textField: UITextField = {
         let textField = UITextField();
         textField.font = kFont(12 * iPHONE_AUTORATIO)
-        textField.placeholder = "安徽高考 : 6月23日放榜 | 濉溪县九大措施助力…"
-        textField.clearButtonMode = .always;
+        textField.placeholder = Defaults.shared.get(for: placeholderKey)
+        textField.clearButtonMode = .always
+        textField.delegate = self
         return textField;
     }()
 
@@ -62,4 +65,11 @@ class HomeNewsSearchInfoCell: BaseTableViewCell {
         }
     }
 
+}
+
+extension HomeNewsSearchInfoCell: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        block()
+        return false
+    }
 }

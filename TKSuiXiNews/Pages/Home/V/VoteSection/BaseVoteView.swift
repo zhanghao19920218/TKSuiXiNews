@@ -116,7 +116,10 @@ extension BaseVoteView: UITableViewDelegate, UITableViewDataSource {
             cell.isCustomerShow = false
         }
         if totalCount != 0 { //如果有投票
-            cell.progress = Float((_dataSources[indexPath.row].count.int / totalCount))
+            let current = Float(_dataSources[indexPath.row].count.int)
+            let totalCountFloat = Float(totalCount)
+            print("比例为: \(current / totalCountFloat)")
+            cell.progress = current / totalCountFloat
         }
         return cell
     }

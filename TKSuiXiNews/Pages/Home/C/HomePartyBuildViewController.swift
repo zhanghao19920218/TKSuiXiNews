@@ -181,7 +181,10 @@ extension HomePartyBuildViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let model = dataSource[indexPath.row] as! HomeNewsListModel
+        let vc = HomeNewsDetailInfoController();
+        vc.id = model.id.string
+        parent?.navigationController?.pushViewController(vc, animated: true);
     }
 }
 

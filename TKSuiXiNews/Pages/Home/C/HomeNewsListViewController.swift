@@ -113,7 +113,11 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: searchTitleIdentifier) as! HomeNewsSearchInfoCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: searchTitleIdentifier) as! HomeNewsSearchInfoCell
+            cell.block = { [weak self] () in
+                let vc = HomeSearchListViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
             return cell;
         }
         
@@ -184,10 +188,12 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row - 2] as! HomeNewsListModel;
-        let vc = HomeNewsDetailInfoController();
-        vc.id = model.id.string
-        parent?.navigationController?.pushViewController(vc, animated: true);
+        if indexPath.row >= 2 {
+            let model = dataSource[indexPath.row - 2] as! HomeNewsListModel;
+            let vc = HomeNewsDetailInfoController();
+            vc.id = model.id.string
+            parent?.navigationController?.pushViewController(vc, animated: true);
+        }
     }
 }
 

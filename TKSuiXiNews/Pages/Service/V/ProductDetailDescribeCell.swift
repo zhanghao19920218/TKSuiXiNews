@@ -17,11 +17,13 @@ class ProductDetailDescribeCell: BaseTableViewCell {
                     let srtData = value.data(using: String.Encoding.unicode, allowLossyConversion: true)!
                     let strOptions = [NSMutableAttributedString.DocumentReadingOptionKey.documentType: NSMutableAttributedString.DocumentType.html]
                     let attrStr = try NSMutableAttributedString(data: srtData, options: strOptions, documentAttributes: nil)
-                    attrStr.addAttributes([NSMutableAttributedString.Key.font: kFont(14 * iPHONE_AUTORATIO)], range: NSRange(location: 0, length: attrStr.length - 1))
+                    attrStr.addAttributes([NSMutableAttributedString.Key.font: kFont(14 * iPHONE_AUTORATIO)], range: NSRange(location: 0, length: attrStr.length))
                     contentLabel.attributedText = attrStr
                 } catch let error as NSError {
                     print(error.localizedDescription)
                 }
+            } else {
+                contentLabel.attributedText = nil
             }
         }
     }

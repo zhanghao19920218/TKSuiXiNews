@@ -96,6 +96,14 @@ enum  BAAPI {
     case changeMobile(mobile:String, code: String)
     //我的帖子
     case myArticle(module:String, p: Int)
+    //分享转发获取积分
+    case shareScore
+    //悦读获得积分
+    case readGetScore(id: Int)
+    //系统参数
+    case sysconfigure
+    //搜索
+    case searchArticle(name: String, page: Int)
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -109,7 +117,9 @@ extension BAAPI: TargetType {
         case .login:
             return K_URL_login;
         case .contentList:
-            return K_URL_contentList;
+            return K_URL_contentList
+        case .searchArticle:
+            return K_URL_contentList
         case .contentSingleList:
             return K_URL_contentList;
         case .memeberInfo:
@@ -196,6 +206,12 @@ extension BAAPI: TargetType {
             return K_URL_changeMobile
         case .myArticle:
             return K_URL_mineArticle
+        case .shareScore:
+            return K_URL_shareScore
+        case .readGetScore:
+            return K_URL_readGetScore
+        case .sysconfigure:
+            return K_URL_systemConfig
         }
         
     }
@@ -286,7 +302,7 @@ extension BAAPI: TargetType {
         case let .secondModule(module, module_second, page):
             params["module"] = module
             params["module_second"] = module_second
-            params["page"] = page
+            params["p"] = page
             
         case let .commentAdd(id, detail):
             params["article_id"] = id
@@ -380,6 +396,14 @@ extension BAAPI: TargetType {
         case let .myArticle(module, p):
             params["module"] = module
             params["p"] = p
+            
+        case let .readGetScore(id):
+            params["id"] = id
+            
+        case let .searchArticle(name, page):
+            params["name"] = name
+            params["page"] = page
+            params["module"] = "新闻"
 
         default:
             //不需要传参数的接口走这里

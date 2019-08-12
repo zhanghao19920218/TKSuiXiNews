@@ -155,9 +155,9 @@ extension MineAskGovListViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! MineArticleListModelDatum
-        let vc = HomeNewsDetailInfoController();
+        let vc = DetailAskGovementController();
         vc.id = model.id.string
-        navigationController?.pushViewController(vc, animated: true);
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

@@ -16,6 +16,10 @@ fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
 fileprivate let voteCellIdentifier = "DetailInfoVoteSectionCellIdentifier" //投票的Cell
 
 class HomeNewsDetailInfoController: BaseViewController {
+    //动态调整的webView高度
+    fileprivate var webViewHeight = 400 * iPHONE_AUTORATIO
+    
+    
     //获取当前投票的index
     private var _currentVoteIndex: Int?
     
@@ -31,7 +35,7 @@ class HomeNewsDetailInfoController: BaseViewController {
 
     var model: DetailArticleModel?
     
-    var voteModel: VoteContentDetailModelResponse?
+    var voteModel: VoteContentDetailModelResponse? = nil
     //获取详情的id
     var id: String = "0"
     
@@ -47,6 +51,10 @@ class HomeNewsDetailInfoController: BaseViewController {
         tableView.register(DetailCommentLikeNumCell.self, forCellReuseIdentifier: likeCellIdentifier)
         tableView.register(DetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
         tableView.register(DetailInfoVoteSectionCell.self, forCellReuseIdentifier: voteCellIdentifier) //投票的Cell
+        //iOS 11Self-Sizing自动打开后，contentSize和contentOffset都可能发生改变。可以通过以下方式禁用
+        tableView.estimatedRowHeight = 0
+        tableView.estimatedSectionHeaderHeight = 0
+        tableView.estimatedSectionFooterHeight = 0
         return tableView;
     }();
     
@@ -90,6 +98,9 @@ class HomeNewsDetailInfoController: BaseViewController {
     }();
     
     override func viewDidLoad() {
+        //请求定时器进行加分
+        timerTravel = 15
+        
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
@@ -98,6 +109,14 @@ class HomeNewsDetailInfoController: BaseViewController {
         setupUI()
         
         loadDetailData(); //请求数据
+        
+    }
+    
+    //请求定时器进行加分
+    override func counterAction() {
+        super.counterAction()
+        
+        readGetScore()
     }
     
     //初始化页面
@@ -164,7 +183,9 @@ extension HomeNewsDetailInfoController {
     //MARK: - 上传新闻评论信息
     private func sendComment(_ msg: String) {
         HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: Int(id) ?? 0, detail: msg), success: { [weak self] (json) in
-            TProgressHUD.show(text: "发表评论成功")
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(BaseModel.self, from: json)
+            TProgressHUD.show(text: model?.msg ?? "评论失败")
             self?.loadDetailData()
             }
         )
@@ -231,6 +252,17 @@ extension HomeNewsDetailInfoController {
             }
         )
     }
+    
+    //MARK: - 阅读获得积分
+    private func readGetScore() {
+        HttpClient.shareInstance.request(target: BAAPI.readGetScore(id: Int(id) ?? 0), success: { (json) in
+            let decoder = JSONDecoder()
+            let baseModel = try? decoder.decode(BaseModel.self, from: json)
+            if let model = baseModel, !model.msg.isEmpty {
+                TProgressHUD.show(text: model.msg)
+            }
+        })
+    }
 }
 
 extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSource {
@@ -266,6 +298,10 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
         if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: contentWebIdentifier) as! HomeArticleContentWebCell
             cell.loadUrl = model?.content.string
+            cell.block = { [weak self](height) in
+                self?.webViewHeight = height
+                self?.tableView.reloadData()
+            }
             return cell
         }
         
@@ -275,7 +311,7 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
             if indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: voteCellIdentifier) as! DetailInfoVoteSectionCell
                 if let _ = voteModel {
-                    if let _ = voteModel?.data.optionID {
+                    if let status = detailModel.voteStatus?.int, status != 1 {
                         cell.title = voteModel!.data.name.string
                         cell.dataSource = voteModel!.data.option
                         cell.currentIndex = _currentVoteIndex
@@ -289,7 +325,7 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
                         cell.title = voteModel!.data.name.string
                         cell.dataSource = voteModel!.data.option
                         for (index, item) in voteModel!.data.option.enumerated() {
-                            if item.check.int != 0 {
+                            if item.check?.int != 0 {
                                 cell.currentIndex = index
                             }
                         }
@@ -382,7 +418,7 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
         }
         
         if indexPath.row == 1 {
-            return 400 * iPHONE_AUTORATIO
+            return webViewHeight
         }
         
         //判断是不是有投票内容

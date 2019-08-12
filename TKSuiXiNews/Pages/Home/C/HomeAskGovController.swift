@@ -168,7 +168,7 @@ extension HomeAskGovController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! HomeNewsListModel;
-        let vc = HomeNewsDetailInfoController();
+        let vc = DetailAskGovementController();
         vc.id = model.id.string
         parent?.navigationController?.pushViewController(vc, animated: true);
     }

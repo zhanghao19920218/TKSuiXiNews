@@ -58,9 +58,18 @@ class BaseVoteButton: UIButton {
             if let value = newValue, value {
                 _voteNumLabel.isHidden = false
                 _voteNumBackView.isHidden = false
+                _voteLabel.textAlignment = .left
+                _voteLabel.snp.remakeConstraints { (make) in
+                    make.centerY.equalToSuperview()
+                    make.left.equalTo(15 * iPHONE_AUTORATIO)
+                }
             } else {
                 _voteNumLabel.isHidden = true
                 _voteNumBackView.isHidden = true
+                _voteLabel.textAlignment = .center
+                _voteLabel.snp.remakeConstraints { (make) in
+                    make.center.equalToSuperview()
+                }
             }
         }
     }

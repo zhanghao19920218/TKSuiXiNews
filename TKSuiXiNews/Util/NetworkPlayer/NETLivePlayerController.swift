@@ -26,7 +26,7 @@ class NETLivePlayerController: BaseViewController {
         option.setOptionValue(15, forKey: PLPlayerOptionKeyTimeoutIntervalForMediaPackets) //播放器所用 RTMP 连接的超时断开时间长度，单位为秒。小于等于 0 表示无超时限制
         option.setOptionValue(1000, forKey: PLPlayerOptionKeyMaxL1BufferDuration) //一级缓存大小，单位为 ms，默认为 1000ms，增大该值可以减小播放过程中的卡顿率，但会增大弱网环境的最大累积延迟。
         option.setOptionValue(1000, forKey: PLPlayerOptionKeyMaxL2BufferDuration) //二级缓存大小，单位为 ms，默认为 1000ms，增大该值可以减小播放过程中的卡顿率，但会增大弱网环境的最大累积延迟
-        option.setOptionValue(true, forKey: PLPlayerOptionKeyVideoToolbox)  //使用 video toolbox 硬解码
+        option.setOptionValue(false, forKey: PLPlayerOptionKeyVideoToolbox)  //使用 video toolbox 硬解码
         return option
     }()
     

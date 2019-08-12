@@ -156,9 +156,20 @@ extension MineFavoriteListController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! FavoriteListItemDatum
-        let vc = HomeNewsDetailInfoController();
-        vc.id = model.id.string
-        navigationController?.pushViewController(vc, animated: true);
+        if model.module.string == "濉溪TV" || model.module.string == "视讯"{
+            //跳转濉溪TV详情
+            let vc = VideoNewsDetailController()
+            vc.id = model.id.string
+            navigationController?.pushViewController(vc, animated: true)
+        } else if model.module.string == "悦听"{
+            let vc = HomeHappyDetailListenController()
+            vc.id = model.id.string
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let vc = HomeNewsDetailInfoController();
+            vc.id = model.id.string
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 

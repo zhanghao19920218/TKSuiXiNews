@@ -195,6 +195,11 @@ extension RotatePanelScoreController {
     
     //MARK: - 点击一下请求一次
     private func requestOnceTime() {
+        if _model.time == 0 {
+            TProgressHUD.show(text: "您已没有抽奖次数")
+            return
+        }
+        
         HttpClient.shareInstance.request(target: BAAPI.awardDraw, success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(AwardDrawResponse.self, from: json)

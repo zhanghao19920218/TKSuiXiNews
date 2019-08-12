@@ -18,6 +18,9 @@ class SXSignUpViewController: BaseLoginViewController {
     private var password:String = ""
     private var confirmPassword:String = ""
     
+    //获取当前的系统配置
+    private var currentConigUrl = ""
+    
     //输入手机号码
     private lazy var phoneTextF: SXLoginTextField = {
         let textField = SXLoginTextField.init();
@@ -73,7 +76,7 @@ class SXSignUpViewController: BaseLoginViewController {
     
     //注册同意的按钮
     private lazy var licenseView: CommonLicense = {
-        let view = CommonLicense();
+        let view = CommonLicense()
         return view;
     }();
 
@@ -83,7 +86,10 @@ class SXSignUpViewController: BaseLoginViewController {
         // Do any additional setup after loading the view.
         navigationItem.title = "立即注册";
         
-        setupUI();
+        setupUI()
+        
+        //请求用户协议
+        requestSystemConfigure()
     }
     
     //初始化页面
@@ -137,7 +143,13 @@ class SXSignUpViewController: BaseLoginViewController {
             make.top.equalTo(self.button.snp_bottom).offset(25 * iPHONE_AUTORATIO);
             make.height.equalTo(20 * iPHONE_AUTORATIO);
             make.width.equalTo(210 * iPHONE_AUTORATIO);
-        };
+        }
+        
+        licenseView.block = { [weak self] () in
+            let vc = TKRuleController()
+            vc.loadUrl = self?.currentConigUrl
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 
     
@@ -190,6 +202,17 @@ extension SXSignUpViewController {
             TProgressHUD.show(text: "发送验证码成功")
         }
         )
+    }
+    
+    //MARK: - 请求系统参数
+    private func requestSystemConfigure() {
+        HttpClient.shareInstance.request(target: BAAPI.sysconfigure, success: { [weak self] (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(SystemConfigModel.self, from: json)
+            if let cofigure = model {
+                self?.currentConigUrl = cofigure.data.register.string
+            }
+        })
     }
     
     //注册会员

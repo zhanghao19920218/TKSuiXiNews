@@ -84,7 +84,7 @@ class MineExchangeHistoryListController: BaseTableViewController {
                 self?.tableView.reloadData();
             } else {
                 //没有更多数据
-                self?.tableView.es.noticeNoMoreData();
+                self?.tableView.es.noticeNoMoreData()
             }
             
             }, failure:{ [weak self] () in
@@ -109,9 +109,10 @@ extension MineExchangeHistoryListController: UITableViewDelegate, UITableViewDat
         
         if model.registerStatus.int != 0  {
             let cell = tableView.dequeueReusableCell(withIdentifier: historyExchangeIdentifier) as! ExchangeNewPersonCell
+            cell.title = (model.status.string == "hidden" ? "请在现场领取礼包" : "我已现场领取")
             cell.block = { [weak self] () in
-                let id = model.id.int
-                self?.onStargeReward(id: id)
+                
+                self?.requestStrageReceive(id: model.id.int)
             }
             return cell
         } else {
@@ -130,6 +131,15 @@ extension MineExchangeHistoryListController: UITableViewDelegate, UITableViewDat
             return 125 * iPHONE_AUTORATIO
         } else {
             return 115 * iPHONE_AUTORATIO
+        }
+    }
+    
+    //MARK: - 请求现场领取
+    private func requestStrageReceive(id: Int) {
+        //先确定是不是退出页面
+        AlertPopMenu.show(title: "温馨提醒", detail: "是否已在现场领取新人大礼包？", confirmTitle: "确定", doubleTitle: "取消", confrimBlock: { [weak self] () in
+            self?.onStargeReward(id: id)
+        }) {
         }
     }
 }

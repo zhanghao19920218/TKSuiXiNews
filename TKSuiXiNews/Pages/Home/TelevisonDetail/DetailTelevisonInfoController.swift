@@ -33,6 +33,7 @@ class DetailTelevisonInfoController: BaseViewController {
     }()
 
     override func viewDidLoad() {
+        timerTravel = 360
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -41,6 +42,13 @@ class DetailTelevisonInfoController: BaseViewController {
         _setupUI()
         
         loadDetailData()
+    }
+    
+    //请求定时器进行加分
+    override func counterAction() {
+        super.counterAction()
+        
+        readGetScore()
     }
     
 
@@ -69,6 +77,17 @@ extension DetailTelevisonInfoController
             self?.tableView.reloadData();
             }
         )
+    }
+    
+    //MARK: - 阅读获得积分
+    private func readGetScore() {
+        HttpClient.shareInstance.request(target: BAAPI.readGetScore(id: Int(id) ), success: { (json) in
+            let decoder = JSONDecoder()
+            let baseModel = try? decoder.decode(BaseModel.self, from: json)
+            if let model = baseModel, !model.msg.isEmpty {
+                TProgressHUD.show(text: model.msg)
+            }
+        })
     }
 }
 
@@ -141,7 +160,7 @@ extension DetailTelevisonInfoController: UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            let vc = NETLivePlayerController.init(url: model?.video.string ?? "")
+            let vc = OnlineTVShowViewController.init(url: model?.video.string ?? "")
             navigationController?.pushViewController(vc, animated: true);
         }
     }

@@ -1,27 +1,26 @@
 //
-//  MineReviewListController.swift
+//  HomeAnnoncementViewController.swift
 //  TKSuiXiNews
 //
-//  Created by Barry Allen on 2019/8/3.
+//  Created by Barry Allen on 2019/8/12.
 //  Copyright © 2019 Barry Allen. All rights reserved.
 //
 
 import UIKit
 
+/*
+ * 公告
+ */
 fileprivate let newsOnePicIdentifier = "HomeNewsOnePictureCellIdentifier"
 fileprivate let newsThreePicIdentifier = "HomeNewsThreePictureCellIdentifier"
 fileprivate let newsNoPicIdentifier = "HomeNewsNoPicCellIdentifier"
 
-class MineReviewListController: BaseTableViewController {
-    
+class HomeAnnoncementViewController: BaseTableViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        
         setupUI()
-        
-        navigationItem.title = "最近浏览"
     }
     
     
@@ -46,9 +45,9 @@ class MineReviewListController: BaseTableViewController {
         super.pullDownRefreshData()
         
         //请求成功进行再次刷新数据
-        HttpClient.shareInstance.request(target: BAAPI.recentlyReview(page: page), success:{ [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.contentList(module: "公告", page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ReviewListItemResponse.self, from: json)
+            let model = try? decoder.decode(HomeNewsListResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -70,9 +69,9 @@ class MineReviewListController: BaseTableViewController {
         page = (page == 1 ? 2 : page);
         
         //请求成功进行再次刷新数据
-        HttpClient.shareInstance.request(target: BAAPI.recentlyReview(page: page), success:{ [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.contentList(module: "公告", page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ReviewListItemResponse.self, from: json)
+            let model = try? decoder.decode(HomeNewsListResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -96,7 +95,7 @@ class MineReviewListController: BaseTableViewController {
     }
 }
 
-extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
+extension HomeAnnoncementViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1;
     }
@@ -107,7 +106,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let model = dataSource[indexPath.row] as! ReviewListItemDatum
+        let model = dataSource[indexPath.row] as! HomeNewsListModel
         
         if !model.image.string.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell;
@@ -116,7 +115,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
             cell.isLike = model.likeStatus.int
             cell.like = model.likeNum.int
             cell.review = model.visitNum.int
-            cell.time = model.time.string
+            cell.time = model.begintime.string
             return cell;
         } else if model.images.count == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: newsThreePicIdentifier) as! HomeNewsThreePictureCell;
@@ -127,7 +126,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
             cell.isLike = model.likeStatus.int
             cell.like = model.likeNum.int
             cell.review = model.visitNum.int
-            cell.time = model.time.string
+            cell.time = model.begintime.string
             return cell;
         }
         
@@ -136,12 +135,13 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
         cell.isLike = model.likeStatus.int
         cell.like = model.likeNum.int
         cell.review = model.visitNum.int
-        cell.time = model.time.string
+        cell.time = model.begintime.string
         return cell;
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = dataSource[indexPath.row] as! ReviewListItemDatum
+        
+        let model = dataSource[indexPath.row] as! HomeNewsListModel
         
         if !model.image.string.isEmpty {
             return 118 * iPHONE_AUTORATIO
@@ -155,30 +155,19 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row] as! ReviewListItemDatum
-        if model.module.string == "濉溪TV" || model.module.string == "视讯"{
-            //跳转濉溪TV详情
-            let vc = VideoNewsDetailController()
-            vc.id = model.id.string
-            navigationController?.pushViewController(vc, animated: true)
-        } else if model.module.string == "悦听"{
-            let vc = HomeHappyDetailListenController()
-            vc.id = model.id.string
-            navigationController?.pushViewController(vc, animated: true)
-        } else {
-            let vc = HomeNewsDetailInfoController();
-            vc.id = model.id.string
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        let model = dataSource[indexPath.row] as! HomeNewsListModel;
+        let vc = HomeNewsDetailInfoController();
+        vc.id = model.id.string
+        parent?.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
-extension MineReviewListController {
+extension HomeAnnoncementViewController {
     //MARK: - 请求首页数据
     private func requestData(){
-        HttpClient.shareInstance.request(target: BAAPI.recentlyReview(page: page), success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.contentList(module: "公告", page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ReviewListItemResponse.self, from: json)
+            let model = try? decoder.decode(HomeNewsListResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }

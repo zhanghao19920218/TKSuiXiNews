@@ -18,6 +18,10 @@ class BaseTableViewController: BaseViewController {
     //基类的tableView
     lazy var tableView:UITableView = {
         let tableView = UITableView.init(frame: .zero);
+        //iOS 11Self-Sizing自动打开后，contentSize和contentOffset都可能发生改变。可以通过以下方式禁用
+        tableView.estimatedRowHeight = 0
+        tableView.estimatedSectionHeaderHeight = 0
+        tableView.estimatedSectionFooterHeight = 0
         return tableView;
     }();
     

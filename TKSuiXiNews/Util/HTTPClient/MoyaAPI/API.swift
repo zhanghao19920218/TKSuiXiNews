@@ -48,3 +48,6 @@ let K_URL_voteContentId = "api/vote/index" //投票内容
 let K_URL_receiveGoods = "api/goods/receive" //现场领取
 let K_URL_changeMobile = "api/user/changemobile" //修改手机号
 let K_URL_mineArticle = "api/article/my" //我的帖子
+let K_URL_shareScore = "api/score/share" //分享转发获取积分
+let K_URL_readGetScore = "api/score/read" //阅读获得积分
+let K_URL_systemConfig = "api/index/sysconfig" //系统参数

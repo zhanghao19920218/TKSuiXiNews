@@ -53,7 +53,7 @@ class HomeViewController: BaseViewController {
         
         
         // 设置标题内容
-        let titles = ["V视频", "濉溪TV", "新闻", "视讯", "问政", "矩阵", "原创", "悦读", "悦听", "党建", "专栏"];
+        let titles = ["V视频", "濉溪TV", "新闻", "视讯", "问政", "矩阵", "原创", "悦读", "悦听","公告", "党建", "专栏"];
         
         // 创建每一页对应的controller
         let childViewControllers: [UIViewController] = titles.enumerated().map { (index, _) -> UIViewController in
@@ -79,7 +79,7 @@ class HomeViewController: BaseViewController {
                 controller = HomeMatrixListController()
             } else if index == 6 {
                 //原创
-                controller = ShowViewController()
+                controller = HomeOriginalCircleViewController()
             } else if index == 7 {
                 //悦读
                 controller = HomeHappyReadViewController()
@@ -88,9 +88,12 @@ class HomeViewController: BaseViewController {
                 //悦听
                 controller = HomeHappyListenController()
             } else if index == 9 {
+                //公告
+                controller = HomeAnnoncementViewController()
+            } else if index == 10 {
                 //党建
                 controller = HomePartyBuildViewController()
-            } else if index == 10 {
+            } else if index == 11 {
                 //专栏
                 controller = HomeSpecialColumnChildController()
             } else {
@@ -129,6 +132,9 @@ class HomeViewController: BaseViewController {
         setupUI()
         
         configureNavigationBar()
+        
+        //请求系统参数
+        requestSystemConfigure()
     }
     
     //初始化navigationBar
@@ -200,5 +206,18 @@ extension HomeViewController: YPImagePickerUtilDelegate {
     
     func imagePicker(imageUrl: String, isSuccess: Bool) {
         
+    }
+}
+
+extension HomeViewController {
+    //MARK: - 请求系统参数
+    private func requestSystemConfigure() {
+        HttpClient.shareInstance.request(target: BAAPI.sysconfigure, success: { (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(SystemConfigModel.self, from: json)
+            if let cofigure = model {
+                Defaults.shared.set(cofigure.data.defaultSearch.string, for: placeholderKey)
+            }
+        })
     }
 }

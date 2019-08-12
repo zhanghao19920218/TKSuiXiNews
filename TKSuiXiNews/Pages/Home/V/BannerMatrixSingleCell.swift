@@ -50,9 +50,6 @@ class BannerMatrixSingleCell: FSPagerViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.textLabel?.removeFromSuperview()
-        self.imageView?.removeFromSuperview()
-        
         _setupUI()
     }
     

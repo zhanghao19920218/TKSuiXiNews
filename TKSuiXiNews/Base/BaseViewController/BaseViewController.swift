@@ -9,6 +9,12 @@
 import UIKit
 
 class BaseViewController: UIViewController {
+    //当前的数据
+    private var duration: Int = 0
+    
+    open var timerTravel: Int = 0 
+    
+    private var timer: Timer? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +34,28 @@ class BaseViewController: UIViewController {
         if (navigationController?.viewControllers.count ?? 0 > 1) {
             addBackImageBtnInTopBar();
         }
+        //计算获取积分
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction(timer:)), userInfo: nil, repeats: true)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        if let timer = timer {
+            //停止计时器
+            timer.invalidate()
+        }
+    }
+    
+    open func counterAction() {
+        
+    }
+    
+    @objc private func timerAction(timer: Timer) {
+        if duration == timerTravel {
+            counterAction()
+            timer.invalidate()
+        }
+        duration += 1
+    }
     
     //MARK: - 更新StatusBar
     override var preferredStatusBarStyle: UIStatusBarStyle

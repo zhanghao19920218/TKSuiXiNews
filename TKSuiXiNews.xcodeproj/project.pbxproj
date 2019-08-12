@@ -129,6 +129,12 @@
 		73BB1CFA22FCFCD300AA86EE /* YPImagePickerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 73BB1CF922FCFCD300AA86EE /* YPImagePickerLocalizable.strings */; };
 		73BB1CFC22FD049F00AA86EE /* Print+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BB1CFB22FD049F00AA86EE /* Print+Extension.swift */; };
 		73C419B822EA87C200D8D412 /* NEPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C419B722EA87C200D8D412 /* NEPlayerControlView.swift */; };
+		73D414902301324D007CDB96 /* HomeOriginalCircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4148F2301324D007CDB96 /* HomeOriginalCircleViewController.swift */; };
+		73D414952301631A007CDB96 /* HomeAnnoncementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D414942301631A007CDB96 /* HomeAnnoncementViewController.swift */; };
+		73D41498230164D5007CDB96 /* TKRuleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D41497230164D5007CDB96 /* TKRuleController.swift */; };
+		73D4149C230167C0007CDB96 /* SystemConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4149B230167C0007CDB96 /* SystemConfigModel.swift */; };
+		73D4149F2301706C007CDB96 /* HomeSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4149E2301706C007CDB96 /* HomeSearchListViewController.swift */; };
+		73D414A1230175D2007CDB96 /* DetailAskGovementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D414A0230175D2007CDB96 /* DetailAskGovementController.swift */; };
 		73D4519D22F3D8DB00DAE835 /* CommentPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4519C22F3D8DB00DAE835 /* CommentPopMenu.swift */; };
 		73D451A222F401D000DAE835 /* UserSignInModuleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451A122F401D000DAE835 /* UserSignInModuleResponse.swift */; };
 		73D451A422F40EB000DAE835 /* VideoNewsDetailInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451A322F40EB000DAE835 /* VideoNewsDetailInfoCell.swift */; };
@@ -464,6 +470,12 @@
 		73BB1CF922FCFCD300AA86EE /* YPImagePickerLocalizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = YPImagePickerLocalizable.strings; sourceTree = "<group>"; };
 		73BB1CFB22FD049F00AA86EE /* Print+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Print+Extension.swift"; sourceTree = "<group>"; };
 		73C419B722EA87C200D8D412 /* NEPlayerControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEPlayerControlView.swift; sourceTree = "<group>"; };
+		73D4148F2301324D007CDB96 /* HomeOriginalCircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOriginalCircleViewController.swift; sourceTree = "<group>"; };
+		73D414942301631A007CDB96 /* HomeAnnoncementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAnnoncementViewController.swift; sourceTree = "<group>"; };
+		73D41497230164D5007CDB96 /* TKRuleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TKRuleController.swift; sourceTree = "<group>"; };
+		73D4149B230167C0007CDB96 /* SystemConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemConfigModel.swift; sourceTree = "<group>"; };
+		73D4149E2301706C007CDB96 /* HomeSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchListViewController.swift; sourceTree = "<group>"; };
+		73D414A0230175D2007CDB96 /* DetailAskGovementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAskGovementController.swift; sourceTree = "<group>"; };
 		73D4519C22F3D8DB00DAE835 /* CommentPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentPopMenu.swift; sourceTree = "<group>"; };
 		73D451A122F401D000DAE835 /* UserSignInModuleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignInModuleResponse.swift; sourceTree = "<group>"; };
 		73D451A322F40EB000DAE835 /* VideoNewsDetailInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoNewsDetailInfoCell.swift; sourceTree = "<group>"; };
@@ -820,6 +832,7 @@
 		733ED17322E40D4100B452D4 /* C */ = {
 			isa = PBXGroup;
 			children = (
+				73D4149D23017051007CDB96 /* SearchController */,
 				73ECFF2722FEDBDE003F8C5D /* AskGovermentDetail */,
 				730F178522EEE3C800FCD4FF /* HomeNewsListViewController.swift */,
 				730F179122EEFDD300FCD4FF /* HomeVideoNewsListController.swift */,
@@ -833,6 +846,8 @@
 				732606F122F2CDB200ED0A72 /* HomePartyBuildViewController.swift */,
 				73D4521722F43F1100DAE835 /* HomeBannerDetailViewController.swift */,
 				73ECFF1C22FECDFF003F8C5D /* HomeSpecialColumnChildController.swift */,
+				73D4148F2301324D007CDB96 /* HomeOriginalCircleViewController.swift */,
+				73D414942301631A007CDB96 /* HomeAnnoncementViewController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -983,6 +998,7 @@
 				7349C47622F2F11900ACDF41 /* VideoNewsDetailController.swift */,
 				73D451AC22F41F7400DAE835 /* HomeNewsDetailInfoController.swift */,
 				73E4103D22F56AE6009E9DA6 /* HomeHappyDetailListenController.swift */,
+				73D414A0230175D2007CDB96 /* DetailAskGovementController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1091,6 +1107,39 @@
 				73A3329622EA94560060F281 /* iQiYiPlayButton.swift */,
 			);
 			path = V;
+			sourceTree = "<group>";
+		};
+		73D41496230164BD007CDB96 /* Rule */ = {
+			isa = PBXGroup;
+			children = (
+				73D4149A230167B7007CDB96 /* M */,
+				73D41499230167B4007CDB96 /* C */,
+			);
+			path = Rule;
+			sourceTree = "<group>";
+		};
+		73D41499230167B4007CDB96 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				73D41497230164D5007CDB96 /* TKRuleController.swift */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		73D4149A230167B7007CDB96 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				73D4149B230167C0007CDB96 /* SystemConfigModel.swift */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		73D4149D23017051007CDB96 /* SearchController */ = {
+			isa = PBXGroup;
+			children = (
+				73D4149E2301706C007CDB96 /* HomeSearchListViewController.swift */,
+			);
+			path = SearchController;
 			sourceTree = "<group>";
 		};
 		73D4519B22F3D8C900DAE835 /* CommentPopMenu */ = {
@@ -1380,6 +1429,7 @@
 		73DEBAD322E32481007EC4E1 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				73D41496230164BD007CDB96 /* Rule */,
 				73DEBB0322E3551E007EC4E1 /* M */,
 				73DEBAD922E324E0007EC4E1 /* C */,
 				73DEBAD822E324DB007EC4E1 /* V */,
@@ -2024,6 +2074,7 @@
 				736114E522F1B48F00BC5A8E /* MallListProductItemResponse.swift in Sources */,
 				73E4104E22F58445009E9DA6 /* DetailTelevisonInfoController.swift in Sources */,
 				7372605A22FBF66300652586 /* ForgetPassModel.swift in Sources */,
+				73D4149F2301706C007CDB96 /* HomeSearchListViewController.swift in Sources */,
 				73FE5FC722FBB7D90047DB02 /* YPFiltersView.swift in Sources */,
 				7319509C22FFB41E00E2FB0B /* OnlineTVShowViewController.swift in Sources */,
 				73ECFF2022FECE8C003F8C5D /* SpecialColumnSingleCell.swift in Sources */,
@@ -2069,6 +2120,8 @@
 				73DF82ED22F19AD20066583B /* ProductDetailImageCell.swift in Sources */,
 				73E4103E22F56AE6009E9DA6 /* HomeHappyDetailListenController.swift in Sources */,
 				73FE5FF722FBB7D90047DB02 /* YPVideoProcessor.swift in Sources */,
+				73D414A1230175D2007CDB96 /* DetailAskGovementController.swift in Sources */,
+				73D41498230164D5007CDB96 /* TKRuleController.swift in Sources */,
 				73D4520F22F42C4700DAE835 /* AboutUsViewController.swift in Sources */,
 				730F178E22EEF83900FCD4FF /* HomeVideoNewsViewCell.swift in Sources */,
 				73DEBAA022E30BDC007EC4E1 /* JsonKeyDefine.swift in Sources */,
@@ -2079,6 +2132,7 @@
 				73ECFF2622FED920003F8C5D /* HomeSpecialColumnResponse.swift in Sources */,
 				733ED18F22E462D000B452D4 /* BaseTimeCommentLikeView.swift in Sources */,
 				73DEBAE822E329D6007EC4E1 /* StaticMethod.swift in Sources */,
+				73D4149C230167C0007CDB96 /* SystemConfigModel.swift in Sources */,
 				7363F8E322F03801000FE663 /* HomeHappyReadViewController.swift in Sources */,
 				73FE5FE222FBB7D90047DB02 /* YPAlbumView.swift in Sources */,
 				73FE5FC822FBB7D90047DB02 /* YPFilterCollectionViewCell.swift in Sources */,
@@ -2185,6 +2239,7 @@
 				7363F8E522F03976000FE663 /* HomeHappyReadImageCell.swift in Sources */,
 				73FE5FEC22FBB7D90047DB02 /* YPAssetViewContainer.swift in Sources */,
 				73DEBAB222E31231007EC4E1 /* SXAPI.swift in Sources */,
+				73D414902301324D007CDB96 /* HomeOriginalCircleViewController.swift in Sources */,
 				73D451A222F401D000DAE835 /* UserSignInModuleResponse.swift in Sources */,
 				73DEBAA622E30E00007EC4E1 /* UIDefine.swift in Sources */,
 				73FE5FFA22FBB7D90047DB02 /* UIButton+Extensions.swift in Sources */,
@@ -2284,6 +2339,7 @@
 				73D4E2DE22E97A0D0088FF37 /* MutiImagesResponse.swift in Sources */,
 				73FE5FF422FBB7D90047DB02 /* PostiOS10PhotoCapture.swift in Sources */,
 				73DEBB0922E359A6007EC4E1 /* UserLoginInfo.swift in Sources */,
+				73D414952301631A007CDB96 /* HomeAnnoncementViewController.swift in Sources */,
 				736114E322F1AE2600BC5A8E /* ProductDetailDescribeCell.swift in Sources */,
 				732606F222F2CDB200ED0A72 /* HomePartyBuildViewController.swift in Sources */,
 				73FE5FFF22FBB7D90047DB02 /* UIColor+Extensions.swift in Sources */,
@@ -2527,8 +2583,6 @@
 					"-framework",
 					"\"EmptyDataSet_Swift\"",
 					"-framework",
-					"\"FSPagerView\"",
-					"-framework",
 					"\"FWPopupView\"",
 					"-framework",
 					"\"Foundation\"",
@@ -2583,6 +2637,8 @@
 					"-framework",
 					"\"WaterfallLayout\"",
 					"-fobjc-arc",
+					"-framework",
+					"\"FSPagerView\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tktechnology.tkSuixiNew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2660,8 +2716,6 @@
 					"-framework",
 					"\"EmptyDataSet_Swift\"",
 					"-framework",
-					"\"FSPagerView\"",
-					"-framework",
 					"\"FWPopupView\"",
 					"-framework",
 					"\"Foundation\"",
@@ -2716,6 +2770,8 @@
 					"-framework",
 					"\"WaterfallLayout\"",
 					"-fobjc-arc",
+					"-framework",
+					"\"FSPagerView\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tktechnology.tkSuixiNew;
 				PRODUCT_NAME = "$(TARGET_NAME)";

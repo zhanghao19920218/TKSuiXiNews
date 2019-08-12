@@ -32,7 +32,7 @@ class HttpClient
     func userSignOutByTokenOutData()
     {
         let navigationVC = BANavigationController.init(rootViewController:SXLoginViewController());
-        Defaults.shared.clear(key);
+        Defaults.shared.removeAll()
         UIViewController.restoreRootViewController(navigationVC);
     }
     

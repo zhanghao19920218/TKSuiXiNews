@@ -1,41 +1,35 @@
 //
-//  VideoNewsDetailController.swift
+//  DetailAskGovementController.swift
 //  TKSuiXiNews
 //
-//  Created by Barry Allen on 2019/8/1.
+//  Created by Barry Allen on 2019/8/12.
 //  Copyright © 2019 Barry Allen. All rights reserved.
 //
 
 import UIKit
 
-fileprivate let videoPlayIdentifier = "VideoNewsDetailInfoCellIdentifier"
-fileprivate let articleTitleIdentifier = "CommonDetailTitleNameCellIdentifier"
-fileprivate let nameCellIdentifier = "DetailUserInfoNameCellIdentifier"
+/*
+ * 问政详情
+ */
+
+fileprivate let articleTitleIdentifier = "HomeArticleContentWebCellIdentifier"
+fileprivate let nameCellIdentifier = "CommonDetailTitleNameCellIdentifier"
 fileprivate let shareCellIdentifier = "BaseShareBottomViewIdentifier"
 fileprivate let likeCellIdentifier = "DetailCommentLikeNumCellIdentifier"
 fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
 fileprivate let voteCellIdentifier = "DetailInfoVoteSectionCellIdentifier" //投票的Cell
 
-class VideoNewsDetailController: BaseViewController {
-
-    var model: DetailArticleModel?
-    //获取详情的id
-    var id: String = "0"
+class DetailAskGovementController: BaseViewController {
+    
     
     //获取当前投票的index
     private var _currentVoteIndex: Int?
     
-    var voteModel: VoteContentDetailModelResponse?
+    var model: DetailArticleModel?
     
-    //设置右侧的navigationItem
-    private lazy var rightNavigatorItem: UIButton = {
-        let button = UIButton(type: .custom);
-        button.setSelectedImage("article_favorite")
-        button.setImage("detail_unfavo_icon")
-        button.frame = CGRect(x: 0, y: 0, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO)
-        button.addTarget(self, action: #selector(addFavoriteButton(_:)), for: .touchUpInside)
-        return button;
-    }()
+    var voteModel: VoteContentDetailModelResponse? = nil
+    //获取详情的id
+    var id: String = "0"
     
     //设置tableView
     private lazy var tableView: UITableView = {
@@ -43,13 +37,12 @@ class VideoNewsDetailController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none;
-        tableView.register(VideoNewsDetailInfoCell.self, forCellReuseIdentifier: videoPlayIdentifier)
         tableView.register(CommonDetailTitleNameCell.self, forCellReuseIdentifier: articleTitleIdentifier)
         tableView.register(BaseShareBottomView.self, forCellReuseIdentifier: shareCellIdentifier);
         tableView.register(DetailCommentLikeNumCell.self, forCellReuseIdentifier: likeCellIdentifier)
         tableView.register(DetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
-        tableView.register(ProductDetailDescribeCell.self, forCellReuseIdentifier: nameCellIdentifier)
         tableView.register(DetailInfoVoteSectionCell.self, forCellReuseIdentifier: voteCellIdentifier) //投票的Cell
+        tableView.register(ProductDetailDescribeCell.self, forCellReuseIdentifier: nameCellIdentifier)
         //iOS 11Self-Sizing自动打开后，contentSize和contentOffset都可能发生改变。可以通过以下方式禁用
         tableView.estimatedRowHeight = 0
         tableView.estimatedSectionHeaderHeight = 0
@@ -97,18 +90,18 @@ class VideoNewsDetailController: BaseViewController {
     }();
     
     override func viewDidLoad() {
+        //请求定时器进行加分
+        timerTravel = 15
+        
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        navigationItem.title = "视讯"
+        navigationItem.title = "问政"
         
         setupUI()
         
         loadDetailData(); //请求数据
         
-        QQShareInstance.share.delegate = self //分享回调
-        
-        ThirdPartyLogin.share.delegate = self
     }
     
     //请求定时器进行加分
@@ -133,21 +126,11 @@ class VideoNewsDetailController: BaseViewController {
             make.left.bottom.right.equalToSuperview();
             make.height.equalTo(49 * iPHONE_AUTORATIO);
         }
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem)
-    }
-    
-    @objc private func addFavoriteButton(_ sender: UIButton){
-        if sender.isSelected {
-            deleteFavorte()
-        } else {
-            addFavorte()
-        }
     }
     
 }
 
-extension VideoNewsDetailController {
+extension DetailAskGovementController {
     //MARK: - 获取新闻详情
     private func loadDetailData() {
         HttpClient.shareInstance.request(target: BAAPI.articleDetail(id: id), success: { [weak self] (json) in
@@ -160,13 +143,6 @@ extension VideoNewsDetailController {
             self?.model = forceModel.data
             
             self?.tableView.reloadData()
-            
-            //判断是不是已经收藏
-            if forceModel.data.collectStatus.int == 1 {
-                self?.rightNavigatorItem.isSelected = true
-            } else {
-                self?.rightNavigatorItem.isSelected = false
-            }
             
             self?.bottomView.isLike = forceModel.data.likeStatus.int
             
@@ -208,35 +184,6 @@ extension VideoNewsDetailController {
         )
     }
     
-    //MARK: - 添加收藏
-    private func addFavorte(){
-        HttpClient.shareInstance.request(target: BAAPI.addFavorite(id:  Int(id) ?? 0), success: { [weak self] (json) in
-            TProgressHUD.show(text: "添加收藏成功")
-            self?.loadDetailData()
-            }
-        )
-    }
-    
-    //MARK: - 取消收藏
-    private func deleteFavorte() {
-        HttpClient.shareInstance.request(target: BAAPI.cancelFavorite(articleId: Int(id) ?? 0), success: { [weak self] (json) in
-            TProgressHUD.show(text: "取消收藏成功")
-            self?.loadDetailData()
-            }
-        )
-    }
-    
-    //MARK: - 分享转发获取积分
-    private func shareGetSocre() {
-        HttpClient.shareInstance.request(target: BAAPI.shareScore, success: { (json) in
-            //从json中解析出status_code状态码和message，用于后面的处理
-            let decoder = JSONDecoder()
-            let baseModel = try? decoder.decode(BaseModel.self, from: json)
-            TProgressHUD.show(text: baseModel?.msg ?? "分享失败")
-        }
-        )
-    }
-    
     //MARK: - 点击投票
     private func voteSuccess(optionId: Int) {
         HttpClient.shareInstance.request(target: BAAPI.addVoteInArticle(id: self.model?.voteID.int ?? 0, optionId: optionId), success: { [weak self] (json) in
@@ -275,7 +222,7 @@ extension VideoNewsDetailController {
     }
 }
 
-extension VideoNewsDetailController: UITableViewDelegate, UITableViewDataSource {
+extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         //没有为nil
         if model == nil {
@@ -285,32 +232,27 @@ extension VideoNewsDetailController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //判断是不是有投票内容
         if let detailModel = model, detailModel.voteID.int != 0 {
-            return 6 + (model?.comment?.count ?? 0)
+            //有投票内容
+            return 5 + (model?.comment?.count ?? 0)
         }
-        return 5 + (model?.comment?.count ?? 0)
+        return 4 + (model?.comment?.count ?? 0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //播放视频信息
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: videoPlayIdentifier) as! VideoNewsDetailInfoCell
-            cell.imageUrl = model?.image.string
-            return cell
-        }
-        
         //视频信息界面
-        if indexPath.row == 1 {
+        if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: articleTitleIdentifier) as! CommonDetailTitleNameCell
             cell.title = model?.name.string
-            cell.writer = model?.nickname.string
+            cell.writer = model?.moduleSecond.string
             cell.time = model?.begintime.string
             cell.review = model?.visitNum.int
             return cell
         }
         
         //用户发表内容
-        if indexPath.row == 2 {
+        if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: nameCellIdentifier) as! ProductDetailDescribeCell
             cell.content = model?.content.string
             return cell
@@ -319,7 +261,7 @@ extension VideoNewsDetailController: UITableViewDelegate, UITableViewDataSource 
         //判断是不是有投票内容
         if let detailModel = model, detailModel.voteID.int != 0 {
             //是不是用户投票的界面
-            if indexPath.row == 3 {
+            if indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: voteCellIdentifier) as! DetailInfoVoteSectionCell
                 if let _ = voteModel {
                     if let status = detailModel.voteStatus?.int, status != 1 {
@@ -344,43 +286,7 @@ extension VideoNewsDetailController: UITableViewDelegate, UITableViewDataSource 
                 }
                 return cell
             }
-            //用户分享的Cell
-            if indexPath.row == 4 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: shareCellIdentifier) as! BaseShareBottomView
-                cell.shareBlock = { type in
-                    let url = K_URL_Share + (self.model?.id.string ?? "0")
-                    if type == .qqShare { //QQ分享
-                        QQShareInstance.share.shareQQ(title: self.model?.name.string ?? "", url: url)
-                    }
-                    if type == .weiboShare { //微博分享
-                        ThirdPartyLogin.share.shareWebToSina(title: self.model?.name.string ?? "", url: url)
-                    }
-                    if type == .circleShare { //朋友圈
-                        ThirdPartyLogin.share.shareWechatTimeline(title: self.model?.name.string ?? "", url: url)
-                    }
-                    if type == .wechatShare {
-                        ThirdPartyLogin.share.shareWechatFriend(title: self.model?.name.string ?? "", url: url)
-                    }
-                }
-                return cell
-            }
             
-            //用户称赞数量和评论数量
-            if indexPath.row == 5 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: likeCellIdentifier) as! DetailCommentLikeNumCell
-                cell.comment = model?.commentNum.int
-                cell.like = model?.likeNum.int
-                return cell
-            }
-            
-            //用户评论
-            let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! DetailUserCommentCell
-            cell.avatar = model?.comment?[indexPath.row - 6].avatar.string
-            cell.nickname = model?.comment?[indexPath.row - 6].nickname.string
-            cell.comment = model?.comment?[indexPath.row - 6].detail.string
-            cell.time = model?.comment?[indexPath.row - 6].createtime.string
-            return cell
-        } else {
             //用户分享的Cell
             if indexPath.row == 3 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: shareCellIdentifier) as! BaseShareBottomView
@@ -401,6 +307,7 @@ extension VideoNewsDetailController: UITableViewDelegate, UITableViewDataSource 
                 }
                 return cell
             }
+            
             
             //用户称赞数量和评论数量
             if indexPath.row == 4 {
@@ -419,71 +326,81 @@ extension VideoNewsDetailController: UITableViewDelegate, UITableViewDataSource 
             return cell
         }
         
+        //如果没有投票内容
+        if indexPath.row == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: shareCellIdentifier) as! BaseShareBottomView
+            cell.shareBlock = { type in
+                let url = K_URL_Share + (self.model?.id.string ?? "0")
+                if type == .qqShare { //QQ分享
+                    QQShareInstance.share.shareQQ(title: self.model?.name.string ?? "", url: url)
+                }
+                if type == .weiboShare { //微博分享
+                    ThirdPartyLogin.share.shareWebToSina(title: self.model?.name.string ?? "", url: url)
+                }
+                if type == .circleShare { //朋友圈
+                    ThirdPartyLogin.share.shareWechatTimeline(title: self.model?.name.string ?? "", url: url)
+                }
+                if type == .wechatShare {
+                    ThirdPartyLogin.share.shareWechatFriend(title: self.model?.name.string ?? "", url: url)
+                }
+            }
+            return cell
+        }
+        
+        
+        //用户称赞数量和评论数量
+        if indexPath.row == 3 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: likeCellIdentifier) as! DetailCommentLikeNumCell
+            cell.comment = model?.commentNum.int
+            cell.like = model?.likeNum.int
+            return cell
+        }
+        
+        //用户评论
+        let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! DetailUserCommentCell
+        cell.avatar = model?.comment?[indexPath.row - 4].avatar.string
+        cell.nickname = model?.comment?[indexPath.row - 4].nickname.string
+        cell.comment = model?.comment?[indexPath.row - 4].detail.string
+        cell.time = model?.comment?[indexPath.row - 4].createtime.string
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 188 * iPHONE_AUTORATIO
-        }
-        
-        if indexPath.row == 1 {
             return 120 * iPHONE_AUTORATIO
         }
         
-        if indexPath.row == 2 {
+        if indexPath.row == 1 {
             return 10 * iPHONE_AUTORATIO + (model?.name.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 26 * iPHONE_AUTORATIO) ?? 0)
         }
         
         //判断是不是有投票内容
         if let detailModel = model, detailModel.voteID.int != 0 {
-            if indexPath.row == 3 {
+            //有投票内容
+            if indexPath.row == 2 {
                 let height = 44 * iPHONE_AUTORATIO * CGFloat((detailModel.voteOption?.count ?? 0))
                 return 80 * iPHONE_AUTORATIO + height
             }
-            if indexPath.row == 4 {
-                return 72 * iPHONE_AUTORATIO
-            }
-            if indexPath.row == 5 {
-                return 59 * iPHONE_AUTORATIO;
-            }
             
-            return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 6].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
-        } else {
             if indexPath.row == 3 {
                 return 72 * iPHONE_AUTORATIO
             }
+            
             if indexPath.row == 4 {
                 return 59 * iPHONE_AUTORATIO;
             }
             
             return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 5].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
         }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            if model?.module.string == "视讯" {
-                let vc = NETLivePlayerController(url: model?.video.string ?? "")
-                navigationController?.pushViewController(vc, animated: true);
-            } else {
-                let vc = OnlineTVShowViewController(url: model?.video.string ?? "")
-                navigationController?.pushViewController(vc, animated: true)
-            }
-            
+        
+        if indexPath.row == 2 {
+            return 72 * iPHONE_AUTORATIO
         }
-    }
-}
-
-//MARK: - 分享成功回调
-extension VideoNewsDetailController: QQShareInstanceDelegate, ThirdPartyLoginDelegate {
-    func thirdPartyLoginSuccess(with code: String, platform: String) {
-    }
-    
-    func shareQQMessageSuccess() {
-        shareGetSocre()
-    }
-    
-    func shareInformationSuccess() {
-        shareGetSocre()
+        
+        if indexPath.row == 3 {
+            return 59 * iPHONE_AUTORATIO;
+        }
+        
+        return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 4].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
     }
 }

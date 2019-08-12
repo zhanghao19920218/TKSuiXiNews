@@ -1,32 +1,92 @@
 //
-//  MineReviewListController.swift
+//  HomeSearchListViewController.swift
 //  TKSuiXiNews
 //
-//  Created by Barry Allen on 2019/8/3.
+//  Created by Barry Allen on 2019/8/12.
 //  Copyright © 2019 Barry Allen. All rights reserved.
 //
 
 import UIKit
+import DefaultsKit
 
+/*
+ * 搜索的栏目
+ */
 fileprivate let newsOnePicIdentifier = "HomeNewsOnePictureCellIdentifier"
 fileprivate let newsThreePicIdentifier = "HomeNewsThreePictureCellIdentifier"
 fileprivate let newsNoPicIdentifier = "HomeNewsNoPicCellIdentifier"
 
-class MineReviewListController: BaseTableViewController {
+class HomeSearchListViewController: BaseTableViewController {
+    private var _name = ""
+    //新闻的设置
+    //设置背景
+    private lazy var contentBackView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 5 * iPHONE_AUTORATIO
+        view.backgroundColor = .white
+        return view
+    }();
     
+    //搜索按钮
+    private lazy var searchIcon: UIImageView = {
+        let imageView = UIImageView();
+        imageView.image = K_ImageName("news_search_icon");
+        return imageView;
+    }();
+    
+    //搜索文本框
+    private lazy var textField: UITextField = {
+        let textField = UITextField();
+        textField.font = kFont(12 * iPHONE_AUTORATIO)
+        textField.placeholder = Defaults.shared.get(for: placeholderKey)
+        textField.clearButtonMode = .always
+        textField.returnKeyType = .done
+        textField.addTarget(self,
+                            action: #selector(textFieldValueDidChanged(_:)),
+                            for: .editingChanged)
+        textField.delegate = self
+        return textField;
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Do any additional setup after loading the view.
-        
         setupUI()
         
-        navigationItem.title = "最近浏览"
+        // Do any additional setup after loading the view.
+        createNavigationBarLogo()
     }
     
-    
-    //初始化页面
     private func setupUI() {
+        
+        view.backgroundColor = RGBA(245, 245, 245, 1)
+        
+        view.addSubview(contentBackView)
+        contentBackView.snp.makeConstraints { (make) in
+            make.left.top.equalTo(5 * iPHONE_AUTORATIO)
+            make.right.equalTo(-5 * iPHONE_AUTORATIO)
+            make.height.equalTo(30 * iPHONE_AUTORATIO)
+        }
+        
+        contentBackView.addSubview(searchIcon)
+        searchIcon.snp.makeConstraints { (make) in
+            make.left.equalTo(8 * iPHONE_AUTORATIO)
+            make.centerY.equalToSuperview()
+            make.size.equalTo(CGSize(width: 11 * iPHONE_AUTORATIO, height: 11 * iPHONE_AUTORATIO))
+        }
+        
+        contentBackView.addSubview(textField)
+        textField.snp.makeConstraints { (make) in
+            make.left.equalTo(24 * iPHONE_AUTORATIO)
+            make.centerY.equalToSuperview()
+            make.right.equalTo(-10 * iPHONE_AUTORATIO)
+        }
+        
+        tableView.snp.remakeConstraints { (make) in
+            make.top.equalTo(40 * iPHONE_AUTORATIO)
+            make.left.bottom.right.equalToSuperview()
+        }
         tableView.register(HomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
         tableView.register(HomeNewsThreePictureCell.self, forCellReuseIdentifier: newsThreePicIdentifier)
         tableView.register(HomeNewsNoPicCell.self, forCellReuseIdentifier: newsNoPicIdentifier)
@@ -35,20 +95,19 @@ class MineReviewListController: BaseTableViewController {
         tableView.separatorStyle = .none;
     }
     
-    
     override func loadData() {
         super.loadData();
         
-        requestData(); //请求数据
+//        requestData(); //请求数据
     }
     
     override func pullDownRefreshData() {
         super.pullDownRefreshData()
         
         //请求成功进行再次刷新数据
-        HttpClient.shareInstance.request(target: BAAPI.recentlyReview(page: page), success:{ [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.searchArticle(name: _name, page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ReviewListItemResponse.self, from: json)
+            let model = try? decoder.decode(HomeNewsListResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -70,9 +129,9 @@ class MineReviewListController: BaseTableViewController {
         page = (page == 1 ? 2 : page);
         
         //请求成功进行再次刷新数据
-        HttpClient.shareInstance.request(target: BAAPI.recentlyReview(page: page), success:{ [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.contentList(module: _name, page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ReviewListItemResponse.self, from: json)
+            let model = try? decoder.decode(HomeNewsListResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -94,9 +153,14 @@ class MineReviewListController: BaseTableViewController {
             }
         )
     }
+    
+    //MARK: - 搜索框变化
+    @objc private func textFieldValueDidChanged(_ sender: UITextField) {
+        _name = sender.text ?? ""
+    }
 }
 
-extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
+extension HomeSearchListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1;
     }
@@ -106,8 +170,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let model = dataSource[indexPath.row] as! ReviewListItemDatum
+        let model = dataSource[indexPath.row] as! HomeNewsListModel
         
         if !model.image.string.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell;
@@ -116,7 +179,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
             cell.isLike = model.likeStatus.int
             cell.like = model.likeNum.int
             cell.review = model.visitNum.int
-            cell.time = model.time.string
+            cell.time = model.begintime.string
             return cell;
         } else if model.images.count == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: newsThreePicIdentifier) as! HomeNewsThreePictureCell;
@@ -127,7 +190,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
             cell.isLike = model.likeStatus.int
             cell.like = model.likeNum.int
             cell.review = model.visitNum.int
-            cell.time = model.time.string
+            cell.time = model.begintime.string
             return cell;
         }
         
@@ -136,12 +199,12 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
         cell.isLike = model.likeStatus.int
         cell.like = model.likeNum.int
         cell.review = model.visitNum.int
-        cell.time = model.time.string
+        cell.time = model.begintime.string
         return cell;
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = dataSource[indexPath.row] as! ReviewListItemDatum
+        let model = dataSource[indexPath.row] as! HomeNewsListModel
         
         if !model.image.string.isEmpty {
             return 118 * iPHONE_AUTORATIO
@@ -155,37 +218,37 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row] as! ReviewListItemDatum
-        if model.module.string == "濉溪TV" || model.module.string == "视讯"{
-            //跳转濉溪TV详情
-            let vc = VideoNewsDetailController()
-            vc.id = model.id.string
-            navigationController?.pushViewController(vc, animated: true)
-        } else if model.module.string == "悦听"{
-            let vc = HomeHappyDetailListenController()
-            vc.id = model.id.string
-            navigationController?.pushViewController(vc, animated: true)
-        } else {
-            let vc = HomeNewsDetailInfoController();
-            vc.id = model.id.string
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        let model = dataSource[indexPath.row] as! HomeNewsListModel;
+        let vc = HomeNewsDetailInfoController();
+        vc.id = model.id.string
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
-extension MineReviewListController {
-    //MARK: - 请求首页数据
-    private func requestData(){
-        HttpClient.shareInstance.request(target: BAAPI.recentlyReview(page: page), success: { [weak self] (json) in
-            let decoder = JSONDecoder()
-            let model = try? decoder.decode(ReviewListItemResponse.self, from: json)
-            guard let forceModel = model else {
-                return;
-            }
-            
-            self?.dataSource = forceModel.data.data;
-            self?.tableView.reloadData();
-            }
-        )
+extension HomeSearchListViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if _name.isEmpty {
+            TProgressHUD.show(text: "请输入搜索内容")
+            return false
+        }
+        //获取数据
+        pullDownRefreshData()
+        
+        view.endEditing(true)
+        return true
     }
+    //MARK: - 请求首页数据
+//    private func requestData(){
+//        HttpClient.shareInstance.request(target: BAAPI.contentList(module: _name, page: page), success: { [weak self] (json) in
+//            let decoder = JSONDecoder()
+//            let model = try? decoder.decode(HomeNewsListResponse.self, from: json)
+//            guard let forceModel = model else {
+//                return;
+//            }
+//
+//            self?.dataSource = forceModel.data.data;
+//            self?.tableView.reloadData();
+//            }
+//        )
+//    }
 }

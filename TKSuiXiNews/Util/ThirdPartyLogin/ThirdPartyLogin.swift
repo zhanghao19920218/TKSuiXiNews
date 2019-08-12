@@ -8,8 +8,10 @@
 
 import Foundation
 
-protocol ThirdPartyLoginDelegate {
-    func thirdPartyLoginSuccess(with code:String, platform:String)
+@objc protocol ThirdPartyLoginDelegate {
+    @objc func thirdPartyLoginSuccess(with code:String, platform:String)
+    
+    @objc func shareInformationSuccess()
 }
 
 class ThirdPartyLogin:NSObject {
@@ -173,6 +175,16 @@ extension ThirdPartyLogin: WXApiDelegate {
             default:
                 TProgressHUD.show(text: "登录失败")
             }
+        } else if resp is SendMessageToWXResp {
+            let req = resp as! SendMessageToWXResp
+            //这里不再返回用户是否分享完成事件，即原先的cancel事件和success事件将统一为success事件
+            if req.errCode == 0 {
+                //分享成功
+                if let delegate = delegate {
+                    TProgressHUD.show(text: "分享成功")
+                    delegate.shareInformationSuccess()
+                }
+            }
         }
     }
 }
@@ -183,21 +195,32 @@ extension ThirdPartyLogin: WeiboSDKDelegate {
     }
     
     func didReceiveWeiboResponse(_ response: WBBaseResponse!) {
-        guard let res = response as? WBAuthorizeResponse else { return  }
-        
-        guard let uid = res.userID else { return  }
-        guard let accessToken = res.accessToken else { return }
-        
-        var model = SinaWeiboModel()
-        model.token = accessToken
-        model.uid = uid
-        
-        let jsonData = try! JSONEncoder().encode(model)
-        let jsonString = String(data: jsonData, encoding: .utf8)!
-        print(jsonString)
-        
-        if let delegate = delegate  {
-            delegate.thirdPartyLoginSuccess(with: jsonString, platform: "weibo")
+        if response is WBAuthorizeResponse { //微博登录
+            guard let res = response as? WBAuthorizeResponse else { return  }
+            
+            guard let uid = res.userID else { return  }
+            guard let accessToken = res.accessToken else { return }
+            
+            var model = SinaWeiboModel()
+            model.token = accessToken
+            model.uid = uid
+            
+            let jsonData = try! JSONEncoder().encode(model)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            print(jsonString)
+            
+            if let delegate = delegate  {
+                delegate.thirdPartyLoginSuccess(with: jsonString, platform: "weibo")
+            }
+        } else if response is WBSendMessageToWeiboResponse { //微博分享
+            let res = response as! WBSendMessageToWeiboResponse
+            if res.statusCode.rawValue == 0 {
+                //分享成功
+                if let delegate = delegate {
+                    TProgressHUD.show(text: "分享成功")
+                    delegate.shareInformationSuccess()
+                }
+            }
         }
     }
     
@@ -232,7 +255,7 @@ extension ThirdPartyLogin: TencentSessionDelegate {
     
     
     func tencentDidNotLogin(_ cancelled: Bool) {
-//        <#code#>
+        TProgressHUD.show(text: "没有登录")
     }
     
     func tencentDidNotNetWork() {
@@ -251,10 +274,17 @@ extension ThirdPartyLogin: TencentSessionDelegate {
     }
 }
 
+protocol QQShareInstanceDelegate {
+    //分享成功
+    func shareQQMessageSuccess()
+}
+
 class QQShareInstance:NSObject {
     private lazy var _tencentOAuth: TencentOAuth = {
         return TencentOAuth.init(appId: qqAppKey, andDelegate: nil)
     }()
+    
+    var delegate: QQShareInstanceDelegate?
     
     static let share = QQShareInstance()
     
@@ -299,7 +329,36 @@ extension QQShareInstance: QQApiInterfaceDelegate {
     }
     
     func onResp(_ resp: QQBaseResp!) {
-        print("QQ回调: \(resp)")
+        print("--- on Resp ---")
+        //确保是对我们QQ分享操作的回调
+        if resp is SendMessageToQQResp {
+            //QQApi应答消息类型判断（手Q -> 第三方应用，手Q应答处理分享消息的结果）
+            if uint(resp.type) == ESENDMESSAGETOQQRESPTYPE.rawValue {
+                let title = resp.result == "0" ? "分享成功" : "分享失败"
+                var message = ""
+                switch resp.result {
+                case "-1":
+                    message = "参数错误"
+                case "-2":
+                    message = "该群不在自己的群列表里"
+                case "-3":
+                    message = "上传图片失败"
+                case "-4":
+                    message = "用户放弃当前操作"
+                case "-5":
+                    message = "客户端内部处理错误"
+                default:
+                    break
+                }
+                //显示内容
+                if let delegate = delegate, Int(resp.result) == 0 {
+                    delegate.shareQQMessageSuccess()
+                }
+                //显示错误信息
+                printDebug(message)
+                TProgressHUD.show(text: title)
+            }
+        }
     }
     
     func isOnlineResponse(_ response: [AnyHashable : Any]!) {

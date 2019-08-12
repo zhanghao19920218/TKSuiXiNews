@@ -139,7 +139,7 @@ extension MineSettingViewController : UITableViewDelegate, UITableViewDataSource
 extension MineSettingViewController {
     //MARK: - 注销登录
     private func logOut(){
-        HttpClient.shareInstance.request(target: BAAPI.logoutLogin, success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.logoutLogin, success: { (json) in
             //退出登录
             TProgressHUD.show(text: "退出登录")
             HttpClient.shareInstance.userSignOutByTokenOutData() //退出登录

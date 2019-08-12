@@ -277,6 +277,10 @@ class SXLoginViewController: BaseLoginViewController {
 
 
 extension SXLoginViewController:ThirdPartyLoginDelegate {
+    func shareInformationSuccess() {
+        
+    }
+    
     func thirdPartyLoginSuccess(with code: String, platform: String) {
         login(with: platform, code: code)
     }

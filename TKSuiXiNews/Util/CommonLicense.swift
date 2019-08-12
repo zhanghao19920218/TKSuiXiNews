@@ -12,6 +12,7 @@ import UIKit
 fileprivate let K_BASE_license = "濉溪发布用户服务协议";
 fileprivate let K_BASE_font = kFont(12 * iPHONE_AUTORATIO);
 class CommonLicense: UIView {
+    var block: () -> Void = { }
 
     //MARK: -按钮
     lazy var button: UIButton = {
@@ -88,5 +89,6 @@ class CommonLicense: UIView {
     
     @objc private func licenseButton(_ sender: UIButton) {
         print("点击了服务协议");
+        block()
     }
 }

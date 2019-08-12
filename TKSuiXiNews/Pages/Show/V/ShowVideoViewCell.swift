@@ -89,15 +89,15 @@ class ShowVideoViewCell: BaseTableViewCell {
     //用户昵称
     private lazy var nicknameLabel: UILabel = {
         let label = UILabel();
-        label.font = kFont(16 * iPHONE_AUTORATIO);
-        label.numberOfLines = 3;
+        label.font = kFont(16 * iPHONE_AUTORATIO)
         return label;
     }();
     
     //用户的内容
     private lazy var describeLabel: UILabel = {
         let label = UILabel();
-        label.font = kFont(14 * iPHONE_AUTORATIO);
+        label.font = kFont(14 * iPHONE_AUTORATIO)
+        label.numberOfLines = 2
         return label;
     }();
     
@@ -160,7 +160,8 @@ class ShowVideoViewCell: BaseTableViewCell {
         addSubview(describeLabel);
         describeLabel.snp.makeConstraints { (make) in
             make.top.equalTo(44 * iPHONE_AUTORATIO);
-            make.left.equalTo(65 * iPHONE_AUTORATIO);
+            make.left.equalTo(65 * iPHONE_AUTORATIO)
+            make.right.equalTo(-13 * iPHONE_AUTORATIO)
         }
         
         //照片

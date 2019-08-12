@@ -1,18 +1,17 @@
 //
-//  HomeArticleContentWebCell.swift
+//  TKRuleController.swift
 //  TKSuiXiNews
 //
-//  Created by Barry Allen on 2019/8/2.
+//  Created by Barry Allen on 2019/8/12.
 //  Copyright © 2019 Barry Allen. All rights reserved.
 //
 
 import UIKit
 import WebKit
 
-fileprivate let keyPaths = "contentSize"
+//用户协议
 
-class HomeArticleContentWebCell: BaseTableViewCell {
-    var block: (CGFloat) -> Void = { _ in }
+class TKRuleController: BaseViewController {
     
     //MARK: - 加载网页
     var loadUrl: String? {
@@ -25,7 +24,22 @@ class HomeArticleContentWebCell: BaseTableViewCell {
             }
         }
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle
+    {
+        return .default
+    }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+        
+        setupUI()
+        
+        navigationItem.title = "用户协议"
+    }
+    
     private lazy var webView: WKWebView = {
         let webView = WKWebView(frame: .zero, configuration: config)
         //UI代理
@@ -34,8 +48,6 @@ class HomeArticleContentWebCell: BaseTableViewCell {
         webView.navigationDelegate = self
         // 是否允许手势左滑返回上一级,  类似导航控制的左滑动返回
         webView.allowsBackForwardNavigationGestures = true
-        //不可以滑动
-        webView.scrollView.isScrollEnabled = false
         return webView
     }()
     
@@ -68,34 +80,23 @@ class HomeArticleContentWebCell: BaseTableViewCell {
         //设置是否允许画中画技术 在特定设备上有效
         configuration.allowsPictureInPictureMediaPlayback = true
         //这个类主要用来做native与JavaScript的交互管理
-//        let wkUController = WKUserContentController()
+        //        let wkUController = WKUserContentController()
         configuration.userContentController = wkUController
         return configuration
     }()
     
     
-    override func setupUI() {
-        super.setupUI()
+    private func setupUI() {
         
-        contentView.addSubview(webView)
+        view.addSubview(webView)
         webView.snp.makeConstraints { (make) in
-            make.left.equalTo(13 * iPHONE_AUTORATIO)
-            make.right.equalTo(-13 * iPHONE_AUTORATIO)
-            make.top.bottom.equalToSuperview()
+            make.edges.equalToSuperview()
         }
-        
-        //使用kvo为webview添加监听，监听webView内容高度
-        webView.scrollView.addObserver(self, forKeyPath: keyPaths, options: [.old, .new], context: nil)
     }
     
-    deinit {
-        //移除监听
-        webView.scrollView.removeObserver(self, forKeyPath: keyPaths)
-    }
-
 }
 
-extension HomeArticleContentWebCell: WKUIDelegate, WKNavigationDelegate {
+extension TKRuleController: WKUIDelegate, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         //如果是跳转一个新页面
@@ -116,15 +117,4 @@ extension HomeArticleContentWebCell: WKUIDelegate, WKNavigationDelegate {
     }
     
     
-}
-
-extension HomeArticleContentWebCell {
-    //MARK: - 监听高度
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == keyPaths {
-            var frame = webView.frame
-            frame.size.height = webView.scrollView.contentSize.height
-            block(frame.size.height) //更换高度
-        }
-    }
 }

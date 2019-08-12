@@ -205,9 +205,18 @@ class VVideoShootViewController: BaseViewController {
 
 
 extension VVideoShootViewController: UITextViewDelegate {
+    //限制70个字
     func textViewDidChange(_ textView: UITextView) {
-        let text = textView.text ?? ""; //获取内容
-        describe = text;
+        if textView.text.count > 70 {
+            if let str = textView.text {
+                //截取前20个字符
+                let subStr = str.prefix(70)
+                textView.text = String(subStr)
+                describe = String(subStr)
+            }
+        } else {
+            describe = textView.text ?? ""
+        }
     }
 }
 

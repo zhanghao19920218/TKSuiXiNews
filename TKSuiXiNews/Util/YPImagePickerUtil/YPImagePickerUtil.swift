@@ -69,7 +69,8 @@ open class YPImagePickerUtil {
         var config = YPImagePickerConfiguration()
         config.screens = [.video]
         config.video.fileType = .mp4
-        config.video.recordingTimeLimit = TimeInterval(15)
+        config.video.recordingTimeLimit = TimeInterval(120)
+        config.video.compression = AVAssetExportPresetMediumQuality
         
         picker = YPImagePicker(configuration: config)
         picker?.didFinishPicking { [weak self] items, _ in
@@ -142,7 +143,8 @@ open class YPImagePickerUtil {
         var config = YPImagePickerConfiguration()
         config.screens = [.video, .photo]
         config.showsPhotoFilters = false; //隐藏滤镜效果
-        config.video.recordingTimeLimit = TimeInterval(15)
+        config.video.recordingTimeLimit = TimeInterval(90)
+        config.video.compression = AVAssetExportPresetMediumQuality
         
         picker = YPImagePicker(configuration: config)
         picker?.didFinishPicking { [weak self] items, _ in
