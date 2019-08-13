@@ -60,14 +60,21 @@ class OnlineTVShowViewController: BaseViewController {
         
         configurePlayer()
         
+        //在视图出现的时候，将allowRotate改为1，
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.allowrRotate = 2
+        setNewOritentation(fullScreen: true)
+        
     }
     
     //返回如果是横屏先竖屏再返回
     override func popViewControllerBtnPressed() {
-        if UIDevice.current.orientation != .portrait {
-            let value = UIInterfaceOrientation.portrait.rawValue
-            UIDevice.current.setValue(value, forKey: "orientation")
-        }
+//        if UIDevice.current.orientation != .portrait {
+//            let value = UIInterfaceOrientation.portrait.rawValue
+//            UIDevice.current.setValue(value, forKey: "orientation")
+//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//            appDelegate.allowrRotate = 0
+//        }
         
         super.popViewControllerBtnPressed()
     }
@@ -76,12 +83,7 @@ class OnlineTVShowViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBar.isTranslucent = true;
-        //在视图出现的时候，将allowRotate改为1，
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.allowrRotate = 1
-        let value = UIInterfaceOrientation.landscapeRight.rawValue
-        UIDevice.current.setValue(value, forKey: "orientation")
+        navigationController?.navigationBar.isTranslucent = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -89,12 +91,13 @@ class OnlineTVShowViewController: BaseViewController {
         
         //设置标题为isTransport false
         navigationController?.navigationBar.isTranslucent = false
-        //更新标题为默认
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.allowrRotate = 0
         
         //销毁播放器
         doDestoryPlayer()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.allowrRotate = 0; //关闭横屏仅允许竖屏
+        setNewOritentation(fullScreen: false)
     }
     
     //MARK: - 初始化播放器
@@ -134,8 +137,8 @@ class OnlineTVShowViewController: BaseViewController {
         return .landscapeRight
     }
     
-    override var shouldAutorotate: Bool {
-        return false
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .landscapeRight
     }
 }
 
@@ -150,6 +153,21 @@ extension OnlineTVShowViewController: PLPlayerDelegate {
 
         if state == .statusPlaying {
             controlView.stopLoading()
+        }
+    }
+    
+    //MARK: - 设置返回的界面
+    private func setNewOritentation(fullScreen: Bool) {
+        if fullScreen {
+            let resetOritentaionTarget = UIInterfaceOrientation.unknown.rawValue
+            UIDevice.current.setValue(resetOritentaionTarget, forKey: "orientation")
+            let orientationTarget = UIInterfaceOrientation.landscapeRight.rawValue
+            UIDevice.current.setValue(orientationTarget, forKey: "orientation")
+        } else {
+            let resetOritentaionTarget = UIInterfaceOrientation.unknown.rawValue
+            UIDevice.current.setValue(resetOritentaionTarget, forKey: "orientation")
+            let orientationTarget = UIInterfaceOrientation.portrait.rawValue
+            UIDevice.current.setValue(orientationTarget, forKey: "orientation")
         }
     }
 }

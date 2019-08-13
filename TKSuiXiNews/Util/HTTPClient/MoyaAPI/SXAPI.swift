@@ -104,6 +104,10 @@ enum  BAAPI {
     case sysconfigure
     //搜索
     case searchArticle(name: String, page: Int)
+    //首页频道
+    case homePageChannels
+    //删除V视频
+    case deleteVVideo(id: Int)
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -212,6 +216,10 @@ extension BAAPI: TargetType {
             return K_URL_readGetScore
         case .sysconfigure:
             return K_URL_systemConfig
+        case .homePageChannels:
+            return K_URL_homeChannel
+        case .deleteVVideo:
+            return K_URL_deleteVVideo
         }
         
     }
@@ -404,6 +412,12 @@ extension BAAPI: TargetType {
             params["name"] = name
             params["page"] = page
             params["module"] = "新闻"
+            
+        case let .integralDetail(page):
+            params["p"] = page
+            
+        case let .deleteVVideo(id):
+            params["id"] = id
 
         default:
             //不需要传参数的接口走这里

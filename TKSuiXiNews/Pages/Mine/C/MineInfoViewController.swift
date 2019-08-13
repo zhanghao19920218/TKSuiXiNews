@@ -202,8 +202,11 @@ extension MineInfoViewController : UITableViewDelegate,UITableViewDataSource{
             self.present(alertVc, animated: true, completion: nil)
         }else if indexPath.row == 1{
             let alertVc = UIAlertController.init(title: "修改昵称", message: nil, preferredStyle: .alert)
-            alertVc.addTextField { (textField) in
+            alertVc.addTextField { [weak self](textField) in
                 textField.placeholder = "请输入昵称"
+                textField.addTarget(self,
+                                    action: #selector(self?.textFieldValueDidChanged(_:)),
+                                    for: .editingChanged)
             }
             let sureAction = UIAlertAction.init(title: "确定", style: .default) { (UIAlertAction) in
                 let tf = alertVc.textFields?.first
@@ -221,6 +224,15 @@ extension MineInfoViewController : UITableViewDelegate,UITableViewDataSource{
         }else{
             let vc = ChangeBindingViewController()
             navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    //MARK: - 监听textField昵称的数据长度
+    @objc private func textFieldValueDidChanged(_ textField: UITextField) {
+        let content = textField.text ?? ""
+        if content.count >= 7 {
+            let result = content.prefix(7)
+            textField.text = String(result)
         }
     }
 }

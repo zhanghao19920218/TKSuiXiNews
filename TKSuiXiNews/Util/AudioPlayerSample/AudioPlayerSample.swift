@@ -12,6 +12,9 @@ import AVFoundation
 class AudioPlayerSample:NSObject {
     static let share = AudioPlayerSample()
     
+    //释放当前的Observer
+    private var _timeObserve: Any? = nil
+    
     private var currentTime:Double = {
         return 0.0
     }()
@@ -21,7 +24,17 @@ class AudioPlayerSample:NSObject {
         willSet(newValue) {
             if let url = URL(string: newValue ?? "") {
                 let item = AVPlayerItem(url: url)
+                if let _ = _timeObserve, let _ = player { //删除监听
+                    player?.removeTimeObserver(_timeObserve!)
+                    _timeObserve = nil
+                    player = nil
+                }
                 self.player = AVPlayer(playerItem: item)
+                if #available(iOS 10.0, *) {
+                    self.player?.automaticallyWaitsToMinimizeStalling = false
+                } else {
+                    // Fallback on earlier versions
+                }
             }
         }
         didSet {
@@ -45,11 +58,11 @@ class AudioPlayerSample:NSObject {
         //跳转到当前指定时间
         player?.seek(to: CMTime(seconds: currentTime, preferredTimescale: 1))
         player?.play()
-        player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1.0, preferredTimescale: CMTimeScale(1.0)), queue: DispatchQueue.main, using: { [weak self](time) in
+        _timeObserve = player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1.0, preferredTimescale: CMTimeScale(1.0)), queue: DispatchQueue.main, using: { [weak self](time) in
             //当前播放的时间
             let current = time.seconds
             self?.currentTime = current
-            timeChangeBlock(Int(self?.currentTime ?? 0))
+            timeChangeBlock(Int(current))
         })
     }
     

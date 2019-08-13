@@ -21,6 +21,9 @@ fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
 fileprivate let voteCellIdentifier = "DetailInfoVoteSectionCellIdentifier" //投票的Cell
 
 class DetailVideoInfoController: BaseViewController {
+    //获取传递过来的index
+    var index: Int? = nil
+    
     var model: DetailArticleModel?
     //获取当前投票的index
     private var _currentVoteIndex: Int?
@@ -165,6 +168,8 @@ extension DetailVideoInfoController {
     private func likeArticle() {
         HttpClient.shareInstance.request(target: BAAPI.addLikeNum(id: Int(id) ?? 0), success: { [weak self] (json) in
             TProgressHUD.show(text: "点赞成功")
+            //成功点赞
+            self?.favoriteBlock(true, self?.index ?? 0)
             self?.loadDetailData()
             }
         )
@@ -174,6 +179,8 @@ extension DetailVideoInfoController {
     private func disLikeArticle() {
         HttpClient.shareInstance.request(target: BAAPI.dislikeComment(id: Int(id) ?? 0), success: { [weak self] (json) in
             TProgressHUD.show(text: "取消点赞成功")
+            //取消点赞
+            self?.favoriteBlock(false, self?.index ?? 0)
             self?.loadDetailData()
             }
         )

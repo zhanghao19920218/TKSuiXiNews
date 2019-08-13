@@ -70,14 +70,14 @@ class SpecialColumnSingleCell: UICollectionViewCell {
     func setupUI() {
         contentView.addSubview(backView)
         backView.snp.makeConstraints { (make) in
-            make.top.equalTo(15 * iPHONE_AUTORATIO)
+            make.top.equalTo(10 * iPHONE_AUTORATIO)
             make.left.right.bottom.equalToSuperview()
         }
         
         backView.addSubview(iconView)
         iconView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(10 * iPHONE_AUTORATIO)
+            make.top.equalTo(5 * iPHONE_AUTORATIO)
             make.size.equalTo(CGSize(width: 50 * iPHONE_AUTORATIO, height: 50 * iPHONE_AUTORATIO))
         }
         

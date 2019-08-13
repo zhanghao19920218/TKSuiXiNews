@@ -118,18 +118,24 @@ extension HomeHappyListenController: UITableViewDelegate, UITableViewDataSource 
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! HomeHappyListenCell
         cell.title = model.name.string
         //确定是不是播放中
-        if let index = _selectedIndex, index == indexPath.row { cell.isPlay = true  } else { cell.isPlay = false }
+        if let index = _selectedIndex, index == indexPath.row {
+            cell.isPlay = true
+        } else {
+            cell.isPlay = false
+        }
         cell.beginTime = model.begintime.string
         cell.likeNum = model.likeNum.int
         cell.review = model.visitNum.int
         cell.isLike = model.likeStatus.int
-        cell.block = { [weak self](isPlay) in
+        cell.audioLength = model.time.int
+        cell.block = { [weak self] (isPlay) in
             OperationQueue.main.addOperation {
                 self?.tableView.reloadData() //刷新页面
                 AudioPlayerSample.share.url = model.audio.string
                 if isPlay {
                     //判断是不是在播放音频
                     self?._selectedIndex = nil
+                    AudioPlayerSample.share.pause()
                 } else {
                     //判断是不是在播放音频
                     self?._selectedIndex = indexPath.row //确定选中的index

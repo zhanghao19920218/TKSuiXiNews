@@ -89,7 +89,6 @@ class ScoreMallController: BaseCollectionViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        _setupUI()
         
         navigationItem.title = "积分商城"
     }
@@ -97,6 +96,8 @@ class ScoreMallController: BaseCollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isTranslucent = true
+        
+        _setupUI()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

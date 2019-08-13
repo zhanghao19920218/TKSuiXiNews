@@ -111,8 +111,9 @@ extension MineExchangeHistoryListController: UITableViewDelegate, UITableViewDat
             let cell = tableView.dequeueReusableCell(withIdentifier: historyExchangeIdentifier) as! ExchangeNewPersonCell
             cell.title = (model.status.string == "hidden" ? "请在现场领取礼包" : "我已现场领取")
             cell.block = { [weak self] () in
-                
-                self?.requestStrageReceive(id: model.id.int)
+                if model.status.string == "hidden" {
+                    self?.requestStrageReceive(id: model.id.int)
+                }
             }
             return cell
         } else {

@@ -21,7 +21,9 @@ extension String {
         return encodeUrlString ?? ""
     }
     
-    //MARK: - 手机号码判断
+    /// 号码
+    /// - Parameter:
+    /// 
     func isPhoneNumber() -> Bool {
         if let _ = self.range(of: "^1[3|4|5|7|8][0-9]{9}$", options: .regularExpression) {
             return true

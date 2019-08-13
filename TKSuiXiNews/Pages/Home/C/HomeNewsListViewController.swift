@@ -126,9 +126,11 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
             if let model = model { cell.images = model.data }
             cell.block = { [weak self] (model) in
                 let vc = HomeBannerDetailViewController()
-                vc.loadUrl = model.content.string
-                vc.name = model.name.string
-                self?.navigationController?.pushViewController(vc, animated: true)
+                if !model.content.string.isEmpty {
+                    vc.loadUrl = model.content.string
+                    vc.name = model.name.string
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
             }
             return cell;
         }

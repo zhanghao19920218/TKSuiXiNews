@@ -27,7 +27,7 @@ class AskGovermentContentCell: BaseTableViewCell {
         textView.layer.cornerRadius = 8 * iPHONE_AUTORATIO
         textView.backgroundColor = RGBA(245, 245, 245, 1)
         textView.font = kFont(14 * iPHONE_AUTORATIO)
-        textView.placeholder = "请输入20字以内"
+        textView.placeholder = "请输入50字以内"
         return textView
     }()
     

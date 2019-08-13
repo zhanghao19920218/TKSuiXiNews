@@ -130,6 +130,13 @@ extension MineAskGovListViewController: UITableViewDelegate, UITableViewDataSour
             cell.time = model.time.string
             cell.comment = model.visitNum.int
             return cell
+        } else if model.images.count > 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! HomeAskGovOnePicCell
+            cell.title = model.name.string
+            cell.imageName = model.images[0]
+            cell.time = model.time.string
+            cell.comment = model.visitNum.int
+            return cell
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: cellTextIdentifier) as! HomeAskNonePicCell

@@ -128,6 +128,8 @@
 		73A3329722EA94560060F281 /* iQiYiPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3329622EA94560060F281 /* iQiYiPlayButton.swift */; };
 		73BB1CFA22FCFCD300AA86EE /* YPImagePickerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 73BB1CF922FCFCD300AA86EE /* YPImagePickerLocalizable.strings */; };
 		73BB1CFC22FD049F00AA86EE /* Print+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BB1CFB22FD049F00AA86EE /* Print+Extension.swift */; };
+		73BDC144230288AA00400207 /* PhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BDC143230288AA00400207 /* PhotoBrowser.swift */; };
+		73BDC1462302A1CC00400207 /* HomeChannelListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BDC1452302A1CC00400207 /* HomeChannelListModel.swift */; };
 		73C419B822EA87C200D8D412 /* NEPlayerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C419B722EA87C200D8D412 /* NEPlayerControlView.swift */; };
 		73D414902301324D007CDB96 /* HomeOriginalCircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4148F2301324D007CDB96 /* HomeOriginalCircleViewController.swift */; };
 		73D414952301631A007CDB96 /* HomeAnnoncementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D414942301631A007CDB96 /* HomeAnnoncementViewController.swift */; };
@@ -469,6 +471,8 @@
 		73A3329622EA94560060F281 /* iQiYiPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iQiYiPlayButton.swift; sourceTree = "<group>"; };
 		73BB1CF922FCFCD300AA86EE /* YPImagePickerLocalizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = YPImagePickerLocalizable.strings; sourceTree = "<group>"; };
 		73BB1CFB22FD049F00AA86EE /* Print+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Print+Extension.swift"; sourceTree = "<group>"; };
+		73BDC143230288AA00400207 /* PhotoBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowser.swift; sourceTree = "<group>"; };
+		73BDC1452302A1CC00400207 /* HomeChannelListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeChannelListModel.swift; sourceTree = "<group>"; };
 		73C419B722EA87C200D8D412 /* NEPlayerControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NEPlayerControlView.swift; sourceTree = "<group>"; };
 		73D4148F2301324D007CDB96 /* HomeOriginalCircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOriginalCircleViewController.swift; sourceTree = "<group>"; };
 		73D414942301631A007CDB96 /* HomeAnnoncementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAnnoncementViewController.swift; sourceTree = "<group>"; };
@@ -906,6 +910,7 @@
 		733ED18622E455E900B452D4 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				73BDC1452302A1CC00400207 /* HomeChannelListModel.swift */,
 				733ED18722E4560800B452D4 /* VVideoListResponseModel.swift */,
 				730F177F22EECD1600FCD4FF /* HomeTVTitleResponse.swift */,
 				730F178B22EEF3A100FCD4FF /* HomeNewsListResponse.swift */,
@@ -1098,6 +1103,14 @@
 				734A72B922E596EC002A6D9C /* TKSuiXiNews-Bridging-Header.h */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		73BDC1422302889100400207 /* PhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				73BDC143230288AA00400207 /* PhotoBrowser.swift */,
+			);
+			path = PhotoBrowser;
 			sourceTree = "<group>";
 		};
 		73C419B622EA859200D8D412 /* V */ = {
@@ -1302,6 +1315,7 @@
 		73DEBAAE22E311E3007EC4E1 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				73BDC1422302889100400207 /* PhotoBrowser */,
 				73ECFF3422FF09F5003F8C5D /* ShareBottomPopMenu */,
 				73ECFF3122FEFA47003F8C5D /* AskGovPopMenu */,
 				7372605D22FC0E1100652586 /* SevenBeefUpload */,
@@ -2130,6 +2144,7 @@
 				73FE5FDF22FBB7D90047DB02 /* YPLibraryViewDelegate.swift in Sources */,
 				73DEBAFF22E34B09007EC4E1 /* CommonLicense.swift in Sources */,
 				73ECFF2622FED920003F8C5D /* HomeSpecialColumnResponse.swift in Sources */,
+				73BDC144230288AA00400207 /* PhotoBrowser.swift in Sources */,
 				733ED18F22E462D000B452D4 /* BaseTimeCommentLikeView.swift in Sources */,
 				73DEBAE822E329D6007EC4E1 /* StaticMethod.swift in Sources */,
 				73D4149C230167C0007CDB96 /* SystemConfigModel.swift in Sources */,
@@ -2185,6 +2200,7 @@
 				7377746922E8001900513350 /* DetailVideoInfoController.swift in Sources */,
 				73FE5FCE22FBB7D90047DB02 /* YPColors.swift in Sources */,
 				730F179422EF077200FCD4FF /* HomeVideoNewsListResponse.swift in Sources */,
+				73BDC1462302A1CC00400207 /* HomeChannelListModel.swift in Sources */,
 				73DEBAAD22E3119D007EC4E1 /* UIView+Extension.swift in Sources */,
 				736114ED22F1C32500BC5A8E /* AwardPanelModel.swift in Sources */,
 				73FE600422FBB7D90047DB02 /* NSFileManager+Extensions.swift in Sources */,

@@ -17,6 +17,7 @@ fileprivate let nameCellIdentifier = "CommonDetailTitleNameCellIdentifier"
 fileprivate let shareCellIdentifier = "BaseShareBottomViewIdentifier"
 fileprivate let likeCellIdentifier = "DetailCommentLikeNumCellIdentifier"
 fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
+fileprivate let imagesIdentifier = "ShowImagesCollectionCellCellIdentifier"
 fileprivate let voteCellIdentifier = "DetailInfoVoteSectionCellIdentifier" //投票的Cell
 
 class DetailAskGovementController: BaseViewController {
@@ -26,6 +27,16 @@ class DetailAskGovementController: BaseViewController {
     private var _currentVoteIndex: Int?
     
     var model: DetailArticleModel?
+    
+    //设置右侧的navigationItem
+    private lazy var rightNavigatorItem: UIButton = {
+        let button = UIButton(type: .custom);
+        button.setSelectedImage("article_favorite")
+        button.setImage("detail_unfavo_icon")
+        button.frame = CGRect(x: 0, y: 0, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO)
+        button.addTarget(self, action: #selector(addFavoriteButton(_:)), for: .touchUpInside)
+        return button;
+    }()
     
     var voteModel: VoteContentDetailModelResponse? = nil
     //获取详情的id
@@ -43,6 +54,7 @@ class DetailAskGovementController: BaseViewController {
         tableView.register(DetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
         tableView.register(DetailInfoVoteSectionCell.self, forCellReuseIdentifier: voteCellIdentifier) //投票的Cell
         tableView.register(ProductDetailDescribeCell.self, forCellReuseIdentifier: nameCellIdentifier)
+        tableView.register(ShowImagesCollectionCell.self, forCellReuseIdentifier: imagesIdentifier)
         //iOS 11Self-Sizing自动打开后，contentSize和contentOffset都可能发生改变。可以通过以下方式禁用
         tableView.estimatedRowHeight = 0
         tableView.estimatedSectionHeaderHeight = 0
@@ -126,6 +138,16 @@ class DetailAskGovementController: BaseViewController {
             make.left.bottom.right.equalToSuperview();
             make.height.equalTo(49 * iPHONE_AUTORATIO);
         }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem)
+    }
+    
+    @objc private func addFavoriteButton(_ sender: UIButton){
+        if sender.isSelected {
+            deleteFavorte()
+        } else {
+            addFavorte()
+        }
     }
     
 }
@@ -146,6 +168,13 @@ extension DetailAskGovementController {
             
             self?.bottomView.isLike = forceModel.data.likeStatus.int
             
+            //判断是不是已经收藏
+            if forceModel.data.collectStatus.int == 1 {
+                self?.rightNavigatorItem.isSelected = true
+            } else {
+                self?.rightNavigatorItem.isSelected = false
+            }
+            
             //如果有投票请求投票接口
             if forceModel.data.voteID.int != 0 {
                 self?.getVoteContent(id: forceModel.data.voteID.int)
@@ -161,6 +190,24 @@ extension DetailAskGovementController {
             let decoder = JSONDecoder()
             let model = try? decoder.decode(BaseModel.self, from: json)
             TProgressHUD.show(text: model?.msg ?? "评论失败")
+            self?.loadDetailData()
+            }
+        )
+    }
+    
+    //MARK: - 添加收藏
+    private func addFavorte(){
+        HttpClient.shareInstance.request(target: BAAPI.addFavorite(id:  Int(id) ?? 0), success: { [weak self] (json) in
+            TProgressHUD.show(text: "添加收藏成功")
+            self?.loadDetailData()
+            }
+        )
+    }
+    
+    //MARK: - 取消收藏
+    private func deleteFavorte() {
+        HttpClient.shareInstance.request(target: BAAPI.cancelFavorite(articleId: Int(id) ?? 0), success: { [weak self] (json) in
+            TProgressHUD.show(text: "取消收藏成功")
             self?.loadDetailData()
             }
         )
@@ -235,9 +282,9 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
         //判断是不是有投票内容
         if let detailModel = model, detailModel.voteID.int != 0 {
             //有投票内容
-            return 5 + (model?.comment?.count ?? 0)
+            return 6 + (model?.comment?.count ?? 0)
         }
-        return 4 + (model?.comment?.count ?? 0)
+        return 5 + (model?.comment?.count ?? 0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -258,10 +305,17 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
             return cell
         }
         
+        //用户的images
+        if indexPath.row == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: imagesIdentifier) as! ShowImagesCollectionCell
+            cell.images = model?.images
+            return cell
+        }
+        
         //判断是不是有投票内容
         if let detailModel = model, detailModel.voteID.int != 0 {
             //是不是用户投票的界面
-            if indexPath.row == 2 {
+            if indexPath.row == 3 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: voteCellIdentifier) as! DetailInfoVoteSectionCell
                 if let _ = voteModel {
                     if let status = detailModel.voteStatus?.int, status != 1 {
@@ -288,7 +342,7 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
             }
             
             //用户分享的Cell
-            if indexPath.row == 3 {
+            if indexPath.row == 4 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: shareCellIdentifier) as! BaseShareBottomView
                 cell.shareBlock = { type in
                     let url = K_URL_Share + (self.model?.id.string ?? "0")
@@ -310,7 +364,7 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
             
             
             //用户称赞数量和评论数量
-            if indexPath.row == 4 {
+            if indexPath.row == 5 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: likeCellIdentifier) as! DetailCommentLikeNumCell
                 cell.comment = model?.commentNum.int
                 cell.like = model?.likeNum.int
@@ -319,15 +373,15 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
             
             //用户评论
             let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! DetailUserCommentCell
-            cell.avatar = model?.comment?[indexPath.row - 5].avatar.string
-            cell.nickname = model?.comment?[indexPath.row - 5].nickname.string
-            cell.comment = model?.comment?[indexPath.row - 5].detail.string
-            cell.time = model?.comment?[indexPath.row - 5].createtime.string
+            cell.avatar = model?.comment?[indexPath.row - 6].avatar.string
+            cell.nickname = model?.comment?[indexPath.row - 6].nickname.string
+            cell.comment = model?.comment?[indexPath.row - 6].detail.string
+            cell.time = model?.comment?[indexPath.row - 6].createtime.string
             return cell
         }
         
         //如果没有投票内容
-        if indexPath.row == 2 {
+        if indexPath.row == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: shareCellIdentifier) as! BaseShareBottomView
             cell.shareBlock = { type in
                 let url = K_URL_Share + (self.model?.id.string ?? "0")
@@ -349,7 +403,7 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
         
         
         //用户称赞数量和评论数量
-        if indexPath.row == 3 {
+        if indexPath.row == 4 {
             let cell = tableView.dequeueReusableCell(withIdentifier: likeCellIdentifier) as! DetailCommentLikeNumCell
             cell.comment = model?.commentNum.int
             cell.like = model?.likeNum.int
@@ -358,10 +412,10 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
         
         //用户评论
         let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! DetailUserCommentCell
-        cell.avatar = model?.comment?[indexPath.row - 4].avatar.string
-        cell.nickname = model?.comment?[indexPath.row - 4].nickname.string
-        cell.comment = model?.comment?[indexPath.row - 4].detail.string
-        cell.time = model?.comment?[indexPath.row - 4].createtime.string
+        cell.avatar = model?.comment?[indexPath.row - 5].avatar.string
+        cell.nickname = model?.comment?[indexPath.row - 5].nickname.string
+        cell.comment = model?.comment?[indexPath.row - 5].detail.string
+        cell.time = model?.comment?[indexPath.row - 5].createtime.string
         return cell
     }
     
@@ -374,33 +428,45 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
             return 10 * iPHONE_AUTORATIO + (model?.name.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 26 * iPHONE_AUTORATIO) ?? 0)
         }
         
+        if indexPath.row == 2 {
+            //判断是不是图片
+            let count = model?.images.count ?? 0;
+            if count <= 3 {
+                return 140 * iPHONE_AUTORATIO
+            } else if count <= 6 {
+                return 280 * iPHONE_AUTORATIO;
+            } else {
+                return 420 * iPHONE_AUTORATIO
+            }
+        }
+        
         //判断是不是有投票内容
         if let detailModel = model, detailModel.voteID.int != 0 {
             //有投票内容
-            if indexPath.row == 2 {
+            if indexPath.row == 3 {
                 let height = 44 * iPHONE_AUTORATIO * CGFloat((detailModel.voteOption?.count ?? 0))
                 return 80 * iPHONE_AUTORATIO + height
             }
             
-            if indexPath.row == 3 {
+            if indexPath.row == 4 {
                 return 72 * iPHONE_AUTORATIO
             }
             
-            if indexPath.row == 4 {
+            if indexPath.row == 5 {
                 return 59 * iPHONE_AUTORATIO;
             }
             
-            return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 5].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
-        }
-        
-        if indexPath.row == 2 {
-            return 72 * iPHONE_AUTORATIO
+            return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 6].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
         }
         
         if indexPath.row == 3 {
+            return 72 * iPHONE_AUTORATIO
+        }
+        
+        if indexPath.row == 4 {
             return 59 * iPHONE_AUTORATIO;
         }
         
-        return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 4].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
+        return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 5].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
     }
 }

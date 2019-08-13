@@ -56,7 +56,7 @@ class HomeHappyListenCell: BaseTableViewCell {
     var isLike: Int? {
         willSet(value) {
             if let bool = value {
-                isLikeIcon.image = K_ImageName(bool == 1 ? "like_list_icon" : "dislike_list_icon");
+                isLikeIcon.image = K_ImageName(bool == 1 ? "like_list_icon" : "dislike_list_icon")
             }
         }
     }
@@ -235,6 +235,6 @@ class HomeHappyListenCell: BaseTableViewCell {
     
     @objc private func didTappedPlayerButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        block(isPlay ?? true)
+        block(isPlay ?? false)
     }
 }

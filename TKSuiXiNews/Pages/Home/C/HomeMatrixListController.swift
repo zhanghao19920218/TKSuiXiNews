@@ -122,7 +122,11 @@ extension HomeMatrixListController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: titlePickIdentifier) as! MatrixBannerPagerViewCell
             cell.dataSources = topModel?.data ?? []
             cell.currentBlock = { [weak self] (result) in
-                self?.secondCategory = result
+                if result == "全部" {
+                    self?.secondCategory = ""
+                } else {
+                    self?.secondCategory = result
+                }
                 self?.pullDownRefreshData() //刷新数据
             }
             return cell

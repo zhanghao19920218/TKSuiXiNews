@@ -450,4 +450,17 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
         
         return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 4].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
     }
+    
+    //MARK: - 滚动刷新页面数据，防止产生空白页面
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+         //滚动过程中强制渲染一下webView
+        if tableView == scrollView {
+            for cell in tableView.visibleCells {
+                if cell is HomeArticleContentWebCell {
+                    (cell as! HomeArticleContentWebCell).webView.setNeedsLayout()
+                }
+            }
+        }
+    }
+    
 }

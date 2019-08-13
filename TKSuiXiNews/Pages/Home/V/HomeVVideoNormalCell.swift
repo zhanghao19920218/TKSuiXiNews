@@ -14,6 +14,19 @@ fileprivate let fontColor = RGBA(153, 153, 153, 1);
 //MARK: - 初始化V视频Item
 class HomeVVideoNormalCell: BaseTableViewCell {
     var block = { () in }
+    
+    /// 显示删除
+    var isShowDelete:Bool? {
+        willSet(newValue) {
+            if let value = newValue, value {
+                deleteButton.isHidden = false
+            } else {
+                deleteButton.isHidden = true
+            }
+        }
+    }
+    
+    var deleteBlock: () -> Void = {  }
     //MARK: -设置参数
     var describe: String? {
         willSet(value) {
@@ -76,7 +89,8 @@ class HomeVVideoNormalCell: BaseTableViewCell {
     //照片
     private lazy var videoImageView: UIImageView = {
         let imageView = UIImageView();
-        imageView.contentMode =  UIView.ContentMode.scaleToFill;
+        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true;
         //增加一个变灰色的view
         let view = UIView();
@@ -161,7 +175,20 @@ class HomeVVideoNormalCell: BaseTableViewCell {
         label.text = "0";
         label.textColor = fontColor;
         return label;
-    }();
+    }()
+    
+    //删除的按钮
+    private lazy var deleteButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("删除")
+        button.setTitleColor(appThemeColor)
+        button.titleLabel?.font = textStyle
+        button.isHidden = true
+        button.addTarget(self,
+                         action: #selector(didSelectedDeleteItemButton(_:)),
+                         for: .touchUpInside)
+        return button
+    }()
 
     override func setupUI() {
         super.setupUI();
@@ -246,13 +273,25 @@ class HomeVVideoNormalCell: BaseTableViewCell {
         likeLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self.likeIcon.snp_right).offset(5 * iPHONE_AUTORATIO);
             make.centerY.equalTo(self.avatarImage.snp_centerY);
-        };
+        }
+        
+        contentView.addSubview(deleteButton)
+        deleteButton.snp.makeConstraints { (make) in
+            make.centerY.equalTo(nickNameL.snp_centerY)
+            make.left.equalTo(nickNameL.snp_right).offset(5 * iPHONE_AUTORATIO)
+            make.size.equalTo(CGSize(width: 80 * iPHONE_AUTORATIO, height: 40 * iPHONE_AUTORATIO))
+        }
     }
     
     //MARK: - 点击播放按钮的Block
     @objc private func didSelectedPlayItemBlock(_ sender: UIButton){
         print("点击了按钮");
         block();
+    }
+    
+    //MARK: - 点击了删除按钮
+    @objc private func didSelectedDeleteItemButton(_ sender: UIButton) {
+        deleteBlock()
     }
 
 }

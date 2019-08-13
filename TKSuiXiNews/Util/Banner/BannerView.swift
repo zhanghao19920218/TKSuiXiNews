@@ -33,7 +33,9 @@ class BannerView: UIView,FSPagerViewDelegate, FSPagerViewDataSource {
         pageView.register(FSPagerViewCell.self, forCellWithReuseIdentifier: "cell");
         pageView.itemSize = FSPagerView.automaticSize;
         pageView.delegate = self;
-        pageView.dataSource = self;
+        pageView.dataSource = self
+        pageView.automaticSlidingInterval = 3
+        pageView.isInfinite = true
         return pageView;
     }();
 

@@ -99,7 +99,7 @@ class ShowImageTextCell: BaseTableViewCell {
     private lazy var bottomView: BaseTimeCommentLikeView = {
         let view = BaseTimeCommentLikeView();
         return view;
-    }();
+    }()
     
     //显示照片的view
     private lazy var imagesContentView: BaseWrapImagesView = {

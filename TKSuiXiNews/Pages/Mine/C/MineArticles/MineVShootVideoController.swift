@@ -107,6 +107,28 @@ extension MineVShootVideoController {
             }
         )
     }
+    
+    //删除当前的页面数据
+    private func deleteCurrentPageItem(with index: Int) {
+        let model = dataSource[index] as! MineArticleListModelDatum
+        //先确定是不是退出页面
+        AlertPopMenu.show(title: "删除拍客", detail: "是否删除这条拍客", confirmTitle: "确定", doubleTitle: "取消", confrimBlock: { [weak self] () in
+            self?.deleteVVideo(id: model.id.int)
+        }) {
+            
+        }
+    }
+    
+    //MARK: - 删除V视频
+    private func deleteVVideo(id: Int) {
+        HttpClient.shareInstance.request(target: BAAPI.deleteVVideo(id: id), success: { [weak self] (json) in
+            TProgressHUD.show(text: "删除随手拍成功")
+            //刷新页面
+            self?.pullDownRefreshData()
+            }
+        )
+    }
+    
 }
 
 extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource {
@@ -133,9 +155,13 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
             cell.like = model.likeNum.string;
             cell.videoLength = model.time.string;
             cell.beginTime = model.time.string;
+            cell.isShowDelete = true
             cell.block = { [weak self] () in
                 let vc = NETLivePlayerController.init(url: model.video?.string ?? "")
                 self?.navigationController?.pushViewController(vc, animated: true);
+            }
+            cell.deleteBlock = {[weak self] () in
+                self?.deleteCurrentPageItem(with: indexPath.row)
             }
             return cell;
         } else {
@@ -148,6 +174,10 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
 //            cell.isLike = model.likeStatus.int;
             cell.like = model.likeNum.string;
             cell.beginTime = model.time.string
+            cell.isShowDelete = true
+            cell.deleteBlock = {[weak self] () in
+                self?.deleteCurrentPageItem(with: indexPath.row)
+            }
             return cell;
         }
     }

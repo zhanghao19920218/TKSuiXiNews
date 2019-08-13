@@ -106,6 +106,14 @@ class HomeHappyDetailListenController: BaseViewController {
         QQShareInstance.share.delegate = self
         
         ThirdPartyLogin.share.delegate = self
+        
+        navigationItem.title = "悦听"
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        AudioPlayerSample.share.pause()
     }
     
     //请求定时器进行加分

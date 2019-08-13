@@ -25,15 +25,20 @@ class HomeArticleContentWebCell: BaseTableViewCell {
             }
         }
     }
+    
+    //判断高度进行监听,如果最大就不改变
+    private var _webFrameHeight: CGFloat = 0
 
-    private lazy var webView: WKWebView = {
+    lazy var webView: WKWebView = {
         let webView = WKWebView(frame: .zero, configuration: config)
         //UI代理
         webView.uiDelegate = self
         //导航代理
         webView.navigationDelegate = self
         // 是否允许手势左滑返回上一级,  类似导航控制的左滑动返回
-        webView.allowsBackForwardNavigationGestures = true
+        webView.allowsBackForwardNavigationGestures = false
+        // 不给用户手动交互
+        webView.isUserInteractionEnabled = false
         //不可以滑动
         webView.scrollView.isScrollEnabled = false
         return webView
@@ -85,7 +90,7 @@ class HomeArticleContentWebCell: BaseTableViewCell {
         }
         
         //使用kvo为webview添加监听，监听webView内容高度
-        webView.scrollView.addObserver(self, forKeyPath: keyPaths, options: [.old, .new], context: nil)
+        webView.scrollView.addObserver(self, forKeyPath: keyPaths, options: [.new], context: nil)
     }
     
     deinit {
@@ -124,7 +129,12 @@ extension HomeArticleContentWebCell {
         if keyPath == keyPaths {
             var frame = webView.frame
             frame.size.height = webView.scrollView.contentSize.height
-            block(frame.size.height) //更换高度
+            if _webFrameHeight != frame.size.height {
+                block(frame.size.height)
+                _webFrameHeight = frame.size.height
+            } else {
+                _webFrameHeight = frame.size.height
+            }
         }
     }
 }

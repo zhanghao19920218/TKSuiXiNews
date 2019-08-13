@@ -68,6 +68,50 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: sectionFirstCellIdentifier) as! HomeTVChannelFirstCell;
             if let model = self.topModel {
+                //没有数据
+                if model.data.count == 0 {
+                    return cell
+                }
+                else if model.data.count == 1 {
+                    cell.firstImage = model.data[0].image.string
+                    cell.firstName = model.data[0].name.string
+                    cell.block = { [weak self] (index) in
+                        if index == 1 {
+                            let category:String = model.data[0].type.string
+                            if category == "tv" {
+                                let vc = DetailTelevisonInfoController()
+                                vc.id = model.data[0].id.int
+                                self?.navigationController?.pushViewController(vc, animated: true)
+                            } else {
+                                let vc = BocastDetailViewController()
+                                vc.id = model.data[0].id.int
+                                self?.navigationController?.pushViewController(vc, animated: true)
+                            }
+                        }
+                    }
+                } else if model.data.count == 2 {
+                    //如果有两条数据
+                    cell.firstImage = model.data[0].image.string
+                    cell.secondImage = model.data[1].image.string
+                    cell.firstName = model.data[0].name.string
+                    cell.movieName = model.data[1].name.string
+                    cell.block = { [weak self] (index) in
+                        if index <= 2 {
+                            let category:String = model.data[index - 1].type.string
+                            if category == "tv" {
+                                let vc = DetailTelevisonInfoController()
+                                vc.id = model.data[index - 1].id.int
+                                self?.navigationController?.pushViewController(vc, animated: true)
+                            } else {
+                                let vc = BocastDetailViewController()
+                                vc.id = model.data[index - 1].id.int
+                                self?.navigationController?.pushViewController(vc, animated: true)
+                            }
+                        }
+                    }
+                    return cell
+                    
+                }
                 cell.firstImage = model.data[0].image.string
                 cell.secondImage = model.data[1].image.string
                 cell.thirdImage = model.data[2].image.string
@@ -91,27 +135,29 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let model = dataSource[indexPath.row - 1]
-        let cell = tableView.dequeueReusableCell(withIdentifier: sectionOtherCellIdentifier) as! HomeTVOtherSectionCell;
-        cell.title = model.moduleSecond;
-        cell.imageNameFirst = model.data[0].image.string
-        cell.imageNameSecond = model.data[1].image.string
-        cell.titleFirst = model.data[0].name.string
-        cell.titleSecond = model.data[1].name.string
-        cell.videoBlock = { [weak self] () in
-            let vc = OnlineTVShowViewController(url: model.data[0].video.string)
-            self?.navigationController?.pushViewController(vc, animated: true);
+        let cell = tableView.dequeueReusableCell(withIdentifier: sectionOtherCellIdentifier) as! HomeTVOtherSectionCell
+        if model.data.count >= 2 {
+            cell.title = model.moduleSecond;
+            cell.imageNameFirst = model.data[0].image.string
+            cell.imageNameSecond = model.data[1].image.string
+            cell.titleFirst = model.data[0].name.string
+            cell.titleSecond = model.data[1].name.string
+            cell.videoBlock = { [weak self] () in
+                let vc = OnlineTVShowViewController(url: model.data[0].video.string)
+                self?.navigationController?.pushViewController(vc, animated: true);
+            }
+            
+            cell.videoSecondBlock = { [weak self] () in
+                let vc = OnlineTVShowViewController(url: model.data[1].video.string)
+                self?.navigationController?.pushViewController(vc, animated: true);
+            }
+            cell.checkTotalBlock = { [weak self] () in
+                let vc = HomeTotalVideoController()
+                vc.startIndex = (indexPath.row - 1)
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
         }
-        
-        cell.videoSecondBlock = { [weak self] () in
-            let vc = OnlineTVShowViewController(url: model.data[1].video.string)
-            self?.navigationController?.pushViewController(vc, animated: true);
-        }
-        cell.checkTotalBlock = { [weak self] () in
-            let vc = HomeTotalVideoController()
-            vc.startIndex = (indexPath.row - 1)
-            self?.navigationController?.pushViewController(vc, animated: true)
-        }
-        return cell;
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -69,4 +69,11 @@ extension ShowImagesCollectionCell: UICollectionViewDelegate, UICollectionViewDa
         cell.imageName = dataSource[indexPath.row];
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //显示图片浏览器
+        let index = indexPath.row
+        let images = dataSource
+        PhotoBrowser.showImages(original: index, photos: images)
+    }
 }

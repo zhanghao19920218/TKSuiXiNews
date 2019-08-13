@@ -120,9 +120,11 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
             if let model = model { cell.images = model.data }
             cell.block = { [weak self] (model) in
                 let vc = HomeBannerDetailViewController()
-                vc.loadUrl = model.content.string
-                vc.name = model.name.string
-                self?.navigationController?.pushViewController(vc, animated: true)
+                if !model.content.string.isEmpty {
+                    vc.loadUrl = model.content.string
+                    vc.name = model.name.string
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
             }
             return cell;
         }
@@ -159,7 +161,23 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
         let model = dataSource[indexPath.row - 1] as! VVideoListModel;
         let vc = DetailVideoInfoController();
         vc.id = model.id.string
-        parent?.navigationController?.pushViewController(vc, animated: true);
+        vc.index = indexPath.row
+        parent?.navigationController?.pushViewController(vc, animated: true)
+        //如果取消点赞或者成功点赞刷新页面
+        vc.favoriteBlock = { [weak self](isLike, index) in
+            //获取要刷新的索引
+            let changedIndexPath = IndexPath(row: index, section: 0)
+            let indexPaths = [changedIndexPath]
+            //更新索引的数据
+            var changeModel = self?.dataSource[index-1] as! VVideoListModel
+            changeModel.likeStatus.int = (isLike ? 1 : 0)
+            //增加访问量
+            changeModel.visitNum.int += 1
+            //判断是不是喜欢
+            if isLike { changeModel.likeNum.int += 1 } else { changeModel.likeNum.int -= 1 }
+            self?.dataSource[index-1] = changeModel; //更新数据
+            self?.tableView.reloadRows(at: indexPaths, with: .none)
+        }
     }
 }
 

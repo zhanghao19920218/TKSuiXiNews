@@ -33,7 +33,7 @@ class HomeSpecialSectionBannerCell: BaseTableViewCell {
     private lazy var pageView: FSPagerView = {
         let pageView = FSPagerView.init();
         pageView.register(SpecialHomeTitleBannerCell.self, forCellWithReuseIdentifier: cellIdentifier);
-        pageView.itemSize = CGSize(width: K_SCREEN_WIDTH, height: 205 * iPHONE_AUTORATIO)
+        pageView.itemSize = CGSize(width: K_SCREEN_WIDTH, height: 238 * iPHONE_AUTORATIO)
         pageView.delegate = self;
         pageView.dataSource = self
         return pageView
@@ -112,7 +112,7 @@ extension HomeSpecialSectionBannerCell: FSPagerViewDelegate, FSPagerViewDataSour
             //首位
             let firstIndex = index * 8
             //尾位
-            let lastIndex = (firstIndex + 4)
+            let lastIndex = (firstIndex + 7)
             cell.dataSource = Array(dataSources[firstIndex...lastIndex])
             cell._isReload = true
         }

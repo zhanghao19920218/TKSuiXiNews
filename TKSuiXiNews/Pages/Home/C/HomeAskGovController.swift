@@ -112,6 +112,9 @@ class HomeAskGovController: BaseTableViewController {
     @objc private func didTapJumpAskGovermenyPage(_ sender: UIButton) {
         let vc = AskGovermentDetailController()
         navigationController?.pushViewController(vc, animated: true)
+        vc.successBlock = { [weak self] () in
+            self?.pullDownRefreshData()
+        }
     }
 }
 
@@ -140,6 +143,13 @@ extension HomeAskGovController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! HomeAskGovOnePicCell
             cell.title = model.name.string
             cell.imageName = model.image.string
+            cell.time = model.begintime.string
+            cell.comment = model.visitNum.int
+            return cell
+        } else if model.images.count > 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! HomeAskGovOnePicCell
+            cell.title = model.name.string
+            cell.imageName = model.images[0]
             cell.time = model.begintime.string
             cell.comment = model.visitNum.int
             return cell

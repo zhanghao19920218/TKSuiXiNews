@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DefaultsKit
 
 /*
  * 原创
@@ -137,8 +136,6 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = dataSource[indexPath.row] as! ShowListItemModel
         
-        let isShowDelete = ((Defaults.shared.get(for: userGroupId) ?? 0) == 3)
-        
         if model.images.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: videoIdentifier) as! ShowVideoViewCell;
             cell.describe = model.name.string;
@@ -155,10 +152,6 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
                 let vc = NETLivePlayerController.init(url: model.video.string)
                 self?.navigationController?.pushViewController(vc, animated: true);
             }
-            cell.isShowDelete = isShowDelete
-            cell.deleteBlock = {[weak self] () in
-                self?.deleteCurrentPageItem(with: indexPath.row)
-            }
             return cell;
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! ShowImageTextCell;
@@ -169,11 +162,7 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
             cell.comment = model.commentNum.string;
             cell.isLike = model.likeStatus.int;
             cell.like = model.likeNum.string;
-            cell.beginTime = model.begintime.string;
-            cell.isShowDelete = isShowDelete
-            cell.deleteBlock = { [weak self] () in
-                self?.deleteCurrentPageItem(with: indexPath.row)
-            }
+            cell.beginTime = model.begintime.string
             return cell;
         }
     }
@@ -209,17 +198,6 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
             let vc = ShowDetailImageViewController();
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-    
-    //删除当前的页面数据
-    private func deleteCurrentPageItem(with index: Int) {
-        let model = dataSource[index] as! ShowListItemModel
-        //先确定是不是退出页面
-        AlertPopMenu.show(title: "删除随手拍", detail: "是否删除这条随手拍", confirmTitle: "确定", doubleTitle: "取消", confrimBlock: { [weak self] () in
-            self?.deleteData(id: model.id.int)
-        }) {
-            
         }
     }
 }

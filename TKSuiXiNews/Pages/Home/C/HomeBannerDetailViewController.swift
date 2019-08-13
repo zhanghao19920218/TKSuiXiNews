@@ -53,6 +53,11 @@ class HomeBannerDetailViewController: BaseViewController {
     
     //设置配置
     private lazy var config: WKWebViewConfiguration = {
+        //图片自适应
+        let jScrpit = "var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta); var imgs = document.getElementsByTagName('img');for (var i in imgs){imgs[i].style.maxWidth='100%';imgs[i].style.height='auto';}"
+        let wkUScript = WKUserScript(source: jScrpit, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        let wkUController = WKUserContentController()
+        wkUController.addUserScript(wkUScript)
         let configuration = WKWebViewConfiguration()
         configuration.preferences = preference
         //是使用h5的视频播放器在线播放, 还是使用原生播放器全屏播放
@@ -62,7 +67,6 @@ class HomeBannerDetailViewController: BaseViewController {
         //设置是否允许画中画技术 在特定设备上有效
         configuration.allowsPictureInPictureMediaPlayback = true
         //这个类主要用来做native与JavaScript的交互管理
-        let wkUController = WKUserContentController()
         configuration.userContentController = wkUController
         return configuration
     }()

@@ -156,7 +156,7 @@ extension HomePartyBuildViewController: UITableViewDelegate, UITableViewDataSour
         cell.time = model.begintime.string
         
         //显示置顶标签
-        if indexPath.row <= 1 {
+        if indexPath.row == 0 {
             cell.isHiddenTop = false
         } else {
             cell.isHiddenTop = true

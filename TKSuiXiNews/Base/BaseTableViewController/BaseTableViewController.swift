@@ -52,7 +52,8 @@ class BaseTableViewController: BaseViewController {
     
     //最基本显示没有数据的view
     private lazy var baseNoDataView: NoMoreDataView = {
-        let view = NoMoreDataView();
+        let view = NoMoreDataView()
+        view.isHidden = true
         return view;
     }();
 
@@ -106,11 +107,12 @@ class BaseTableViewController: BaseViewController {
         }
         
         //添加暂无内容
-        view.addSubview(baseNoDataView);
+        tableView.addSubview(baseNoDataView);
         baseNoDataView.snp.makeConstraints { (make) in
-            make.center.equalToSuperview();
+            make.top.equalTo(K_SCREEN_HEIGHT/2 - 98 * iPHONE_AUTORATIO)
+            make.centerX.equalToSuperview()
             make.size.equalTo(CGSize(width: 200 * iPHONE_AUTORATIO, height: 184 * iPHONE_AUTORATIO));
-        };
+        }
     }
     
 

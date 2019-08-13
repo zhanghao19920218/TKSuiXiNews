@@ -111,6 +111,11 @@ extension HomeVSendCollectionView: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == dataSource.count {
             block();
+        } else {
+            //显示图片浏览器
+            let index = indexPath.row
+            let images = dataSource
+            PhotoBrowser.showImages(original: index, photos: images)
         }
     }
 }

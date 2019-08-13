@@ -17,6 +17,7 @@ fileprivate let contentCellIdentifier = "AskGovermentContentCellIdentifier"
 fileprivate let photoCellIdentifier = "AskGovermentAddPhotosCellIdentifier"
 
 class AskGovermentDetailController: BaseViewController {
+    var successBlock: () -> Void = { }
     //置顶的model
     var topModel: ArticleAdminModelResponse?
     
@@ -211,10 +212,10 @@ extension AskGovermentDetailController: UITextFieldDelegate, UITextViewDelegate 
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if textView.text.count > 20 {
+        if textView.text.count > 50 {
             if let str = textView.text {
                 //截取前20个字符
-                let subStr = str.prefix(20)
+                let subStr = str.prefix(50)
                 textView.text = String(subStr)
                 content = String(subStr)
             }
@@ -227,7 +228,7 @@ extension AskGovermentDetailController: UITextFieldDelegate, UITextViewDelegate 
 extension AskGovermentDetailController {
     //MARK: - 请求矩阵
     private func requestBanner() {
-        HttpClient.shareInstance.request(target: BAAPI.articleAdmin(module: "专栏"), success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.articleAdmin(module: "矩阵"), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(ArticleAdminModelResponse.self, from: json)
             guard let forceModel = model else {
@@ -244,6 +245,7 @@ extension AskGovermentDetailController {
         HttpClient.shareInstance.request(target: BAAPI.sendAskGoverment(moduleSecond: moduleSecond, name: name, content: content, images: images), success: { [weak self] (json) in
             self?.popViewControllerBtnPressed() //返回上一个页面
             TProgressHUD.show(text: "发布问政成功")
+            self?.successBlock()
         })
     }
 }

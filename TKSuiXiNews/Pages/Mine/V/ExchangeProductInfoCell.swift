@@ -35,8 +35,14 @@ class ExchangeProductInfoCell: BaseTableViewCell {
     
     var isHiddenPick: String? {
         willSet(newValue) {
-            if let value = newValue, value == "hidden" {
-                readyToTakeLabelView.isHidden = true
+            if let value = newValue {
+                if value != "hidden" {
+                    readyToTakeLabelView.backgroundColor = RGBA(204, 204, 204, 1)
+                    readyLabel.text = "已领取"
+                } else {
+                    readyToTakeLabelView.backgroundColor = RGBA(255, 74, 92, 1)
+                    readyLabel.text = "待领取"
+                }
             }
         }
     }
@@ -80,7 +86,6 @@ class ExchangeProductInfoCell: BaseTableViewCell {
     
     private lazy var readyToTakeLabelView: UIView = {
         let view = UIView()
-        view.corner(byRoundingCorners: [.bottomLeft, .topLeft], radii: 12 * iPHONE_AUTORATIO)
         view.backgroundColor = RGBA(255, 74, 92, 1)
         return view
     }()
@@ -132,12 +137,14 @@ class ExchangeProductInfoCell: BaseTableViewCell {
             make.top.equalTo(68 * iPHONE_AUTORATIO)
         }
         
+        readyToTakeLabelView.frame = CGRect(x: 284 * iPHONE_AUTORATIO, y: 61 * iPHONE_AUTORATIO, width: 61 * iPHONE_AUTORATIO, height: 24 * iPHONE_AUTORATIO)
         contentBackView.addSubview(readyToTakeLabelView)
-        readyToTakeLabelView.snp.makeConstraints { (make) in
-            make.right.equalToSuperview()
-            make.bottom.equalTo(-10 * iPHONE_AUTORATIO)
-            make.size.equalTo(CGSize(width: 61 * iPHONE_AUTORATIO, height: 24 * iPHONE_AUTORATIO))
-        }
+        readyToTakeLabelView.corner(byRoundingCorners: [.bottomLeft, .topLeft], radii: 12 * iPHONE_AUTORATIO)
+//        readyToTakeLabelView.snp.makeConstraints { (make) in
+//            make.right.equalToSuperview()
+//            make.bottom.equalTo(-10 * iPHONE_AUTORATIO)
+//            make.size.equalTo(CGSize(width: 61 * iPHONE_AUTORATIO, height: 24 * iPHONE_AUTORATIO))
+//        }
         
         readyToTakeLabelView.addSubview(readyLabel)
         readyLabel.snp.makeConstraints { (make) in

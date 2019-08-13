@@ -51,3 +51,5 @@ let K_URL_mineArticle = "api/article/my" //我的帖子
 let K_URL_shareScore = "api/score/share" //分享转发获取积分
 let K_URL_readGetScore = "api/score/read" //阅读获得积分
 let K_URL_systemConfig = "api/index/sysconfig" //系统参数
+let K_URL_homeChannel = "api/module/index" //首页频道接口
+let K_URL_deleteVVideo = "api/article/del" //删除V视频

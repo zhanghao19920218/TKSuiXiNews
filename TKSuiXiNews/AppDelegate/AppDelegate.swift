@@ -57,7 +57,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         if allowrRotate == 1 {
             return .all
-        } else {
+        } else if allowrRotate == 2 {
+            return .landscapeRight
+        } else  {
             return .portrait
         }
     }

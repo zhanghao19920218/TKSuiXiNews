@@ -15,6 +15,12 @@ class BaseViewController: UIViewController {
     open var timerTravel: Int = 0 
     
     private var timer: Timer? = nil
+    
+    ///当前是不是已经点赞
+    /// - Parameters:
+    ///    - isLike: Bool 是不是喜欢
+    ///    - index : 当前的索引
+    open var favoriteBlock: (_ isLike: Bool, _ index: Int) -> Void = { _, _  in }
 
     override func viewDidLoad() {
         super.viewDidLoad()

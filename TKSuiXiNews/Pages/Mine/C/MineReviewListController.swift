@@ -165,6 +165,10 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
             let vc = HomeHappyDetailListenController()
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
+        } else if model.module.string == "问政" {
+            let vc = DetailAskGovementController()
+            vc.id = model.id.string
+            navigationController?.pushViewController(vc, animated: true)
         } else {
             let vc = HomeNewsDetailInfoController();
             vc.id = model.id.string

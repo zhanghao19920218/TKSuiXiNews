@@ -42,7 +42,7 @@ struct HomeHappyReadListItemModel: Codable {
     let visitNum, commentNum, likeNum, createtime: TStrInt
     let updatetime, voteID, weigh:TStrInt
     let time, type, begintime: TStrInt
-    let likeStatus, collectStatus: TStrInt
+    var likeStatus, collectStatus: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case id

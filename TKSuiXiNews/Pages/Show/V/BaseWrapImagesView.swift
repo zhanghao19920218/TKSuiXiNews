@@ -33,6 +33,8 @@ class BaseWrapCollectionCell: UICollectionViewCell {
         let imageView = UIImageView.init();
         imageView.image = K_ImageName(PLACE_HOLDER_IMAGE)
         imageView.isUserInteractionEnabled = true
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView;
     }()
     
@@ -49,7 +51,7 @@ class BaseWrapCollectionCell: UICollectionViewCell {
     func setupUI(){
         contentView.addSubview(imagev);
         imagev.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview();
+            make.edges.equalToSuperview()
         }
         
         contentView.addSubview(deleteButton)
@@ -126,5 +128,12 @@ extension BaseWrapImagesView: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! BaseWrapCollectionCell
         cell.imageName = dataSource[indexPath.row];
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //获取点击的初始照片
+        let index = indexPath.row
+        let images = dataSource
+        PhotoBrowser.showImages(original: index, photos: images) //展示照片
     }
 }

@@ -71,14 +71,6 @@ class HomeTotalVideoController: BaseViewController {
     
     //初始化页面
     private func setupUI() {
-        // 单独设置titleView的frame
-        let titleView = pageViewManager.titleView;
-        view.addSubview(pageViewManager.titleView)
-        titleView.snp.makeConstraints { (maker) in
-            maker.left.top.right.equalToSuperview();
-            maker.height.equalTo(40 * iPHONE_AUTORATIO);
-        }
-        
         // 单独设置contentView的大小和位置，可以使用autolayout或者frame
         let contentView = pageViewManager.contentView
         view.addSubview(pageViewManager.contentView)
@@ -86,6 +78,21 @@ class HomeTotalVideoController: BaseViewController {
             maker.left.right.bottom.equalToSuperview()
             maker.top.equalTo(40 * iPHONE_AUTORATIO);
         }
+        
+        // 单独设置titleView的frame
+        let titleView = pageViewManager.titleView
+        //设置阴影
+        titleView.layer.shadowOffset = CGSize(width:0 , height: -10)
+        titleView.layer.shadowOpacity = 1;
+        titleView.layer.shadowRadius = 20;
+        titleView.layer.shadowColor = RGBA(0, 0, 0, 0.5).cgColor
+        titleView.backgroundColor = .white
+        view.addSubview(pageViewManager.titleView)
+        titleView.snp.makeConstraints { (maker) in
+            maker.left.top.right.equalToSuperview();
+            maker.height.equalTo(40 * iPHONE_AUTORATIO);
+        }
+        
     }
     
 }

@@ -102,18 +102,9 @@ class HomeViewController: BaseViewController {
             addChild(controller);
             return controller;
         }
-        let pageView = DNSPageViewManager(style: style, titles: titles, childViewControllers: childViewControllers);
+        let pageView = DNSPageViewManager(style: style, titles: titles, childViewControllers: childViewControllers)
         return pageView;
-    }();
-    
-    //轮播右侧的增加按钮
-//    private lazy var button: UIButton = {
-//        let button = UIButton.init(type: .custom);
-//        button.setImage(K_ImageName("add"), for: .normal);
-//        button.imageEdgeInsets = UIEdgeInsets(top: 6 * iPHONE_AUTORATIO, left: 6 * iPHONE_AUTORATIO, bottom: 6 * iPHONE_AUTORATIO, right: 6 * iPHONE_AUTORATIO);
-//        button.backgroundColor = .white;
-//        return button;
-//    }()
+    }()
     
     //MARK: - 更新StatusBar
     override var preferredStatusBarStyle: UIStatusBarStyle
@@ -147,15 +138,6 @@ class HomeViewController: BaseViewController {
     
     //初始化页面
     private func setupUI() {
-        // 单独设置titleView的frame
-        let titleView = pageViewManager.titleView;
-        view.addSubview(pageViewManager.titleView)
-        titleView.snp.makeConstraints { (maker) in
-            maker.left.top.right.equalToSuperview();
-//            maker.right.equalTo(-40 * iPHONE_AUTORATIO);
-            maker.height.equalTo(40 * iPHONE_AUTORATIO);
-        }
-        
         // 单独设置contentView的大小和位置，可以使用autolayout或者frame
         let contentView = pageViewManager.contentView
         view.addSubview(pageViewManager.contentView)
@@ -164,12 +146,22 @@ class HomeViewController: BaseViewController {
             maker.top.equalTo(40 * iPHONE_AUTORATIO);
         }
         
-        //增加更多频道按钮
-//        view.addSubview(button);
-//        button.snp.makeConstraints { (make) in
-//            make.top.right.equalToSuperview();
-//            make.size.equalTo(CGSize(width: pageViewTitleHeight, height: pageViewTitleHeight));
-//        }
+        // 单独设置titleView的frame
+        let titleView = pageViewManager.titleView;
+        view.addSubview(pageViewManager.titleView)
+        
+        //设置阴影
+        titleView.layer.shadowOffset = CGSize(width:0 , height: -10)
+        titleView.layer.shadowOpacity = 1;
+        titleView.layer.shadowRadius = 20;
+        titleView.layer.shadowColor = RGBA(0, 0, 0, 0.5).cgColor
+        titleView.backgroundColor = .white
+        
+        titleView.snp.makeConstraints { (maker) in
+            maker.left.top.right.equalToSuperview()
+            maker.height.equalTo(40 * iPHONE_AUTORATIO);
+        }
+
     }
     
     //MARK: - 点击V视频sheet
@@ -187,7 +179,12 @@ class HomeViewController: BaseViewController {
         vc.videoUrl = videoUrl
         vc.videoLength = videoLength;
         vc.isVVideo = true;
-        navigationController?.pushViewController(vc, animated: true);
+        navigationController?.pushViewController(vc, animated: true)
+        //发布成功刷新页面
+        vc.successBlock = { [weak self] () in
+            let vc = self?.children[0] as! HomeVVideoController
+            vc.pullDownRefreshData() //刷新页面
+        }
     }
 
 }
@@ -217,6 +214,17 @@ extension HomeViewController {
             let model = try? decoder.decode(SystemConfigModel.self, from: json)
             if let cofigure = model {
                 Defaults.shared.set(cofigure.data.defaultSearch.string, for: placeholderKey)
+            }
+        })
+    }
+    
+    //MARK: - 请求标题栏目
+    private func requestTitlesInfo() {
+        HttpClient.shareInstance.request(target: BAAPI.homePageChannels, success: { (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(HomeChannelListModel.self, from: json)
+            if let jsonModel = model {
+                
             }
         })
     }

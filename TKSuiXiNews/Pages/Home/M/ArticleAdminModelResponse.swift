@@ -17,7 +17,7 @@ struct ArticleAdminModelResponse: Codable {
 
 // MARK: - Datum
 struct ArticleAdminModelDatum: Codable {
-    let id: TStrInt
+    let id: TStrInt?
     let nickname: TStrInt
     let avatar: TStrInt
 }

@@ -38,7 +38,7 @@ class SpecialHomeTitleBannerCell: FSPagerViewCell {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout.init()
         layout.itemSize = CGSize.init(width: layoutWidth, height: layoutWidth)
-        layout.minimumLineSpacing = 10
+        layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout);

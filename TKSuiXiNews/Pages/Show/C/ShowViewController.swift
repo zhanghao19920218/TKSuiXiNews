@@ -129,7 +129,7 @@ class ShowViewController: BaseTableViewController {
     //MARK: - 点击右上角的弹窗
     @objc private func rightNavigationBarItemTapped(_ sender: UIButton) {
         FWPopupViewUtil.share.popAlert()
-        FWPopupViewUtil.share.delegate = self;
+        FWPopupViewUtil.share.delegate = self
     }
 }
 
@@ -195,7 +195,7 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
             }
             return cell;
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! ShowImageTextCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! ShowImageTextCell
             cell.images = model.images;
             cell.describe = model.name.string;
             cell.avatar = model.avatar.string;
@@ -281,7 +281,10 @@ extension ShowViewController: YPImagePickerUtilDelegate {
             let vc = VVideoShootViewController();
             vc.isVideo = false;
             vc.images = images
-            navigationController?.pushViewController(vc, animated: true);
+            navigationController?.pushViewController(vc, animated: true)
+            vc.successBlock = { [weak self] () in
+                self?.pullDownRefreshData()
+            }
         }
     }
     
@@ -295,7 +298,10 @@ extension ShowViewController: YPImagePickerUtilDelegate {
             vc.videoImageUrl = imageUrl;
             vc.videoUrl = videoUrl
             vc.videoLength = videoLength;
-            navigationController?.pushViewController(vc, animated: true);
+            navigationController?.pushViewController(vc, animated: true)
+            vc.successBlock = { [weak self] () in
+                self?.pullDownRefreshData()
+            }
         }
     }
     
@@ -305,7 +311,10 @@ extension ShowViewController: YPImagePickerUtilDelegate {
             let vc = VVideoShootViewController();
             vc.isVideo = false;
             vc.images = [imageUrl]
-            navigationController?.pushViewController(vc, animated: true);
+            navigationController?.pushViewController(vc, animated: true)
+            vc.successBlock = { [weak self] () in
+                self?.pullDownRefreshData()
+            }
         }
     }
 }

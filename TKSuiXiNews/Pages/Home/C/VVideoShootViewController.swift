@@ -16,6 +16,9 @@ import KMPlaceholderTextView
 fileprivate let fontSize = kFont(14 * iPHONE_AUTORATIO)
 
 class VVideoShootViewController: BaseViewController {
+    //发布完刷新页面
+    var successBlock: () -> Void = { }
+    
     //判断是不是发V视频
     lazy var isVVideo:Bool = {
         return false;
@@ -170,13 +173,15 @@ class VVideoShootViewController: BaseViewController {
         if isVVideo && isVideo {
             HttpClient.shareInstance.request(target: BAAPI.sendVVideoInfo(name: describe, video: videoUrl, image: videoImageUrl, time: videoLength), success: { [weak self] (json) in
                 self?.navigationController?.popViewController(animated: true)
-                TProgressHUD.show(text: "发表V视频成功");
+                TProgressHUD.show(text: "发表V视频成功")
+                self?.successBlock()
                 }
             )
         } else if isVideo {
             HttpClient.shareInstance.request(target: BAAPI.addsCausualPhotos(name: describe, video: videoUrl, images: images, image: videoImageUrl, time: videoLength), success: { [weak self] (json) in
                 self?.navigationController?.popViewController(animated: true)
-                TProgressHUD.show(text: "发表随手拍成功");
+                TProgressHUD.show(text: "发表随手拍成功")
+                self?.successBlock()
                 }
             )
         } else {
@@ -187,7 +192,8 @@ class VVideoShootViewController: BaseViewController {
             
             HttpClient.shareInstance.request(target: BAAPI.addsCausualPhotos(name: describe, video: nil, images: images, image: videoImageUrl, time: videoLength), success: { [weak self] (json) in
                 self?.navigationController?.popViewController(animated: true)
-                TProgressHUD.show(text: "发表随手拍成功");
+                TProgressHUD.show(text: "发表随手拍成功")
+                self?.successBlock()
                 }
             )
         }
