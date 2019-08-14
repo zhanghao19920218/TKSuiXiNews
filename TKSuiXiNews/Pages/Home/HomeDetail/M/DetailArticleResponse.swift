@@ -22,7 +22,7 @@ struct DetailArticleModel: Codable {
     let images: [String]
     let video, audio, content, nickname: TStrInt
     let avatar, status: TStrInt
-    let visitNum, commentNum, likeNum, createtime: TStrInt
+    let visitNum, likeNum, createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
     let time: TStrInt?
     let type: TStrInt
@@ -32,6 +32,7 @@ struct DetailArticleModel: Codable {
     let comment: [DetailInfoComment]?
     let begintime: TStrInt
     let likeStatus, collectStatus: TStrInt
+    var commentNum: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case id

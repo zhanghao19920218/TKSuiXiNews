@@ -154,12 +154,8 @@ class HomeHappyReadViewController: BaseViewController {
 
 extension HomeHappyReadViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellIdentifier", for: indexPath)
-            return cell
-        }
         
-        let model = dataSource[indexPath.row - 1] as! HomeHappyReadListItemModel
+        let model = dataSource[indexPath.row] as! HomeHappyReadListItemModel
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! HomeHappyReadImageCell
         cell.imagename = model.image.string
         cell.title = model.name.string
@@ -170,7 +166,7 @@ extension HomeHappyReadViewController: UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.dataSource.count + 1
+        return self.dataSource.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -178,11 +174,21 @@ extension HomeHappyReadViewController: UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row != 0 {
-            let model = dataSource[indexPath.row - 1] as! HomeHappyReadListItemModel
-            let vc = HomeNewsDetailInfoController();
-            vc.id = model.id.string
-            parent?.navigationController?.pushViewController(vc, animated: true);
+        let model = dataSource[indexPath.row] as! HomeHappyReadListItemModel
+        let vc = HomeNewsDetailInfoController();
+        vc.id = model.id.string
+        vc.title = "悦读"
+        navigationController?.pushViewController(vc, animated: true)
+        //如果取消点赞或者成功点赞刷新页面
+        vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+            //获取要刷新的索引
+            let indexPaths = [indexPath]
+            //更新索引的数据
+            var changeModel = self?.dataSource[indexPath.row] as! HomeHappyReadListItemModel
+            changeModel.visitNum.int = review
+            self?.dataSource[indexPath.row] = changeModel
+            //刷新页面
+            collectionView.reloadItems(at: indexPaths)
         }
     }
 }
@@ -196,7 +202,7 @@ extension HomeHappyReadViewController: WaterfallLayoutDelegate {
     
     func collectionView(_ collectionView: UICollectionView, layout: WaterfallLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.row == 0 {
-            return CGSize(width: 165 * iPHONE_AUTORATIO, height: 25 * iPHONE_AUTORATIO)
+            return CGSize(width: 165 * iPHONE_AUTORATIO, height: 225 * iPHONE_AUTORATIO)
         }
         return CGSize(width: 165 * iPHONE_AUTORATIO, height: 200 * iPHONE_AUTORATIO)
     }

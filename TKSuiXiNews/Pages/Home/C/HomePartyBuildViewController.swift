@@ -26,7 +26,6 @@ class HomePartyBuildViewController: BaseTableViewController {
         setupUI()
     }
     
-    
     //初始化页面
     private func setupUI() {
         tableView.register(HomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
@@ -120,7 +119,7 @@ extension HomePartyBuildViewController: UITableViewDelegate, UITableViewDataSour
             cell.time = model.begintime.string
             
             //显示置顶标签
-            if indexPath.row <= 1 {
+            if indexPath.row == 0 {
                 cell.isHiddenTop = false
             } else {
                 cell.isHiddenTop = true
@@ -139,7 +138,7 @@ extension HomePartyBuildViewController: UITableViewDelegate, UITableViewDataSour
             cell.time = model.begintime.string
             
             //显示置顶标签
-            if indexPath.row <= 1 {
+            if indexPath.row == 0 {
                 cell.isHiddenTop = false
             } else {
                 cell.isHiddenTop = true
@@ -184,7 +183,21 @@ extension HomePartyBuildViewController: UITableViewDelegate, UITableViewDataSour
         let model = dataSource[indexPath.row] as! HomeNewsListModel
         let vc = HomeNewsDetailInfoController();
         vc.id = model.id.string
-        parent?.navigationController?.pushViewController(vc, animated: true);
+        vc.title = "党建"
+        navigationController?.pushViewController(vc, animated: true)
+        //如果取消点赞或者成功点赞刷新页面
+        vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+            //获取要刷新的索引
+            let indexPaths = [indexPath]
+            //更新索引的数据
+            var changeModel = self?.dataSource[indexPath.row] as! HomeNewsListModel
+            changeModel.visitNum.int = review
+            changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+            changeModel.likeNum.int = like
+            self?.dataSource[indexPath.row] = changeModel
+            //刷新页面
+            self?.tableView.reloadRows(at: indexPaths, with: .none)
+        }
     }
 }
 

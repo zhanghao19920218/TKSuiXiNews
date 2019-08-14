@@ -28,16 +28,6 @@ class DetailAskGovementController: BaseViewController {
     
     var model: DetailArticleModel?
     
-    //设置右侧的navigationItem
-    private lazy var rightNavigatorItem: UIButton = {
-        let button = UIButton(type: .custom);
-        button.setSelectedImage("article_favorite")
-        button.setImage("detail_unfavo_icon")
-        button.frame = CGRect(x: 0, y: 0, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO)
-        button.addTarget(self, action: #selector(addFavoriteButton(_:)), for: .touchUpInside)
-        return button;
-    }()
-    
     var voteModel: VoteContentDetailModelResponse? = nil
     //获取详情的id
     var id: String = "0"
@@ -138,16 +128,6 @@ class DetailAskGovementController: BaseViewController {
             make.left.bottom.right.equalToSuperview();
             make.height.equalTo(49 * iPHONE_AUTORATIO);
         }
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem)
-    }
-    
-    @objc private func addFavoriteButton(_ sender: UIButton){
-        if sender.isSelected {
-            deleteFavorte()
-        } else {
-            addFavorte()
-        }
     }
     
 }
@@ -168,17 +148,17 @@ extension DetailAskGovementController {
             
             self?.bottomView.isLike = forceModel.data.likeStatus.int
             
-            //判断是不是已经收藏
-            if forceModel.data.collectStatus.int == 1 {
-                self?.rightNavigatorItem.isSelected = true
-            } else {
-                self?.rightNavigatorItem.isSelected = false
-            }
-            
             //如果有投票请求投票接口
             if forceModel.data.voteID.int != 0 {
                 self?.getVoteContent(id: forceModel.data.voteID.int)
             }
+            
+            //刷新详情页面的几个参数
+            self?.commentNum = forceModel.data.commentNum.int
+            self?.reviewNum = forceModel.data.visitNum.int
+            self?.likeNum = forceModel.data.likeNum.int
+            self?.isLike = (forceModel.data.likeStatus.int == 1)
+            self?.parametersBlock(self?.commentNum ?? 0, self?.reviewNum ?? 0, self?.likeNum ?? 0, self?.isLike ?? false)
             
             }
         )
@@ -190,24 +170,6 @@ extension DetailAskGovementController {
             let decoder = JSONDecoder()
             let model = try? decoder.decode(BaseModel.self, from: json)
             TProgressHUD.show(text: model?.msg ?? "评论失败")
-            self?.loadDetailData()
-            }
-        )
-    }
-    
-    //MARK: - 添加收藏
-    private func addFavorte(){
-        HttpClient.shareInstance.request(target: BAAPI.addFavorite(id:  Int(id) ?? 0), success: { [weak self] (json) in
-            TProgressHUD.show(text: "添加收藏成功")
-            self?.loadDetailData()
-            }
-        )
-    }
-    
-    //MARK: - 取消收藏
-    private func deleteFavorte() {
-        HttpClient.shareInstance.request(target: BAAPI.cancelFavorite(articleId: Int(id) ?? 0), success: { [weak self] (json) in
-            TProgressHUD.show(text: "取消收藏成功")
             self?.loadDetailData()
             }
         )
@@ -292,7 +254,7 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: articleTitleIdentifier) as! CommonDetailTitleNameCell
             cell.title = model?.name.string
-            cell.writer = model?.moduleSecond.string
+            cell.writer = "问政对象: \(model?.moduleSecond.string ?? "")"
             cell.time = model?.begintime.string
             cell.review = model?.visitNum.int
             return cell
@@ -321,16 +283,18 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
                     if let status = detailModel.voteStatus?.int, status != 1 {
                         cell.title = voteModel!.data.name.string
                         cell.dataSource = voteModel!.data.option
-                        cell.currentIndex = _currentVoteIndex
                         //发起投票的Block
                         cell.currentVoteBlock = { [weak self] (id, index) in
                             self?.voteSuccess(optionId: id)
-                            self?._currentVoteIndex = index
                         }
                     } else {
                         //获取当前check得索引
                         cell.title = voteModel!.data.name.string
                         cell.dataSource = voteModel!.data.option
+                        //更新投票Block无法使用
+                        cell.currentVoteBlock = { _,_ in
+                            
+                        }
                         for (index, item) in voteModel!.data.option.enumerated() {
                             if item.check?.int != 0 {
                                 cell.currentIndex = index
@@ -468,5 +432,22 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
         }
         
         return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 5].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //判断是不是有投票内容
+        if let detailModel = model, detailModel.voteID.int != 0 {
+            if indexPath.row == 5 {
+                let vc = CommentCommonController()
+                vc.commentId = Int(id) ?? 0
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        } else {
+            if indexPath.row == 4 {
+                let vc = CommentCommonController()
+                vc.commentId = Int(id) ?? 0
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 }

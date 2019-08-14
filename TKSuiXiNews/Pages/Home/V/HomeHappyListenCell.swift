@@ -25,7 +25,11 @@ class HomeHappyListenCell: BaseTableViewCell {
     
     var audioLength: Int? {
         willSet(newValue) {
-            audioPlayLabel.text = "\(newValue ?? 0)"
+//            audioPlayLabel.text = "\(newValue ?? 0)"
+            if let value = newValue {
+                let result = value.secondsToHoursMinutesSeconds()
+                audioPlayLabel.text = "\(result.min):\(result.sec)"
+            }
         }
     }
     

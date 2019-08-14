@@ -53,13 +53,13 @@ class MineIntegralDetailViewController: BaseTableViewController {
     
     //积分数据
     func requestIntegralData(){
-        HttpClient.shareInstance.request(target: BAAPI.memeberInfo, success: {(json) in
+        HttpClient.shareInstance.request(target: BAAPI.memeberInfo, success: { [weak self](json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(MemeberInfoResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
-            self.integralLab.text = forceModel.data.score.string;
+            self?.integralLab.text = forceModel.data.score.string;
             }
         )
     }

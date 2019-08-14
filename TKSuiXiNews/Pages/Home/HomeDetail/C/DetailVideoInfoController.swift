@@ -21,9 +21,6 @@ fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
 fileprivate let voteCellIdentifier = "DetailInfoVoteSectionCellIdentifier" //投票的Cell
 
 class DetailVideoInfoController: BaseViewController {
-    //获取传递过来的index
-    var index: Int? = nil
-    
     var model: DetailArticleModel?
     //获取当前投票的index
     private var _currentVoteIndex: Int?
@@ -149,6 +146,12 @@ extension DetailVideoInfoController {
                 self?.getVoteContent(id: forceModel.data.voteID.int)
             }
             
+            //刷新详情页面的几个参数
+            self?.commentNum = forceModel.data.commentNum.int
+            self?.reviewNum = forceModel.data.visitNum.int
+            self?.likeNum = forceModel.data.likeNum.int
+            self?.isLike = (forceModel.data.likeStatus.int == 1)
+            self?.parametersBlock(self?.commentNum ?? 0, self?.reviewNum ?? 0, self?.likeNum ?? 0, self?.isLike ?? false)
             }
         )
     }
@@ -168,8 +171,6 @@ extension DetailVideoInfoController {
     private func likeArticle() {
         HttpClient.shareInstance.request(target: BAAPI.addLikeNum(id: Int(id) ?? 0), success: { [weak self] (json) in
             TProgressHUD.show(text: "点赞成功")
-            //成功点赞
-            self?.favoriteBlock(true, self?.index ?? 0)
             self?.loadDetailData()
             }
         )
@@ -179,8 +180,6 @@ extension DetailVideoInfoController {
     private func disLikeArticle() {
         HttpClient.shareInstance.request(target: BAAPI.dislikeComment(id: Int(id) ?? 0), success: { [weak self] (json) in
             TProgressHUD.show(text: "取消点赞成功")
-            //取消点赞
-            self?.favoriteBlock(false, self?.index ?? 0)
             self?.loadDetailData()
             }
         )
@@ -285,16 +284,18 @@ extension DetailVideoInfoController: UITableViewDelegate, UITableViewDataSource 
                     if let status = detailModel.voteStatus?.int, status != 1 {
                         cell.title = voteModel!.data.name.string
                         cell.dataSource = voteModel!.data.option
-                        cell.currentIndex = _currentVoteIndex
                         //发起投票的Block
                         cell.currentVoteBlock = { [weak self] (id, index) in
                             self?.voteSuccess(optionId: id)
-                            self?._currentVoteIndex = index
                         }
                     } else {
                         //获取当前check得索引
                         cell.title = voteModel!.data.name.string
                         cell.dataSource = voteModel!.data.option
+                        //更新投票Block无法使用
+                        cell.currentVoteBlock = { _,_ in
+                            
+                        }
                         for (index, item) in voteModel!.data.option.enumerated() {
                             if item.check?.int != 0 {
                                 cell.currentIndex = index
@@ -424,6 +425,21 @@ extension DetailVideoInfoController: UITableViewDelegate, UITableViewDataSource 
             let vc = NETLivePlayerController(url: model?.video.string ?? "")
             navigationController?.pushViewController(vc, animated: true);
         }
+        //进入评论页面
+        //判断是不是有投票内容
+        if let detailModel = model, detailModel.voteID.int != 0 {
+            if indexPath.row == 5 {
+                let vc = CommentCommonController()
+                vc.commentId = Int(id) ?? 0
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        } else {
+            if indexPath.row == 4 {
+                let vc = CommentCommonController()
+                vc.commentId = Int(id) ?? 0
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
 }
 
@@ -440,3 +456,4 @@ extension DetailVideoInfoController: QQShareInstanceDelegate, ThirdPartyLoginDel
         shareGetSocre()
     }
 }
+

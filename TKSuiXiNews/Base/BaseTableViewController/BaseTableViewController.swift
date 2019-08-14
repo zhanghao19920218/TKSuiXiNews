@@ -51,7 +51,7 @@ class BaseTableViewController: BaseViewController {
     }
     
     //最基本显示没有数据的view
-    private lazy var baseNoDataView: NoMoreDataView = {
+    open lazy var baseNoDataView: NoMoreDataView = {
         let view = NoMoreDataView()
         view.isHidden = true
         return view;
@@ -92,24 +92,24 @@ class BaseTableViewController: BaseViewController {
         tableView.tableFooterView = UIView.init();
         //增加下拉刷新
         tableView.es.addPullToRefresh {
-            [unowned self] in
+            [weak self] in
             //加载更多数据
-            self.pullDownRefreshData();
+            self?.pullDownRefreshData();
         }
 
         //增加上拉加载更多
         tableView.es.addInfiniteScrolling {
-            [unowned self] in
+            [weak self] in
             /// Do anything you want...
             /// ...
             /// If common end
-            self.pullUpLoadMoreData()
+            self?.pullUpLoadMoreData()
         }
         
         //添加暂无内容
         tableView.addSubview(baseNoDataView);
         baseNoDataView.snp.makeConstraints { (make) in
-            make.top.equalTo(K_SCREEN_HEIGHT/2 - 98 * iPHONE_AUTORATIO)
+            make.top.equalTo(K_SCREEN_HEIGHT/2 - 98 * iPHONE_AUTORATIO - NAVIGATION_BAR_HEIGHT)
             make.centerX.equalToSuperview()
             make.size.equalTo(CGSize(width: 200 * iPHONE_AUTORATIO, height: 184 * iPHONE_AUTORATIO));
         }

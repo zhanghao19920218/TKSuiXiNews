@@ -218,6 +218,7 @@ extension BocastDetailViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let vc = OnlineTVShowViewController(url: model?.video.string ?? "")
+            vc.id = model?.id.int ?? 0
             navigationController?.pushViewController(vc, animated: true);
         }
     }

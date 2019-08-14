@@ -14,6 +14,7 @@ import PLPlayerKit
  */
 
 class OnlineTVShowViewController: BaseViewController {
+    var id: Int = 0
 
     //时间的进度
     private var playerTimer: Timer?
@@ -54,7 +55,9 @@ class OnlineTVShowViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad();
+        super.viewDidLoad()
+        
+        timerTravel = 360
         
         view.backgroundColor = .black
         
@@ -65,6 +68,13 @@ class OnlineTVShowViewController: BaseViewController {
         appDelegate.allowrRotate = 2
         setNewOritentation(fullScreen: true)
         
+    }
+    
+    //请求定时器进行加分
+    override func counterAction() {
+        super.counterAction()
+        
+        readGetScore()
     }
     
     //返回如果是横屏先竖屏再返回
@@ -169,5 +179,18 @@ extension OnlineTVShowViewController: PLPlayerDelegate {
             let orientationTarget = UIInterfaceOrientation.portrait.rawValue
             UIDevice.current.setValue(orientationTarget, forKey: "orientation")
         }
+    }
+}
+
+extension OnlineTVShowViewController {
+    ///MARK: - 阅读获得积分
+    private func readGetScore() {
+        HttpClient.shareInstance.request(target: BAAPI.readGetScore(id: Int(id) ), success: { (json) in
+            let decoder = JSONDecoder()
+            let baseModel = try? decoder.decode(BaseModel.self, from: json)
+            if let model = baseModel, !model.msg.isEmpty {
+                TProgressHUD.show(text: model.msg)
+            }
+        })
     }
 }

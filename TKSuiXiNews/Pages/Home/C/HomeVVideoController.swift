@@ -161,21 +161,18 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
         let model = dataSource[indexPath.row - 1] as! VVideoListModel;
         let vc = DetailVideoInfoController();
         vc.id = model.id.string
-        vc.index = indexPath.row
         parent?.navigationController?.pushViewController(vc, animated: true)
         //如果取消点赞或者成功点赞刷新页面
-        vc.favoriteBlock = { [weak self](isLike, index) in
+        vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
             //获取要刷新的索引
-            let changedIndexPath = IndexPath(row: index, section: 0)
-            let indexPaths = [changedIndexPath]
+            let indexPaths = [indexPath]
             //更新索引的数据
-            var changeModel = self?.dataSource[index-1] as! VVideoListModel
-            changeModel.likeStatus.int = (isLike ? 1 : 0)
-            //增加访问量
-            changeModel.visitNum.int += 1
-            //判断是不是喜欢
-            if isLike { changeModel.likeNum.int += 1 } else { changeModel.likeNum.int -= 1 }
-            self?.dataSource[index-1] = changeModel; //更新数据
+            var changeModel = self?.dataSource[indexPath.row-1] as! VVideoListModel
+            changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+            changeModel.commentNum.int = comment
+            changeModel.likeNum.int = like
+            self?.dataSource[indexPath.row - 1] = changeModel
+            //刷新页面
             self?.tableView.reloadRows(at: indexPaths, with: .none)
         }
     }

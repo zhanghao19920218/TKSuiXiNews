@@ -228,11 +228,11 @@ extension AskGovermentDetailController: UITextFieldDelegate, UITextViewDelegate 
 extension AskGovermentDetailController {
     //MARK: - 请求矩阵
     private func requestBanner() {
-        HttpClient.shareInstance.request(target: BAAPI.articleAdmin(module: "矩阵"), success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.articleAdmin(module: "问政"), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(ArticleAdminModelResponse.self, from: json)
             guard let forceModel = model else {
-                return;
+                return
             }
             
             self?.topModel = forceModel

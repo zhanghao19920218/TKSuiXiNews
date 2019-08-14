@@ -169,6 +169,19 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
             let vc = DetailAskGovementController()
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
+        } else if model.module.string == "随手拍" ||  model.module.string == "原创" {
+            
+            if model.images.count == 0 {
+                //进入视频页面
+                let vc = DetailVideoInfoController()
+                vc.id = model.id.string
+                navigationController?.pushViewController(vc, animated: true)
+            } else {
+                //进入图文页面
+                let vc = ShowDetailImageViewController();
+                vc.id = model.id.string
+                navigationController?.pushViewController(vc, animated: true)
+            }
         } else {
             let vc = HomeNewsDetailInfoController();
             vc.id = model.id.string

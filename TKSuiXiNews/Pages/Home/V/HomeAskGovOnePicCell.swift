@@ -50,6 +50,8 @@ class HomeAskGovOnePicCell: BaseTableViewCell {
         imageView.layer.cornerRadius = 5 * iPHONE_AUTORATIO
         imageView.image = K_ImageName(PLACE_HOLDER_IMAGE)
         imageView.layer.masksToBounds = true
+        imageView.clipsToBounds = true
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
         return imageView
     }()
 

@@ -40,7 +40,7 @@ class HomeSearchListViewController: BaseTableViewController {
         textField.font = kFont(12 * iPHONE_AUTORATIO)
         textField.placeholder = Defaults.shared.get(for: placeholderKey)
         textField.clearButtonMode = .always
-        textField.returnKeyType = .done
+        textField.returnKeyType = .search
         textField.addTarget(self,
                             action: #selector(textFieldValueDidChanged(_:)),
                             for: .editingChanged)
@@ -96,9 +96,7 @@ class HomeSearchListViewController: BaseTableViewController {
     }
     
     override func loadData() {
-        super.loadData();
-        
-//        requestData(); //请求数据
+        super.loadData()
     }
     
     override func pullDownRefreshData() {
@@ -237,18 +235,4 @@ extension HomeSearchListViewController: UITextFieldDelegate {
         view.endEditing(true)
         return true
     }
-    //MARK: - 请求首页数据
-//    private func requestData(){
-//        HttpClient.shareInstance.request(target: BAAPI.contentList(module: _name, page: page), success: { [weak self] (json) in
-//            let decoder = JSONDecoder()
-//            let model = try? decoder.decode(HomeNewsListResponse.self, from: json)
-//            guard let forceModel = model else {
-//                return;
-//            }
-//
-//            self?.dataSource = forceModel.data.data;
-//            self?.tableView.reloadData();
-//            }
-//        )
-//    }
 }

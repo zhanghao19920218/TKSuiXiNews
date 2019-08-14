@@ -43,7 +43,13 @@ class DetailCommentLikeNumCell: BaseTableViewCell {
         let view = UIView();
         view.backgroundColor = RGBA(245, 245, 245, 1);
         return view;
-    }();
+    }()
+    
+    private lazy var indicatorImg: UIImageView = {
+       let view = UIImageView()
+        view.image = K_ImageName("go_right")
+        return view
+    }()
     
     
     override func setupUI() {
@@ -55,16 +61,23 @@ class DetailCommentLikeNumCell: BaseTableViewCell {
             make.height.equalTo(15 * iPHONE_AUTORATIO)
         }
         
-        contentView.addSubview(commentLabel);
-        commentLabel.snp.makeConstraints { (make) in
+        contentView.addSubview(likeLabel);
+        likeLabel.snp.makeConstraints { (make) in
             make.left.equalTo(13 * iPHONE_AUTORATIO);
             make.top.equalTo(self.topSecion.snp_bottom).offset(15 * iPHONE_AUTORATIO)
         }
         
-        contentView.addSubview(likeLabel)
-        likeLabel.snp.makeConstraints { (make) in
-            make.right.equalTo(-14 * iPHONE_AUTORATIO);
-            make.centerY.equalTo(self.commentLabel.snp_centerY)
+        contentView.addSubview(indicatorImg)
+        indicatorImg.snp.makeConstraints { (make) in
+            make.right.equalTo(-14 * iPHONE_AUTORATIO)
+            make.centerY.equalTo(self.likeLabel.snp_centerY)
+            make.size.equalTo(CGSize(width: 6 * iPHONE_AUTORATIO, height: 10 * iPHONE_AUTORATIO))
+        }
+        
+        contentView.addSubview(commentLabel)
+        commentLabel.snp.makeConstraints { (make) in
+            make.right.equalTo(indicatorImg).offset(-10 * iPHONE_AUTORATIO)
+            make.centerY.equalTo(self.likeLabel.snp_centerY)
         }
         
         contentView.addSubview(bottomLine);

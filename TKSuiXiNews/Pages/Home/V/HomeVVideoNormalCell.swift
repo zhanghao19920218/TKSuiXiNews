@@ -136,7 +136,9 @@ class HomeVVideoNormalCell: BaseTableViewCell {
         let imageView = UIImageView.init();
         imageView.image = K_ImageName(PLACE_HOLDER_IMAGE);
         imageView.layer.cornerRadius = 15 * iPHONE_AUTORATIO;
-        imageView.layer.masksToBounds = true;
+        imageView.layer.masksToBounds = true
+        imageView.clipsToBounds = true
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
         return imageView;
     }();
     

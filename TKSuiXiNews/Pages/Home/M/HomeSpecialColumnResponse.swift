@@ -37,10 +37,11 @@ struct HomeSpecialColumnDatum: Codable {
     let images: [String]
     let video, audio, content, nickname: TStrInt
     let avatar, status: TStrInt
-    let visitNum, commentNum, likeNum, createtime: TStrInt
+    let createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
     let time, type, begintime: TStrInt
-    let likeStatus, collectStatus: TStrInt
+    let collectStatus: TStrInt
+    var likeStatus,visitNum, commentNum, likeNum: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case id

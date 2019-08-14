@@ -161,6 +161,7 @@ extension DetailTelevisonInfoController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let vc = OnlineTVShowViewController.init(url: model?.video.string ?? "")
+            vc.id = model?.id.int ?? 0
             navigationController?.pushViewController(vc, animated: true);
         }
     }

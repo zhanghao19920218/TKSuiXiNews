@@ -35,6 +35,13 @@ class HomeSpecialColumnChildController: BaseTableViewController {
         tableView.separatorStyle = .none
         tableView.register(HomeSpecialSectionBannerCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.register(HomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
+        
+        //重置暂无数据页面
+        baseNoDataView.snp.remakeConstraints { (make) in
+            make.top.equalTo(333 * iPHONE_AUTORATIO)
+            make.centerX.equalToSuperview()
+            make.size.equalTo(CGSize(width: 200 * iPHONE_AUTORATIO, height: 184 * iPHONE_AUTORATIO));
+        }
     }
     
     override func loadData() {
@@ -157,7 +164,21 @@ extension HomeSpecialColumnChildController: UITableViewDelegate, UITableViewData
             let model = dataSource[indexPath.row] as! HomeSpecialColumnDatum
             let vc = HomeNewsDetailInfoController();
             vc.id = model.id.string
-            parent?.navigationController?.pushViewController(vc, animated: true);
+            vc.title = "专栏"
+            navigationController?.pushViewController(vc, animated: true)
+            //如果取消点赞或者成功点赞刷新页面
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row] as! HomeSpecialColumnDatum
+                changeModel.visitNum.int = review
+                changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                changeModel.likeNum.int = like
+                self?.dataSource[indexPath.row] = changeModel
+                //刷新页面
+                self?.tableView.reloadRows(at: indexPaths, with: .none)
+            }
         }
     }
 }

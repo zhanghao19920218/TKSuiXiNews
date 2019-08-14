@@ -108,6 +108,8 @@ enum  BAAPI {
     case homePageChannels
     //删除V视频
     case deleteVVideo(id: Int)
+    //获取评论
+    case loadMoreComment(id: Int, page: Int)
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -220,6 +222,8 @@ extension BAAPI: TargetType {
             return K_URL_homeChannel
         case .deleteVVideo:
             return K_URL_deleteVVideo
+        case .loadMoreComment:
+            return K_URL_commentIndex
         }
         
     }
@@ -419,6 +423,10 @@ extension BAAPI: TargetType {
         case let .deleteVVideo(id):
             params["id"] = id
 
+        case let .loadMoreComment(id, page):
+            params["article_id"] = id
+            params["p"] = page
+            
         default:
             //不需要传参数的接口走这里
             return .requestPlain

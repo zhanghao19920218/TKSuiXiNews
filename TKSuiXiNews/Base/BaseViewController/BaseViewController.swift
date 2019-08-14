@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias ParametersBlock = (_ commentNum: Int, _ reviewNum: Int, _ likeNum: Int, _ isLike: Bool) -> Void
+
 class BaseViewController: UIViewController {
     //当前的数据
     private var duration: Int = 0
@@ -16,11 +18,34 @@ class BaseViewController: UIViewController {
     
     private var timer: Timer? = nil
     
-    ///当前是不是已经点赞
+    ///评论的次数
+    open lazy var commentNum:Int = {
+        return 0
+    }()
+    
+    ///观看的次数
+    open lazy var reviewNum: Int = {
+        return 0
+    }()
+    
+    ///点赞的次数
+    open lazy var likeNum: Int = {
+        return 0
+    }()
+    
+    
+    ///是否点赞
+    open lazy var isLike: Bool = {
+        return false
+    }()
+    
+    /// 传递点击数组
     /// - Parameters:
-    ///    - isLike: Bool 是不是喜欢
-    ///    - index : 当前的索引
-    open var favoriteBlock: (_ isLike: Bool, _ index: Int) -> Void = { _, _  in }
+    ///   - commentNum: 点赞次数
+    ///   - reviewNum: 浏览次数
+    ///   - likeNum: 点赞次数
+    ///   - isLike: 是否喜欢
+    open var parametersBlock: ParametersBlock = { _,_,_,_ in }
 
     override func viewDidLoad() {
         super.viewDidLoad()

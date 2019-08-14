@@ -44,12 +44,13 @@ struct VVideoListModel: Codable {
     let audio: TStrInt
     let content: TStrInt?
     let nickname, avatar, status: TStrInt
-    let commentNum, createtime: TStrInt
+    let createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
     let time, begintime,collectStatus: TStrInt
     var likeStatus: TStrInt
     var likeNum: TStrInt
     var visitNum: TStrInt
+    var commentNum: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case id

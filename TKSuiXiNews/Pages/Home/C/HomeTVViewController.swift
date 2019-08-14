@@ -144,11 +144,13 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
             cell.titleSecond = model.data[1].name.string
             cell.videoBlock = { [weak self] () in
                 let vc = OnlineTVShowViewController(url: model.data[0].video.string)
+                vc.id = model.data[0].id.int
                 self?.navigationController?.pushViewController(vc, animated: true);
             }
             
             cell.videoSecondBlock = { [weak self] () in
                 let vc = OnlineTVShowViewController(url: model.data[1].video.string)
+                vc.id = model.data[0].id.int
                 self?.navigationController?.pushViewController(vc, animated: true);
             }
             cell.checkTotalBlock = { [weak self] () in

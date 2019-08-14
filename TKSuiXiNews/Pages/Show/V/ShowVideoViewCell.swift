@@ -80,6 +80,19 @@ class ShowVideoViewCell: BaseTableViewCell {
         }
     }
     
+    ///是否显示时间
+    ///
+    /// - Parameter: 是否显示时间
+    var isHiddenTime: Bool? {
+        willSet(newValue) {
+            if let value = newValue, value {
+                videoLengthLabel.isHidden = true
+            } else {
+                videoLengthLabel.isHidden = false
+            }
+        }
+    }
+    
     //用户头像
     private lazy var avatarImage:BaseAvatarImageView = {
         let imageView = BaseAvatarImageView(frame: .zero);
@@ -117,7 +130,8 @@ class ShowVideoViewCell: BaseTableViewCell {
         view.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview();
         });
-        imageView.contentMode =  UIView.ContentMode.scaleToFill;
+        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5);
         return imageView;
     }();

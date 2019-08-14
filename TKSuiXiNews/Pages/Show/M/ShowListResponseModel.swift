@@ -43,10 +43,11 @@ struct ShowListItemModel: Codable {
     let video: TStrInt
     let audio, content, nickname, avatar: TStrInt
     let status: TStrInt
-    let visitNum, commentNum, likeNum, createtime: TStrInt
+    let createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
     let time, type, begintime: TStrInt
-    let likeStatus, collectStatus: TStrInt
+    let collectStatus: TStrInt
+    var likeStatus, visitNum, commentNum, likeNum: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case id
