@@ -23,7 +23,7 @@ class HomeSpecialSectionBannerCell: BaseTableViewCell {
     
     var dataSources: [ArticleAdminModelDatum] = [ArticleAdminModelDatum]() {
         willSet(newValue) {
-            _currentPageNum = (Int(newValue.count/8) + 1)//获取页数
+            _currentPageNum = (Int((newValue.count - 1)/8) + 1)//获取页数
             pageControl.numberOfPages = _currentPageNum
             pageView.reloadData()
         }

@@ -26,7 +26,7 @@ class MatrixBannerPagerViewCell: BaseTableViewCell {
     
     var dataSources: [ArticleAdminModelDatum] = [ArticleAdminModelDatum]() {
         willSet(newValue) {
-            _currentPageNum = (Int(newValue.count/4) + 1)//获取页数
+            _currentPageNum = (Int((newValue.count - 1)/4) + 1)//获取页数
             pageControl.numberOfPages = _currentPageNum
             pageView.reloadData()
         }
@@ -106,14 +106,14 @@ extension MatrixBannerPagerViewCell: FSPagerViewDelegate, FSPagerViewDataSource 
         if index == (_currentPageNum - 1) { //最后一个页面
             //首位
             let firstIndex = index * 4
-            let lastIndex = dataSources.count - 1;
+            let lastIndex = dataSources.count - 1
             cell.dataSource = Array(dataSources[firstIndex...lastIndex])
             cell._isReload = true
         } else {
             //首位
             let firstIndex = index * 4
             //尾位
-            let lastIndex = (firstIndex + 4)
+            let lastIndex = (firstIndex + 3)
             cell.dataSource = Array(dataSources[firstIndex...lastIndex])
             cell._isReload = true
         }
