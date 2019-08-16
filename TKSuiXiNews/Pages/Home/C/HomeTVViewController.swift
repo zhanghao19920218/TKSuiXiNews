@@ -66,7 +66,7 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: sectionFirstCellIdentifier) as! HomeTVChannelFirstCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: sectionFirstCellIdentifier) as! HomeTVChannelFirstCell
             if let model = self.topModel {
                 //没有数据
                 if model.data.count == 0 {
@@ -136,28 +136,18 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
         
         let model = dataSource[indexPath.row - 1]
         let cell = tableView.dequeueReusableCell(withIdentifier: sectionOtherCellIdentifier) as! HomeTVOtherSectionCell
-        if model.data.count >= 2 {
-            cell.title = model.moduleSecond;
-            cell.imageNameFirst = model.data[0].image.string
-            cell.imageNameSecond = model.data[1].image.string
-            cell.titleFirst = model.data[0].name.string
-            cell.titleSecond = model.data[1].name.string
-            cell.videoBlock = { [weak self] () in
-                let vc = OnlineTVShowViewController(url: model.data[0].video.string)
-                vc.id = model.data[0].id.int
-                self?.navigationController?.pushViewController(vc, animated: true);
-            }
-            
-            cell.videoSecondBlock = { [weak self] () in
-                let vc = OnlineTVShowViewController(url: model.data[1].video.string)
-                vc.id = model.data[0].id.int
-                self?.navigationController?.pushViewController(vc, animated: true);
-            }
-            cell.checkTotalBlock = { [weak self] () in
-                let vc = HomeTotalVideoController()
-                vc.startIndex = (indexPath.row - 1)
-                self?.navigationController?.pushViewController(vc, animated: true)
-            }
+        cell.title = model.moduleSecond;
+        cell.dataSource = model.data
+        cell.videoBlock = { [weak self] (id) in
+            let vc = OnlineTVShowViewController(url: model.data[0].video.string)
+            vc.id = id
+            self?.navigationController?.pushViewController(vc, animated: true);
+        }
+        
+        cell.videoDetailBlock = { [weak self] (id) in
+            let vc = VideoNewsDetailController()
+            vc.id = id
+            self?.navigationController?.pushViewController(vc, animated: true)
         }
         return cell
     }

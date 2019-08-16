@@ -19,6 +19,11 @@ fileprivate let pageViewFontSize = kFont(16 * iPHONE_AUTORATIO);
 fileprivate let pageViewTitleHeight = 40 * iPHONE_AUTORATIO;
 
 class HomeViewController: BaseViewController {
+    //设置标题的数据
+    private lazy var titles: [String] = {
+        return [String]()
+    }()
+    
     //设置右侧的navigationItem
     private lazy var rightNavigatorItem: BaseNaviRightButton = {
         let button = BaseNaviRightButton(type: .custom);
@@ -40,71 +45,7 @@ class HomeViewController: BaseViewController {
     
     
     //初始化页面选择器
-    private lazy var pageViewManager: DNSPageViewManager = {
-        let style = DNSPageStyle();
-        //可以滑动的ScrollViews
-        style.isTitleViewScrollEnabled = true;
-        style.titleColor = pageViewNormalTitleColor;
-        style.titleSelectedColor = pageViewSelectedTitleColor;
-        style.titleFont = pageViewFontSize;
-        style.titleViewHeight = pageViewTitleHeight;
-        //消除系统默认的offset
-        automaticallyAdjustsScrollViewInsets = false
-        
-        
-        // 设置标题内容
-        let titles = ["V视频", "濉溪TV", "新闻", "视讯", "问政", "矩阵", "原创", "悦读", "悦听","公告", "党建", "专栏"];
-        
-        // 创建每一页对应的controller
-        let childViewControllers: [UIViewController] = titles.enumerated().map { (index, _) -> UIViewController in
-            //V视频
-            var controller: UIViewController!
-            if index == 0 {
-                //V视频
-                controller = HomeVVideoController();
-            } else if index == 1 {
-                //濉溪TV
-                controller = HomeTVViewController()
-            } else if index == 2 {
-                //濉溪新闻
-                controller = HomeNewsListViewController()
-            } else if index == 3 {
-                //视讯
-                controller = HomeVideoNewsListController()
-            } else if index == 4 {
-                //问政
-                controller = HomeAskGovController()
-            } else if index == 5 {
-                //矩阵
-                controller = HomeMatrixListController()
-            } else if index == 6 {
-                //原创
-                controller = HomeOriginalCircleViewController()
-            } else if index == 7 {
-                //悦读
-                controller = HomeHappyReadViewController()
-                
-            } else if index == 8 {
-                //悦听
-                controller = HomeHappyListenController()
-            } else if index == 9 {
-                //公告
-                controller = HomeAnnoncementViewController()
-            } else if index == 10 {
-                //党建
-                controller = HomePartyBuildViewController()
-            } else if index == 11 {
-                //专栏
-                controller = HomeSpecialColumnChildController()
-            } else {
-                controller = UIViewController();
-            }
-            addChild(controller);
-            return controller;
-        }
-        let pageView = DNSPageViewManager(style: style, titles: titles, childViewControllers: childViewControllers)
-        return pageView;
-    }()
+    private var pageViewManager: DNSPageView?
     
     //MARK: - 更新StatusBar
     override var preferredStatusBarStyle: UIStatusBarStyle
@@ -120,13 +61,16 @@ class HomeViewController: BaseViewController {
         
         navigationController?.navigationBar.barTintColor = appThemeColor;
         
-        setupUI()
-        
         configureNavigationBar()
+        
+        requestTitlesInfo()
         
         //请求系统参数
         requestSystemConfigure()
     }
+    
+    
+    
     
     //初始化navigationBar
     private func configureNavigationBar()
@@ -137,30 +81,67 @@ class HomeViewController: BaseViewController {
     }
     
     //初始化页面
-    private func setupUI() {
-        // 单独设置contentView的大小和位置，可以使用autolayout或者frame
-        let contentView = pageViewManager.contentView
-        view.addSubview(pageViewManager.contentView)
-        contentView.snp.makeConstraints { (maker) in
-            maker.left.right.bottom.equalToSuperview()
-            maker.top.equalTo(40 * iPHONE_AUTORATIO);
+    public func setupUI() {
+        let style = DNSPageStyle();
+        //可以滑动的ScrollViews
+        style.isTitleViewScrollEnabled = true;
+        style.titleColor = pageViewNormalTitleColor;
+        style.titleSelectedColor = pageViewSelectedTitleColor;
+        style.titleFont = pageViewFontSize;
+        style.titleViewHeight = pageViewTitleHeight;
+        //消除系统默认的offset
+        automaticallyAdjustsScrollViewInsets = false
+        
+        // 创建每一页对应的controller
+        let childViewControllers: [UIViewController] = titles.enumerated().map { (index, name) -> UIViewController in
+            //V视频
+            var controller: UIViewController!
+            if name == "V视频" {
+                //V视频
+                controller = HomeVVideoController();
+            } else if name == "濉溪TV" {
+                //濉溪TV
+                controller = HomeTVViewController()
+            } else if name == "新闻" {
+                //濉溪新闻
+                controller = HomeNewsListViewController()
+            } else if name == "视讯" {
+                //视讯
+                controller = HomeVideoNewsListController()
+            } else if name == "问政" {
+                //问政
+                controller = HomeAskGovController()
+            } else if name == "矩阵" {
+                //矩阵
+                controller = HomeMatrixListController()
+            } else if name == "原创" {
+                //原创
+                controller = HomeOriginalCircleViewController()
+            } else if name == "悦读" {
+                //悦读
+                controller = HomeHappyReadViewController()
+                
+            } else if name == "悦听" {
+                //悦听
+                controller = HomeHappyListenController()
+            } else if name == "公告" {
+                //公告
+                controller = HomeAnnoncementViewController()
+            } else if name == "党建" {
+                //党建
+                controller = HomePartyBuildViewController()
+            } else if name == "专栏" {
+                //专栏
+                controller = HomeSpecialColumnChildController()
+            } else {
+                controller = UIViewController();
+            }
+            addChild(controller);
+            return controller;
         }
+        pageViewManager = DNSPageView(frame: CGRect(x: 0, y: 0, width: K_SCREEN_WIDTH, height: K_SCREEN_HEIGHT - TAB_BAR_HEIGHT - NAVIGATION_BAR_HEIGHT), style: style, titles: titles, childViewControllers: childViewControllers)
         
-        // 单独设置titleView的frame
-        let titleView = pageViewManager.titleView;
-        view.addSubview(pageViewManager.titleView)
-        
-        //设置阴影
-        titleView.layer.shadowOffset = CGSize(width:0 , height: -10)
-        titleView.layer.shadowOpacity = 1;
-        titleView.layer.shadowRadius = 20;
-        titleView.layer.shadowColor = RGBA(0, 0, 0, 0.5).cgColor
-        titleView.backgroundColor = .white
-        
-        titleView.snp.makeConstraints { (maker) in
-            maker.left.top.right.equalToSuperview()
-            maker.height.equalTo(40 * iPHONE_AUTORATIO);
-        }
+        view.addSubview(pageViewManager!)
 
     }
     
@@ -220,12 +201,27 @@ extension HomeViewController {
     
     //MARK: - 请求标题栏目
     private func requestTitlesInfo() {
-        HttpClient.shareInstance.request(target: BAAPI.homePageChannels, success: { (json) in
+        HttpClient.shareInstance.request(target: BAAPI.homePageChannels, success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(HomeChannelListModel.self, from: json)
             if let jsonModel = model {
-                
+                self?.titles = jsonModel.data
+                self?.setupUI()
             }
         })
+    }
+}
+
+extension HomeViewController: DNSPageContentViewDelegate, DNSPageTitleViewDelegate {
+    func contentView(_ contentView: DNSPageContentView, didEndScrollAt index: Int) {
+        
+    }
+    
+    func contentView(_ contentView: DNSPageContentView, scrollingWith sourceIndex: Int, targetIndex: Int, progress: CGFloat) {
+        
+    }
+    
+    func titleView(_ titleView: DNSPageTitleView, didSelectAt index: Int) {
+        
     }
 }

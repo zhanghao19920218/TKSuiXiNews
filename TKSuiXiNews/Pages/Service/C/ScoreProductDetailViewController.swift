@@ -14,17 +14,20 @@ import UIKit
 
 fileprivate let cellIdentifier = "ProductDetailImageCellIdentifier"
 fileprivate let titleproductIdentifier = "ProductDetailTitleCellIdentifier"
-fileprivate let describeIdentifier = "ProductDetailDescribeCellIdentifier"
+fileprivate let contentWebIdentifier = "HomeArticleContentWebCellIdentifier"
 
 class ScoreProductDetailViewController: BaseViewController {
     var productId:Int?
     
     var model: DetailProductItemModel?
     
+    var webHeight: CGFloat = 0 //下方富文本的高度
+    
     private lazy var _exchangeButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.backgroundColor = RGBA(255, 74, 92, 1)
+        button.backgroundColor = RGBA(153, 153, 153, 1)
         button.setTitle("兑 换")
+        button.isEnabled = false
         button.addTarget(self,
                          action: #selector(scoreExchangeButton(_:)),
                          for: .touchUpInside)
@@ -35,10 +38,14 @@ class ScoreProductDetailViewController: BaseViewController {
         let tableView = UITableView()
         tableView.register(ProductDetailImageCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.register(ProductDetailTitleCell.self, forCellReuseIdentifier: titleproductIdentifier)
-        tableView.register(ProductDetailDescribeCell.self, forCellReuseIdentifier: describeIdentifier)
+        tableView.register(HomeArticleContentWebCell.self, forCellReuseIdentifier: contentWebIdentifier) //加载web显示富文本
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
+        //iOS 11Self-Sizing自动打开后，contentSize和contentOffset都可能发生改变。可以通过以下方式禁用
+        tableView.estimatedRowHeight = 0
+        tableView.estimatedSectionHeaderHeight = 0
+        tableView.estimatedSectionFooterHeight = 0
         return tableView
     }()
     
@@ -112,8 +119,12 @@ extension ScoreProductDetailViewController: UITableViewDelegate, UITableViewData
             return cell
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: describeIdentifier) as! ProductDetailDescribeCell
-        cell.content = model?.content.string
+        let cell = tableView.dequeueReusableCell(withIdentifier: contentWebIdentifier) as! HomeArticleContentWebCell
+        cell.loadUrl = model?.content.string
+        cell.block = { [weak self](height) in
+            self?.webHeight = height
+            self?._tableView.reloadData()
+        }
         return cell
     }
     
@@ -126,9 +137,20 @@ extension ScoreProductDetailViewController: UITableViewDelegate, UITableViewData
             return 120 * iPHONE_AUTORATIO
         }
         
-        return 250 * iPHONE_AUTORATIO
+        return webHeight
     }
     
+    //MARK: - 滚动刷新页面数据，防止产生空白页面
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //滚动过程中强制渲染一下webView
+        if _tableView == scrollView {
+            for cell in _tableView.visibleCells {
+                if cell is HomeArticleContentWebCell {
+                    (cell as! HomeArticleContentWebCell).webView.setNeedsLayout()
+                }
+            }
+        }
+    }
     
 }
 
@@ -144,6 +166,15 @@ extension ScoreProductDetailViewController {
             
             self?.model = forceModel.data
             self?._tableView.reloadData()
+            
+            //根据库存定义按钮置灰
+            if forceModel.data.stock.int == 0 {
+                self?._exchangeButton.backgroundColor = RGBA(153, 153, 153, 1)
+                self?._exchangeButton.isEnabled = false
+            } else {
+                self?._exchangeButton.backgroundColor = RGBA(255, 74, 92, 1)
+                self?._exchangeButton.isEnabled = true
+            }
             
             }
         )

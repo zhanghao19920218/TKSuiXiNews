@@ -8,6 +8,50 @@
 
 import UIKit
 
+
+///濉溪TV的CollectionViewCell
+class HomeTVOtherSectionCollectionCell: UICollectionViewCell {
+    var title:String? {
+        willSet(newValue) {
+            view.title = newValue
+        }
+    }
+    
+    var imageUrl: String? {
+        willSet(newValue) {
+            view.imageName = newValue
+        }
+    }
+    
+    var videoPlayeBlock: () -> Void = { }
+    
+    private lazy var view: HomeTVDetailPlayerView = {
+        let view = HomeTVDetailPlayerView()
+        return view
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        contentView.addSubview(view)
+        view.snp.makeConstraints { (make) in
+            make.top.bottom.equalToSuperview()
+            make.left.equalTo(13 * iPHONE_AUTORATIO)
+            make.right.equalTo(-13 * iPHONE_AUTORATIO)
+        }
+        
+        view.videoBlock = { [weak self] in
+            self?.videoPlayeBlock()
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+fileprivate let cellIdentifier = "HomeTVOtherSectionCollectionCellIdentifier"
+
 class HomeTVOtherSectionCell: BaseTableViewCell {
     var checkTotalBlock: ()-> Void = {  }
     
@@ -17,32 +61,28 @@ class HomeTVOtherSectionCell: BaseTableViewCell {
         }
     }
     
-    var imageNameFirst: String? {
+    var dataSource: [HomeTVTitleModel]? {
         willSet(newValue) {
-            news_first.imageName = newValue;
+            if let value = newValue {
+                var source = value
+                if value.count > 2 {
+                    source = Array(value[0...1])
+                } else {
+                    source = value
+                }
+                _dataSource = source
+                collectionView.reloadData()
+            }
         }
     }
     
-    var imageNameSecond: String? {
-        willSet(newValue) {
-            news_second.imageName = newValue;
-        }
-    }
+    private lazy var _dataSource: [HomeTVTitleModel] = {
+       return [HomeTVTitleModel]()
+    }()
     
-    var titleFirst:String? {
-        willSet(newValue) {
-            news_first.title = newValue ?? "";
-        }
-    }
-    
-    var titleSecond:String? {
-        willSet(newValue) {
-            news_second.title = newValue ?? "";
-        }
-    }
-    
-    var videoBlock: VideoTappedBlock = { }
-    var videoSecondBlock: VideoTappedBlock = { }
+    var videoBlock: (Int) -> Void = { _ in }
+
+    var videoDetailBlock: (String) -> Void = { _ in}
     
     private lazy var upView: UIView = {
         let view = UIView();
@@ -63,16 +103,20 @@ class HomeTVOtherSectionCell: BaseTableViewCell {
         return line;
     }();
     
-    //两个内容
-    private lazy var news_first: HomeTVDetailPlayerView = {
-        let view = HomeTVDetailPlayerView();
-        return view;
-    }();
-    
-    private lazy var news_second: HomeTVDetailPlayerView = {
-        let view = HomeTVDetailPlayerView();
-        return view;
-    }();
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.itemSize = CGSize(width: K_SCREEN_WIDTH/2, height: 146 * iPHONE_AUTORATIO)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(HomeTVOtherSectionCollectionCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView.backgroundColor = .white
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.isScrollEnabled = false
+        return collectionView
+    }()
     
     //全部按钮
     private lazy var indicationButton: UIButton = {
@@ -80,7 +124,7 @@ class HomeTVOtherSectionCell: BaseTableViewCell {
         button.addTarget(self,
                          action: #selector(didTappedTotalButton(_:)),
                          for: .touchUpInside)
-        return button;
+        return button
     }();
     
     //全部的label
@@ -144,32 +188,41 @@ class HomeTVOtherSectionCell: BaseTableViewCell {
             make.height.equalTo(1);
         }
         
-        contentView.addSubview(news_first);
-        news_first.snp.makeConstraints { (make) in
-            make.left.equalTo(13 * iPHONE_AUTORATIO);
-            make.top.equalTo(self.line.snp_bottom).offset(15 * iPHONE_AUTORATIO);
-            make.bottom.equalTo(-10 * iPHONE_AUTORATIO);
-            make.width.equalTo(K_SCREEN_WIDTH/2 - 21 * iPHONE_AUTORATIO)
+        contentView.addSubview(collectionView)
+        collectionView.snp.makeConstraints { (make) in
+            make.top.equalTo(line.snp_bottom)
+            make.left.right.bottom.equalToSuperview()
         }
         
-        news_first.videoBlock = { [weak self] () in
-            self?.videoBlock();
-        }
-        
-        contentView.addSubview(news_second);
-        news_second.snp.makeConstraints { (make) in
-            make.right.equalTo(-13 * iPHONE_AUTORATIO);
-            make.top.equalTo(self.line.snp_bottom).offset(15 * iPHONE_AUTORATIO);
-            make.bottom.equalTo(-10 * iPHONE_AUTORATIO);
-            make.width.equalTo(K_SCREEN_WIDTH/2 - 21 * iPHONE_AUTORATIO)
-        }
-        
-        news_second.videoBlock = { [weak self] () in
-            self?.videoSecondBlock();
-        }
     }
 
     @objc private func didTappedTotalButton(_ sender: UIButton) {
         checkTotalBlock()
+    }
+}
+
+extension HomeTVOtherSectionCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return _dataSource.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let model = _dataSource[indexPath.row]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! HomeTVOtherSectionCollectionCell
+        cell.title = model.name.string
+        cell.imageUrl = model.image.string
+        cell.videoPlayeBlock = { [weak self] in
+            self?.videoBlock(model.id.int)
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let model = _dataSource[indexPath.row]
+        videoDetailBlock(model.id.string)
     }
 }

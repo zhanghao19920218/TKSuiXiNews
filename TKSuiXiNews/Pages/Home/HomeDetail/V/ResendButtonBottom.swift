@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FaveButton
 
 //MARK: - 设置font
 fileprivate let textFont: UIFont = kFont(14 * iPHONE_AUTORATIO)
@@ -26,6 +27,10 @@ class ResendButtonBottom: UIView {
         willSet(newValue) {
             if let value = newValue {
                 likeButton.isSelected = (value == 1)
+                //设置动画效果
+                let status = likeButton.isSelected
+                faveButton.setSelected(selected: status, animated: true)
+//                likeButton.isEnabled = true
             }
         }
     }
@@ -62,10 +67,8 @@ class ResendButtonBottom: UIView {
     
     //转发按钮
     private lazy var likeButton: UIButton = {
-        let button = UIButton(type: .custom);
+        let button = UIButton(type: .custom)
         button.setTitleColor(RGBA(153, 153, 153, 1))
-        button.setImage("unlike_button_icon")
-        button.setSelectedImage("like")
         button.setTitle(" 赞")
         button.titleLabel?.font = textFont
         button.tag = 3;
@@ -73,7 +76,16 @@ class ResendButtonBottom: UIView {
                          action: #selector(bottomButtonTapped(_:)),
                          for: .touchUpInside)
         return button;
-    }();
+    }()
+    
+    //设置点击点赞按钮
+    private lazy var faveButton: FaveButton = {
+        let faveButton = FaveButton(frame: .zero, faveIconNormal: K_ImageName("like"))
+        faveButton.setImage("dislike")
+        faveButton.setSelectedImage("like")
+        faveButton.isUserInteractionEnabled = false
+        return faveButton
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame);
@@ -133,6 +145,14 @@ class ResendButtonBottom: UIView {
             make.centerY.equalToSuperview();
             make.size.equalTo(CGSize(width: 1, height: 20 * iPHONE_AUTORATIO))
         }
+        
+        //点赞按钮添加
+        likeButton.addSubview(faveButton)
+        faveButton.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.left.equalTo(30 * iPHONE_AUTORATIO)
+            make.size.equalTo(CGSize(width: 17 * iPHONE_AUTORATIO, height: 15 * iPHONE_AUTORATIO))
+        }
     }
     
     //点击底部按钮
@@ -148,6 +168,7 @@ class ResendButtonBottom: UIView {
         } else if sender.tag == 2 {
             block(BottomButtonType.comment);
         } else {
+            print("点击按钮\(sender.isSelected)")
             isTappedBlock(sender.isSelected)
         }
     }

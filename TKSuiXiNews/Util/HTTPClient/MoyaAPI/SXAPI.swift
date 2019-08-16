@@ -110,6 +110,8 @@ enum  BAAPI {
     case deleteVVideo(id: Int)
     //获取评论
     case loadMoreComment(id: Int, page: Int)
+    //积分规则
+    case scoreRule
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -224,6 +226,8 @@ extension BAAPI: TargetType {
             return K_URL_deleteVVideo
         case .loadMoreComment:
             return K_URL_commentIndex
+        case .scoreRule:
+            return K_URL_scoreRule
         }
         
     }

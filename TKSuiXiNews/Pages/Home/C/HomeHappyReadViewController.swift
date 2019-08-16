@@ -8,6 +8,7 @@
 
 import UIKit
 import WaterfallLayout
+import MJRefresh
 
 /*
  * 悦读
@@ -51,20 +52,20 @@ class HomeHappyReadViewController: BaseViewController {
         }
         
         //增加下拉刷新
-        collectionView.es.addPullToRefresh {
+        collectionView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             [unowned self] in
             //加载更多数据
             self.pullDownRefreshData();
-        }
+        })
         
         //增加上拉加载更多
-        collectionView.es.addInfiniteScrolling {
+        collectionView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
             [unowned self] in
             /// Do anything you want...
             /// ...
             /// If common end
             self.pullUpLoadMoreData()
-        }
+        })
     }
     
     //当前页码
@@ -98,7 +99,7 @@ class HomeHappyReadViewController: BaseViewController {
     {
         page = 1;
         _dataSource = [];
-        collectionView.es.resetNoMoreData();
+        collectionView.mj_footer.resetNoMoreData()
         
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.contentList(module: "悦读", page: page), success:{ [weak self] (json) in
@@ -109,10 +110,10 @@ class HomeHappyReadViewController: BaseViewController {
             }
             
             self?.dataSource = forceModel.data.data
-            self?.collectionView.es.stopPullToRefresh();
+            self?.collectionView.mj_header.endRefreshing()
             self?.collectionView.reloadData();
             }, failure:{ [weak self] () in
-                self?.collectionView.es.stopPullToRefresh();
+                self?.collectionView.mj_header.endRefreshing()
                 self?.collectionView.reloadData();
             }
         )
@@ -137,15 +138,15 @@ class HomeHappyReadViewController: BaseViewController {
                 //页数+1
                 self?.page += 1;
                 self?.dataSource += forceModel.data.data;
-                self?.collectionView.es.stopLoadingMore();
+                self?.collectionView.mj_footer.endRefreshing()
                 self?.collectionView.reloadData();
             } else {
                 //没有更多数据
-                self?.collectionView.es.noticeNoMoreData();
+                self?.collectionView.mj_footer.endRefreshingWithNoMoreData()
             }
             
             }, failure:{ [weak self] () in
-                self?.collectionView.es.stopLoadingMore();
+                self?.collectionView.mj_footer.endRefreshing()
                 self?.collectionView.reloadData();
             }
         )

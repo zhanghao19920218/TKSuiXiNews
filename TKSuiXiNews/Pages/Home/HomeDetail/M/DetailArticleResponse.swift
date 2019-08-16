@@ -30,7 +30,7 @@ struct DetailArticleModel: Codable {
     let voteOption: [VoteOption]?
     let voteStatus: TStrInt?
     let comment: [DetailInfoComment]?
-    let begintime: TStrInt
+    let begintime: TStrInt?
     let likeStatus, collectStatus: TStrInt
     var commentNum: TStrInt
     

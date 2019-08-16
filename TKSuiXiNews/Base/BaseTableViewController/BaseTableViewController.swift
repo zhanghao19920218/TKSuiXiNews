@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ESPullToRefresh
+import MJRefresh
 
 //增加暂无数据的通知名称
 public extension Notification.Name {
@@ -88,23 +88,29 @@ class BaseTableViewController: BaseViewController {
         tableView.snp.makeConstraints({ (make) in
             make.edges.equalToSuperview()
         });
-
-        tableView.tableFooterView = UIView.init();
+        
         //增加下拉刷新
-        tableView.es.addPullToRefresh {
-            [weak self] in
+        //DIY footer
+        let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
             //加载更多数据
-            self?.pullDownRefreshData();
-        }
-
-        //增加上拉加载更多
-        tableView.es.addInfiniteScrolling {
-            [weak self] in
-            /// Do anything you want...
-            /// ...
-            /// If common end
+            self?.pullDownRefreshData()
+        })
+        header!.setTitle("下拉可以刷新", for: .idle)
+        header!.setTitle("释放立即刷新", for: .pulling)
+        
+        header!.stateLabel.textColor = .white
+        header!.lastUpdatedTimeLabel.textColor = .white
+        header!.backgroundColor = appThemeColor
+        
+        tableView.mj_header = header!
+        
+        //设置下拉的状态栏
+        
+        tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: { [weak self] in
             self?.pullUpLoadMoreData()
-        }
+        })
+        
+        //设置上拉的状态的背景
         
         //添加暂无内容
         tableView.addSubview(baseNoDataView);
@@ -113,6 +119,7 @@ class BaseTableViewController: BaseViewController {
             make.centerX.equalToSuperview()
             make.size.equalTo(CGSize(width: 200 * iPHONE_AUTORATIO, height: 184 * iPHONE_AUTORATIO));
         }
+        
     }
     
 
@@ -123,7 +130,7 @@ class BaseTableViewController: BaseViewController {
     {
         page = 1;
         _dataSource = [];
-        tableView.es.resetNoMoreData();
+        tableView.mj_footer.resetNoMoreData()
     }
     
     /**

@@ -296,7 +296,7 @@ extension HomeNewsDetailInfoController: UITableViewDelegate, UITableViewDataSour
             let cell = tableView.dequeueReusableCell(withIdentifier: articleTitleIdentifier) as! CommonDetailTitleNameCell
             cell.title = model?.name.string
             cell.writer = model?.nickname.string
-            cell.time = model?.begintime.string
+            cell.time = model?.begintime?.string
             cell.review = model?.visitNum.int
             return cell
         }

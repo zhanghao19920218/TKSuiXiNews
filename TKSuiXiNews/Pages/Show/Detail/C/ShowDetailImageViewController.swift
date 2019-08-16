@@ -257,7 +257,7 @@ extension ShowDetailImageViewController: UITableViewDelegate, UITableViewDataSou
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: avatarIdentifier) as! DetailUserInfoAvatarCell
             cell.nickname = model?.nickname.string
-            cell.time = model?.begintime.string
+            cell.time = model?.begintime?.string
             cell.avatar = model?.avatar.string
             return cell;
         }

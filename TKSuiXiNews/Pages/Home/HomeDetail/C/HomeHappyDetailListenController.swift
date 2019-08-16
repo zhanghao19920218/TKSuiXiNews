@@ -305,7 +305,7 @@ extension HomeHappyDetailListenController: UITableViewDelegate, UITableViewDataS
             let cell = tableView.dequeueReusableCell(withIdentifier: articleTitleIdentifier) as! DetailHappyMusicListenCell
             cell.title = model?.name.string
             cell.writer = model?.nickname.string
-            cell.time = model?.begintime.string
+            cell.time = model?.begintime?.string
             cell.review = model?.visitNum.int
             cell.block = { [weak self](isPlay) in
                 OperationQueue.main.addOperation {

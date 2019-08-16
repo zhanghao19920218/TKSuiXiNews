@@ -54,3 +54,4 @@ let K_URL_systemConfig = "api/index/sysconfig" //系统参数
 let K_URL_homeChannel = "api/module/index" //首页频道接口
 let K_URL_deleteVVideo = "api/article/del" //删除V视频
 let K_URL_commentIndex = "api/comment/index" //评论列表
+let K_URL_scoreRule = "api/score/rule" //积分规则

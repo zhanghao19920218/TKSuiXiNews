@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ESPullToRefresh
+import MJRefresh
 
 class BaseGrouppedTableViewController: BaseViewController {
 
@@ -86,20 +86,20 @@ class BaseGrouppedTableViewController: BaseViewController {
         
 //        tableView.tableFooterView = UIView.init();
         //增加下拉刷新
-        tableView.es.addPullToRefresh {
+        tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             [unowned self] in
             //加载更多数据
             self.pullDownRefreshData();
-        }
+        })
         
         //增加上拉加载更多
-        tableView.es.addInfiniteScrolling {
+        tableView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
             [unowned self] in
             /// Do anything you want...
             /// ...
             /// If common end
             self.pullUpLoadMoreData()
-        }
+        })
         
         //添加暂无内容
         view.addSubview(baseNoDataView);
@@ -117,7 +117,7 @@ class BaseGrouppedTableViewController: BaseViewController {
     {
         page = 1;
         _dataSource = [];
-        tableView.es.resetNoMoreData();
+        tableView.mj_footer.resetNoMoreData()
     }
     
     /**

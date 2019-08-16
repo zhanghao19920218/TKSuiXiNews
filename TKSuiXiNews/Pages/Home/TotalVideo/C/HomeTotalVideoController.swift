@@ -51,7 +51,7 @@ class HomeTotalVideoController: BaseViewController {
         }
         let pageView = DNSPageViewManager(style: style, titles: titles, childViewControllers: childViewControllers, startIndex: startIndex);
         return pageView;
-    }();
+    }()
     
     //MARK: - 更新StatusBar
     override var preferredStatusBarStyle: UIStatusBarStyle

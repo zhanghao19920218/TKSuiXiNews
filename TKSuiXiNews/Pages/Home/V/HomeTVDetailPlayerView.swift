@@ -30,14 +30,14 @@ class HomeTVDetailPlayerView: UIView {
     private lazy var player: HomeVVideoBaseView = {
         let view = HomeVVideoBaseView(frame: .zero);
         view.image = K_ImageName(PLACE_HOLDER_IMAGE);
-        view.isUserInteractionEnabled = true;
+        view.isUserInteractionEnabled = true
         return view;
     }();
     
     //新闻的标题
     private lazy var titleLabel: UILabel = {
         let label = UILabel();
-        label.font = kFont(12 * iPHONE_AUTORATIO);
+        label.font = kFont(12 * iPHONE_AUTORATIO)
         return label;
     }();
 
@@ -69,5 +69,4 @@ class HomeTVDetailPlayerView: UIView {
             make.top.equalTo(self.player.snp_bottom).offset(10 * iPHONE_AUTORATIO);
         }
     }
-
 }

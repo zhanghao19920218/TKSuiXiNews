@@ -255,7 +255,7 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
             let cell = tableView.dequeueReusableCell(withIdentifier: articleTitleIdentifier) as! CommonDetailTitleNameCell
             cell.title = model?.name.string
             cell.writer = "问政对象: \(model?.moduleSecond.string ?? "")"
-            cell.time = model?.begintime.string
+            cell.time = model?.begintime?.string
             cell.review = model?.visitNum.int
             return cell
         }

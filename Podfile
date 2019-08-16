@@ -10,7 +10,7 @@ pod 'Moya'
 pod 'Codextended'
 pod 'DefaultsKit'
 pod 'IQKeyboardManagerSwift'
-pod 'ESPullToRefresh'
+pod 'MJRefresh'
 pod 'EmptyDataSet-Swift', '~> 4.2.0' #空数据Swift
 pod 'PPBadgeViewSwift' #角标
 pod 'Kingfisher'
@@ -32,6 +32,6 @@ pod 'PLShortVideoKit'
 pod 'SteviaLayout'
 pod 'PryntTrimmerView' #封面选择器
 pod 'UITextView+Placeholder'
-#pod 'BSText' #富文本
+pod 'FaveButton' #收藏动态按钮
 
 end

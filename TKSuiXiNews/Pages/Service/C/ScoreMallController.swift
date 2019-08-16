@@ -91,13 +91,16 @@ class ScoreMallController: BaseCollectionViewController {
         // Do any additional setup after loading the view.
         
         navigationItem.title = "积分商城"
+        
+        _setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isTranslucent = true
         
-        _setupUI()
+        
+        requestScores()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -185,10 +188,10 @@ class ScoreMallController: BaseCollectionViewController {
             }
             
             self?.dataSource = forceModel.data.data;
-            self?.collectionView.es.stopPullToRefresh();
+            self?.collectionView.mj_header.endRefreshing()
             self?.collectionView.reloadData();
             }, failure:{ [weak self] () in
-                self?.collectionView.es.stopPullToRefresh();
+                self?.collectionView.mj_header.endRefreshing()
                 self?.collectionView.reloadData();
             }
         )
@@ -212,15 +215,15 @@ class ScoreMallController: BaseCollectionViewController {
                 //页数+1
                 self?.page += 1;
                 self?.dataSource += forceModel.data.data;
-                self?.collectionView.es.stopLoadingMore();
+                self?.collectionView.mj_footer.endRefreshing()
                 self?.collectionView.reloadData();
             } else {
                 //没有更多数据
-                self?.collectionView.es.noticeNoMoreData();
+                self?.collectionView.mj_footer.endRefreshingWithNoMoreData()
             }
             
             }, failure:{ [weak self] () in
-                self?.collectionView.es.stopLoadingMore();
+                self?.collectionView.mj_footer.endRefreshing()
                 self?.collectionView.reloadData();
             }
         )
@@ -287,7 +290,10 @@ extension ScoreMallController {
             self?.collectionView.reloadData();
             }
         )
-        
+    }
+    
+    //MARK: - 请求积分数量
+    private func requestScores() {
         HttpClient.shareInstance.request(target: BAAPI.memeberInfo, success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(MemeberInfoResponse.self, from: json)

@@ -68,7 +68,7 @@ class ShowViewController: BaseTableViewController {
         tableView.register(ShowVideoViewCell.self, forCellReuseIdentifier: videoIdentifier)
         tableView.delegate = self;
         tableView.dataSource = self;
-        tableView.separatorStyle = .none;
+        tableView.separatorStyle = .none
     }
     
     override func pullDownRefreshData() {
@@ -83,11 +83,11 @@ class ShowViewController: BaseTableViewController {
             }
             
             self?.dataSource = forceModel.data.data;
-            self?.tableView.es.stopPullToRefresh();
+            self?.tableView.mj_header.endRefreshing()
             self?.tableView.reloadData();
             }, failure:{ [weak self] () in
-                self?.tableView.es.stopPullToRefresh();
-                self?.tableView.reloadData();
+                self?.tableView.mj_header.endRefreshing()
+                self?.tableView.reloadData()
             }
         )
     };
@@ -110,16 +110,16 @@ class ShowViewController: BaseTableViewController {
                 //页数+1
                 self?.page += 1;
                 self?.dataSource += forceModel.data.data;
-                self?.tableView.es.stopLoadingMore();
+                self?.tableView.mj_footer.endRefreshing()
                 self?.tableView.reloadData();
             } else {
                 //没有更多数据
-                self?.tableView.es.noticeNoMoreData();
+                self?.tableView.mj_footer.endRefreshingWithNoMoreData()
                 self?.tableView.reloadData();
             }
             
             }, failure:{ [weak self] () in
-                self?.tableView.es.stopLoadingMore();
+                self?.tableView.mj_footer.endRefreshing()
                 self?.tableView.reloadData();
             }
         )
@@ -130,6 +130,13 @@ class ShowViewController: BaseTableViewController {
     @objc private func rightNavigationBarItemTapped(_ sender: UIButton) {
         FWPopupViewUtil.share.popAlert()
         FWPopupViewUtil.share.delegate = self
+    }
+    
+    //MARK: - 自动刷新页面
+    public func refreshShowPage() {
+        if let _ = tableView.mj_header {
+            tableView.mj_header.beginRefreshing()
+        }
     }
 }
 

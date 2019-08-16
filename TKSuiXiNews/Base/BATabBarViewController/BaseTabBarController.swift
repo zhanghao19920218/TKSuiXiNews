@@ -29,9 +29,25 @@ class BaseTabBarController: UITabBarController, tabBarDelegate {
     }
     
     func tabBar(_ tabBar: BATabBar, didSelectedButtonFrom from: Int, toIndex to: Int) {
-        print("\(from), \(to)");
-        self.selectedIndex = to;
-        print("\(self.selectedIndex)");
+        print("\(from), \(to)")
+        self.selectedIndex = to
+        print("\(self.selectedIndex)")
+        
+        //根据选择的按钮来确定, 是否来刷新页面
+        if to == 0 {
+            //刷新首页面
+            let homeNaviController = children[0] as! BANavigationController
+            let homeController = homeNaviController.children[0] as! HomeViewController
+            homeController.setupUI() //刷新页面
+        }
+        
+        //如果从其他页面到随手拍就刷新页面
+        if from != to && (to == 1) {
+            //随手拍页面
+            let showNaviController = children[1] as! BANavigationController
+            let showController = showNaviController.children[0] as! ShowViewController
+            showController.refreshShowPage() //刷新页面
+        }
     }
 
     //取出系统自带的tabbar并把里面的按钮删除掉
@@ -47,7 +63,6 @@ class BaseTabBarController: UITabBarController, tabBarDelegate {
     private func setupTabBar() {
         let customTabBar:BATabBar = BATabBar.init();
         self.tabBar.backgroundColor = RGBA(255, 255, 255, 1)
-//        customTabBar.backgroundColor = .red
         customTabBar.delegate = self;
         customTabBar.frame = self.tabBar.bounds;
         self.costomTabBar = customTabBar;

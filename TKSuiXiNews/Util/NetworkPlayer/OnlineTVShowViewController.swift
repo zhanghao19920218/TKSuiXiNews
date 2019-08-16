@@ -79,12 +79,9 @@ class OnlineTVShowViewController: BaseViewController {
     
     //返回如果是横屏先竖屏再返回
     override func popViewControllerBtnPressed() {
-//        if UIDevice.current.orientation != .portrait {
-//            let value = UIInterfaceOrientation.portrait.rawValue
-//            UIDevice.current.setValue(value, forKey: "orientation")
-//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//            appDelegate.allowrRotate = 0
-//        }
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.allowrRotate = 0; //关闭横屏仅允许竖屏
+        setNewOritentation(fullScreen: false)
         
         super.popViewControllerBtnPressed()
     }
@@ -105,9 +102,6 @@ class OnlineTVShowViewController: BaseViewController {
         //销毁播放器
         doDestoryPlayer()
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.allowrRotate = 0; //关闭横屏仅允许竖屏
-        setNewOritentation(fullScreen: false)
     }
     
     //MARK: - 初始化播放器

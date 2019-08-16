@@ -58,10 +58,10 @@ class MessageViewController: BaseTableViewController {
             }
             
             self?.dataSource = forceModel.data.data;
-            self?.tableView.es.stopPullToRefresh();
+            self?.tableView.mj_header.endRefreshing()
             self?.tableView.reloadData();
             }, failure:{ [weak self] () in
-                self?.tableView.es.stopPullToRefresh();
+                self?.tableView.mj_header.endRefreshing()
                 self?.tableView.reloadData();
             }
         )
@@ -85,15 +85,15 @@ class MessageViewController: BaseTableViewController {
                 //页数+1
                 self?.page += 1;
                 self?.dataSource += forceModel.data.data;
-                self?.tableView.es.stopLoadingMore();
+                self?.tableView.mj_footer.endRefreshing()
                 self?.tableView.reloadData();
             } else {
                 //没有更多数据
-                self?.tableView.es.noticeNoMoreData();
+                self?.tableView.mj_footer.endRefreshingWithNoMoreData()
             }
             
             }, failure:{ [weak self] () in
-                self?.tableView.es.stopLoadingMore();
+                self?.tableView.mj_footer.endRefreshingWithNoMoreData()
                 self?.tableView.reloadData();
             }
         )

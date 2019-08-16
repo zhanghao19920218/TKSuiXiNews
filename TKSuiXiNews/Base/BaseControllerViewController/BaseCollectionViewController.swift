@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ESPullToRefresh
+import MJRefresh
 
 //MARK: - 积分商城的Controller
 
@@ -16,8 +16,8 @@ class BaseCollectionViewController: BaseViewController {
     //基类的tableView
     lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0;
+        layout.minimumLineSpacing = 15 * iPHONE_AUTORATIO
+        layout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout);
         collectionView.backgroundColor = RGBA(238, 238, 238, 1)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -68,20 +68,20 @@ class BaseCollectionViewController: BaseViewController {
     {
         
         //增加下拉刷新
-        collectionView.es.addPullToRefresh {
+        collectionView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             [unowned self] in
             //加载更多数据
             self.pullDownRefreshData();
-        }
+        })
         
         //增加上拉加载更多
-        collectionView.es.addInfiniteScrolling {
+        collectionView.mj_footer = MJRefreshBackNormalFooter(refreshingBlock: {
             [unowned self] in
             /// Do anything you want...
             /// ...
             /// If common end
             self.pullUpLoadMoreData()
-        }
+        })
         
     }
     
@@ -93,7 +93,7 @@ class BaseCollectionViewController: BaseViewController {
     {
         page = 1;
         _dataSource = [];
-        collectionView.es.resetNoMoreData();
+        collectionView.mj_footer.resetNoMoreData()
     }
     
     /**

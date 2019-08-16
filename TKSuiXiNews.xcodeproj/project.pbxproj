@@ -84,6 +84,7 @@
 		734A7BC122EFE5970016764F /* HomeNewsNoPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC022EFE5970016764F /* HomeNewsNoPicCell.swift */; };
 		734A7BC522EFF18A0016764F /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC422EFF18A0016764F /* UIApplication+Extension.swift */; };
 		734A7BC722EFF3920016764F /* HomeMatrixListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC622EFF3920016764F /* HomeMatrixListController.swift */; };
+		735E2AEF230647EA00E3AD33 /* ScoreRuleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735E2AEE230647EA00E3AD33 /* ScoreRuleResponse.swift */; };
 		736114E122F1A98A00BC5A8E /* ProductDetailTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E022F1A98A00BC5A8E /* ProductDetailTitleCell.swift */; };
 		736114E322F1AE2600BC5A8E /* ProductDetailDescribeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E222F1AE2600BC5A8E /* ProductDetailDescribeCell.swift */; };
 		736114E522F1B48F00BC5A8E /* MallListProductItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E422F1B48F00BC5A8E /* MallListProductItemResponse.swift */; };
@@ -427,6 +428,7 @@
 		734A7BC022EFE5970016764F /* HomeNewsNoPicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewsNoPicCell.swift; sourceTree = "<group>"; };
 		734A7BC422EFF18A0016764F /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		734A7BC622EFF3920016764F /* HomeMatrixListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMatrixListController.swift; sourceTree = "<group>"; };
+		735E2AEE230647EA00E3AD33 /* ScoreRuleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreRuleResponse.swift; sourceTree = "<group>"; };
 		736114E022F1A98A00BC5A8E /* ProductDetailTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailTitleCell.swift; sourceTree = "<group>"; };
 		736114E222F1AE2600BC5A8E /* ProductDetailDescribeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailDescribeCell.swift; sourceTree = "<group>"; };
 		736114E422F1B48F00BC5A8E /* MallListProductItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallListProductItemResponse.swift; sourceTree = "<group>"; };
@@ -736,6 +738,7 @@
 				736114E822F1BD0E00BC5A8E /* RotatePanelListItemResponse.swift */,
 				736114EA22F1C2A100BC5A8E /* AwardDrawResponse.swift */,
 				736114EC22F1C32500BC5A8E /* AwardPanelModel.swift */,
+				735E2AEE230647EA00E3AD33 /* ScoreRuleResponse.swift */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2244,6 +2247,7 @@
 				733ED19322E4706100B452D4 /* ShowVideoViewCell.swift in Sources */,
 				73A3329722EA94560060F281 /* iQiYiPlayButton.swift in Sources */,
 				7308499122E55DF600958969 /* ServiceCollectionHeader.swift in Sources */,
+				735E2AEF230647EA00E3AD33 /* ScoreRuleResponse.swift in Sources */,
 				734A7BB922EFD1540016764F /* HomeAskGovOnePicCell.swift in Sources */,
 				73D451A922F4135800DAE835 /* CommonDetailTitleNameCell.swift in Sources */,
 				73FE5FDC22FBB7D90047DB02 /* YPLibraryVC+CollectionView.swift in Sources */,
@@ -2570,6 +2574,7 @@
 			baseConfigurationReference = A47A8DE8545AE07619BEE145 /* Pods-TKSuiXiNews.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development: Liangbo Yin (W5DUC3DZTS)";
 				CODE_SIGN_STYLE = Manual;
@@ -2626,8 +2631,6 @@
 					"\"DNSPageView\"",
 					"-framework",
 					"\"DefaultsKit\"",
-					"-framework",
-					"\"ESPullToRefresh\"",
 					"-framework",
 					"\"EmptyDataSet_Swift\"",
 					"-framework",
@@ -2703,6 +2706,7 @@
 			baseConfigurationReference = 0BF23A43A937A01D5D675F19 /* Pods-TKSuiXiNews.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development: Liangbo Yin (W5DUC3DZTS)";
 				CODE_SIGN_STYLE = Manual;
@@ -2759,8 +2763,6 @@
 					"\"DNSPageView\"",
 					"-framework",
 					"\"DefaultsKit\"",
-					"-framework",
-					"\"ESPullToRefresh\"",
 					"-framework",
 					"\"EmptyDataSet_Swift\"",
 					"-framework",

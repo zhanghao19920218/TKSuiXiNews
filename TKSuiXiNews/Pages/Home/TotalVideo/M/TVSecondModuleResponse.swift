@@ -40,7 +40,7 @@ struct TVSecondModuleDatum: Codable {
     let status: String
     let visitNum, commentNum, likeNum, createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
-    let time: JSONNull?
+    let time: TStrInt?
     let type, begintime: TStrInt
     let likeStatus, collectStatus: TStrInt
     

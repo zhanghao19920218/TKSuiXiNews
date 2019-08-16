@@ -200,6 +200,10 @@ class SXLoginViewController: BaseLoginViewController {
     
     //登录按钮点击
     override func buttonTapped(_ sender: UIButton) {
+        //关闭键盘
+        phoneTextF.textField.resignFirstResponder()
+        passwordTextF.textField.resignFirstResponder()
+        
         //MARK: - 判断密码账户
         if !model.judgeIsFull() {
             return;
