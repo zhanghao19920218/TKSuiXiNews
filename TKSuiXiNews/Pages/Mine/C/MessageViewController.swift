@@ -11,6 +11,15 @@ import UIKit
 fileprivate let cellIdentifier = "CDLMessageCellIdentifier";
 
 class MessageViewController: BaseTableViewController {
+    //设置右侧的navigationItem
+    private lazy var rightNavigatorItem: UIButton = {
+        let button = UIButton(type: .custom);
+        button.setTitle("清空")
+        button.frame = CGRect(x: 0, y: 0, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO)
+        button.addTarget(self, action: #selector(clearMessageButtonClicked(_:)), for: .touchUpInside)
+        return button;
+    }();
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,6 +43,8 @@ class MessageViewController: BaseTableViewController {
         tableView.snp.remakeConstraints { (make) in
             make.edges.equalToSuperview();
         };
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem)
     }
     
     
@@ -98,6 +109,11 @@ class MessageViewController: BaseTableViewController {
             }
         )
     }
+    
+    ///清空数据
+    @objc private func clearMessageButtonClicked(_ sender: UIButton) {
+        clearMsgData()
+    }
 }
 
 extension MessageViewController {
@@ -112,6 +128,15 @@ extension MessageViewController {
             
             self?.dataSource = forceModel.data.data;
             self?.tableView.reloadData();
+            }
+        )
+    }
+    
+    //MARK: - 清空数据
+    private func clearMsgData() {
+        HttpClient.shareInstance.request(target: BAAPI.clearAllMessage, success: { [weak self] (json) in
+            TProgressHUD.show(text: "清空消息成功")
+            self?.requestData()
             }
         )
     }

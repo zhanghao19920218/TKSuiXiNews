@@ -114,6 +114,8 @@ enum  BAAPI {
     case scoreRule
     //手机验证码登录
     case mobileCaptcha(mobile: String, captcha:String)
+    //清空消息
+    case clearAllMessage
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -232,6 +234,8 @@ extension BAAPI: TargetType {
             return K_URL_scoreRule
         case .mobileCaptcha:
             return K_URL_loginMobileCode
+        case .clearAllMessage:
+            return K_URL_clearMessage
         }
         
     }

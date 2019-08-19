@@ -56,3 +56,4 @@ let K_URL_deleteVVideo = "api/article/del" //删除V视频
 let K_URL_commentIndex = "api/comment/index" //评论列表
 let K_URL_scoreRule = "api/score/rule" //积分规则
 let K_URL_loginMobileCode = "api/user/mobilelogin" //手机验证码登录
+let K_URL_clearMessage = "api/msg/deleteall" //清空消息
