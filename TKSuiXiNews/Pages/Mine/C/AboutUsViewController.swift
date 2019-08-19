@@ -9,23 +9,32 @@
 import UIKit
 
 class AboutUsViewController: BaseViewController {
+    ///下载的二维码图片
+    private lazy var downLoadImageV: UIImageView = {
+        let imageView = UIImageView()
+        return imageView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "关于我们"
-        //设置标题为白色
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        self.view.backgroundColor = RGB(244, 245, 247)
+        
+        navigationItem.title = "关于我们"
+        
+        view.backgroundColor = RGB(244, 245, 247)
+        
         createView()
     }
     
     func createView() {
-        let versionLab = UILabel()
-        versionLab.font = kFont(12)
-        versionLab.textColor = RGB(153, 153, 153)
-        self.view.addSubview(versionLab)
-        versionLab.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
+        
+        
+        let logoImageView = UIImageView()
+        logoImageView.image = UIImage.init(named: "logo")
+        self.view.addSubview(logoImageView)
+        logoImageView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(96 * iPHONE_AUTORATIO)
+            make.size.equalTo(CGSize(width: 90 * iPHONE_AUTORATIO, height: 76 * iPHONE_AUTORATIO))
         }
         
         let nameLab = UILabel()
@@ -34,8 +43,18 @@ class AboutUsViewController: BaseViewController {
         self.view.addSubview(nameLab)
         nameLab.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(versionLab.snp_top).offset(-10)
+            make.top.equalTo(logoImageView.snp_bottom).offset(15 * iPHONE_AUTORATIO)
         }
+        
+        let versionLab = UILabel()
+        versionLab.font = kFont(12)
+        versionLab.textColor = RGB(153, 153, 153)
+        view.addSubview(versionLab)
+        versionLab.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(nameLab.snp_bottom).offset(13 * iPHONE_AUTORATIO)
+        }
+        
         
         let infoDictionary = Bundle.main.infoDictionary
         if let infoDictionary = infoDictionary {
@@ -47,26 +66,27 @@ class AboutUsViewController: BaseViewController {
             nameLab.text = appNameStr
         }
         
-        let logoImageView = UIImageView()
-        logoImageView.image = UIImage.init(named: "logo")
-        self.view.addSubview(logoImageView)
-        logoImageView.snp.makeConstraints { (make) in
+        view.addSubview(downLoadImageV)
+        downLoadImageV.snp.makeConstraints { (make) in
+            make.top.equalTo(versionLab.snp_bottom).offset(50 * iPHONE_AUTORATIO)
+            make.size.equalTo(CGSize(width: 120 * iPHONE_AUTORATIO, height: 120 * iPHONE_AUTORATIO))
             make.centerX.equalToSuperview()
-            make.bottom.equalTo(nameLab.snp_top).offset(-20)
         }
-        
         
         let desLab = UILabel()
         desLab.font = kFont(12)
         desLab.textColor = RGB(153, 153, 153)
         desLab.numberOfLines = 2
         desLab.textAlignment = .center
-        self.view.addSubview(desLab)
+        view.addSubview(desLab)
         desLab.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(versionLab.snp_bottom).offset(100)
+            make.top.equalTo(downLoadImageV.snp_bottom).offset(73 * iPHONE_AUTORATIO)
         }
         desLab.text = "版权所有 © 2004-2019 京ICP证050806号\n京ICP备05051578号-1"
+        
+        //获取二维码地址
+        downLoadImageV.kf.setImage(with: URL(string: DefaultsKitUtil.share.getQRAddress()), placeholder: K_ImageName(PLACE_HOLDER_IMAGE))
         
     }
 

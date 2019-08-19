@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DefaultsKit
 
 fileprivate let bannerIdentifier = "HomeVVideoBannerCellIdentifier";
 fileprivate let searchTitleIdentifier = "HomeNewsSearchInfoCellIdentifier";
@@ -116,6 +117,8 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
             let cell = tableView.dequeueReusableCell(withIdentifier: searchTitleIdentifier) as! HomeNewsSearchInfoCell
             cell.block = { [weak self] () in
                 let vc = HomeSearchListViewController()
+                //获取默认数据
+                vc.name = Defaults.shared.get(for: placeholderKey) ?? ""
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
             return cell;
@@ -192,24 +195,32 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row >= 2 {
             let model = dataSource[indexPath.row - 2] as! HomeNewsListModel
-            let vc = HomeNewsDetailInfoController();
-            vc.id = model.id.string
-            vc.title = "新闻"
-            navigationController?.pushViewController(vc, animated: true)
-            //如果取消点赞或者成功点赞刷新页面
-            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
-                //获取要刷新的索引
-                let indexPaths = [indexPath]
-                //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row-2] as! HomeNewsListModel
-                changeModel.likeStatus.int = (likeStatus ? 1 : 0)
-                changeModel.commentNum.int = comment
-                changeModel.likeNum.int = like
-                changeModel.visitNum.int = review
-                self?.dataSource[indexPath.row - 2] = changeModel
-                //刷新页面
-                self?.tableView.reloadRows(at: indexPaths, with: .none)
+            if model.url.string.isEmpty {
+                let vc = HomeNewsDetailInfoController();
+                vc.id = model.id.string
+                vc.title = "新闻"
+                navigationController?.pushViewController(vc, animated: true)
+                //如果取消点赞或者成功点赞刷新页面
+                vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                    //获取要刷新的索引
+                    let indexPaths = [indexPath]
+                    //更新索引的数据
+                    var changeModel = self?.dataSource[indexPath.row-2] as! HomeNewsListModel
+                    changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                    changeModel.commentNum.int = comment
+                    changeModel.likeNum.int = like
+                    changeModel.visitNum.int = review
+                    self?.dataSource[indexPath.row - 2] = changeModel
+                    //刷新页面
+                    self?.tableView.reloadRows(at: indexPaths, with: .none)
+                }
+            } else {
+                //跳转外链
+                let vc = ServiceWKWebViewController() //新闻播放的页面
+                vc.loadUrl = model.url.string
+                navigationController?.pushViewController(vc, animated: true)
             }
+        
         }
     }
 }

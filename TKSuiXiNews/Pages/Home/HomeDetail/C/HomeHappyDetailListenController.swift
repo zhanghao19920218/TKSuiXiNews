@@ -193,6 +193,11 @@ extension HomeHappyDetailListenController {
     
     //MARK: - 上传新闻评论信息
     private func sendComment(_ msg: String) {
+        if msg.isEmpty {
+            TProgressHUD.show(text: "请输入评论")
+            return
+        }
+        
         HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: Int(id) ?? 0, detail: msg), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(BaseModel.self, from: json)
@@ -307,6 +312,7 @@ extension HomeHappyDetailListenController: UITableViewDelegate, UITableViewDataS
             cell.writer = model?.nickname.string
             cell.time = model?.begintime?.string
             cell.review = model?.visitNum.int
+            cell.musicLength = model?.time?.int
             cell.block = { [weak self](isPlay) in
                 OperationQueue.main.addOperation {
                     self?.tableView.reloadData()

@@ -195,6 +195,7 @@ extension HomeViewController {
             let model = try? decoder.decode(SystemConfigModel.self, from: json)
             if let cofigure = model {
                 Defaults.shared.set(cofigure.data.defaultSearch.string, for: placeholderKey)
+                DefaultsKitUtil.share.storeQRAddress(url: cofigure.data.qrcode.string)
             }
         })
     }

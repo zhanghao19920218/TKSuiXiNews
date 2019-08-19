@@ -15,7 +15,7 @@ fileprivate let cellIdentifier = "ChangePasswordCellIdentifier"
 fileprivate let codeIdentifier = "ChangePasswordCodeCellIdentifier"
 
 class ChangePasswordController: BaseViewController {
-    private var _mobile = ""
+    private var _mobile = DefaultsKitUtil.share.getMobileNum()
     private var _code = ""
     private var _password = ""
     private var _confirmPass = ""
@@ -43,10 +43,10 @@ class ChangePasswordController: BaseViewController {
     }()
     
     private lazy var _titles: [String] = {
-        return ["手机号","输入验证码", "输入新密码", "输入新密码"]
+        return ["输入验证码", "输入新密码", "输入新密码"]
     }()
     private lazy var _placeholders: [String] = {
-        return ["输入手机号","输入验证码", "请输入新密码", "请确认新密码"]
+        return ["输入验证码", "请输入新密码", "请确认新密码"]
     }()
 
     override func viewDidLoad() {
@@ -65,7 +65,7 @@ class ChangePasswordController: BaseViewController {
         tableView.snp.makeConstraints { (make) in
             make.left.top.equalTo(15)
             make.right.equalTo(-15)
-            make.height.equalTo(240)
+            make.height.equalTo(1803376)
         }
         
         view.addSubview(button)
@@ -77,11 +77,7 @@ class ChangePasswordController: BaseViewController {
     
     //MARK: - 点击修改密码按钮
     @objc private func changedPasswordButtonClicked(_ sender: UIButton) {
-        print("点击修改密码按钮");
-        if !_mobile.isPhoneNumber() {
-            TProgressHUD.show(text: "请输入正确的手机号码")
-            return
-        }
+        print("点击修改密码按钮")
         
         if _code.isEmpty {
             TProgressHUD.show(text: "请输入验证码")
@@ -95,6 +91,7 @@ class ChangePasswordController: BaseViewController {
         
         if _confirmPass != _password {
             TProgressHUD.show(text: "两次输入密码不一致")
+            return
         }
         
         //修改密码
@@ -133,11 +130,11 @@ extension ChangePasswordController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 1 {
+        if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: codeIdentifier) as! ChangePasswordCodeCell
             cell.title = _titles[indexPath.row]
             cell.placeholder = _placeholders[indexPath.row]
@@ -153,9 +150,8 @@ extension ChangePasswordController: UITableViewDelegate, UITableViewDataSource {
         cell.title = _titles[indexPath.row]
         cell.placeholder = _placeholders[indexPath.row]
         cell.block = { [weak self] (text) in
-            if indexPath.row == 0 { self?._mobile = text }
-            if indexPath.row == 2 { self?._password = text }
-            if indexPath.row == 3 { self?._confirmPass = text }
+            if indexPath.row == 1 { self?._password = text }
+            if indexPath.row == 2 { self?._confirmPass = text }
         }
         return cell
     }

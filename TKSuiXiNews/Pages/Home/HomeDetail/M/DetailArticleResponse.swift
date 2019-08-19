@@ -59,13 +59,14 @@ struct DetailArticleModel: Codable {
 struct DetailInfoComment: Codable {
     let id, userID, articleID: TStrInt
     let detail, nickname, avatar, status: TStrInt
-    let createtime, updatetime: TStrInt
+    let createtime, updatetime, adminStatus: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case id
         case userID = "user_id"
         case articleID = "article_id"
         case detail, nickname, avatar, status, createtime, updatetime
+        case adminStatus = "admin_status"
     }
 }
 

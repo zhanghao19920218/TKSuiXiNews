@@ -26,7 +26,9 @@ class MineViewController: BaseViewController {
         imageView.layer.masksToBounds = true;
         imageView.layer.borderWidth = 3 * iPHONE_AUTORATIO;
         imageView.layer.borderColor = RGBA(255, 102, 103, 1).cgColor
-        imageView.image = K_ImageName(PLACE_HOLDER_IMAGE);
+        imageView.image = K_ImageName(PLACE_HOLDER_IMAGE)
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView;
     }();
     
@@ -258,7 +260,13 @@ extension MineViewController {
             self?.avatarImageView.kf.setImage(with: URL(string: avatar), placeholder: K_ImageName(PLACE_HOLDER_IMAGE))
             self?.nicknameLabel.text = forceModel.data.nickname.string
             self?.mobileLabel.text = forceModel.data.mobile.string
-            self?.scoreBackButton.score = forceModel.data.score.string;
+            self?.scoreBackButton.score = forceModel.data.score.string
+            
+            //未读消息数量
+            self?.mineCollectionView.unreadMsgCount = forceModel.data.unread.int
+            
+            //更新手机号码
+            DefaultsKitUtil.share.storePhoneNum(mobile: forceModel.data.mobile.string)
             }
         )
     }

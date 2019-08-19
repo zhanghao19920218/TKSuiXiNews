@@ -166,6 +166,11 @@ extension DetailAskGovementController {
     
     //MARK: - 上传新闻评论信息
     private func sendComment(_ msg: String) {
+        if msg.isEmpty {
+            TProgressHUD.show(text: "请输入评论")
+            return
+        }
+        
         HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: Int(id) ?? 0, detail: msg), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(BaseModel.self, from: json)
@@ -341,6 +346,7 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
             cell.nickname = model?.comment?[indexPath.row - 6].nickname.string
             cell.comment = model?.comment?[indexPath.row - 6].detail.string
             cell.time = model?.comment?[indexPath.row - 6].createtime.string
+            cell.isGove = model?.comment?[indexPath.row - 6].adminStatus.int
             return cell
         }
         
@@ -380,6 +386,7 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
         cell.nickname = model?.comment?[indexPath.row - 5].nickname.string
         cell.comment = model?.comment?[indexPath.row - 5].detail.string
         cell.time = model?.comment?[indexPath.row - 5].createtime.string
+        cell.isGove = model?.comment?[indexPath.row - 5].adminStatus.int
         return cell
     }
     

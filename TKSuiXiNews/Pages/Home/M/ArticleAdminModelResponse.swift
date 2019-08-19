@@ -20,4 +20,5 @@ struct ArticleAdminModelDatum: Codable {
     let id: TStrInt?
     let nickname: TStrInt
     let avatar: TStrInt
+    let url: TStrInt
 }

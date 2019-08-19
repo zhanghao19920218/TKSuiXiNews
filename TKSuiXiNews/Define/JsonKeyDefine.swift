@@ -19,6 +19,8 @@ let K_JT_sevenToken: String = "sevenToken"
 let K_JT_userId: String = "userId"
 let K_JT_groupId: String = "groupId"
 let K_JT_placeholder: String = "placeholder"
+let K_JT_phoneMobile: String = "mobile"
+let K_JT_qrDownload: String = "QrCode"
 
 //MARK: - 登录的appKey
 let wechatAppKey = "wx3314443bcadc6e01"
@@ -30,3 +32,6 @@ let sevenToken = Key<String>(K_JT_sevenToken)
 let userIdKey = Key<String>(K_JT_userId)
 let userGroupId = Key<Int>(K_JT_groupId)
 let placeholderKey = Key<String>(K_JT_placeholder)
+let mobileKey = Key<String>(K_JT_phoneMobile)
+let qrCodeKey = Key<String>(K_JT_qrDownload)
+

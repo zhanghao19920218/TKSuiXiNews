@@ -112,6 +112,8 @@ enum  BAAPI {
     case loadMoreComment(id: Int, page: Int)
     //积分规则
     case scoreRule
+    //手机验证码登录
+    case mobileCaptcha(mobile: String, captcha:String)
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -228,6 +230,8 @@ extension BAAPI: TargetType {
             return K_URL_commentIndex
         case .scoreRule:
             return K_URL_scoreRule
+        case .mobileCaptcha:
+            return K_URL_loginMobileCode
         }
         
     }
@@ -430,6 +434,10 @@ extension BAAPI: TargetType {
         case let .loadMoreComment(id, page):
             params["article_id"] = id
             params["p"] = page
+            
+        case let .mobileCaptcha(mobile, captcha):
+            params["mobile"] = mobile
+            params["captcha"] = captcha
             
         default:
             //不需要传参数的接口走这里

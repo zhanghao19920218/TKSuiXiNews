@@ -16,6 +16,9 @@ fileprivate let cellIdentifier = "HomeHappyListenCellIdentifier"
 class HomeHappyListenController: BaseTableViewController {
     //当前选中的indexPath.row
     private var _selectedIndex: Int?
+    
+    //当前播放的时间
+    private var _musicCurrentTime: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +54,13 @@ class HomeHappyListenController: BaseTableViewController {
     
     override func pullDownRefreshData() {
         super.pullDownRefreshData()
+        
+        //刷线删除数据
+        _selectedIndex = nil
+        _musicCurrentTime = nil
+        
+        //关闭音乐
+        AudioPlayerSample.share.pause()
         
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.contentList(module: "悦听", page: page), success:{ [weak self] (json) in
@@ -120,14 +130,15 @@ extension HomeHappyListenController: UITableViewDelegate, UITableViewDataSource 
         //确定是不是播放中
         if let index = _selectedIndex, index == indexPath.row {
             cell.isPlay = true
+            cell.audioLength = _musicCurrentTime
         } else {
             cell.isPlay = false
+            cell.audioLength = model.time.int
         }
         cell.beginTime = model.begintime.string
         cell.likeNum = model.likeNum.int
         cell.review = model.visitNum.int
         cell.isLike = model.likeStatus.int
-        cell.audioLength = model.time.int
         cell.block = { [weak self] (isPlay) in
             OperationQueue.main.addOperation {
                 self?.tableView.reloadData() //刷新页面
@@ -135,12 +146,17 @@ extension HomeHappyListenController: UITableViewDelegate, UITableViewDataSource 
                 if isPlay {
                     //判断是不是在播放音频
                     self?._selectedIndex = nil
+                    self?._musicCurrentTime = nil
                     AudioPlayerSample.share.pause()
+                    self?.tableView.reloadRows(at: [indexPath], with: .none)
                 } else {
                     //判断是不是在播放音频
                     self?._selectedIndex = indexPath.row //确定选中的index
-                    AudioPlayerSample.share.play(timeChangeBlock: { (time) in
-                        cell.audioLength = time
+                    AudioPlayerSample.share.play(timeChangeBlock: { [weak self] (time) in
+                        self?._musicCurrentTime = time
+                        if self?.dataSource.count ?? 0 > indexPath.row {
+                            self?.tableView.reloadRows(at: [indexPath], with: .none)
+                        }
                     })
                 }
             }

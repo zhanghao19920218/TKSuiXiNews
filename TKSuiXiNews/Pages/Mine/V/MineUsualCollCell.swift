@@ -22,6 +22,18 @@ class MineUsualCollCell: UICollectionViewCell {
         }
     }
     
+    var unread: Int? {
+        willSet(newValue) {
+            if let value = newValue, value > 0 {
+                unreadMsgView.isHidden = false
+                unreadMsgLabel.text = "\(value)"
+            } else {
+                unreadMsgView.isHidden = true
+            }
+        }
+    }
+    
+    
     //图片
     private lazy var collectionImage: UIImageView = {
         let imageView = UIImageView();
@@ -35,6 +47,25 @@ class MineUsualCollCell: UICollectionViewCell {
         label.textAlignment = .center;
         label.font = kFont(12 * iPHONE_AUTORATIO)
         return label;
+    }()
+    
+    ///未读消息数
+    private lazy var unreadMsgView: UIView = {
+        let view = UIView()
+        view.backgroundColor = RGBA(254, 168, 65, 1)
+        view.layer.cornerRadius = 10 * iPHONE_AUTORATIO
+        view.isHidden = true
+        return view
+    }()
+    
+    ///未读消息的Label
+    private lazy var unreadMsgLabel: UILabel = {
+        let label = UILabel()
+        label.font = kFont(10 * iPHONE_AUTORATIO)
+        label.textAlignment = .center
+        label.textColor = .white
+        label.text = "0"
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -59,6 +90,18 @@ class MineUsualCollCell: UICollectionViewCell {
         nameLabel.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview();
             make.top.equalTo(self.collectionImage.snp_bottom).offset(10 * iPHONE_AUTORATIO)
-        };
+        }
+        
+        collectionImage.addSubview(unreadMsgView)
+        unreadMsgView.snp.makeConstraints { (make) in
+            make.right.equalTo(8 * iPHONE_AUTORATIO)
+            make.top.equalTo(-8 * iPHONE_AUTORATIO)
+            make.size.equalTo(CGSize(width: 20 * iPHONE_AUTORATIO, height: 20 * iPHONE_AUTORATIO))
+        }
+        
+        unreadMsgView.addSubview(unreadMsgLabel)
+        unreadMsgLabel.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+        }
     }
 }

@@ -44,6 +44,7 @@ struct MineArticleListModelDatum: Codable {
     let visitNum, commentNum, likeNum, createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
     let time, type: TStrInt
+    var likeStatus: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -58,5 +59,6 @@ struct MineArticleListModelDatum: Codable {
         case createtime, updatetime
         case voteID = "vote_id"
         case weigh, time, type
+        case likeStatus = "like_status"
     }
 }

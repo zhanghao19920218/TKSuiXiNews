@@ -84,6 +84,8 @@
 		734A7BC122EFE5970016764F /* HomeNewsNoPicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC022EFE5970016764F /* HomeNewsNoPicCell.swift */; };
 		734A7BC522EFF18A0016764F /* UIApplication+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC422EFF18A0016764F /* UIApplication+Extension.swift */; };
 		734A7BC722EFF3920016764F /* HomeMatrixListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734A7BC622EFF3920016764F /* HomeMatrixListController.swift */; };
+		7357AC11230A77F900373E70 /* DefaultsKitUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7357AC10230A77F900373E70 /* DefaultsKitUtil.swift */; };
+		7357AC13230A840900373E70 /* SwitchLoginTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7357AC12230A840900373E70 /* SwitchLoginTypeView.swift */; };
 		735E2AEF230647EA00E3AD33 /* ScoreRuleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 735E2AEE230647EA00E3AD33 /* ScoreRuleResponse.swift */; };
 		736114E122F1A98A00BC5A8E /* ProductDetailTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E022F1A98A00BC5A8E /* ProductDetailTitleCell.swift */; };
 		736114E322F1AE2600BC5A8E /* ProductDetailDescribeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736114E222F1AE2600BC5A8E /* ProductDetailDescribeCell.swift */; };
@@ -428,6 +430,8 @@
 		734A7BC022EFE5970016764F /* HomeNewsNoPicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewsNoPicCell.swift; sourceTree = "<group>"; };
 		734A7BC422EFF18A0016764F /* UIApplication+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extension.swift"; sourceTree = "<group>"; };
 		734A7BC622EFF3920016764F /* HomeMatrixListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMatrixListController.swift; sourceTree = "<group>"; };
+		7357AC10230A77F900373E70 /* DefaultsKitUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKitUtil.swift; sourceTree = "<group>"; };
+		7357AC12230A840900373E70 /* SwitchLoginTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchLoginTypeView.swift; sourceTree = "<group>"; };
 		735E2AEE230647EA00E3AD33 /* ScoreRuleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreRuleResponse.swift; sourceTree = "<group>"; };
 		736114E022F1A98A00BC5A8E /* ProductDetailTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailTitleCell.swift; sourceTree = "<group>"; };
 		736114E222F1AE2600BC5A8E /* ProductDetailDescribeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailDescribeCell.swift; sourceTree = "<group>"; };
@@ -951,6 +955,14 @@
 			path = M;
 			sourceTree = "<group>";
 		};
+		7357AC0F230A77C500373E70 /* DefaultsKit */ = {
+			isa = PBXGroup;
+			children = (
+				7357AC10230A77F900373E70 /* DefaultsKitUtil.swift */,
+			);
+			path = DefaultsKit;
+			sourceTree = "<group>";
+		};
 		7372605522FBEC1300652586 /* AlertPopMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -1347,6 +1359,7 @@
 		73DEBAAE22E311E3007EC4E1 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				7357AC0F230A77C500373E70 /* DefaultsKit */,
 				73BDC1422302889100400207 /* PhotoBrowser */,
 				73ECFF3422FF09F5003F8C5D /* ShareBottomPopMenu */,
 				73ECFF3122FEFA47003F8C5D /* AskGovPopMenu */,
@@ -1511,6 +1524,7 @@
 				73DEBAEB22E32B90007EC4E1 /* SXLoginTextField.swift */,
 				73DEBAEF22E3376D007EC4E1 /* SXLoginBaseButton.swift */,
 				73DEBAF122E33A8B007EC4E1 /* SXForgetBaseButton.swift */,
+				7357AC12230A840900373E70 /* SwitchLoginTypeView.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2226,6 +2240,7 @@
 				73FE601122FBB7D90047DB02 /* YPAlerts.swift in Sources */,
 				73FE5FD722FBB7D90047DB02 /* YPSelectionsGalleryVC.swift in Sources */,
 				73DF82D822F145520066583B /* ServiceScoreImageCell.swift in Sources */,
+				7357AC13230A840900373E70 /* SwitchLoginTypeView.swift in Sources */,
 				73E4104322F57C51009E9DA6 /* BocastDetailViewController.swift in Sources */,
 				73E4103A22F55669009E9DA6 /* HomeMatrixListItemResponse.swift in Sources */,
 				73FE5FD422FBB7D90047DB02 /* YPDragDirection.swift in Sources */,
@@ -2286,6 +2301,7 @@
 				73FE5FEA22FBB7D90047DB02 /* YPLibraryVC.swift in Sources */,
 				733ED18D22E4611000B452D4 /* ShowImageTextCell.swift in Sources */,
 				73E4105022F58C50009E9DA6 /* SuiXiTelevisionDetailPageResponse.swift in Sources */,
+				7357AC11230A77F900373E70 /* DefaultsKitUtil.swift in Sources */,
 				73FE600C22FBB7D90047DB02 /* UICollectionView+Extensions.swift in Sources */,
 				7363F8E522F03976000FE663 /* HomeHappyReadImageCell.swift in Sources */,
 				73FE5FEC22FBB7D90047DB02 /* YPAssetViewContainer.swift in Sources */,

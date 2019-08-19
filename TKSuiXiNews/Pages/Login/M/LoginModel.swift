@@ -12,6 +12,7 @@ class LoginModel: Codable {
     
     var account: String = ""; //账户
     var password: String = ""; //密码
+    var code: String = ""; //二维码
 
     func judgeIsFull() -> Bool {
         if account.isEmpty {
@@ -21,6 +22,20 @@ class LoginModel: Codable {
         
         if password.isEmpty {
             TProgressHUD.show(text: "请填写密码");
+            return false;
+        }
+        
+        return true;
+    }
+    
+    func judgeCodeFull() -> Bool {
+        if account.isEmpty {
+            TProgressHUD.show(text: "请填写账户");
+            return false;
+        }
+        
+        if code.isEmpty {
+            TProgressHUD.show(text: "请填写验证码");
             return false;
         }
         

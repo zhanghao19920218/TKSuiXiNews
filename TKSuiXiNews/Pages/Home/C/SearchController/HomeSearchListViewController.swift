@@ -17,7 +17,7 @@ fileprivate let newsThreePicIdentifier = "HomeNewsThreePictureCellIdentifier"
 fileprivate let newsNoPicIdentifier = "HomeNewsNoPicCellIdentifier"
 
 class HomeSearchListViewController: BaseTableViewController {
-    private var _name = ""
+    var name = ""
     //新闻的设置
     //设置背景
     private lazy var contentBackView: UIView = {
@@ -56,6 +56,8 @@ class HomeSearchListViewController: BaseTableViewController {
         
         // Do any additional setup after loading the view.
         createNavigationBarLogo()
+        
+//        textField.becomeFirstResponder()
     }
     
     private func setupUI() {
@@ -103,7 +105,7 @@ class HomeSearchListViewController: BaseTableViewController {
         super.pullDownRefreshData()
         
         //请求成功进行再次刷新数据
-        HttpClient.shareInstance.request(target: BAAPI.searchArticle(name: _name, page: page), success:{ [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.searchArticle(name: name, page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(HomeNewsListResponse.self, from: json)
             guard let forceModel = model else {
@@ -127,7 +129,7 @@ class HomeSearchListViewController: BaseTableViewController {
         page = (page == 1 ? 2 : page);
         
         //请求成功进行再次刷新数据
-        HttpClient.shareInstance.request(target: BAAPI.contentList(module: _name, page: page), success:{ [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.contentList(module: name, page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(HomeNewsListResponse.self, from: json)
             guard let forceModel = model else {
@@ -154,7 +156,7 @@ class HomeSearchListViewController: BaseTableViewController {
     
     //MARK: - 搜索框变化
     @objc private func textFieldValueDidChanged(_ sender: UITextField) {
-        _name = sender.text ?? ""
+        name = sender.text ?? ""
     }
 }
 
@@ -216,16 +218,38 @@ extension HomeSearchListViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row] as! HomeNewsListModel;
-        let vc = HomeNewsDetailInfoController();
-        vc.id = model.id.string
-        navigationController?.pushViewController(vc, animated: true)
+        let model = dataSource[indexPath.row] as! HomeNewsListModel
+        if model.url.string.isEmpty {
+            let vc = HomeNewsDetailInfoController();
+            vc.id = model.id.string
+            navigationController?.pushViewController(vc, animated: true)
+            //如果取消点赞或者成功点赞刷新页面
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row] as! HomeNewsListModel
+                changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                changeModel.commentNum.int = comment
+                changeModel.likeNum.int = like
+                changeModel.visitNum.int = review
+                self?.dataSource[indexPath.row] = changeModel
+                //刷新页面
+                self?.tableView.reloadRows(at: indexPaths, with: .none)
+            }
+        } else {
+            //跳转外链
+            let vc = ServiceWKWebViewController() //新闻播放的页面
+            vc.loadUrl = model.url.string
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
 }
 
 extension HomeSearchListViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if _name.isEmpty {
+        if name.isEmpty {
             TProgressHUD.show(text: "请输入搜索内容")
             return false
         }

@@ -62,21 +62,27 @@ class BaseTableViewController: BaseViewController {
 
         // Do any additional setup after loading the view.
         setupUI()
+        
+        print("viewDidLoad")
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated);
+        super.viewWillAppear(animated)
+        
+        print("viewWillAppear")
         
         //监听数据是否为空数组
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(dataSourcesStatusChanged(_:)),
                                                name: .noData,
-                                               object: self);
+                                               object: self)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated);
-        NotificationCenter.default.removeObserver(self);
+        NotificationCenter.default.removeObserver(self)
+        
+        print("viewWillDisappear")
     }
     
     //初始化tableView

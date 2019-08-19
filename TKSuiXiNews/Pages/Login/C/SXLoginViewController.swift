@@ -16,6 +16,10 @@ fileprivate let fontStyle = kFont(12 * iPHONE_AUTORATIO);
 fileprivate let buttonSize = CGSize(width: 40 * iPHONE_AUTORATIO, height: 40 * iPHONE_AUTORATIO);
 
 class SXLoginViewController: BaseLoginViewController {
+    ///判断登录的类型
+    var loginType: LoginType = .password
+    
+    
     //输入手机号码
     private lazy var phoneTextF: SXLoginTextField = {
         let textField = SXLoginTextField.init();
@@ -40,7 +44,24 @@ class SXLoginViewController: BaseLoginViewController {
                                       action: #selector(textFieldValueDidChanged(_:)),
                                       for: .editingChanged);
         return textField;
-    }();
+    }()
+    
+    //输入验证码
+    private lazy var codeTextF: SXLoginTextField = {
+        let textField = SXLoginTextField.init();
+        textField.prefix.image = K_ImageName("safe");
+        textField.placeholder = "请输入验证码";
+        textField.isShowButton = true;
+        textField.suffixButton.addTarget(self,
+                                         action: #selector(sendMssageButton(_:)),
+                                         for: .touchUpInside)
+        textField.textField.tag = 3
+        textField.isHidden = true
+        textField.textField.addTarget(self,
+                                      action: #selector(textFieldValueDidChanged(_:)),
+                                      for: .editingChanged)
+        return textField;
+    }()
     
     //忘记密码
     private lazy var forgetButton: SXForgetBaseButton = {
@@ -109,9 +130,26 @@ class SXLoginViewController: BaseLoginViewController {
     
     //MARK: - 登录数据
     private lazy var model: LoginModel = {
-        let model = LoginModel();
+        let model = LoginModel()
         return model;
     }();
+    
+    ///登录的验证码
+    private lazy var swapLoginView: SwitchLoginTypeView = {
+        let view = SwitchLoginTypeView()
+        view.layer.cornerRadius = 17 * iPHONE_AUTORATIO
+        view.swapBlock = { [weak self] (type) in
+            self?.loginType = type
+            if type == .password { //如果密码登录
+                self?.passwordTextF.isHidden = false
+                self?.codeTextF.isHidden = true
+            } else { //验证码登录
+                self?.passwordTextF.isHidden = true
+                self?.codeTextF.isHidden = false
+            }
+        }
+        return view
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,21 +164,37 @@ class SXLoginViewController: BaseLoginViewController {
     
     //初始化页面
     private func setupUI() {
+        view.addSubview(swapLoginView)
+        swapLoginView.snp.makeConstraints { (make) in
+            make.top.equalTo(164 * iPHONE_AUTORATIO)
+            make.centerX.equalToSuperview()
+            make.size.equalTo(CGSize(width: 300 * iPHONE_AUTORATIO, height: 34 * iPHONE_AUTORATIO))
+        }
+        
+        
         view.addSubview(phoneTextF);
         phoneTextF.snp.makeConstraints { (make) in
-            make.top.equalTo(190 * iPHONE_AUTORATIO);
+            make.top.equalTo(223 * iPHONE_AUTORATIO);
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
         };
-        
+
         view.addSubview(passwordTextF);
         passwordTextF.snp.makeConstraints { (make) in
             make.top.equalTo(self.phoneTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
-        };
+        }
+        
+        view.addSubview(codeTextF)
+        codeTextF.snp.makeConstraints { (make) in
+            make.top.equalTo(self.phoneTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
+            make.left.equalTo(38 * iPHONE_AUTORATIO);
+            make.right.equalTo(-38 * iPHONE_AUTORATIO);
+            make.height.equalTo(44 * iPHONE_AUTORATIO);
+        }
         
         //登录按钮
         view.addSubview(button);
@@ -148,7 +202,7 @@ class SXLoginViewController: BaseLoginViewController {
         button.snp.makeConstraints { (make) in
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
-            make.top.equalTo(self.passwordTextF.snp_bottom).offset(25 * iPHONE_AUTORATIO);
+            make.top.equalTo(351 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
         };
         
@@ -203,29 +257,13 @@ class SXLoginViewController: BaseLoginViewController {
         //关闭键盘
         phoneTextF.textField.resignFirstResponder()
         passwordTextF.textField.resignFirstResponder()
+        codeTextF.textField.resignFirstResponder()
         
-        //MARK: - 判断密码账户
-        if !model.judgeIsFull() {
-            return;
+        if loginType == .password { //账户密码登录
+            loginInWithAccoutPassword()
+        } else { //验证码账户登录
+            loginWithRegisterCaptcha()
         }
-        
-        //请求参数登录
-        HttpClient.shareInstance.request(target: BAAPI.login(account: model.account, password: model.password), success: { (json) in
-            let decoder = JSONDecoder()
-            let model = try? decoder.decode(UserLoginInfo.self, from: json)
-            guard let userModel = model else {
-                return;
-            }
-            
-            let token = userModel.data.userinfo.token.string;
-            Defaults.shared.set(token, for: key);
-            Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey)
-            Defaults.shared.set(userModel.data.userinfo.groupId.int, for: userGroupId)
-            //更新rootVC
-            let rootVC = BaseTabBarController.init();
-            UIViewController.restoreRootViewController(rootVC);
-        }
-        )
     }
     
     //MARK: 注册按钮和忘记密码按钮点击
@@ -272,9 +310,21 @@ class SXLoginViewController: BaseLoginViewController {
         if (sender.tag == 1) {
             model.account = sender.text ?? "";
             if model.account.isPhoneNumber() { phoneTextF.isSuffixHidden = false } else { phoneTextF.isSuffixHidden = true }
-        } else {
+        } else if sender.tag == 2 {
             model.password = sender.text ?? "";
+        } else { //验证码
+            model.code = sender.text ?? ""
         }
+    }
+    
+    @objc private func sendMssageButton(_ sender: UIButton) {
+        
+        if !(model.account.isPhoneNumber()) {
+            TProgressHUD.show(text: "手机号码错误")
+            return
+        }
+        
+        sendMessageCode()
     }
 
 }
@@ -289,7 +339,14 @@ extension SXLoginViewController:ThirdPartyLoginDelegate {
         login(with: platform, code: code)
     }
     
-    
+    //MARK: - 发送验证码
+    private func sendMessageCode(){
+        
+        HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: model.account, event: "mobilelogin"), success: { (json) in
+            TProgressHUD.show(text: "发送验证码成功")
+        }
+        )
+    }
     
     //MARK: - 登录回调接口
     private func login(with platform:String, code:String) {
@@ -326,6 +383,62 @@ extension SXLoginViewController:ThirdPartyLoginDelegate {
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
             
+        }
+        )
+    }
+}
+
+
+extension SXLoginViewController {
+    ///账户密码登录
+    private func loginInWithAccoutPassword() {
+        //MARK: - 判断密码账户
+        if !model.judgeIsFull() {
+            return;
+        }
+        
+        //请求参数登录
+        HttpClient.shareInstance.request(target: BAAPI.login(account: model.account, password: model.password), success: { (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(UserLoginInfo.self, from: json)
+            guard let userModel = model else {
+                return;
+            }
+            
+            let token = userModel.data.userinfo.token.string;
+            Defaults.shared.set(token, for: key);
+            Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey)
+            Defaults.shared.set(userModel.data.userinfo.groupId.int, for: userGroupId)
+            //更新rootVC
+            let rootVC = BaseTabBarController.init();
+            UIViewController.restoreRootViewController(rootVC);
+        }
+        )
+    }
+    
+    
+    ///账户验证码登录
+    private func loginWithRegisterCaptcha(){
+        //MARK: - 判断密码账户
+        if !model.judgeCodeFull() {
+            return;
+        }
+        
+        //请求参数登录
+        HttpClient.shareInstance.request(target: BAAPI.mobileCaptcha(mobile: model.account, captcha: model.code), success: { (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(UserLoginInfo.self, from: json)
+            guard let userModel = model else {
+                return;
+            }
+            
+            let token = userModel.data.userinfo.token.string;
+            Defaults.shared.set(token, for: key);
+            Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey)
+            Defaults.shared.set(userModel.data.userinfo.groupId.int, for: userGroupId)
+            //更新rootVC
+            let rootVC = BaseTabBarController.init();
+            UIViewController.restoreRootViewController(rootVC);
         }
         )
     }

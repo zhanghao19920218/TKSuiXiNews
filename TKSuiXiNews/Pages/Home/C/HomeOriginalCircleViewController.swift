@@ -186,7 +186,16 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row] as! ShowListItemModel;
+        let model = dataSource[indexPath.row] as! ShowListItemModel
+        
+        //跳转
+        if !model.url.string.isEmpty {
+            //跳转外链
+            let vc = ServiceWKWebViewController() //新闻播放的页面
+            vc.loadUrl = model.url.string
+            navigationController?.pushViewController(vc, animated: true)
+            return
+        }
         
         if model.images.count == 0 {
             //进入视频页面

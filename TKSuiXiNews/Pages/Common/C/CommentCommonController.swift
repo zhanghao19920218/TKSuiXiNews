@@ -117,6 +117,7 @@ extension CommentCommonController: UITableViewDelegate, UITableViewDataSource {
         cell.nickname = model.nickname.string
         cell.comment = model.detail.string
         cell.time = model.createtime.string
+        cell.isGove = model.adminStatus.int
         return cell
     }
     

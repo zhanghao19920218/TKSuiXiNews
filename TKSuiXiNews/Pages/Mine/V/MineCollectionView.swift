@@ -17,6 +17,17 @@ typealias ClickIndexBlock = (_ index:Int)->(Void)
 class MineCollectionView: UIView {
     
     var mb:ClickIndexBlock?
+    
+    ///未读消息数量
+    private var _unreadMsgCount: Int?
+    
+    var unreadMsgCount: Int? {
+        willSet(newValue) {
+            //刷新页面
+            _unreadMsgCount = newValue
+            collectionView.reloadData()
+        }
+    }
 
     //数据
     fileprivate let dataSource:[(imageName:String, title: String)] = [
@@ -75,7 +86,11 @@ extension MineCollectionView: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! MineUsualCollCell
         cell.imageName = dataSource[indexPath.row].imageName;
-        cell.title = dataSource[indexPath.row].title;
+        cell.title = dataSource[indexPath.row].title
+        if indexPath.row == 4 {
+            ///未读消息数量
+            cell.unread = _unreadMsgCount
+        }
         return cell
     }
     

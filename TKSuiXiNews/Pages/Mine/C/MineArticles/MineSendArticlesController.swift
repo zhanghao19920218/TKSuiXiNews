@@ -26,13 +26,12 @@ class MineSendArticlesController: BaseViewController {
     lazy var pageViewManager: DNSPageViewManager = {
         let style = DNSPageStyle();
         //可以滑动的ScrollViews
-        style.isTitleViewScrollEnabled = true;
+        style.isTitleViewScrollEnabled = false
         style.titleColor = pageViewNormalTitleColor;
         style.titleSelectedColor = pageViewSelectedTitleColor;
         style.titleFont = pageViewFontSize;
         style.titleViewHeight = pageViewTitleHeight
         style.titleViewBackgroundColor = appThemeColor
-        style.isTitleViewScrollEnabled = false
         //消除系统默认的offset
         automaticallyAdjustsScrollViewInsets = false
         
@@ -46,13 +45,14 @@ class MineSendArticlesController: BaseViewController {
             var controller: UIViewController!
             if index == 0 {
                 controller = MineVShootVideoController()
+                controller.viewWillAppear(true)
             } else {
                 controller = MineVVideoShootController()
             }
             addChild(controller);
             return controller;
         }
-        let pageView = DNSPageViewManager(style: style, titles: titles, childViewControllers: childViewControllers);
+        let pageView = DNSPageViewManager(style: style, titles: titles, childViewControllers: childViewControllers, startIndex: 0);
         return pageView;
     }();
     
@@ -68,6 +68,12 @@ class MineSendArticlesController: BaseViewController {
         navigationItem.title = "我的帖子"
         
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        child
     }
     
     //初始化页面
@@ -88,7 +94,5 @@ class MineSendArticlesController: BaseViewController {
             maker.top.equalTo(40 * iPHONE_AUTORATIO);
         }
     }
-
-    
 
 }

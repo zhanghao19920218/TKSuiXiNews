@@ -19,7 +19,7 @@ struct SystemConfigModel: Codable {
 struct SystemConfigModelDataClass: Codable {
     let iosVersion, iosInfo, iosUpdate, iosDownload: TStrInt
     let androidVersion, androidInfo, androidUpdate, androidDownload: TStrInt
-    let defaultSearch, register: TStrInt
+    let defaultSearch, register, qrcode: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case iosVersion = "ios_version"
@@ -31,6 +31,6 @@ struct SystemConfigModelDataClass: Codable {
         case androidUpdate = "android_update"
         case androidDownload = "android_download"
         case defaultSearch = "default_search"
-        case register
+        case register, qrcode
     }
 }

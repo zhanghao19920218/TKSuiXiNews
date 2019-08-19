@@ -41,7 +41,7 @@ struct HomeVideoNewsListModel: Codable {
     let image: TStrInt
     let images: [JSONAny]
     let video: TStrInt
-    let audio, content, nickname, avatar: TStrInt
+    let audio, content, nickname, avatar, url: TStrInt
     let status: TStrInt
     let createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
@@ -55,7 +55,7 @@ struct HomeVideoNewsListModel: Codable {
         case adminID = "admin_id"
         case module
         case moduleSecond = "module_second"
-        case name, image, images, video, audio, content, nickname, avatar, status
+        case name, image, images, video, audio, content, nickname, avatar, status, url
         case visitNum = "visit_num"
         case commentNum = "comment_num"
         case likeNum = "like_num"

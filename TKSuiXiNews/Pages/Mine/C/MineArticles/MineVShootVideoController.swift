@@ -34,7 +34,7 @@ class MineVShootVideoController: BaseTableViewController {
         tableView.register(ShowVideoViewCell.self, forCellReuseIdentifier: videoIdentifier)
         tableView.delegate = self;
         tableView.dataSource = self;
-        tableView.separatorStyle = .none;
+        tableView.separatorStyle = .none
     }
     
     override func pullDownRefreshData() {
@@ -151,7 +151,7 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
             cell.avatar = model.avatar.string;
             cell.nickname = model.nickname.string;
             cell.comment = model.commentNum.string;
-//            cell.isLike = model.likeStatus.int;
+            cell.isLike = model.likeStatus.int;
             cell.like = model.likeNum.string;
             cell.videoLength = model.time.string;
             cell.beginTime = model.time.string;
@@ -165,13 +165,13 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
             }
             return cell;
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! ShowImageTextCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! ShowImageTextCell
             cell.images = model.images;
             cell.describe = model.name.string;
             cell.avatar = model.avatar.string;
             cell.nickname = model.nickname.string;
             cell.comment = model.commentNum.string;
-//            cell.isLike = model.likeStatus.int;
+            cell.isLike = model.likeStatus.int;
             cell.like = model.likeNum.string;
             cell.beginTime = model.time.string
             cell.isShowDelete = true
