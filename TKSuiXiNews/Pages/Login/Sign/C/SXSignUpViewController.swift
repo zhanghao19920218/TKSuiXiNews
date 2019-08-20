@@ -161,7 +161,7 @@ class SXSignUpViewController: BaseLoginViewController {
         }
         
         if messageCode.isEmpty || password.isEmpty || confirmPassword.isEmpty {
-            TProgressHUD.show(text: "请填写资料完全")
+            TProgressHUD.show(text: "请完善资料")
             return
         }
         

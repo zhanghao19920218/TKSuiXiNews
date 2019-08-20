@@ -12,9 +12,15 @@ class HomeNewsNoPicCell: BaseTableViewCell {
     
     var isHiddenTop: Bool? {
         willSet(newValue) {
-            if let value = newValue, !value {
-                isTopLabelView.isHidden = false
-                titleLabel.text = ("       " + (titleLabel.text ?? ""))
+            if let value = newValue {
+                if !value {
+                    isTopLabelView.isHidden = false
+                    titleLabel.text = ("       " + (titleLabel.text ?? ""))
+                } else {
+                    isTopLabelView.isHidden = true
+                }
+            } else {
+                isTopLabelView.isHidden = true
             }
         }
     }

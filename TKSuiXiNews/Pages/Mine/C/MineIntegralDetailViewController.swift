@@ -38,8 +38,9 @@ class MineIntegralDetailViewController: BaseTableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        createNavView()
+        
         setupUI()
+        
         requestIntegralData()
         
         navigationItem.title = "积分明细"
@@ -64,7 +65,8 @@ class MineIntegralDetailViewController: BaseTableViewController {
         )
     }
     
-    func createNavView() {
+    //MARK: - 初始化页面
+    private func setupUI() {
         view.addSubview(topImageView)
         topImageView.snp.makeConstraints { (make) in
             make.left.top.right.equalToSuperview()
@@ -87,14 +89,19 @@ class MineIntegralDetailViewController: BaseTableViewController {
             make.centerX.equalToSuperview()
             make.top.equalTo(integralLab.snp_bottom).offset(10)
         }
-    }
-    
-    //MARK: - 初始化页面
-    private func setupUI() {
-        tableView.snp.remakeConstraints { (make) in
-            make.top.equalTo(213 * iPHONE_AUTORATIO)
-            make.left.bottom.right.equalToSuperview()
+        
+        if iPhoneX || iPhoneXR || iPhoneMax {
+            tableView.snp.remakeConstraints { (make) in
+                make.top.equalTo(210 * iPHONE_AUTORATIO)
+                make.left.bottom.right.equalToSuperview()
+            }
+        } else {
+            tableView.snp.remakeConstraints { (make) in
+                make.top.equalTo(210 * iPHONE_AUTORATIO - NAVIGATION_BAR_HEIGHT)
+                make.left.bottom.right.equalToSuperview()
+            }
         }
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none

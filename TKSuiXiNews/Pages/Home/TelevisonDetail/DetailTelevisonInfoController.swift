@@ -115,7 +115,7 @@ extension DetailTelevisonInfoController: UITableViewDelegate, UITableViewDataSou
         
         if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: nameDetailIdentifier) as! BoardCastVideoNewsCell
-            cell.isTv = true
+            cell.isTv = false
             cell.title = model?.name.string
             cell.review = model?.visitNum.int
             return cell

@@ -145,7 +145,20 @@ extension MineVVideoShootController: UITableViewDelegate, UITableViewDataSource 
         let model = dataSource[indexPath.row] as! MineArticleListModelDatum
         let vc = DetailVideoInfoController();
         vc.id = model.id.string
-        parent?.navigationController?.pushViewController(vc, animated: true);
+        parent?.navigationController?.pushViewController(vc, animated: true)
+        //如果取消点赞或者成功点赞刷新页面
+        vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+            //获取要刷新的索引
+            let indexPaths = [indexPath]
+            //更新索引的数据
+            var changeModel = self?.dataSource[indexPath.row] as! MineArticleListModelDatum
+            changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+            changeModel.commentNum.int = comment
+            changeModel.likeNum.int = like
+            self?.dataSource[indexPath.row] = changeModel
+            //刷新页面
+            self?.tableView.reloadRows(at: indexPaths, with: .none)
+        }
     }
 }
 

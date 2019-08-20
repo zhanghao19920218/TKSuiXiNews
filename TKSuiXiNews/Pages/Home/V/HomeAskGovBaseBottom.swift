@@ -18,7 +18,7 @@ class HomeAskGovBaseBottom: UIView {
     //时间
     var time: String? {
         willSet(newValue) {
-            _timeLabel.text = time ?? "0小时前"
+            _timeLabel.text = newValue ?? "0小时前"
         }
     }
     
@@ -35,7 +35,7 @@ class HomeAskGovBaseBottom: UIView {
         let label = UILabel()
         label.font = fontSize
         label.textColor = fontColor
-        label.text = "0小时前"
+//        label.text = "0小时前"
         return label
     }()
     

@@ -183,7 +183,8 @@ class ChangeBindingViewController: BaseViewController {
         
         //MARK: - 发送验证码
         HttpClient.shareInstance.request(target: BAAPI.changeMobile(mobile: _mobile, code: _code), success: { [weak self] (json) in
-            self?.popViewControllerBtnPressed()
+            //修改手机号码
+            self?.navigationController?.popToRootViewController(animated: true)
             TProgressHUD.show(text: "确定绑定成功")
         }
         )

@@ -90,7 +90,7 @@ class BindThirdPartyController: BaseLoginViewController {
         print("点击绑定按钮");
         
         if messageCode.isEmpty || mobile.isEmpty {
-            TProgressHUD.show(text: "请填写资料完全")
+            TProgressHUD.show(text: "请完善资料")
             return
         }
         

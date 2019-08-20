@@ -40,7 +40,7 @@ struct HomeSpecialColumnDatum: Codable {
     let createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
     let time, type, begintime: TStrInt
-    let collectStatus: TStrInt
+    let collectStatus, url: TStrInt
     var likeStatus,visitNum, commentNum, likeNum: TStrInt
     
     enum CodingKeys: String, CodingKey {
@@ -49,7 +49,7 @@ struct HomeSpecialColumnDatum: Codable {
         case adminID = "admin_id"
         case module
         case moduleSecond = "module_second"
-        case name, image, images, video, audio, content, nickname, avatar, status
+        case name, image, images, video, audio, content, nickname, avatar, status, url
         case visitNum = "visit_num"
         case commentNum = "comment_num"
         case likeNum = "like_num"

@@ -193,12 +193,15 @@ extension HomeHappyDetailListenController {
     
     //MARK: - 上传新闻评论信息
     private func sendComment(_ msg: String) {
-        if msg.isEmpty {
+        //去掉评论的数据
+        let message = msg.removeHeadAndTailSpacePro
+        
+        if message.isEmpty {
             TProgressHUD.show(text: "请输入评论")
             return
         }
         
-        HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: Int(id) ?? 0, detail: msg), success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: Int(id) ?? 0, detail: message), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(BaseModel.self, from: json)
             TProgressHUD.show(text: model?.msg ?? "评论失败")
@@ -228,7 +231,10 @@ extension HomeHappyDetailListenController {
     //MARK: - 添加收藏
     private func addFavorte(){
         HttpClient.shareInstance.request(target: BAAPI.addFavorite(id:  Int(id) ?? 0), success: { [weak self] (json) in
-            TProgressHUD.show(text: "添加收藏成功")
+            //从json中解析出status_code状态码和message，用于后面的处理
+            let decoder = JSONDecoder()
+            let baseModel = try? decoder.decode(BaseModel.self, from: json)
+            TProgressHUD.show(text: baseModel?.msg ?? "点赞失败")
             self?.loadDetailData()
             }
         )
@@ -470,11 +476,10 @@ extension HomeHappyDetailListenController: UITableViewDelegate, UITableViewDataS
             return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 5].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
         } else {
             if indexPath.row == 2 {
-                return 100 * iPHONE_AUTORATIO
+                return 10 * iPHONE_AUTORATIO + (model?.content.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 26 * iPHONE_AUTORATIO) ?? 0)
             }
             if indexPath.row == 3 {
-                //计算文本高度
-                return 10 * iPHONE_AUTORATIO + (model?.content.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 26 * iPHONE_AUTORATIO) ?? 0)
+                return 59 * iPHONE_AUTORATIO
             }
             
             return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 4].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)

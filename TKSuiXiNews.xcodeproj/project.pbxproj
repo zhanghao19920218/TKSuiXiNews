@@ -131,6 +131,7 @@
 		738BD9E422E7E02600B7BF75 /* HomeVSendCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738BD9E322E7E02600B7BF75 /* HomeVSendCollectionView.swift */; };
 		739585D622FA609300D40D06 /* UITabBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739585D522FA609300D40D06 /* UITabBar+Extension.swift */; };
 		73A3329722EA94560060F281 /* iQiYiPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3329622EA94560060F281 /* iQiYiPlayButton.swift */; };
+		73B774F4230BD7DE00AD7A04 /* BoardCastAudioPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B774F3230BD7DE00AD7A04 /* BoardCastAudioPlayerCell.swift */; };
 		73BB1CFA22FCFCD300AA86EE /* YPImagePickerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 73BB1CF922FCFCD300AA86EE /* YPImagePickerLocalizable.strings */; };
 		73BB1CFC22FD049F00AA86EE /* Print+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BB1CFB22FD049F00AA86EE /* Print+Extension.swift */; };
 		73BDC144230288AA00400207 /* PhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BDC143230288AA00400207 /* PhotoBrowser.swift */; };
@@ -479,6 +480,7 @@
 		738BD9E322E7E02600B7BF75 /* HomeVSendCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVSendCollectionView.swift; sourceTree = "<group>"; };
 		739585D522FA609300D40D06 /* UITabBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Extension.swift"; sourceTree = "<group>"; };
 		73A3329622EA94560060F281 /* iQiYiPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iQiYiPlayButton.swift; sourceTree = "<group>"; };
+		73B774F3230BD7DE00AD7A04 /* BoardCastAudioPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCastAudioPlayerCell.swift; sourceTree = "<group>"; };
 		73BB1CF922FCFCD300AA86EE /* YPImagePickerLocalizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = YPImagePickerLocalizable.strings; sourceTree = "<group>"; };
 		73BB1CFB22FD049F00AA86EE /* Print+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Print+Extension.swift"; sourceTree = "<group>"; };
 		73BDC143230288AA00400207 /* PhotoBrowser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoBrowser.swift; sourceTree = "<group>"; };
@@ -1696,6 +1698,7 @@
 				73E4104722F57E78009E9DA6 /* BoardCastVideoNewsCell.swift */,
 				73E4104922F58035009E9DA6 /* BoardCastTVDatePickCell.swift */,
 				73E4104B22F58280009E9DA6 /* TelevisonButton.swift */,
+				73B774F3230BD7DE00AD7A04 /* BoardCastAudioPlayerCell.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2443,6 +2446,7 @@
 				73D4E2D622E92C4A0088FF37 /* YPImagePickerUtil.swift in Sources */,
 				73FE5FC622FBB7D90047DB02 /* YPPhotoFiltersVC.swift in Sources */,
 				731950AF230004B500E2FB0B /* ChangePasswordCell.swift in Sources */,
+				73B774F4230BD7DE00AD7A04 /* BoardCastAudioPlayerCell.swift in Sources */,
 				734A7BC722EFF3920016764F /* HomeMatrixListController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

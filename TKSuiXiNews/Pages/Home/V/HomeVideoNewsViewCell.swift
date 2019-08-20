@@ -62,6 +62,8 @@ class HomeVideoNewsViewCell: BaseTableViewCell {
         let view = BaseVideoNewsView(frame: .zero)
         view.layer.cornerRadius = 3 * iPHONE_AUTORATIO
         view.image = K_ImageName(PLACE_HOLDER_IMAGE)
+        view.contentMode = UIView.ContentMode.scaleAspectFill
+        view.clipsToBounds = true
         return view;
     }()
     

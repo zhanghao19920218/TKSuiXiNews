@@ -15,8 +15,11 @@ class HomeSpecialSectionBannerCell: BaseTableViewCell {
     //获取当前的页数
     private var _currentPageNum: Int = 0
     
-    //当前选中的Block
+    ///当前选中的Block
     var currentBlock:(String) -> Void = { _ in }
+    
+    ///当前选中的可以跳转的Block
+    var jumpWebBlock:(String) -> Void = { _ in }
     
     //获取的索引
     private var _selectedIndex:(Column: Int, Row:Int)?
@@ -92,7 +95,11 @@ extension HomeSpecialSectionBannerCell: FSPagerViewDelegate, FSPagerViewDataSour
             self?._selectedIndex = (Column: index, Row:selectIndex)
             let model = self?.dataSources[index * 4 + selectIndex]
             let result = model?.nickname.string ?? ""
-            self?.currentBlock(result)
+            if model?.url.string.isEmpty ?? true {
+                self?.currentBlock(result)
+            } else {
+                self?.jumpWebBlock(model?.url.string ?? "")
+            }
             self?.pageView.reloadData() //刷新页面
         }
         if index == _selectedIndex?.Column { cell._selectedIndex = _selectedIndex?.Row } else { cell._selectedIndex = nil }

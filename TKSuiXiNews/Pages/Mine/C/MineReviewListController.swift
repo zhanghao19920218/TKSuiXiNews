@@ -165,10 +165,36 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
             let vc = HomeHappyDetailListenController()
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
+            //如果取消点赞或者成功点赞刷新页面
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row] as! ReviewListItemDatum
+                changeModel.visitNum.int = review
+                changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                changeModel.likeNum.int = like
+                self?.dataSource[indexPath.row] = changeModel
+                //刷新页面
+                self?.tableView.reloadRows(at: indexPaths, with: .none)
+            }
         } else if model.module.string == "问政" {
             let vc = DetailAskGovementController()
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
+            //如果取消点赞或者成功点赞刷新页面
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row] as! ReviewListItemDatum
+                changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                changeModel.commentNum.int = comment
+                changeModel.likeNum.int = like
+                self?.dataSource[indexPath.row] = changeModel
+                //刷新页面
+                self?.tableView.reloadRows(at: indexPaths, with: .none)
+            }
         } else if model.module.string == "随手拍" ||  model.module.string == "原创" {
             
             if model.images.count == 0 {
@@ -176,16 +202,58 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
                 let vc = DetailVideoInfoController()
                 vc.id = model.id.string
                 navigationController?.pushViewController(vc, animated: true)
+                //如果取消点赞或者成功点赞刷新页面
+                vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                    //获取要刷新的索引
+                    let indexPaths = [indexPath]
+                    //更新索引的数据
+                    var changeModel = self?.dataSource[indexPath.row] as! ReviewListItemDatum
+                    changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                    changeModel.commentNum.int = comment
+                    changeModel.likeNum.int = like
+                    changeModel.visitNum.int = review
+                    self?.dataSource[indexPath.row] = changeModel
+                    //刷新页面
+                    self?.tableView.reloadRows(at: indexPaths, with: .none)
+                }
             } else {
                 //进入图文页面
                 let vc = ShowDetailImageViewController();
                 vc.id = model.id.string
                 navigationController?.pushViewController(vc, animated: true)
+                //如果取消点赞或者成功点赞刷新页面
+                vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                    //获取要刷新的索引
+                    let indexPaths = [indexPath]
+                    //更新索引的数据
+                    var changeModel = self?.dataSource[indexPath.row] as! ReviewListItemDatum
+                    changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                    changeModel.commentNum.int = comment
+                    changeModel.likeNum.int = like
+                    changeModel.visitNum.int = review
+                    self?.dataSource[indexPath.row] = changeModel
+                    //刷新页面
+                    tableView.reloadRows(at: indexPaths, with: .none)
+                }
             }
         } else {
             let vc = HomeNewsDetailInfoController();
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
+            //如果取消点赞或者成功点赞刷新页面
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row] as! ReviewListItemDatum
+                changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                changeModel.commentNum.int = comment
+                changeModel.likeNum.int = like
+                changeModel.visitNum.int = review
+                self?.dataSource[indexPath.row] = changeModel
+                //刷新页面
+                self?.tableView.reloadRows(at: indexPaths, with: .none)
+            }
         }
     }
 }

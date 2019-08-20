@@ -122,7 +122,7 @@ extension HomePartyBuildViewController: UITableViewDelegate, UITableViewDataSour
             if indexPath.row == 0 {
                 cell.isHiddenTop = false
             } else {
-                cell.isHiddenTop = true
+                cell.isHiddenTop = nil
             }
             
             return cell;
@@ -141,27 +141,28 @@ extension HomePartyBuildViewController: UITableViewDelegate, UITableViewDataSour
             if indexPath.row == 0 {
                 cell.isHiddenTop = false
             } else {
-                cell.isHiddenTop = true
+                cell.isHiddenTop = nil
+            }
+            
+            return cell;
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: newsNoPicIdentifier) as! HomeNewsNoPicCell
+            cell.title = model.name.string
+            cell.isLike = model.likeStatus.int
+            cell.like = model.likeNum.int
+            cell.review = model.visitNum.int
+            cell.time = model.begintime.string
+            
+            //显示置顶标签
+            if indexPath.row == 0 {
+                cell.isHiddenTop = false
+            } else {
+                cell.isHiddenTop = nil
             }
             
             return cell;
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: newsNoPicIdentifier) as! HomeNewsNoPicCell
-        cell.title = model.name.string
-        cell.isLike = model.likeStatus.int
-        cell.like = model.likeNum.int
-        cell.review = model.visitNum.int
-        cell.time = model.begintime.string
-        
-        //显示置顶标签
-        if indexPath.row == 0 {
-            cell.isHiddenTop = false
-        } else {
-            cell.isHiddenTop = true
-        }
-        
-        return cell;
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -181,22 +182,29 @@ extension HomePartyBuildViewController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! HomeNewsListModel
-        let vc = HomeNewsDetailInfoController();
-        vc.id = model.id.string
-        vc.title = "党建"
-        navigationController?.pushViewController(vc, animated: true)
-        //如果取消点赞或者成功点赞刷新页面
-        vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
-            //获取要刷新的索引
-            let indexPaths = [indexPath]
-            //更新索引的数据
-            var changeModel = self?.dataSource[indexPath.row] as! HomeNewsListModel
-            changeModel.visitNum.int = review
-            changeModel.likeStatus.int = (likeStatus ? 1 : 0)
-            changeModel.likeNum.int = like
-            self?.dataSource[indexPath.row] = changeModel
-            //刷新页面
-            self?.tableView.reloadRows(at: indexPaths, with: .none)
+        if model.url.string.isEmpty {
+            let vc = HomeNewsDetailInfoController();
+            vc.id = model.id.string
+            vc.title = "党建"
+            navigationController?.pushViewController(vc, animated: true)
+            //如果取消点赞或者成功点赞刷新页面
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row] as! HomeNewsListModel
+                changeModel.visitNum.int = review
+                changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                changeModel.likeNum.int = like
+                self?.dataSource[indexPath.row] = changeModel
+                //刷新页面
+                self?.tableView.reloadRows(at: indexPaths, with: .none)
+            }
+        } else {
+            //跳转外链
+            let vc = ServiceWKWebViewController() //新闻播放的页面
+            vc.loadUrl = model.url.string
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -210,6 +218,8 @@ extension HomePartyBuildViewController {
             guard let forceModel = model else {
                 return;
             }
+            
+            
             
             self?.dataSource = forceModel.data.data;
             self?.tableView.reloadData();

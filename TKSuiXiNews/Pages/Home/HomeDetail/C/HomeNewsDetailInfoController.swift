@@ -189,12 +189,15 @@ extension HomeNewsDetailInfoController {
     
     //MARK: - 上传新闻评论信息
     private func sendComment(_ msg: String) {
-        if msg.isEmpty {
+        //去掉评论的数据
+        let message = msg.removeHeadAndTailSpacePro
+        
+        if message.isEmpty {
             TProgressHUD.show(text: "请输入评论")
             return
         }
         
-        HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: Int(id) ?? 0, detail: msg), success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: Int(id) ?? 0, detail: message), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(BaseModel.self, from: json)
             TProgressHUD.show(text: model?.msg ?? "评论失败")
@@ -224,7 +227,9 @@ extension HomeNewsDetailInfoController {
     //MARK: - 添加收藏
     private func addFavorte(){
         HttpClient.shareInstance.request(target: BAAPI.addFavorite(id:  Int(id) ?? 0), success: { [weak self] (json) in
-            TProgressHUD.show(text: "添加收藏成功")
+            let decoder = JSONDecoder()
+            let baseModel = try? decoder.decode(BaseModel.self, from: json)
+            TProgressHUD.show(text: baseModel?.msg ?? "点赞失败")
             self?.loadDetailData()
             }
         )

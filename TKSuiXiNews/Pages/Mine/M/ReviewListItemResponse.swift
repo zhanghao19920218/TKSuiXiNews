@@ -41,11 +41,11 @@ struct ReviewListItemDatum: Codable {
     let audio: TStrInt
     let content, nickname, avatar: TStrInt
     let status: TStrInt
-    let visitNum, commentNum, likeNum, createtime: TStrInt
+    let createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
     let time: TStrInt
     let type: TStrInt
-    let likeStatus: TStrInt
+    var likeStatus, commentNum, likeNum, visitNum: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case id

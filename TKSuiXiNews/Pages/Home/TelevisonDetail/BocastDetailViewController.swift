@@ -47,7 +47,7 @@ class BocastDetailViewController: BaseViewController {
         let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(VideoNewsDetailInfoCell.self, forCellReuseIdentifier: videoPlayIdentifier)
+        tableView.register(BoardCastAudioPlayerCell.self, forCellReuseIdentifier: videoPlayIdentifier)
         tableView.register(BoardCastVideoNewsCell.self, forCellReuseIdentifier: nameDetailIdentifier)
         tableView.register(DetailCommentLikeNumCell.self, forCellReuseIdentifier: likeCellIdentifier)
         tableView.register(DetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
@@ -114,12 +114,14 @@ extension BocastDetailViewController
     
     //MARK: - 上传新闻评论信息
     private func sendComment(_ msg: String) {
-        if msg.isEmpty {
+        let message = msg.removeHeadAndTailSpacePro
+        
+        if message.isEmpty {
             TProgressHUD.show(text: "请输入评论")
             return
         }
         
-        HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: id, detail: msg), success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: id, detail: message), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(BaseModel.self, from: json)
             TProgressHUD.show(text: model?.msg ?? "评论失败")
@@ -172,9 +174,10 @@ extension BocastDetailViewController: UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: videoPlayIdentifier) as! VideoNewsDetailInfoCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: videoPlayIdentifier) as! BoardCastAudioPlayerCell
             if model?.images?.count ?? 0 > 0 {
-                cell.imageUrl = model?.images?[0].string
+                cell.audioPlayerUrl = model?.video.string ?? ""
+                cell.audioImageUrl = model?.images?[0].string
             }
 
             return cell
@@ -221,10 +224,11 @@ extension BocastDetailViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            let vc = OnlineTVShowViewController(url: model?.video.string ?? "")
-            vc.id = model?.id.int ?? 0
-            navigationController?.pushViewController(vc, animated: true);
+        if indexPath.row == 2 {
+            //进入评论页面
+            let vc = CommentCommonController()
+            vc.commentId = id
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

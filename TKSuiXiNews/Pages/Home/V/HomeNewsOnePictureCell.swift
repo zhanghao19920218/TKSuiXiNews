@@ -15,6 +15,8 @@ class HomeNewsOnePictureCell: BaseTableViewCell {
             if let value = newValue, !value {
                 isTopLabelView.isHidden = false
                 titleL.text = ("         " + (titleL.text ?? ""))
+            } else {
+                isTopLabelView.isHidden = true
             }
         }
     }

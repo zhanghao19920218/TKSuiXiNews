@@ -176,20 +176,27 @@ extension HomeHappyReadViewController: UICollectionViewDataSource, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! HomeHappyReadListItemModel
-        let vc = HomeNewsDetailInfoController();
-        vc.id = model.id.string
-        vc.title = "悦读"
-        navigationController?.pushViewController(vc, animated: true)
-        //如果取消点赞或者成功点赞刷新页面
-        vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
-            //获取要刷新的索引
-            let indexPaths = [indexPath]
-            //更新索引的数据
-            var changeModel = self?.dataSource[indexPath.row] as! HomeHappyReadListItemModel
-            changeModel.visitNum.int = review
-            self?.dataSource[indexPath.row] = changeModel
-            //刷新页面
-            collectionView.reloadItems(at: indexPaths)
+        if model.url.string.isEmpty {
+            let vc = HomeNewsDetailInfoController();
+            vc.id = model.id.string
+            vc.title = "悦读"
+            navigationController?.pushViewController(vc, animated: true)
+            //如果取消点赞或者成功点赞刷新页面
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row] as! HomeHappyReadListItemModel
+                changeModel.visitNum.int = review
+                self?.dataSource[indexPath.row] = changeModel
+                //刷新页面
+                collectionView.reloadItems(at: indexPaths)
+            }
+        } else {
+            //跳转外链
+            let vc = ServiceWKWebViewController() //新闻播放的页面
+            vc.loadUrl = model.url.string
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

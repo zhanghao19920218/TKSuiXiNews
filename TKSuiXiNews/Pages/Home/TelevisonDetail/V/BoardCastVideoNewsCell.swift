@@ -17,7 +17,7 @@ class BoardCastVideoNewsCell: BaseTableViewCell {
     
     var isTv:Bool = false {
         willSet(newValue) {
-            if newValue {
+            if !newValue {
                 reviewIcon.image = K_ImageName("review_img")
             } else {
                 reviewIcon.image = K_ImageName("audio_list_icon")

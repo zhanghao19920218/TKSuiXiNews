@@ -164,12 +164,14 @@ extension ShowDetailImageViewController {
     
     //MARK: - 上传新闻评论信息
     private func sendComment(_ msg: String) {
-        if msg.isEmpty {
+        let message = msg.removeHeadAndTailSpacePro
+        
+        if message.isEmpty {
             TProgressHUD.show(text: "请输入评论")
             return
         }
         
-        HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: Int(id) ?? 0, detail: msg), success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.commentAdd(id: Int(id) ?? 0, detail: message), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(BaseModel.self, from: json)
             TProgressHUD.show(text: model?.msg ?? "评论失败")

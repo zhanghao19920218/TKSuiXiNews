@@ -42,6 +42,7 @@ struct HomeNewsListModel: Codable {
     let time, begintime: TStrInt
     let collectStatus, url: TStrInt
     var likeStatus,visitNum, commentNum, likeNum: TStrInt
+    var isTop: TStrInt?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -49,7 +50,7 @@ struct HomeNewsListModel: Codable {
         case adminID = "admin_id"
         case module
         case moduleSecond = "module_second"
-        case name, image, images, video, audio, content, nickname, avatar, status, url
+        case name, image, images, video, audio, content, nickname, avatar, status, url, isTop
         case visitNum = "visit_num"
         case commentNum = "comment_num"
         case likeNum = "like_num"

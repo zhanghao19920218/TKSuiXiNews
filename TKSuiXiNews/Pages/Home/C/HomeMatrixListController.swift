@@ -139,13 +139,14 @@ extension HomeMatrixListController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let model = dataSource[indexPath.row] as! HomeMatrixListItemDataClassDatum
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell
             if !model.image.string.isEmpty {
                 cell.title = model.name.string
                 cell.imageName = model.image.string
                 cell.like = model.likeNum.int
                 cell.review = model.visitNum.int
                 cell.isLike = model.likeStatus.int
+                cell.time = model.begintime.string
             }
             return cell;
         }

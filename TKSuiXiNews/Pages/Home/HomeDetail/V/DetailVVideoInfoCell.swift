@@ -34,6 +34,8 @@ class DetailVVideoInfoCell: BaseTableViewCell {
     
     var videoItem: HomeVVideoBaseView = {
         let view = HomeVVideoBaseView(frame: .zero)
+        view.contentMode = UIView.ContentMode.scaleAspectFill
+        view.clipsToBounds = true
         return view;
     }();
     

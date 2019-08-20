@@ -15,7 +15,8 @@ class MessageViewController: BaseTableViewController {
     private lazy var rightNavigatorItem: UIButton = {
         let button = UIButton(type: .custom);
         button.setTitle("清空")
-        button.frame = CGRect(x: 0, y: 0, width: 30 * iPHONE_AUTORATIO, height: 30 * iPHONE_AUTORATIO)
+        button.titleLabel?.font = kFont(16 * iPHONE_AUTORATIO)
+        button.frame = CGRect(x: 0, y: 0, width: 50 * iPHONE_AUTORATIO, height: 40 * iPHONE_AUTORATIO)
         button.addTarget(self, action: #selector(clearMessageButtonClicked(_:)), for: .touchUpInside)
         return button;
     }();

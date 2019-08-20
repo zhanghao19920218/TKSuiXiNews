@@ -147,6 +147,7 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
         cell.videoDetailBlock = { [weak self] (id) in
             let vc = VideoNewsDetailController()
             vc.id = id
+            vc.timerTravel = 360
             self?.navigationController?.pushViewController(vc, animated: true)
         }
         return cell
