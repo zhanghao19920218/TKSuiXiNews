@@ -12,8 +12,8 @@ import UIKit
  * 问政详情
  */
 
-fileprivate let articleTitleIdentifier = "HomeArticleContentWebCellIdentifier"
-fileprivate let nameCellIdentifier = "CommonDetailTitleNameCellIdentifier"
+fileprivate let articleTitleIdentifier = "CommonDetailTitleNameCellIdentifier"
+fileprivate let contentWebCellIdentifier = "HomeArticleContentWebCellIdentifier"
 fileprivate let shareCellIdentifier = "BaseShareBottomViewIdentifier"
 fileprivate let likeCellIdentifier = "DetailCommentLikeNumCellIdentifier"
 fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
@@ -21,7 +21,8 @@ fileprivate let imagesIdentifier = "ShowImagesCollectionCellCellIdentifier"
 fileprivate let voteCellIdentifier = "DetailInfoVoteSectionCellIdentifier" //投票的Cell
 
 class DetailAskGovementController: BaseViewController {
-    
+    //动态调整的webView高度
+    fileprivate var webViewHeight:CGFloat = 0
     
     //获取当前投票的index
     private var _currentVoteIndex: Int?
@@ -43,7 +44,7 @@ class DetailAskGovementController: BaseViewController {
         tableView.register(DetailCommentLikeNumCell.self, forCellReuseIdentifier: likeCellIdentifier)
         tableView.register(DetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
         tableView.register(DetailInfoVoteSectionCell.self, forCellReuseIdentifier: voteCellIdentifier) //投票的Cell
-        tableView.register(ProductDetailDescribeCell.self, forCellReuseIdentifier: nameCellIdentifier)
+        tableView.register(HomeArticleContentWebCell.self, forCellReuseIdentifier: contentWebCellIdentifier)
         tableView.register(ShowImagesCollectionCell.self, forCellReuseIdentifier: imagesIdentifier)
         //iOS 11Self-Sizing自动打开后，contentSize和contentOffset都可能发生改变。可以通过以下方式禁用
         tableView.estimatedRowHeight = 0
@@ -270,8 +271,12 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
         
         //用户发表内容
         if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: nameCellIdentifier) as! ProductDetailDescribeCell
-            cell.content = model?.content.string
+            let cell = tableView.dequeueReusableCell(withIdentifier: contentWebCellIdentifier) as! HomeArticleContentWebCell
+            cell.loadUrl = model?.content.string
+            cell.block = { [weak self](height) in
+                self?.webViewHeight = height
+                self?.tableView.reloadData()
+            }
             return cell
         }
         
@@ -399,7 +404,7 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
         }
         
         if indexPath.row == 1 {
-            return 10 * iPHONE_AUTORATIO + (model?.name.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 26 * iPHONE_AUTORATIO) ?? 0)
+            return webViewHeight
         }
         
         if indexPath.row == 2 {
@@ -442,6 +447,18 @@ extension DetailAskGovementController: UITableViewDelegate, UITableViewDataSourc
         }
         
         return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 5].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
+    }
+    
+    //MARK: - 滚动刷新页面数据，防止产生空白页面
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //滚动过程中强制渲染一下webView
+        if tableView == scrollView {
+            for cell in tableView.visibleCells {
+                if cell is HomeArticleContentWebCell {
+                    (cell as! HomeArticleContentWebCell).webView.setNeedsLayout()
+                }
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

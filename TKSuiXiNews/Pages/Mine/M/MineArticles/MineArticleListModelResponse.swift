@@ -41,10 +41,10 @@ struct MineArticleListModelDatum: Codable {
     let nickname: TStrInt
     let avatar: TStrInt
     let status: TStrInt
-    let visitNum, createtime: TStrInt
+    let createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
     let time, type: TStrInt
-    var likeStatus, commentNum, likeNum: TStrInt
+    var likeStatus, commentNum, likeNum, visitNum: TStrInt
     
     enum CodingKeys: String, CodingKey {
         case id

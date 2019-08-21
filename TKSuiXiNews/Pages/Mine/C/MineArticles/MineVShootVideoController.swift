@@ -213,7 +213,7 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! ShowListItemModel
+                var changeModel = self?.dataSource[indexPath.row] as! MineArticleListModelDatum
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like
@@ -232,7 +232,7 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! ShowListItemModel
+                var changeModel = self?.dataSource[indexPath.row] as! MineArticleListModelDatum
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like
