@@ -161,18 +161,69 @@ extension MineFavoriteListController: UITableViewDelegate, UITableViewDataSource
             let vc = VideoNewsDetailController()
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
+            //如果取消点赞或者成功点赞刷新页面
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row] as! FavoriteListItemDatum
+                changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                changeModel.commentNum.int = comment
+                changeModel.likeNum.int = like
+                changeModel.visitNum.int = review
+                self?.dataSource[indexPath.row] = changeModel
+                //刷新页面
+                self?.tableView.reloadRows(at: indexPaths, with: .none)
+            }
         } else if model.module.string == "悦听"{
             let vc = HomeHappyDetailListenController()
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row] as! FavoriteListItemDatum
+                changeModel.visitNum.int = review
+                changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                changeModel.likeNum.int = like
+                self?.dataSource[indexPath.row] = changeModel
+                //刷新页面
+                self?.tableView.reloadRows(at: indexPaths, with: .none)
+            }
         } else if model.module.string == "问政" {
             let vc = DetailAskGovementController()
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row] as! FavoriteListItemDatum
+                changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                changeModel.commentNum.int = comment
+                changeModel.likeNum.int = like
+                self?.dataSource[indexPath.row] = changeModel
+                //刷新页面
+                self?.tableView.reloadRows(at: indexPaths, with: .none)
+            }
         } else {
             let vc = HomeNewsDetailInfoController();
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row] as! FavoriteListItemDatum
+                changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                changeModel.commentNum.int = comment
+                changeModel.likeNum.int = like
+                changeModel.visitNum.int = review
+                self?.dataSource[indexPath.row] = changeModel
+                //刷新页面
+                self?.tableView.reloadRows(at: indexPaths, with: .none)
+            }
         }
     }
 }

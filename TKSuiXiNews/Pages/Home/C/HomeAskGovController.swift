@@ -158,7 +158,7 @@ extension HomeAskGovController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellTextIdentifier) as! HomeAskNonePicCell
         cell.title = model.name.string
         cell.time = model.begintime.string
-        cell.comment = model.visitNum.int
+        cell.comment = model.commentNum.int
         return cell
     }
     

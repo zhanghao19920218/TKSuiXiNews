@@ -133,7 +133,7 @@ class BaseViewController: UIViewController {
     
     //基类进行网络请求
     func loadData() {
-
+        
     }
 
 }

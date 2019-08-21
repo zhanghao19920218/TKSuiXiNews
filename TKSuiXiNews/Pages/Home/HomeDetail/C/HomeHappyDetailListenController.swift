@@ -455,7 +455,7 @@ extension HomeHappyDetailListenController: UITableViewDelegate, UITableViewDataS
         }
         
         if indexPath.row == 1 {
-            return 10 * iPHONE_AUTORATIO + (model?.name.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 26 * iPHONE_AUTORATIO) ?? 0)
+            return 10 * iPHONE_AUTORATIO + (model?.content.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 26 * iPHONE_AUTORATIO) ?? 0)
         }
         
         //判断是不是有投票内容
@@ -467,7 +467,7 @@ extension HomeHappyDetailListenController: UITableViewDelegate, UITableViewDataS
             }
             if indexPath.row == 3 {
                 //计算文本高度
-                return 10 * iPHONE_AUTORATIO + (model?.content.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 26 * iPHONE_AUTORATIO) ?? 0)
+                return 79 * iPHONE_AUTORATIO
             }
             if indexPath.row == 4 {
                 return 59 * iPHONE_AUTORATIO
@@ -476,7 +476,7 @@ extension HomeHappyDetailListenController: UITableViewDelegate, UITableViewDataS
             return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 5].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
         } else {
             if indexPath.row == 2 {
-                return 10 * iPHONE_AUTORATIO + (model?.content.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 26 * iPHONE_AUTORATIO) ?? 0)
+                return 79 * iPHONE_AUTORATIO
             }
             if indexPath.row == 3 {
                 return 59 * iPHONE_AUTORATIO
