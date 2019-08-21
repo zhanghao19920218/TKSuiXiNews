@@ -29,8 +29,7 @@ class ResendButtonBottom: UIView {
                 likeButton.isSelected = (value == 1)
                 //设置动画效果
                 let status = likeButton.isSelected
-                faveButton.setSelected(selected: status, animated: true)
-//                likeButton.isEnabled = true
+                faveButton.setSelected(selected: status, animated: false)
             }
         }
     }
@@ -169,6 +168,9 @@ class ResendButtonBottom: UIView {
             block(BottomButtonType.comment);
         } else {
             print("点击按钮\(sender.isSelected)")
+            if sender.isSelected == false { //如果没有点击显示点击效果
+                faveButton.setSelected(selected: true, animated: true)
+            }
             isTappedBlock(sender.isSelected)
         }
     }
