@@ -188,7 +188,7 @@ class HomeNewsThreePictureCell: BaseTableViewCell {
         contentView.addSubview(isTopLabelView)
         isTopLabelView.snp.makeConstraints { (make) in
             make.left.equalTo(13 * iPHONE_AUTORATIO)
-            make.top.equalTo(23 * iPHONE_AUTORATIO)
+            make.top.equalTo(15 * iPHONE_AUTORATIO)
             make.size.equalTo(CGSize(width: 27 * iPHONE_AUTORATIO, height: 17 * iPHONE_AUTORATIO))
         }
         

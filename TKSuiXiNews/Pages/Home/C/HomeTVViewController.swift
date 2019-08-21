@@ -150,6 +150,12 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
             vc.timerTravel = 360
             self?.navigationController?.pushViewController(vc, animated: true)
         }
+        
+        cell.checkTotalBlock = { [weak self] in
+            let vc = HomeTotalVideoController()
+            vc.startIndex = indexPath.row - 1
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }
         return cell
     }
     

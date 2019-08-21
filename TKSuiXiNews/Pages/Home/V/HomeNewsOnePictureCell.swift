@@ -110,7 +110,7 @@ class HomeNewsOnePictureCell: BaseTableViewCell {
         contentView.addSubview(titleL);
         titleL.snp.makeConstraints { (make) in
             make.left.equalTo(13 * iPHONE_AUTORATIO)
-            make.top.equalTo(21 * iPHONE_AUTORATIO)
+            make.top.equalTo(15 * iPHONE_AUTORATIO)
             make.right.equalTo(-153 * iPHONE_AUTORATIO)
         }
         
@@ -139,7 +139,7 @@ class HomeNewsOnePictureCell: BaseTableViewCell {
         contentView.addSubview(isTopLabelView)
         isTopLabelView.snp.makeConstraints { (make) in
             make.left.equalTo(13 * iPHONE_AUTORATIO)
-            make.top.equalTo(23 * iPHONE_AUTORATIO)
+            make.top.equalTo(15 * iPHONE_AUTORATIO)
             make.size.equalTo(CGSize(width: 27 * iPHONE_AUTORATIO, height: 17 * iPHONE_AUTORATIO))
         }
         
