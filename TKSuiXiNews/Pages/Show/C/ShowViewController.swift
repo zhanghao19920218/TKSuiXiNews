@@ -196,7 +196,7 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
             cell.block = { [weak self] () in
                 let vc = NETLivePlayerController.init(url: model.video.string)
                 self?.navigationController?.pushViewController(vc, animated: true);
-            }
+            } 
             cell.isShowDelete = isShowDelete
             cell.deleteBlock = {[weak self] () in
                 self?.deleteCurrentPageItem(with: indexPath.row)

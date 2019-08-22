@@ -175,10 +175,8 @@ extension BocastDetailViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: videoPlayIdentifier) as! BoardCastAudioPlayerCell
-            if model?.images?.count ?? 0 > 0 {
-                cell.audioPlayerUrl = model?.video.string ?? ""
-                cell.audioImageUrl = model?.images?[0].string
-            }
+            cell.audioPlayerUrl = model?.video.string.removeHeadAndTailSpacePro ?? ""
+            cell.audioImageUrl = model?.image.string
 
             return cell
         }
