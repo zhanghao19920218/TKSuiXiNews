@@ -143,6 +143,11 @@
 		73D4149C230167C0007CDB96 /* SystemConfigModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4149B230167C0007CDB96 /* SystemConfigModel.swift */; };
 		73D4149F2301706C007CDB96 /* HomeSearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4149E2301706C007CDB96 /* HomeSearchListViewController.swift */; };
 		73D414A1230175D2007CDB96 /* DetailAskGovementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D414A0230175D2007CDB96 /* DetailAskGovementController.swift */; };
+		73D4255F230E28040072B641 /* OnlineVideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4255E230E28040072B641 /* OnlineVideoTableViewCell.swift */; };
+		73D42561230E2C8C0072B641 /* HomeOnlineVideoNewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D42560230E2C8C0072B641 /* HomeOnlineVideoNewsController.swift */; };
+		73D42563230E31610072B641 /* OnlineNewsShowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D42562230E31610072B641 /* OnlineNewsShowController.swift */; };
+		73D42565230E321D0072B641 /* OnlineShowTitleReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D42564230E321D0072B641 /* OnlineShowTitleReviewCell.swift */; };
+		73D42567230E36C90072B641 /* OnlineSendCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D42566230E36C90072B641 /* OnlineSendCommentView.swift */; };
 		73D4519D22F3D8DB00DAE835 /* CommentPopMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D4519C22F3D8DB00DAE835 /* CommentPopMenu.swift */; };
 		73D451A222F401D000DAE835 /* UserSignInModuleResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451A122F401D000DAE835 /* UserSignInModuleResponse.swift */; };
 		73D451A422F40EB000DAE835 /* VideoNewsDetailInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451A322F40EB000DAE835 /* VideoNewsDetailInfoCell.swift */; };
@@ -492,6 +497,11 @@
 		73D4149B230167C0007CDB96 /* SystemConfigModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemConfigModel.swift; sourceTree = "<group>"; };
 		73D4149E2301706C007CDB96 /* HomeSearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchListViewController.swift; sourceTree = "<group>"; };
 		73D414A0230175D2007CDB96 /* DetailAskGovementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAskGovementController.swift; sourceTree = "<group>"; };
+		73D4255E230E28040072B641 /* OnlineVideoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineVideoTableViewCell.swift; sourceTree = "<group>"; };
+		73D42560230E2C8C0072B641 /* HomeOnlineVideoNewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeOnlineVideoNewsController.swift; sourceTree = "<group>"; };
+		73D42562230E31610072B641 /* OnlineNewsShowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineNewsShowController.swift; sourceTree = "<group>"; };
+		73D42564230E321D0072B641 /* OnlineShowTitleReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineShowTitleReviewCell.swift; sourceTree = "<group>"; };
+		73D42566230E36C90072B641 /* OnlineSendCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineSendCommentView.swift; sourceTree = "<group>"; };
 		73D4519C22F3D8DB00DAE835 /* CommentPopMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentPopMenu.swift; sourceTree = "<group>"; };
 		73D451A122F401D000DAE835 /* UserSignInModuleResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignInModuleResponse.swift; sourceTree = "<group>"; };
 		73D451A322F40EB000DAE835 /* VideoNewsDetailInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoNewsDetailInfoCell.swift; sourceTree = "<group>"; };
@@ -865,6 +875,7 @@
 				73ECFF1C22FECDFF003F8C5D /* HomeSpecialColumnChildController.swift */,
 				73D4148F2301324D007CDB96 /* HomeOriginalCircleViewController.swift */,
 				73D414942301631A007CDB96 /* HomeAnnoncementViewController.swift */,
+				73D42560230E2C8C0072B641 /* HomeOnlineVideoNewsController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -888,6 +899,7 @@
 		733ED17E22E43D5E00B452D4 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				73D4255D230E26A40072B641 /* OnlineVideo */,
 				7319509F22FFC0E800E2FB0B /* VoteSection */,
 				73ECFF2A22FEEBD4003F8C5D /* AskGovermentDetail */,
 				733ED17F22E43D7400B452D4 /* HomeVVideoBannerCell.swift */,
@@ -1013,6 +1025,8 @@
 				73D451A822F4135800DAE835 /* CommonDetailTitleNameCell.swift */,
 				73D451AA22F41E3800DAE835 /* HomeArticleContentWebCell.swift */,
 				73E4103F22F56B38009E9DA6 /* DetailHappyMusicListenCell.swift */,
+				73D42564230E321D0072B641 /* OnlineShowTitleReviewCell.swift */,
+				73D42566230E36C90072B641 /* OnlineSendCommentView.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1025,6 +1039,7 @@
 				73D451AC22F41F7400DAE835 /* HomeNewsDetailInfoController.swift */,
 				73E4103D22F56AE6009E9DA6 /* HomeHappyDetailListenController.swift */,
 				73D414A0230175D2007CDB96 /* DetailAskGovementController.swift */,
+				73D42562230E31610072B641 /* OnlineNewsShowController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1199,6 +1214,14 @@
 				73D4149E2301706C007CDB96 /* HomeSearchListViewController.swift */,
 			);
 			path = SearchController;
+			sourceTree = "<group>";
+		};
+		73D4255D230E26A40072B641 /* OnlineVideo */ = {
+			isa = PBXGroup;
+			children = (
+				73D4255E230E28040072B641 /* OnlineVideoTableViewCell.swift */,
+			);
+			path = OnlineVideo;
 			sourceTree = "<group>";
 		};
 		73D4519B22F3D8C900DAE835 /* CommentPopMenu */ = {
@@ -2154,6 +2177,7 @@
 				73FE5FF622FBB7D90047DB02 /* YPCameraVC.swift in Sources */,
 				730D7FE822FACB3B00B864A4 /* ThirdPartyLogin.swift in Sources */,
 				73FE5FCD22FBB7D90047DB02 /* YPWordings.swift in Sources */,
+				73D42567230E36C90072B641 /* OnlineSendCommentView.swift in Sources */,
 				73FE5FDA22FBB7D90047DB02 /* YPVideoCaptureHelper.swift in Sources */,
 				730F178222EED6A200FCD4FF /* HomeNewsBottomTimeView.swift in Sources */,
 				7377747722E8378A00513350 /* DetailUserCommentCell.swift in Sources */,
@@ -2287,6 +2311,7 @@
 				73FE600322FBB7D90047DB02 /* CIImage+Extensions.swift in Sources */,
 				73D4521022F42C4700DAE835 /* MineUsualCollCell.swift in Sources */,
 				73D451AB22F41E3800DAE835 /* HomeArticleContentWebCell.swift in Sources */,
+				73D4255F230E28040072B641 /* OnlineVideoTableViewCell.swift in Sources */,
 				73E4104622F57C9F009E9DA6 /* BocastShareBottom.swift in Sources */,
 				73DEBAE122E32517007EC4E1 /* ShowViewController.swift in Sources */,
 				730F179022EEF9AF00FCD4FF /* BaseVideoNewsView.swift in Sources */,
@@ -2296,6 +2321,7 @@
 				73FE5FEB22FBB7D90047DB02 /* LibraryMediaManager.swift in Sources */,
 				73FE5FE022FBB7D90047DB02 /* YPGridView.swift in Sources */,
 				734A7BC522EFF18A0016764F /* UIApplication+Extension.swift in Sources */,
+				73D42565230E321D0072B641 /* OnlineShowTitleReviewCell.swift in Sources */,
 				73ECFF2222FECED7003F8C5D /* SpecialHomeTitleBannerCell.swift in Sources */,
 				73DEBB0222E3531A007EC4E1 /* SXForgetPasswordController.swift in Sources */,
 				731950A122FFC13C00E2FB0B /* BaseVoteView.swift in Sources */,
@@ -2429,6 +2455,7 @@
 				73E4106522F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift in Sources */,
 				73ECFF3022FEF6F7003F8C5D /* AskGovermentAddPhotosCell.swift in Sources */,
 				7372C98422EE742B00BD378D /* HomeTVChannelNameView.swift in Sources */,
+				73D42561230E2C8C0072B641 /* HomeOnlineVideoNewsController.swift in Sources */,
 				73FE5FEF22FBB7D90047DB02 /* YPLibraryViewCell.swift in Sources */,
 				73DEBAC922E3224E007EC4E1 /* BATabBarButton.swift in Sources */,
 				73FE600D22FBB7D90047DB02 /* IndexSet+Extensions.swift in Sources */,
@@ -2441,6 +2468,7 @@
 				734A7BBF22EFE4DF0016764F /* HomeMatrixBaseImTitleViewCell.swift in Sources */,
 				73DEBAB922E3195E007EC4E1 /* THUD.swift in Sources */,
 				73D4521622F43B9600DAE835 /* HomeVVideoBannerResponse.swift in Sources */,
+				73D42563230E31610072B641 /* OnlineNewsShowController.swift in Sources */,
 				73DEBAE322E32522007EC4E1 /* ServiceViewController.swift in Sources */,
 				73DEBAA422E30DBA007EC4E1 /* BaseUrlDefine.swift in Sources */,
 				73D4E2D622E92C4A0088FF37 /* YPImagePickerUtil.swift in Sources */,

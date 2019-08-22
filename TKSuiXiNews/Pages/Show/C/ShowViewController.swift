@@ -190,6 +190,7 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
             cell.comment = model.commentNum.string;
             cell.isLike = model.likeStatus.int;
             cell.like = model.likeNum.string
+            cell.isHiddenTime = true
             cell.beginTime = model.begintime.string
             cell.isHiddenTime = true
             cell.block = { [weak self] () in

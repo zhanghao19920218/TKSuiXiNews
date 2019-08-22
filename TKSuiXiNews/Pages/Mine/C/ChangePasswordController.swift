@@ -101,7 +101,7 @@ class ChangePasswordController: BaseViewController {
 }
 
 extension ChangePasswordController {
-    private func sendMessageCode() {
+    private func sendMessageCode(_ sender: CounterButton) {
         if _mobile.isEmpty || !_mobile.isPhoneNumber() {
             TProgressHUD.show(text: "请输入正确的手机号码")
             return
@@ -109,6 +109,8 @@ extension ChangePasswordController {
         
         //MARK: - 发送验证码
         HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: _mobile, event: "resetpwd"), success: { (json) in
+            ///发送成功进行倒计时
+            sender.startCountdown()
             TProgressHUD.show(text: "发送验证码成功")
         }
         )
@@ -141,8 +143,8 @@ extension ChangePasswordController: UITableViewDelegate, UITableViewDataSource {
             cell.block = { [weak self] (text) in
                 self?._code = text
             }
-            cell.sendMegBlock = { [weak self] () in
-                self?.sendMessageCode()
+            cell.sendMegBlock = { [weak self] (button) in
+                self?.sendMessageCode(button)
             }
             return cell
         }

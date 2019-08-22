@@ -175,22 +175,23 @@ class SXForgetPasswordController: BaseLoginViewController {
     }
     
     //MARK: - 点击获取验证码
-    @objc private func getMessageCodeButtonPressed(_ sender: UIButton) {
+    @objc private func getMessageCodeButtonPressed(_ sender: CounterButton) {
         if !_model.mobile.isPhoneNumber() {
             TProgressHUD.show(text: "请输入正确的手机号码")
             return
         }
         //发送验证码
-        sendMessageCode()
+        sendMessageCode(sender)
     }
 }
 
 
 extension SXForgetPasswordController {
     //MARK: - 发送验证码
-    private func sendMessageCode(){
+    private func sendMessageCode(_ sender: CounterButton){
         
         HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: _model.mobile, event: "resetpwd"), success: { (json) in
+            sender.startCountdown()
             TProgressHUD.show(text: "发送验证码成功")
         })
     }

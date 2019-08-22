@@ -11,7 +11,7 @@ import UIKit
 class ChangePasswordCodeCell: BaseTableViewCell {
     var block: (String) -> Void = { _ in }
 
-    var sendMegBlock: () -> Void = {}
+    var sendMegBlock: (CounterButton) -> Void = { _ in}
     
     var title:String? {
         willSet(newValue) {
@@ -89,7 +89,7 @@ class ChangePasswordCodeCell: BaseTableViewCell {
         block(text)
     }
     
-    @objc private func sendMessageCode(_ sender: UIButton) {
-        sendMegBlock()
+    @objc private func sendMessageCode(_ sender: CounterButton) {
+        sendMegBlock(sender)
     }
 }

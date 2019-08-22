@@ -48,6 +48,7 @@ class ChangeBindingViewController: BaseViewController {
     
     private lazy var sendCodeButton: CounterButton = {
         let button = CounterButton(type: .custom)
+        button.autoStartCounddown = false
         button.setTitleColor(RGBA(255, 74, 92, 1))
         button.titleLabel?.font = kFont(12 * iPHONE_AUTORATIO)
         button.setTitle("发送验证码")
@@ -157,7 +158,7 @@ class ChangeBindingViewController: BaseViewController {
         }
     }
     
-    @objc private func sendMessageCode(_ sender: UIButton) {
+    @objc private func sendMessageCode(_ sender: CounterButton) {
         if _mobile.isEmpty || !_mobile.isPhoneNumber() {
             TProgressHUD.show(text: "请输入正确的手机号码")
             return
@@ -165,6 +166,8 @@ class ChangeBindingViewController: BaseViewController {
         
         //MARK: - 发送验证码
         HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: _mobile, event: "changemobile"), success: { (json) in
+            ///发送成功进行倒计时
+            sender.startCountdown()
             TProgressHUD.show(text: "发送验证码成功")
         }
         )

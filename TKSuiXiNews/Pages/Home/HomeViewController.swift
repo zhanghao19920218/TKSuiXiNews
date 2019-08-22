@@ -133,6 +133,9 @@ class HomeViewController: BaseViewController {
             } else if name == "专栏" {
                 //专栏
                 controller = HomeSpecialColumnChildController()
+            } else if name == "直播" {
+                //直播
+                controller = HomeOnlineVideoNewsController()
             } else {
                 controller = UIViewController();
             }
@@ -202,7 +205,7 @@ extension HomeViewController {
     
     //MARK: - 请求标题栏目
     private func requestTitlesInfo() {
-        HttpClient.shareInstance.request(target: BAAPI.homePageChannels, success: { [weak self] (json) in
+        HttpClient.shareInstance.requestCache(target: BAAPI.homePageChannels, success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(HomeChannelListModel.self, from: json)
             if let jsonModel = model {

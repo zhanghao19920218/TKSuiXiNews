@@ -58,6 +58,8 @@ class DetailUserCommentCell: BaseTableViewCell {
     //用户头像
     private lazy var avatarImg: BaseAvatarImageView = {
         let view = BaseAvatarImageView(frame: .zero);
+        view.contentMode = UIView.ContentMode.scaleAspectFill
+        view.clipsToBounds = true
         return view;
     }()
     

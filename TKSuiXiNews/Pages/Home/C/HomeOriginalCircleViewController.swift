@@ -148,6 +148,7 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
             cell.like = model.likeNum.string;
             cell.videoLength = model.time.string;
             cell.beginTime = model.begintime.string;
+            cell.isHiddenTime = true
             cell.block = { [weak self] () in
                 let vc = NETLivePlayerController.init(url: model.video.string)
                 self?.navigationController?.pushViewController(vc, animated: true);

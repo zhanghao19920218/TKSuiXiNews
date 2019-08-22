@@ -317,14 +317,14 @@ class SXLoginViewController: BaseLoginViewController {
         }
     }
     
-    @objc private func sendMssageButton(_ sender: UIButton) {
+    @objc private func sendMssageButton(_ sender: CounterButton) {
         
         if !(model.account.isPhoneNumber()) {
             TProgressHUD.show(text: "手机号码错误")
             return
         }
         
-        sendMessageCode()
+        sendMessageCode(sender)
     }
 
 }
@@ -340,9 +340,11 @@ extension SXLoginViewController:ThirdPartyLoginDelegate {
     }
     
     //MARK: - 发送验证码
-    private func sendMessageCode(){
+    private func sendMessageCode(_ sender: CounterButton){
         
         HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: model.account, event: "mobilelogin"), success: { (json) in
+            ///发送验证码
+            sender.startCountdown()
             TProgressHUD.show(text: "发送验证码成功")
         }
         )

@@ -11,7 +11,7 @@ import UIKit
 /*
  * @class 倒计时的按钮
  */
-let CountdownButtonAutoStartCounddown:Bool = true
+let CountdownButtonAutoStartCounddown:Bool = false
 let CountdownButtonNormalTitle:String = "发送验证码"
 let CountdownButtonTotalNum:Int = 60
 let CountdownButtonDisabledTitleFormat:String = "重新发送(%d秒)"

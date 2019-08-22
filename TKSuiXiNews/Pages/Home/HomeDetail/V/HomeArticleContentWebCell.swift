@@ -38,7 +38,7 @@ class HomeArticleContentWebCell: BaseTableViewCell {
         // 是否允许手势左滑返回上一级,  类似导航控制的左滑动返回
         webView.allowsBackForwardNavigationGestures = false
         // 不给用户手动交互
-        webView.isUserInteractionEnabled = false
+        webView.isUserInteractionEnabled = true
         //不可以滑动
         webView.scrollView.isScrollEnabled = false
         return webView
@@ -59,8 +59,12 @@ class HomeArticleContentWebCell: BaseTableViewCell {
     //设置配置
     private lazy var config: WKWebViewConfiguration = {
         //图片自适应
-        let jScrpit = "var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta); var imgs = document.getElementsByTagName('img');for (var i in imgs){imgs[i].style.maxWidth='100%';imgs[i].style.height='auto';}"
-        let wkUScript = WKUserScript(source: jScrpit, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+        let source: String = "var meta = document.createElement('meta');" +
+            "meta.name = 'viewport';" +
+            "meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';" +
+            "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);" + "var imgs = document.getElementsByTagName('img');" +
+            "for (var i in imgs){imgs[i].style.maxWidth='100%';imgs[i].style.height='auto';}"
+        let wkUScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         let wkUController = WKUserContentController()
         wkUController.addUserScript(wkUScript)
         
@@ -73,7 +77,6 @@ class HomeArticleContentWebCell: BaseTableViewCell {
         //设置是否允许画中画技术 在特定设备上有效
         configuration.allowsPictureInPictureMediaPlayback = true
         //这个类主要用来做native与JavaScript的交互管理
-//        let wkUController = WKUserContentController()
         configuration.userContentController = wkUController
         return configuration
     }()
@@ -104,21 +107,30 @@ extension HomeArticleContentWebCell: WKUIDelegate, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         //如果是跳转一个新页面
-        if navigationAction.targetFrame == nil {
-            if let newUrl = navigationAction.request.url?.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "`#%^{}\"[]|\\<> ").inverted) {
-                if let url = URL(string: newUrl) {
-                    print(url);
-                    webView.load(URLRequest(url: url))
-                }
+        if let newUrl = navigationAction.request.url?.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "`#%^{}\"[]|\\<> ").inverted) {
+            if newUrl != "about:blank" {                                                                                                                                                
+                //进行跳转界面View
+                let current = UIViewController.current();
+                //跳转外链
+                let vc = ServiceWKWebViewController()
+                vc.loadUrl = newUrl
+                current?.navigationController?.pushViewController(vc, animated: true)
+                decisionHandler(.cancel)
+                return
+            } else {
+                decisionHandler(.allow)
+                return
             }
         }
+        decisionHandler(.cancel)
+        return
         
-        decisionHandler(.allow)
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        webView.evaluateJavaScript("document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '85%'", completionHandler: nil)
+        webView.evaluateJavaScript("document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '85%';", completionHandler: nil)
     }
+    
     
     
 }
