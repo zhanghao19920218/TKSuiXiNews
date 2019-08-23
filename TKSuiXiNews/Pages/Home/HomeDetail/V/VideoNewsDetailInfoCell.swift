@@ -17,6 +17,8 @@ class VideoNewsDetailInfoCell: BaseTableViewCell {
     //视频的界面
     var videoItem: HomeVVideoBaseView = {
         let view = HomeVVideoBaseView(frame: .zero)
+        view.contentMode = UIView.ContentMode.scaleAspectFill
+        view.clipsToBounds = true
         return view;
     }();
     

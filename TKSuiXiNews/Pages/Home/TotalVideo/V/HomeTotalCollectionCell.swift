@@ -9,6 +9,8 @@
 import UIKit
 
 class HomeTotalCollectionCell: UICollectionViewCell {
+    var videoBlock: () -> Void = {}
+    
     var title:String? {
         willSet(newValue) {
             view.title = newValue
@@ -40,6 +42,10 @@ class HomeTotalCollectionCell: UICollectionViewCell {
         contentView.addSubview(view)
         view.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
+        }
+        
+        view.videoBlock = { [weak self] in
+            self?.videoBlock()
         }
     }
 }

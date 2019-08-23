@@ -107,6 +107,11 @@ extension HomeTotalChildVideoController: UICollectionViewDelegate, UICollectionV
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! HomeTotalCollectionCell
         cell.imageName = model.image.string
         cell.title = model.name.string
+        cell.videoBlock = { [weak self] in
+            let vc = OnlineTVShowViewController(url: model.video.string)
+            vc.id = model.id.int
+            self?.navigationController?.pushViewController(vc, animated: true);
+        }
         return cell
     }
     

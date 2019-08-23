@@ -185,7 +185,7 @@ extension VideoNewsDetailController {
         HttpClient.shareInstance.request(target: BAAPI.addLikeNum(id: Int(id) ?? 0), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let baseModel = try? decoder.decode(BaseModel.self, from: json)
-            TProgressHUD.show(text: baseModel?.msg ?? "点赞失败")
+            TProgressHUD.show(text: "点赞成功")
             self?.loadDetailData()
             }
         )

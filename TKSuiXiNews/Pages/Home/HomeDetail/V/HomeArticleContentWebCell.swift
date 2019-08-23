@@ -19,9 +19,7 @@ class HomeArticleContentWebCell: BaseTableViewCell {
         willSet(newValue) {
             if let value = newValue {
                 //加载网页
-                
-                let string = ("<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>" + "<body>" + value + "</body>")
-                webView.loadHTMLString(string, baseURL: nil)
+                webView.loadHTMLString(value, baseURL: nil)
             }
         }
     }
@@ -63,7 +61,7 @@ class HomeArticleContentWebCell: BaseTableViewCell {
             "meta.name = 'viewport';" +
             "meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';" +
             "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);" + "var imgs = document.getElementsByTagName('img');" +
-            "for (var i in imgs){imgs[i].style.maxWidth='100%';imgs[i].style.height='auto';}"
+            "for (var i in imgs){imgs[i].style.maxWidth='110%';imgs[i].style.height='auto';}"
         let wkUScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         let wkUController = WKUserContentController()
         wkUController.addUserScript(wkUScript)
@@ -128,7 +126,7 @@ extension HomeArticleContentWebCell: WKUIDelegate, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        webView.evaluateJavaScript("document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '85%';", completionHandler: nil)
+        webView.evaluateJavaScript("document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%';", completionHandler: nil)
     }
     
     

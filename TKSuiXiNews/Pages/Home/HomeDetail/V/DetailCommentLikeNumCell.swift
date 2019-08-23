@@ -9,6 +9,14 @@
 import UIKit
 
 class DetailCommentLikeNumCell: BaseTableViewCell {
+    var isHiddenLike: Bool? {
+        willSet (newValue) {
+            if let value = newValue, value {
+                likeLabel.isHidden = true
+            }
+        }
+    }
+    
     var comment: Int? {
         willSet(value) {
             commentLabel.text = "评论 \(value ?? 0)"

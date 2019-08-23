@@ -71,6 +71,8 @@ class OnlineVideoTableViewCell: BaseTableViewCell {
     private lazy var _playItem: HomeVVideoBaseView = {
         let view = HomeVVideoBaseView(frame: .zero)
         view.isUserInteractionEnabled = true
+        view.contentMode = UIView.ContentMode.scaleAspectFill
+        view.clipsToBounds = true
         view.videoBlock = { [weak self] in
             self?.playVideoBlock()
         }

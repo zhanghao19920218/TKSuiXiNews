@@ -263,6 +263,7 @@ extension OnlineNewsShowController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: likeCellIdentifier) as! DetailCommentLikeNumCell
                 cell.comment = model?.commentNum.int
                 cell.like = model?.likeNum.int
+                cell.isHiddenLike = true
                 return cell
             }
             
@@ -281,6 +282,7 @@ extension OnlineNewsShowController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: likeCellIdentifier) as! DetailCommentLikeNumCell
                 cell.comment = model?.commentNum.int
                 cell.like = model?.likeNum.int
+                cell.isHiddenLike = true
                 return cell
             }
             
