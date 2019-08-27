@@ -23,7 +23,7 @@ class BaseTableViewController: BaseViewController {
         tableView.estimatedSectionHeaderHeight = 0
         tableView.estimatedSectionFooterHeight = 0
         return tableView;
-    }();
+    }()
     
     //当前页码
     lazy var page:Int = {

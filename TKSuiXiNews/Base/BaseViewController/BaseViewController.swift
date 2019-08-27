@@ -55,7 +55,6 @@ class BaseViewController: UIViewController {
         
         loadData();
     }
-    
 
     //MARK: 设置全局的背景颜色
     private func setupUI(){

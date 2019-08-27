@@ -119,8 +119,25 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: bannerIdentifier) as! HomeVVideoBannerCell;
             if let model = model { cell.images = model.data }
             cell.block = { [weak self] (model) in
-                let vc = HomeBannerDetailViewController()
+                //判断文章id是否存在
+                if model.articleID.int != 0 {
+                    //跳转新闻的页面
+                    PageJumpUtil.share.jumpVCAccording(model.articleInfo!, model.articleID)
+                    return
+                }
+                
+                //如果有外链就跳转外链
+                if !model.url.string.isEmpty {
+                    //跳转外链
+                    let vc = ServiceWKWebViewController() //新闻播放的页面
+                    vc.loadUrl = model.url.string
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                    return
+                }
+                
+                
                 if !model.content.string.isEmpty {
+                    let vc = HomeBannerDetailViewController()
                     vc.loadUrl = model.content.string
                     vc.name = model.name.string
                     self?.navigationController?.pushViewController(vc, animated: true)
@@ -132,14 +149,14 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
         let model = dataSource[indexPath.row - 1] as! VVideoListModel;
         
         let cell = tableView.dequeueReusableCell(withIdentifier: normalIdentifier) as! HomeVVideoNormalCell;
-        cell.describe = model.name.string;
-        cell.imageUrl = model.image.string;
-        cell.videoUrl = model.video.string;
-        cell.avatar = model.avatar.string;
-        cell.nickname = model.nickname.string;
-        cell.comment = model.commentNum.string;
-        cell.isLike = model.likeStatus.int;
-        cell.like = model.likeNum.string;
+        cell.describe = model.name.string
+        cell.imageUrl = model.image.string
+        cell.videoUrl = model.video.string
+        cell.avatar = model.avatar.string
+        cell.nickname = model.nickname.string
+        cell.comment = model.commentNum.string
+        cell.isLike = model.likeStatus.int
+        cell.like = model.likeNum.string
         //获取时间
         let timeLength = model.time.int.secondsToHoursMinutesSeconds()
         cell.videoLength = "\(timeLength.min):\(timeLength.sec)"

@@ -131,6 +131,8 @@
 		738BD9E422E7E02600B7BF75 /* HomeVSendCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738BD9E322E7E02600B7BF75 /* HomeVSendCollectionView.swift */; };
 		739585D622FA609300D40D06 /* UITabBar+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739585D522FA609300D40D06 /* UITabBar+Extension.swift */; };
 		73A3329722EA94560060F281 /* iQiYiPlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73A3329622EA94560060F281 /* iQiYiPlayButton.swift */; };
+		73AEE5DC2314D99A005F999E /* PageJumpUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AEE5DB2314D99A005F999E /* PageJumpUtil.swift */; };
+		73AEE5DE23150143005F999E /* HomeDefaultListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AEE5DD23150143005F999E /* HomeDefaultListController.swift */; };
 		73B774F4230BD7DE00AD7A04 /* BoardCastAudioPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B774F3230BD7DE00AD7A04 /* BoardCastAudioPlayerCell.swift */; };
 		73BB1CFA22FCFCD300AA86EE /* YPImagePickerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 73BB1CF922FCFCD300AA86EE /* YPImagePickerLocalizable.strings */; };
 		73BB1CFC22FD049F00AA86EE /* Print+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BB1CFB22FD049F00AA86EE /* Print+Extension.swift */; };
@@ -485,6 +487,8 @@
 		738BD9E322E7E02600B7BF75 /* HomeVSendCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVSendCollectionView.swift; sourceTree = "<group>"; };
 		739585D522FA609300D40D06 /* UITabBar+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBar+Extension.swift"; sourceTree = "<group>"; };
 		73A3329622EA94560060F281 /* iQiYiPlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iQiYiPlayButton.swift; sourceTree = "<group>"; };
+		73AEE5DB2314D99A005F999E /* PageJumpUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageJumpUtil.swift; sourceTree = "<group>"; };
+		73AEE5DD23150143005F999E /* HomeDefaultListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDefaultListController.swift; sourceTree = "<group>"; };
 		73B774F3230BD7DE00AD7A04 /* BoardCastAudioPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCastAudioPlayerCell.swift; sourceTree = "<group>"; };
 		73BB1CF922FCFCD300AA86EE /* YPImagePickerLocalizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = YPImagePickerLocalizable.strings; sourceTree = "<group>"; };
 		73BB1CFB22FD049F00AA86EE /* Print+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Print+Extension.swift"; sourceTree = "<group>"; };
@@ -876,6 +880,7 @@
 				73D4148F2301324D007CDB96 /* HomeOriginalCircleViewController.swift */,
 				73D414942301631A007CDB96 /* HomeAnnoncementViewController.swift */,
 				73D42560230E2C8C0072B641 /* HomeOnlineVideoNewsController.swift */,
+				73AEE5DD23150143005F999E /* HomeDefaultListController.swift */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1166,6 +1171,14 @@
 			path = M;
 			sourceTree = "<group>";
 		};
+		73AEE5DA2314D8A2005F999E /* PageJumpUtil */ = {
+			isa = PBXGroup;
+			children = (
+				73AEE5DB2314D99A005F999E /* PageJumpUtil.swift */,
+			);
+			path = PageJumpUtil;
+			sourceTree = "<group>";
+		};
 		73BDC1422302889100400207 /* PhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
@@ -1384,6 +1397,7 @@
 		73DEBAAE22E311E3007EC4E1 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				73AEE5DA2314D8A2005F999E /* PageJumpUtil */,
 				7357AC0F230A77C500373E70 /* DefaultsKit */,
 				73BDC1422302889100400207 /* PhotoBrowser */,
 				73ECFF3422FF09F5003F8C5D /* ShareBottomPopMenu */,
@@ -2230,6 +2244,7 @@
 				73FE600F22FBB7D90047DB02 /* YPLoadingView.swift in Sources */,
 				7319509E22FFBFB600E2FB0B /* Int+Extesion.swift in Sources */,
 				7372C98822EE7C9A00BD378D /* HomeTVOtherSectionCell.swift in Sources */,
+				73AEE5DE23150143005F999E /* HomeDefaultListController.swift in Sources */,
 				73D4520D22F42C4700DAE835 /* MineViewController.swift in Sources */,
 				73DEBAD522E32495007EC4E1 /* SXLoginViewController.swift in Sources */,
 				73FE5FE922FBB7D90047DB02 /* YPBottomPagerView.swift in Sources */,
@@ -2259,6 +2274,7 @@
 				734A7BBD22EFD7E40016764F /* HomeAskThreePicCell.swift in Sources */,
 				7377747122E82C8500513350 /* DetailArticleResponse.swift in Sources */,
 				73DEBADF22E3250E007EC4E1 /* HomeViewController.swift in Sources */,
+				73AEE5DC2314D99A005F999E /* PageJumpUtil.swift in Sources */,
 				73FE5FFC22FBB7D90047DB02 /* AVMutableComposition+Extensions.swift in Sources */,
 				731950B323000B3900E2FB0B /* MineSendArticlesController.swift in Sources */,
 				73FE5FCC22FBB7D90047DB02 /* YPImagePickerConfiguration.swift in Sources */,

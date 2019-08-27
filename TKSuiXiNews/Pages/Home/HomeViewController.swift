@@ -111,7 +111,7 @@ class HomeViewController: BaseViewController {
             } else if name == "问政" {
                 //问政
                 controller = HomeAskGovController()
-            } else if name == "矩阵" {
+            } else if name == "新闻网" {
                 //矩阵
                 controller = HomeMatrixListController()
             } else if name == "原创" {
@@ -137,7 +137,7 @@ class HomeViewController: BaseViewController {
                 //直播
                 controller = HomeOnlineVideoNewsController()
             } else {
-                controller = UIViewController();
+                controller = HomeDefaultListController(name)
             }
             addChild(controller);
             return controller;

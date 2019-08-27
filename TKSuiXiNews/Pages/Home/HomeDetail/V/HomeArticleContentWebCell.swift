@@ -105,6 +105,18 @@ class HomeArticleContentWebCell: BaseTableViewCell {
 extension HomeArticleContentWebCell: WKUIDelegate, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        //如果是跳转一个新页面
+        if navigationAction.targetFrame == nil {
+            if let newUrl = navigationAction.request.url?.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "`#%^{}\"[]|\\<> ").inverted) {
+                if let url = URL(string: newUrl) {
+                    print(url);
+                    webView.load(URLRequest(url: url))
+                }
+            }
+        }
+        
+        decisionHandler(.allow)
+        return
 //        //如果是跳转一个新页面
 //        if let newUrl = navigationAction.request.url?.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "`#%^{}\"[]|\\<> ").inverted) {
 //            if newUrl != "about:blank" {
@@ -117,7 +129,7 @@ extension HomeArticleContentWebCell: WKUIDelegate, WKNavigationDelegate {
 //                decisionHandler(.cancel)
 //                return
 //            } else {
-                decisionHandler(.allow)
+//                decisionHandler(.allow)
 //                return
 //            }
 //        }

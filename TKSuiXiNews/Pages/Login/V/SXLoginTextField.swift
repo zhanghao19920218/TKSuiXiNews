@@ -35,9 +35,9 @@ class SXLoginTextField: UIView {
     var isSuffixHidden: Bool {
         willSet(value) {
             if value {
-                suffix.isHidden = true;
+                suffix.isHidden = true
             } else {
-                suffix.isHidden = false;
+                suffix.isHidden = false
             }
         }
     }
