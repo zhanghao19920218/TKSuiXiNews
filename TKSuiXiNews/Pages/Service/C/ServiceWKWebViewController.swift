@@ -41,7 +41,7 @@ class ServiceWKWebViewController: BaseViewController {
         //最小字体大小 当将JavaScriptEnabled属性设置为NO, 可以看到明显效果
         preference.minimumFontSize = 9.0;
         //设置是否支持javaScript 默认是支持的
-        preference.javaScriptEnabled = true
+        preference.javaScriptEnabled = false
         // 在IOS上默认为NO, 表示是否允许不经过用户交互由javaScript自动打开窗口
         preference.javaScriptCanOpenWindowsAutomatically = false
         return preference
@@ -56,7 +56,7 @@ class ServiceWKWebViewController: BaseViewController {
          //设置视频是否需要用户手动播放  设置为NO则允许自动播放
         configuration.requiresUserActionForMediaPlayback = false
         //设置是否允许画中画技术 在特定设备上有效
-        configuration.allowsPictureInPictureMediaPlayback = true
+        configuration.allowsPictureInPictureMediaPlayback = false
         //这个类主要用来做native与JavaScript的交互管理
         let wkUController = WKUserContentController()
         configuration.userContentController = wkUController
@@ -86,17 +86,8 @@ class ServiceWKWebViewController: BaseViewController {
         webView.removeObserver(self, forKeyPath: "title")
     }
 
-    private func _setupUI() {
-        view.addSubview(webView)
-        webView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-        
-        webView.addSubview(progressView)
-        progressView.snp.makeConstraints { (make) in
-            make.left.top.right.equalToSuperview()
-            make.height.equalTo(5)
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         //MARK: - 添加监测网页加载进度的观察者
         webView.addObserver(self,
@@ -109,6 +100,19 @@ class ServiceWKWebViewController: BaseViewController {
                             forKeyPath: "title",
                             options: [.new],
                             context: nil)
+    }
+    
+    private func _setupUI() {
+        view.addSubview(webView)
+        webView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        
+        webView.addSubview(progressView)
+        progressView.snp.makeConstraints { (make) in
+            make.left.top.right.equalToSuperview()
+            make.height.equalTo(5)
+        }
     }
 }
 

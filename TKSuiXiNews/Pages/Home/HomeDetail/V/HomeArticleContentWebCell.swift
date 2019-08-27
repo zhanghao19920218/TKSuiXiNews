@@ -19,6 +19,7 @@ class HomeArticleContentWebCell: BaseTableViewCell {
         willSet(newValue) {
             if let value = newValue {
                 //加载网页
+                let htmlValue =  "<html><head><style>img{width:100% !important;}</style></head><body style='margin:0;padding:0'>\(value)</body></html>"
                 webView.loadHTMLString(value, baseURL: nil)
             }
         }
@@ -48,7 +49,7 @@ class HomeArticleContentWebCell: BaseTableViewCell {
         //最小字体大小 当将JavaScriptEnabled属性设置为NO, 可以看到明显效果
         preference.minimumFontSize = 14 * iPHONE_AUTORATIO;
         //设置是否支持javaScript 默认是支持的
-        preference.javaScriptEnabled = false
+        preference.javaScriptEnabled = true
         // 在IOS上默认为NO, 表示是否允许不经过用户交互由javaScript自动打开窗口
         preference.javaScriptCanOpenWindowsAutomatically = false
         return preference
@@ -61,7 +62,7 @@ class HomeArticleContentWebCell: BaseTableViewCell {
             "meta.name = 'viewport';" +
             "meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';" +
             "var head = document.getElementsByTagName('head')[0];" + "head.appendChild(meta);" + "var imgs = document.getElementsByTagName('img');" +
-            "for (var i in imgs){imgs[i].style.maxWidth='110%';imgs[i].style.height='auto';}"
+            "for (var i in imgs){imgs[i].style.width='100%';imgs[i].style.height='auto';}"
         let wkUScript = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
         let wkUController = WKUserContentController()
         wkUController.addUserScript(wkUScript)
@@ -73,7 +74,7 @@ class HomeArticleContentWebCell: BaseTableViewCell {
         //设置视频是否需要用户手动播放  设置为NO则允许自动播放
         configuration.requiresUserActionForMediaPlayback = false
         //设置是否允许画中画技术 在特定设备上有效
-        configuration.allowsPictureInPictureMediaPlayback = true
+        configuration.allowsPictureInPictureMediaPlayback = false
         //这个类主要用来做native与JavaScript的交互管理
         configuration.userContentController = wkUController
         return configuration
@@ -104,30 +105,30 @@ class HomeArticleContentWebCell: BaseTableViewCell {
 extension HomeArticleContentWebCell: WKUIDelegate, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        //如果是跳转一个新页面
-        if let newUrl = navigationAction.request.url?.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "`#%^{}\"[]|\\<> ").inverted) {
-            if newUrl != "about:blank" {                                                                                                                                                
-                //进行跳转界面View
-                let current = UIViewController.current();
-                //跳转外链
-                let vc = ServiceWKWebViewController()
-                vc.loadUrl = newUrl
-                current?.navigationController?.pushViewController(vc, animated: true)
-                decisionHandler(.cancel)
-                return
-            } else {
+//        //如果是跳转一个新页面
+//        if let newUrl = navigationAction.request.url?.absoluteString.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "`#%^{}\"[]|\\<> ").inverted) {
+//            if newUrl != "about:blank" {
+//                //进行跳转界面View
+//                let current = UIViewController.current();
+//                //跳转外链
+//                let vc = ServiceWKWebViewController()
+//                vc.loadUrl = newUrl
+//                current?.navigationController?.pushViewController(vc, animated: true)
+//                decisionHandler(.cancel)
+//                return
+//            } else {
                 decisionHandler(.allow)
-                return
-            }
-        }
-        decisionHandler(.cancel)
-        return
+//                return
+//            }
+//        }
+//        decisionHandler(.cancel)
+//        return
         
     }
     
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        webView.evaluateJavaScript("document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%';", completionHandler: nil)
-    }
+//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//        webView.evaluateJavaScript("document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%';", completionHandler: nil)
+//    }
     
     
     
