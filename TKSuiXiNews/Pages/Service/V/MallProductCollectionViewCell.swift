@@ -47,6 +47,8 @@ class MallProductCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.image = K_ImageName(PLACE_HOLDER_IMAGE)
         imageView.layer.masksToBounds = true
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     

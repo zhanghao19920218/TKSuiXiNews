@@ -22,9 +22,7 @@ class HttpClient
         //请求成功进行再次刷新数据
         HttpRequest.loadData(target: target,
                              success: success) { (errorCode, errorMessage) in
-                                failure;
-//                                TProgressHUD.show(text: errorMessage);
-                                print("请求错误: \(errorMessage)")
+                                TProgressHUD.show(text: errorMessage)
         }
     
     }

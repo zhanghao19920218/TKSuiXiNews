@@ -191,6 +191,7 @@ extension HomeSpecialColumnChildController: UITableViewDelegate, UITableViewData
                 //跳转外链
                 let vc = OutlinesideWKWebViewController() //新闻播放的页面
                 vc.loadUrl = model.url.string
+                vc.navigationItem.title = model.name.string
                 navigationController?.pushViewController(vc, animated: true)
             }
         }

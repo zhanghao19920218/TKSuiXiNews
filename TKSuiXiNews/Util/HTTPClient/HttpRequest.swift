@@ -41,7 +41,8 @@ public class HttpRequest {
                 }
                 let baseModel = try? decoder.decode(BaseModel.self, from: response.data)
                 guard let model = baseModel else {
-                    failure?(nil, "数据解析失败")
+                    print("数据解析失败")
+                    failure?(nil, "")
                     return
                 }
                 

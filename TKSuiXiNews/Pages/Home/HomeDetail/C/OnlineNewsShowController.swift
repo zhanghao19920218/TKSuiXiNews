@@ -320,7 +320,7 @@ extension OnlineNewsShowController: UITableViewDelegate, UITableViewDataSource {
                 cell.shareBlock = { type in
                     let url = K_URL_Share + (self.model?.id.string ?? "0")
                     if type == .qqShare { //QQ分享
-                        QQShareInstance.share.shareQQ(title: self.model?.name.string ?? "", url: url)
+                        QQShareInstance.share.shareQQ(title: (self.model?.name.string ?? "").isEmpty ? "直播" : self.model!.name.string, url: url)
                     }
                     if type == .weiboShare { //微博分享
                         ThirdPartyLogin.share.shareWebToSina(title: self.model?.name.string ?? "", url: url)
@@ -408,13 +408,13 @@ extension OnlineNewsShowController: UITableViewDelegate, UITableViewDataSource {
         
         //判断是不是有投票内容
         if let detailModel = model, detailModel.voteID.int != 0 {
-            if indexPath.row == 4 {
+            if indexPath.row == 5 {
                 let vc = CommentCommonController()
                 vc.commentId = Int(id) ?? 0
                 navigationController?.pushViewController(vc, animated: true)
             }
         } else {
-            if indexPath.row == 3 {
+            if indexPath.row == 4 {
                 let vc = CommentCommonController()
                 vc.commentId = Int(id) ?? 0
                 navigationController?.pushViewController(vc, animated: true)

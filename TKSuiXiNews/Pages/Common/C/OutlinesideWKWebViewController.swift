@@ -86,6 +86,10 @@ class OutlinesideWKWebViewController: BaseViewController {
         _setupUI()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem)
+        
+        ThirdPartyLogin.share.delegate = nil
+        
+        QQShareInstance.share.delegate = nil
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -93,8 +97,6 @@ class OutlinesideWKWebViewController: BaseViewController {
         
         //消除监听
         webView.removeObserver(self, forKeyPath: "estimatedProgress")
-        
-        webView.removeObserver(self, forKeyPath: "title")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -104,12 +106,6 @@ class OutlinesideWKWebViewController: BaseViewController {
         webView.addObserver(self,
                             forKeyPath: "estimatedProgress",
                             options: [],
-                            context: nil)
-        
-        //添加监听网页标题title的观察者
-        webView.addObserver(self,
-                            forKeyPath: "title",
-                            options: [.new],
                             context: nil)
     }
     
@@ -139,8 +135,6 @@ extension OutlinesideWKWebViewController: WKUIDelegate, WKNavigationDelegate {
                 }
             }
             
-        } else if keyPath == "title"{
-            navigationItem.title = webView.title
         } else {
             super.observeValue(forKeyPath: keyPath,
                                of: object,
