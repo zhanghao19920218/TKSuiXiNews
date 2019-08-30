@@ -14,6 +14,7 @@ fileprivate let likeCellIdentifier = "DetailCommentLikeNumCellIdentifier"
 fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
 fileprivate let voteCellIdentifier = "DetailInfoVoteSectionCellIdentifier" //投票的Cell
 fileprivate let articleWebContentIdentifier = "HomeArticleContentWebCellIdentifier" //新闻内容的Cell
+fileprivate let shareCellIdentifier = "BaseShareBottomViewIdentifier"
 
 ///直播详情页面
 class OnlineNewsShowController: BaseViewController {
@@ -41,6 +42,7 @@ class OnlineNewsShowController: BaseViewController {
         tableView.register(DetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
         tableView.register(DetailInfoVoteSectionCell.self, forCellReuseIdentifier: voteCellIdentifier) //投票的Cell
         tableView.register(HomeArticleContentWebCell.self, forCellReuseIdentifier: articleWebContentIdentifier)
+        tableView.register(BaseShareBottomView.self, forCellReuseIdentifier: shareCellIdentifier)
         //iOS 11Self-Sizing自动打开后，contentSize和contentOffset都可能发生改变。可以通过以下方式禁用
         tableView.estimatedRowHeight = 0
         tableView.estimatedSectionHeaderHeight = 0
@@ -68,6 +70,10 @@ class OnlineNewsShowController: BaseViewController {
         setupUI()
         
         loadDetailData(); //请求数据
+        
+        QQShareInstance.share.delegate = self //分享回调
+        
+        ThirdPartyLogin.share.delegate = self
     }
     
     //请求定时器进行加分
@@ -156,6 +162,17 @@ extension OnlineNewsShowController {
         )
     }
     
+    //MARK: - 分享转发获取积分
+    private func shareGetSocre() {
+        HttpClient.shareInstance.request(target: BAAPI.shareScore, success: { (json) in
+            //从json中解析出status_code状态码和message，用于后面的处理
+            let decoder = JSONDecoder()
+            let baseModel = try? decoder.decode(BaseModel.self, from: json)
+            TProgressHUD.show(text: baseModel?.msg ?? "分享失败")
+        }
+        )
+    }
+    
     //MARK: - 获取投票内容
     private func getVoteContent(id: Int) {
         HttpClient.shareInstance.request(target: BAAPI.voteDetailContent(id: id), success: { [weak self] (json) in
@@ -195,9 +212,9 @@ extension OnlineNewsShowController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let detailModel = model, detailModel.voteID.int != 0 {
-            return 5 + (model?.comment?.count ?? 0)
+            return 6 + (model?.comment?.count ?? 0)
         }
-        return 4 + (model?.comment?.count ?? 0)
+        return 5 + (model?.comment?.count ?? 0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -258,6 +275,66 @@ extension OnlineNewsShowController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
             
+            //用户分享的Cell
+            if indexPath.row == 4 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: shareCellIdentifier) as! BaseShareBottomView
+                cell.shareBlock = { type in
+                    let url = K_URL_Share + (self.model?.id.string ?? "0")
+                    if type == .qqShare { //QQ分享
+                        QQShareInstance.share.shareQQ(title: self.model?.name.string ?? "", url: url)
+                    }
+                    if type == .weiboShare { //微博分享
+                        ThirdPartyLogin.share.shareWebToSina(title: self.model?.name.string ?? "", url: url)
+                    }
+                    if type == .circleShare { //朋友圈
+                        ThirdPartyLogin.share.shareWechatTimeline(title: self.model?.name.string ?? "", url: url)
+                    }
+                    if type == .wechatShare {
+                        ThirdPartyLogin.share.shareWechatFriend(title: self.model?.name.string ?? "", url: url)
+                    }
+                }
+                return cell
+            }
+            
+            //用户称赞数量和评论数量
+            if indexPath.row == 5 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: likeCellIdentifier) as! DetailCommentLikeNumCell
+                cell.comment = model?.commentNum.int
+                cell.like = model?.likeNum.int
+                cell.isHiddenLike = true
+                return cell
+            }
+            
+            //用户评论
+            let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! DetailUserCommentCell
+            cell.avatar = model?.comment?[indexPath.row - 6].avatar.string
+            cell.nickname = model?.comment?[indexPath.row - 6].nickname.string
+            cell.comment = model?.comment?[indexPath.row - 6].detail.string
+            cell.time = model?.comment?[indexPath.row - 6].createtime.string
+            return cell
+            
+        } else {
+            //用户分享的Cell
+            if indexPath.row == 3 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: shareCellIdentifier) as! BaseShareBottomView
+                cell.shareBlock = { type in
+                    let url = K_URL_Share + (self.model?.id.string ?? "0")
+                    if type == .qqShare { //QQ分享
+                        QQShareInstance.share.shareQQ(title: self.model?.name.string ?? "", url: url)
+                    }
+                    if type == .weiboShare { //微博分享
+                        ThirdPartyLogin.share.shareWebToSina(title: self.model?.name.string ?? "", url: url)
+                    }
+                    if type == .circleShare { //朋友圈
+                        ThirdPartyLogin.share.shareWechatTimeline(title: self.model?.name.string ?? "", url: url)
+                    }
+                    if type == .wechatShare {
+                        ThirdPartyLogin.share.shareWechatFriend(title: self.model?.name.string ?? "", url: url)
+                    }
+                }
+                return cell
+            }
+            
             //用户称赞数量和评论数量
             if indexPath.row == 4 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: likeCellIdentifier) as! DetailCommentLikeNumCell
@@ -273,25 +350,6 @@ extension OnlineNewsShowController: UITableViewDelegate, UITableViewDataSource {
             cell.nickname = model?.comment?[indexPath.row - 5].nickname.string
             cell.comment = model?.comment?[indexPath.row - 5].detail.string
             cell.time = model?.comment?[indexPath.row - 5].createtime.string
-            return cell
-            
-        } else {
-            
-            //用户称赞数量和评论数量
-            if indexPath.row == 3 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: likeCellIdentifier) as! DetailCommentLikeNumCell
-                cell.comment = model?.commentNum.int
-                cell.like = model?.likeNum.int
-                cell.isHiddenLike = true
-                return cell
-            }
-            
-            //用户评论
-            let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! DetailUserCommentCell
-            cell.avatar = model?.comment?[indexPath.row - 4].avatar.string
-            cell.nickname = model?.comment?[indexPath.row - 4].nickname.string
-            cell.comment = model?.comment?[indexPath.row - 4].detail.string
-            cell.time = model?.comment?[indexPath.row - 4].createtime.string
             return cell
         }
         
@@ -316,17 +374,27 @@ extension OnlineNewsShowController: UITableViewDelegate, UITableViewDataSource {
                 let height = 44 * iPHONE_AUTORATIO * CGFloat((detailModel.voteOption?.count ?? 0))
                 return 80 * iPHONE_AUTORATIO + height
             }
+            
+            if indexPath.row == 4 {
+                return 72 * iPHONE_AUTORATIO
+            }
+            
+            if indexPath.row == 5 {
+                return 59 * iPHONE_AUTORATIO;
+            }
+            
+            return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 6].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
+        } else {
+            
+            if indexPath.row == 3 {
+                return 72 * iPHONE_AUTORATIO
+            }
+            
             if indexPath.row == 4 {
                 return 59 * iPHONE_AUTORATIO;
             }
             
             return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 5].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
-        } else {
-            if indexPath.row == 3 {
-                return 59 * iPHONE_AUTORATIO;
-            }
-            
-            return 59 * iPHONE_AUTORATIO + (model?.comment?[indexPath.row - 4].detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 83 * iPHONE_AUTORATIO) ?? 0)
         }
     }
     
@@ -364,5 +432,19 @@ extension OnlineNewsShowController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
+    }
+}
+
+//MARK: - 分享成功回调
+extension OnlineNewsShowController: QQShareInstanceDelegate, ThirdPartyLoginDelegate {
+    func thirdPartyLoginSuccess(with code: String, platform: String) {
+    }
+    
+    func shareQQMessageSuccess() {
+        shareGetSocre()
+    }
+    
+    func shareInformationSuccess() {
+        shareGetSocre()
     }
 }

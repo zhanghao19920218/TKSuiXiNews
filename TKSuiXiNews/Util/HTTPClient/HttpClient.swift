@@ -23,7 +23,8 @@ class HttpClient
         HttpRequest.loadData(target: target,
                              success: success) { (errorCode, errorMessage) in
                                 failure;
-                                TProgressHUD.show(text: errorMessage);
+//                                TProgressHUD.show(text: errorMessage);
+                                print("请求错误: \(errorMessage)")
         }
     
     }

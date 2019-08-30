@@ -202,7 +202,7 @@ extension HomePartyBuildViewController: UITableViewDelegate, UITableViewDataSour
             }
         } else {
             //跳转外链
-            let vc = ServiceWKWebViewController() //新闻播放的页面
+            let vc = OutlinesideWKWebViewController() //新闻播放的页面
             vc.loadUrl = model.url.string
             navigationController?.pushViewController(vc, animated: true)
         }
