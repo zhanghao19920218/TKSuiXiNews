@@ -49,7 +49,7 @@ class HomeMatrixListController: BaseTableViewController {
         super.pullDownRefreshData()
         
         //请求成功进行再次刷新数据
-        HttpClient.shareInstance.request(target: BAAPI.secondModule(module: "矩阵", module_second: secondCategory, page: page), success:{ [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.secondModule(module: "新闻网", module_second: secondCategory, page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(HomeMatrixListItemResponse.self, from: json)
             guard let forceModel = model else {
@@ -75,7 +75,7 @@ class HomeMatrixListController: BaseTableViewController {
         page = (page == 1 ? 2 : page);
         
         //请求成功进行再次刷新数据
-        HttpClient.shareInstance.request(target: BAAPI.secondModule(module: "矩阵", module_second: secondCategory, page: page), success:{ [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.secondModule(module: "新闻网", module_second: secondCategory, page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(HomeMatrixListItemResponse.self, from: json)
             guard let forceModel = model else {
@@ -195,7 +195,7 @@ extension HomeMatrixListController: UITableViewDelegate, UITableViewDataSource {
 extension HomeMatrixListController {
     //MARK: - 请求首页数据
     private func requestData(){
-        HttpClient.shareInstance.request(target: BAAPI.secondModule(module: "矩阵", module_second: secondCategory, page: page), success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.secondModule(module: "新闻网", module_second: secondCategory, page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(HomeMatrixListItemResponse.self, from: json)
             guard let forceModel = model else {
@@ -210,7 +210,7 @@ extension HomeMatrixListController {
     
     //MARK: - 请求矩阵
     private func requestBanner() {
-        HttpClient.shareInstance.request(target: BAAPI.articleAdmin(module: "矩阵"), success: { [weak self] (json) in
+        HttpClient.shareInstance.request(target: BAAPI.articleAdmin(module: "新闻网"), success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(ArticleAdminModelResponse.self, from: json)
             guard let forceModel = model else {

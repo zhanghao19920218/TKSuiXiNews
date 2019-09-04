@@ -70,16 +70,16 @@ class HomeHappyDetailListenController: BaseViewController {
                 ShareBottomPopMenu.show(success: { [weak self](type) in
                     let url = K_URL_Share + (self?.model?.id.string ?? "0")
                     if type == .qq { //QQ分享
-                        QQShareInstance.share.shareQQ(title: self?.model?.name.string ?? "", url: url)
+                        QQShareInstance.share.shareQQ(title: self?.model?.name.string ?? K_JT_normal_share_title, url: url)
                     }
                     if type == .weibo { //微博分享
-                        ThirdPartyLogin.share.shareWebToSina(title: self?.model?.name.string ?? "", url: url)
+                        ThirdPartyLogin.share.shareWebToSina(title: self?.model?.name.string ?? K_JT_normal_share_title, url: url)
                     }
                     if type == .circle { //朋友圈
-                        ThirdPartyLogin.share.shareWechatTimeline(title: self?.model?.name.string ?? "", url: url)
+                        ThirdPartyLogin.share.shareWechatTimeline(title: self?.model?.name.string ?? K_JT_normal_share_title, url: url)
                     }
                     if type == .wechat {
-                        ThirdPartyLogin.share.shareWechatFriend(title: self?.model?.name.string ?? "", url: url)
+                        ThirdPartyLogin.share.shareWechatFriend(title: self?.model?.name.string ?? K_JT_normal_share_title, url: url)
                     }
                 })
             }
@@ -378,16 +378,16 @@ extension HomeHappyDetailListenController: UITableViewDelegate, UITableViewDataS
                 cell.shareBlock = { type in
                     let url = K_URL_Share + (self.model?.id.string ?? "0")
                     if type == .qqShare { //QQ分享
-                        QQShareInstance.share.shareQQ(title: self.model?.name.string ?? "", url: url)
+                        QQShareInstance.share.shareQQ(title: self.model?.name.string ?? K_JT_normal_share_title, url: url)
                     }
                     if type == .weiboShare { //微博分享
-                        ThirdPartyLogin.share.shareWebToSina(title: self.model?.name.string ?? "", url: url)
+                        ThirdPartyLogin.share.shareWebToSina(title: self.model?.name.string ?? K_JT_normal_share_title, url: url)
                     }
                     if type == .circleShare { //朋友圈
-                        ThirdPartyLogin.share.shareWechatTimeline(title: self.model?.name.string ?? "", url: url)
+                        ThirdPartyLogin.share.shareWechatTimeline(title: self.model?.name.string ?? K_JT_normal_share_title, url: url)
                     }
                     if type == .wechatShare {
-                        ThirdPartyLogin.share.shareWechatFriend(title: self.model?.name.string ?? "", url: url)
+                        ThirdPartyLogin.share.shareWechatFriend(title: self.model?.name.string ?? K_JT_normal_share_title, url: url)
                     }
                 }
                 return cell
@@ -415,16 +415,16 @@ extension HomeHappyDetailListenController: UITableViewDelegate, UITableViewDataS
                 cell.shareBlock = { type in
                     let url = K_URL_Share + (self.model?.id.string ?? "0")
                     if type == .qqShare { //QQ分享
-                        QQShareInstance.share.shareQQ(title: self.model?.name.string ?? "", url: url)
+                        QQShareInstance.share.shareQQ(title: self.model?.name.string ?? K_JT_normal_share_title, url: url)
                     }
                     if type == .weiboShare { //微博分享
-                        ThirdPartyLogin.share.shareWebToSina(title: self.model?.name.string ?? "", url: url)
+                        ThirdPartyLogin.share.shareWebToSina(title: self.model?.name.string ?? K_JT_normal_share_title, url: url)
                     }
                     if type == .circleShare { //朋友圈
-                        ThirdPartyLogin.share.shareWechatTimeline(title: self.model?.name.string ?? "", url: url)
+                        ThirdPartyLogin.share.shareWechatTimeline(title: self.model?.name.string ?? K_JT_normal_share_title, url: url)
                     }
                     if type == .wechatShare {
-                        ThirdPartyLogin.share.shareWechatFriend(title: self.model?.name.string ?? "", url: url)
+                        ThirdPartyLogin.share.shareWechatFriend(title: self.model?.name.string ?? K_JT_normal_share_title, url: url)
                     }
                 }
                 return cell

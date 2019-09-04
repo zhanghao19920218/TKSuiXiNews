@@ -22,6 +22,9 @@ let K_JT_placeholder: String = "placeholder"
 let K_JT_phoneMobile: String = "mobile"
 let K_JT_qrDownload: String = "QrCode"
 
+///显示统一的标题
+let K_JT_normal_share_title = "濉溪发布"
+
 //MARK: - 登录的appKey
 let wechatAppKey = "wx3314443bcadc6e01"
 let sinaWeiboAppKey = "3823885346"

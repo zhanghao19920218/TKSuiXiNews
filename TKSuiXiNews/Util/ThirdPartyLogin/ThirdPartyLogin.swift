@@ -309,9 +309,12 @@ class QQShareInstance:NSObject {
         }
         
         
-        let url = URL(string: url)
+        guard let url = URL(string: url.removeHeadAndTailSpace) else {
+            TProgressHUD.show(text: "没有分享链接")
+            return
+        }
 
-        let obj = QQApiNewsObject(url: url!, title: title, description: "", previewImageData: K_ImageName(PLACE_HOLDER_IMAGE)?.jpegData(compressionQuality: 0.75), targetContentType: QQApiURLTargetTypeNews)
+        let obj = QQApiNewsObject(url: url, title: title, description: "", previewImageData: K_ImageName(PLACE_HOLDER_IMAGE)?.jpegData(compressionQuality: 0.75), targetContentType: QQApiURLTargetTypeNews)
 
         let req = SendMessageToQQReq(content: obj)
         

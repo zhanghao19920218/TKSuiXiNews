@@ -134,7 +134,7 @@ extension DetailTelevisonInfoController: UITableViewDelegate, UITableViewDataSou
         
         let model = _dataSource[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: programListIdentifier) as! HYTelevisionProgramCell
-        cell.title = model.content.string
+        cell.title = model.date.string + " " + model.content.string
         cell.isHiddened = (model.now?.int ?? 0 != 1 )
         return cell
     }

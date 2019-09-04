@@ -215,7 +215,7 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
             if model.url.string.isEmpty {
                 let vc = HomeNewsDetailInfoController();
                 vc.id = model.id.string
-                vc.title = "新闻"
+                vc.title = "文章"
                 navigationController?.pushViewController(vc, animated: true)
                 //如果取消点赞或者成功点赞刷新页面
                 vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in

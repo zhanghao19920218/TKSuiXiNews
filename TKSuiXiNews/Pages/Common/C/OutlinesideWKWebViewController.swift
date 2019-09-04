@@ -26,7 +26,7 @@ class OutlinesideWKWebViewController: BaseViewController {
         willSet(newValue) {
             if let value = newValue {
                 //加载网页
-                if let url = URL(string: value) {
+                if let url = URL(string: value.removeHeadAndTailSpace) {
                     webView.load(URLRequest.init(url: url));
                 }
             }
@@ -50,9 +50,9 @@ class OutlinesideWKWebViewController: BaseViewController {
         //最小字体大小 当将JavaScriptEnabled属性设置为NO, 可以看到明显效果
         preference.minimumFontSize = 9.0;
         //设置是否支持javaScript 默认是支持的
-        preference.javaScriptEnabled = false
+        preference.javaScriptEnabled = true
         // 在IOS上默认为NO, 表示是否允许不经过用户交互由javaScript自动打开窗口
-        preference.javaScriptCanOpenWindowsAutomatically = false
+        preference.javaScriptCanOpenWindowsAutomatically = true
         return preference
     }()
     
@@ -61,7 +61,7 @@ class OutlinesideWKWebViewController: BaseViewController {
         let configuration = WKWebViewConfiguration()
         configuration.preferences = preference
         //是使用h5的视频播放器在线播放, 还是使用原生播放器全屏播放
-        configuration.allowsInlineMediaPlayback = true
+        configuration.allowsInlineMediaPlayback = false
         //设置视频是否需要用户手动播放  设置为NO则允许自动播放
         configuration.requiresUserActionForMediaPlayback = false
         //设置是否允许画中画技术 在特定设备上有效
@@ -87,9 +87,9 @@ class OutlinesideWKWebViewController: BaseViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightNavigatorItem)
         
-        ThirdPartyLogin.share.delegate = nil
+        ThirdPartyLogin.share.delegate = self
         
-        QQShareInstance.share.delegate = nil
+        QQShareInstance.share.delegate = self
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -162,18 +162,30 @@ extension OutlinesideWKWebViewController: WKUIDelegate, WKNavigationDelegate {
         ShareBottomPopMenu.show(success: { [weak self](type) in
             let url = self?.loadUrl ?? ""
             if type == .qq { //QQ分享
-                QQShareInstance.share.shareQQ(title: self?.navigationItem.title ?? "", url: url)
+                QQShareInstance.share.shareQQ(title: self?.navigationItem.title ?? K_JT_normal_share_title, url: url)
             }
             if type == .weibo { //微博分享
-                ThirdPartyLogin.share.shareWebToSina(title: self?.navigationItem.title ?? "", url: url)
+                ThirdPartyLogin.share.shareWebToSina(title: self?.navigationItem.title ?? K_JT_normal_share_title, url: url)
             }
             if type == .circle { //朋友圈
-                ThirdPartyLogin.share.shareWechatTimeline(title: self?.navigationItem.title ?? "", url: url)
+                ThirdPartyLogin.share.shareWechatTimeline(title: self?.navigationItem.title ?? K_JT_normal_share_title, url: url)
             }
             if type == .wechat {
-                ThirdPartyLogin.share.shareWechatFriend(title: self?.navigationItem.title ?? "", url: url)
+                ThirdPartyLogin.share.shareWechatFriend(title: self?.navigationItem.title ?? K_JT_normal_share_title, url: url)
             }
         })
     }
 
+}
+
+//MARK: - 分享成功回调
+extension OutlinesideWKWebViewController: QQShareInstanceDelegate, ThirdPartyLoginDelegate {
+    func thirdPartyLoginSuccess(with code: String, platform: String) {
+    }
+    
+    func shareQQMessageSuccess() {
+    }
+    
+    func shareInformationSuccess() {
+    }
 }
