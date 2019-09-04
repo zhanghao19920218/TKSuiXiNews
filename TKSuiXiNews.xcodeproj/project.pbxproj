@@ -238,6 +238,9 @@
 		73E2793622FD6D30002E0712 /* ThirdPartyModelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2793522FD6D30002E0712 /* ThirdPartyModelResponse.swift */; };
 		73E2793822FD7BB3002E0712 /* MatrixBannerPagerViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2793722FD7BB3002E0712 /* MatrixBannerPagerViewCell.swift */; };
 		73E2793A22FD7BE0002E0712 /* BannerMatrixSingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E2793922FD7BE0002E0712 /* BannerMatrixSingleCell.swift */; };
+		73E3C48D231F56F800545319 /* TelevisionSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E3C48C231F56F800545319 /* TelevisionSectionView.swift */; };
+		73E3C48F231F5A5F00545319 /* SuixiTvListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E3C48E231F5A5F00545319 /* SuixiTvListModel.swift */; };
+		73E3C491231F5C0000545319 /* HYTelevisionProgramCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E3C490231F5C0000545319 /* HYTelevisionProgramCell.swift */; };
 		73E4103A22F55669009E9DA6 /* HomeMatrixListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4103922F55669009E9DA6 /* HomeMatrixListItemResponse.swift */; };
 		73E4103E22F56AE6009E9DA6 /* HomeHappyDetailListenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4103D22F56AE6009E9DA6 /* HomeHappyDetailListenController.swift */; };
 		73E4104022F56B38009E9DA6 /* DetailHappyMusicListenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4103F22F56B38009E9DA6 /* DetailHappyMusicListenCell.swift */; };
@@ -595,6 +598,9 @@
 		73E2793522FD6D30002E0712 /* ThirdPartyModelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdPartyModelResponse.swift; sourceTree = "<group>"; };
 		73E2793722FD7BB3002E0712 /* MatrixBannerPagerViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixBannerPagerViewCell.swift; sourceTree = "<group>"; };
 		73E2793922FD7BE0002E0712 /* BannerMatrixSingleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerMatrixSingleCell.swift; sourceTree = "<group>"; };
+		73E3C48C231F56F800545319 /* TelevisionSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TelevisionSectionView.swift; sourceTree = "<group>"; };
+		73E3C48E231F5A5F00545319 /* SuixiTvListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuixiTvListModel.swift; sourceTree = "<group>"; };
+		73E3C490231F5C0000545319 /* HYTelevisionProgramCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HYTelevisionProgramCell.swift; sourceTree = "<group>"; };
 		73E4103922F55669009E9DA6 /* HomeMatrixListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMatrixListItemResponse.swift; sourceTree = "<group>"; };
 		73E4103D22F56AE6009E9DA6 /* HomeHappyDetailListenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHappyDetailListenController.swift; sourceTree = "<group>"; };
 		73E4103F22F56B38009E9DA6 /* DetailHappyMusicListenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHappyMusicListenCell.swift; sourceTree = "<group>"; };
@@ -1739,6 +1745,8 @@
 				73E4104922F58035009E9DA6 /* BoardCastTVDatePickCell.swift */,
 				73E4104B22F58280009E9DA6 /* TelevisonButton.swift */,
 				73B774F3230BD7DE00AD7A04 /* BoardCastAudioPlayerCell.swift */,
+				73E3C48C231F56F800545319 /* TelevisionSectionView.swift */,
+				73E3C490231F5C0000545319 /* HYTelevisionProgramCell.swift */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1748,6 +1756,7 @@
 			children = (
 				73E4104F22F58C50009E9DA6 /* SuiXiTelevisionDetailPageResponse.swift */,
 				73E4105222F597A6009E9DA6 /* SuiXiBocastListItemResponse.swift */,
+				73E3C48E231F5A5F00545319 /* SuixiTvListModel.swift */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2286,6 +2295,7 @@
 				73FE5FD522FBB7D90047DB02 /* YPPermissionDeniedPopup.swift in Sources */,
 				73FE601122FBB7D90047DB02 /* YPAlerts.swift in Sources */,
 				73FE5FD722FBB7D90047DB02 /* YPSelectionsGalleryVC.swift in Sources */,
+				73E3C48F231F5A5F00545319 /* SuixiTvListModel.swift in Sources */,
 				73DF82D822F145520066583B /* ServiceScoreImageCell.swift in Sources */,
 				7357AC13230A840900373E70 /* SwitchLoginTypeView.swift in Sources */,
 				73E4104322F57C51009E9DA6 /* BocastDetailViewController.swift in Sources */,
@@ -2299,6 +2309,7 @@
 				73BDC1462302A1CC00400207 /* HomeChannelListModel.swift in Sources */,
 				73DEBAAD22E3119D007EC4E1 /* UIView+Extension.swift in Sources */,
 				736114ED22F1C32500BC5A8E /* AwardPanelModel.swift in Sources */,
+				73E3C48D231F56F800545319 /* TelevisionSectionView.swift in Sources */,
 				73FE600422FBB7D90047DB02 /* NSFileManager+Extensions.swift in Sources */,
 				73D4520C22F42C4700DAE835 /* ChangeBindingViewController.swift in Sources */,
 				73DF82EB22F198990066583B /* ScoreProductDetailViewController.swift in Sources */,
@@ -2360,6 +2371,7 @@
 				73DEBAA622E30E00007EC4E1 /* UIDefine.swift in Sources */,
 				73FE5FFA22FBB7D90047DB02 /* UIButton+Extensions.swift in Sources */,
 				73FE5FE322FBB7D90047DB02 /* YPAlbumVC.swift in Sources */,
+				73E3C491231F5C0000545319 /* HYTelevisionProgramCell.swift in Sources */,
 				73FE5FDE22FBB7D90047DB02 /* YPLibraryVC+PanGesture.swift in Sources */,
 				73FE601222FBB7D90047DB02 /* YPLoaders.swift in Sources */,
 				73DEBACB22E3224E007EC4E1 /* BANavigationController.swift in Sources */,

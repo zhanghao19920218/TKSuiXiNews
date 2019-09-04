@@ -10,13 +10,18 @@ import UIKit
 
 fileprivate let videoPlayIdentifier = "VideoNewsDetailInfoCellIdentifier"
 fileprivate let nameDetailIdentifier = "BoardCastVideoNewsCellIdentifier"
-fileprivate let televisonPickIdentifier = "BoardCastTVDatePickCellIdentifier"
-fileprivate let contentInfoIdentifier = "ProductDetailDescribeCellIdentifier"
+fileprivate let programListIdentifier = "HYTelevisionProgramCellIdentifier"
+//fileprivate let televisonPickIdentifier = "BoardCastTVDatePickCellIdentifier"
+//fileprivate let contentInfoIdentifier = "ProductDetailDescribeCellIdentifier"
 
 class DetailTelevisonInfoController: BaseViewController {
     var currentIndex = 1
     
     var model: SuiXiTelevisionDetailPageClass?
+    
+    private lazy var _dataSource: Array<SuixiTvListModel> = {
+        return [SuixiTvListModel]()
+    }()
     
     var id:Int = 0
     
@@ -26,8 +31,7 @@ class DetailTelevisonInfoController: BaseViewController {
         tableView.dataSource = self
         tableView.register(VideoNewsDetailInfoCell.self, forCellReuseIdentifier: videoPlayIdentifier)
         tableView.register(BoardCastVideoNewsCell.self, forCellReuseIdentifier: nameDetailIdentifier)
-        tableView.register(BoardCastTVDatePickCell.self, forCellReuseIdentifier: televisonPickIdentifier)
-        tableView.register(ProductDetailDescribeCell.self, forCellReuseIdentifier: contentInfoIdentifier)
+        tableView.register(HYTelevisionProgramCell.self, forCellReuseIdentifier: programListIdentifier)
         tableView.separatorStyle = .none
         return tableView
     }()
@@ -74,6 +78,8 @@ extension DetailTelevisonInfoController
             
             self?.model = forceModel.data
             
+            self?._dataSource = forceModel.data.telList[1].list
+            
             self?.tableView.reloadData();
             }
         )
@@ -94,76 +100,86 @@ extension DetailTelevisonInfoController
 extension DetailTelevisonInfoController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         if let _ = model {
-            return 1
+            return 2
         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        if section == 0 {
+            return 2
+        }
+        return _dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: videoPlayIdentifier) as! VideoNewsDetailInfoCell
-            if model?.images.count ?? 0 > 0 {
-                cell.imageUrl = model?.images[0].string
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: videoPlayIdentifier) as! VideoNewsDetailInfoCell
+                if model?.images.count ?? 0 > 0 {
+                    cell.imageUrl = model?.images[0]
+                }
+                
+                return cell
             }
             
-            return cell
-        }
-        
-        if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: nameDetailIdentifier) as! BoardCastVideoNewsCell
-            cell.isTv = false
-            cell.title = model?.name.string
-            cell.review = model?.visitNum.int
-            return cell
-        }
-        
-        if indexPath.row == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: televisonPickIdentifier) as! BoardCastTVDatePickCell
-            if model?.telList.count == 3 {
-                cell.firstDate = model?.telList[0].date.string
-                cell.secondDate = model?.telList[1].date.string
-                cell.thirdDate = model?.telList[2].date.string
-                cell.block = { [weak self] (index) in
-                    self?.currentIndex = (index - 1)
-                    self?.tableView.reloadData()
-                }
+            if indexPath.row == 1 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: nameDetailIdentifier) as! BoardCastVideoNewsCell
+                cell.isTv = false
+                cell.title = model?.name.string
+                cell.review = model?.visitNum.int
+                return cell
             }
-            return cell
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: contentInfoIdentifier) as! ProductDetailDescribeCell
-        if model?.telList.count == 3 {
-            cell.content = model?.telList[currentIndex].content.string
-        }
+        let model = _dataSource[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: programListIdentifier) as! HYTelevisionProgramCell
+        cell.title = model.content.string
+        cell.isHiddened = (model.now?.int ?? 0 != 1 )
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 188 * iPHONE_AUTORATIO
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                return 188 * iPHONE_AUTORATIO
+            }
+            
+            if indexPath.row == 1 {
+                return 65 * iPHONE_AUTORATIO
+            }
         }
         
-        if indexPath.row == 1 {
-            return 65 * iPHONE_AUTORATIO
-        }
-        
-        if indexPath.row == 2 {
-            return 92 * iPHONE_AUTORATIO
-        }
-        
-        return 10 * iPHONE_AUTORATIO + (model?.name.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 26 * iPHONE_AUTORATIO) ?? 0)
+        return 40 * iPHONE_AUTORATIO
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        if indexPath.row == 0 && indexPath.section == 0 {
             let vc = OnlineTVShowViewController.init(url: model?.video.string ?? "")
             vc.id = model?.id.int ?? 0
             navigationController?.pushViewController(vc, animated: true);
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 68 * iPHONE_AUTORATIO
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = TelevisionSectionView()
+        if let model = model {
+            view.before = model.telList[0].date
+            view.after = model.telList[2].date
+            view.today = model.telList[1].date
+            view.selectedBlock = { [weak self] (index) in
+                self?._dataSource = model.telList[index - 1].list
+                self?.tableView.reloadSections(IndexSet(integersIn: 1...1), with: .none)
+            }
+        }
+        return view
     }
     
 }

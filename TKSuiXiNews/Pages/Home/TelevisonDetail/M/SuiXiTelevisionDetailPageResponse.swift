@@ -7,7 +7,6 @@
 //
 
 import Foundation
-
 // MARK: - SuiXiTelevisionDetailPageResponse
 struct SuiXiTelevisionDetailPageResponse: Codable {
     let code: Int
@@ -20,18 +19,20 @@ struct SuiXiTelevisionDetailPageClass: Codable {
     let id, userID, adminID: TStrInt
     let module, moduleSecond, name: TStrInt
     let image: TStrInt
-    let images: [TStrInt]
+    let images: [String]
     let video: TStrInt
     let audio, content, nickname, avatar: TStrInt
     let status: TStrInt
     let visitNum, commentNum, likeNum, createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
     let time: TStrInt?
-    let type: TStrInt
-    let comment: [JSONAny]
+    let type, url: TStrInt
+    let zhuanma, shuiyin, voteStatus: TStrInt
+    let vote: TStrInt?
+    let comment: [String]
     let begintime: TStrInt
     let likeStatus, collectStatus: TStrInt
-    let telList: [SuiXiTelevisionDetailTelList]
+    let telList: [SuixiTvListModelElement]
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -45,24 +46,11 @@ struct SuiXiTelevisionDetailPageClass: Codable {
         case likeNum = "like_num"
         case createtime, updatetime
         case voteID = "vote_id"
-        case weigh, time, type, comment, begintime
+        case weigh, time, type, url, zhuanma, shuiyin
+        case voteStatus = "vote_status"
+        case vote, comment, begintime
         case likeStatus = "like_status"
         case collectStatus = "collect_status"
         case telList = "tel_list"
-    }
-}
-
-// MARK: - TelList
-struct SuiXiTelevisionDetailTelList: Codable {
-    let id, articleID: TStrInt
-    let date, content: TStrInt
-    let adminID, createtime, updatetime: TStrInt
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case articleID = "article_id"
-        case date, content
-        case adminID = "admin_id"
-        case createtime, updatetime
     }
 }
