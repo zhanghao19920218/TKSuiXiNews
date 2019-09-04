@@ -161,8 +161,10 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
         let timeLength = model.time.int.secondsToHoursMinutesSeconds()
         cell.videoLength = "\(timeLength.min):\(timeLength.sec)"
         cell.block = { [weak self] () in
-            let vc = NETLivePlayerController(url: model.video.string)
-            self?.navigationController?.pushViewController(vc, animated: true);
+            if (model.url?.string ?? "").isEmpty {
+                let vc = NETLivePlayerController(url: model.video.string)
+                self?.navigationController?.pushViewController(vc, animated: true);
+            }
         }
         return cell;
     }
@@ -175,22 +177,28 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row - 1] as! VVideoListModel;
-        let vc = DetailVideoInfoController();
-        vc.id = model.id.string
-        parent?.navigationController?.pushViewController(vc, animated: true)
-        //如果取消点赞或者成功点赞刷新页面
-        vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
-            //获取要刷新的索引
-            let indexPaths = [indexPath]
-            //更新索引的数据
-            var changeModel = self?.dataSource[indexPath.row-1] as! VVideoListModel
-            changeModel.likeStatus.int = (likeStatus ? 1 : 0)
-            changeModel.commentNum.int = comment
-            changeModel.likeNum.int = like
-            self?.dataSource[indexPath.row - 1] = changeModel
-            //刷新页面
-            self?.tableView.reloadRows(at: indexPaths, with: .none)
+        let model = dataSource[indexPath.row - 1] as! VVideoListModel
+        if (model.url?.string ?? "").isEmpty {
+            let vc = OnlineNewsShowController();
+            vc.id = model.id.string
+            parent?.navigationController?.pushViewController(vc, animated: true)
+            //如果取消点赞或者成功点赞刷新页面
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row - 1] as! VVideoListModel
+                changeModel.visitNum.int = review
+                self?.dataSource[indexPath.row - 1] = changeModel
+                //刷新页面
+                self?.tableView.reloadRows(at: indexPaths, with: .none)
+            }
+        } else {
+            //跳转外链
+            let vc = OutlinesideWKWebViewController() //新闻播放的页面
+            vc.loadUrl = model.url?.string
+            vc.navigationItem.title = model.name.string
+            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

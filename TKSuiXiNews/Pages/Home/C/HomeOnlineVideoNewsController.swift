@@ -120,8 +120,10 @@ extension HomeOnlineVideoNewsController: UITableViewDelegate, UITableViewDataSou
         cell.title = model.name.string
         cell.reviewNum = model.visitNum.int
         cell.playVideoBlock = { [weak self] () in
-            let vc = OnlineTVShowViewController(url: model.video.string)
-            self?.navigationController?.pushViewController(vc, animated: true);
+            if model.url.string.isEmpty {
+                let vc = OnlineTVShowViewController(url: model.video.string)
+                self?.navigationController?.pushViewController(vc, animated: true);
+            }
         }
         return cell;
     }

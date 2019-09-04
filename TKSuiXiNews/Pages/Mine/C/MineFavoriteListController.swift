@@ -116,7 +116,7 @@ extension MineFavoriteListController: UITableViewDelegate, UITableViewDataSource
             cell.isLike = model.likeStatus.int
             cell.like = model.likeNum.int
             cell.review = model.visitNum.int
-            cell.time = model.time?.string
+            cell.time = ""
             return cell;
         } else if model.images.count == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: newsThreePicIdentifier) as! HomeNewsThreePictureCell;
@@ -127,7 +127,7 @@ extension MineFavoriteListController: UITableViewDelegate, UITableViewDataSource
             cell.isLike = model.likeStatus.int
             cell.like = model.likeNum.int
             cell.review = model.visitNum.int
-            cell.time = model.time?.string
+            cell.time = ""
             return cell;
         }
         
@@ -136,7 +136,7 @@ extension MineFavoriteListController: UITableViewDelegate, UITableViewDataSource
         cell.isLike = model.likeStatus.int
         cell.like = model.likeNum.int
         cell.review = model.visitNum.int
-        cell.time = model.time?.string
+        cell.time = ""
         return cell;
     }
     

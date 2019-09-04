@@ -168,6 +168,11 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
             return 130 * iPHONE_AUTORATIO;
         }
         
+        let model = dataSource[indexPath.row - 1]
+        if model.data.count == 0 {
+            return 60 * iPHONE_AUTORATIO
+        }
+        
         return 204 * iPHONE_AUTORATIO;
     }
 }

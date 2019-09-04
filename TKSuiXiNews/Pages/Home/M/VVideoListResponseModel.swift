@@ -51,6 +51,7 @@ struct VVideoListModel: Codable {
     var likeNum: TStrInt
     var visitNum: TStrInt
     var commentNum: TStrInt
+    var url: TStrInt?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -58,7 +59,7 @@ struct VVideoListModel: Codable {
         case adminID = "admin_id"
         case module
         case moduleSecond = "module_second"
-        case name, image, images, video, audio, content, nickname, avatar, status
+        case name, image, images, video, audio, content, nickname, avatar, status, url
         case visitNum = "visit_num"
         case commentNum = "comment_num"
         case likeNum = "like_num"
