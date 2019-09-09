@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true; //启动IQKeyBoard
         
         //解决MBHud卡住
-        UIApplication.mainThreadApplicationState()
+//        UIApplication.mainThreadApplicationState()
         
         //注册登录
         ThirdPartyLogin.share.register()

@@ -110,13 +110,17 @@ class ServiceViewController: BaseViewController {
 
 extension ServiceViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return dataSource.count + 1;
+        if DefaultsKitUtil.share.isShowServer {
+            return dataSource.count + 1
+        }
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return 1
         }
+        
         return dataSource[section-1].data.count;
     }
     

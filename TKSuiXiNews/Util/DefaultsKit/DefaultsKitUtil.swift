@@ -40,4 +40,21 @@ class DefaultsKitUtil {
     open func getQRAddress() -> String {
         return Defaults.shared.get(for: qrCodeKey) ?? ""
     }
+    
+    ///存储用户是不是隐藏
+    open func storeServerShow(_ result: Int) {
+        Defaults.shared.set(result, for: isShowServerKey)
+    }
+    
+    ///存储用户是不是显示服务的model
+    open var isShowServer: Bool {
+        get {
+            let result = Defaults.shared.get(for: isShowServerKey)
+            if result == 1 {
+                return false
+            } else {
+                return true
+            }
+        }
+    }
 }

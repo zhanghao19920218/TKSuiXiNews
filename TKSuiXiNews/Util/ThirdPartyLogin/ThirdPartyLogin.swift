@@ -358,7 +358,7 @@ extension QQShareInstance: QQApiInterfaceDelegate {
                     delegate.shareQQMessageSuccess()
                 }
                 //显示错误信息
-                printDebug(message)
+//                printDebug(message)
                 TProgressHUD.show(text: title)
             }
         }

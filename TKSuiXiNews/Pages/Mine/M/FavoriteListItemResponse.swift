@@ -42,6 +42,7 @@ struct FavoriteListItemDatum: Codable {
     let time: TStrInt?
     let type: TStrInt
     var likeStatus, visitNum, commentNum, likeNum: TStrInt
+    let url: TStrInt?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -49,7 +50,7 @@ struct FavoriteListItemDatum: Codable {
         case adminID = "admin_id"
         case module
         case moduleSecond = "module_second"
-        case name, image, images, video, audio, content, nickname, avatar, status
+        case name, image, images, video, audio, content, nickname, avatar, status, url
         case visitNum = "visit_num"
         case commentNum = "comment_num"
         case likeNum = "like_num"

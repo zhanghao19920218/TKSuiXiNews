@@ -156,6 +156,16 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! ReviewListItemDatum
+        
+        if !(model.url?.string ?? "").isEmpty {
+            //跳转外链
+            let vc = OutlinesideWKWebViewController() //新闻播放的页面
+            vc.loadUrl = model.url?.string
+            vc.navigationItem.title = model.name.string
+            navigationController?.pushViewController(vc, animated: true)
+            return
+        }
+        
         if model.module.string == "濉溪TV" || model.module.string == "视讯"{
             //跳转濉溪TV详情
             let vc = VideoNewsDetailController()

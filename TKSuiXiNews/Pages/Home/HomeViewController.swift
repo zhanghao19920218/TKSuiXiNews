@@ -143,7 +143,7 @@ class HomeViewController: BaseViewController {
             return controller;
         }
         pageViewManager = DNSPageView(frame: CGRect(x: 0, y: 0, width: K_SCREEN_WIDTH, height: K_SCREEN_HEIGHT - TAB_BAR_HEIGHT - NAVIGATION_BAR_HEIGHT), style: style, titles: titles, childViewControllers: childViewControllers)
-        
+//        pageViewManager?.titleView.delegate = self
         view.addSubview(pageViewManager!)
 
     }
@@ -199,6 +199,7 @@ extension HomeViewController {
             if let cofigure = model {
                 Defaults.shared.set(cofigure.data.defaultSearch.string, for: placeholderKey)
                 DefaultsKitUtil.share.storeQRAddress(url: cofigure.data.qrcode.string)
+                DefaultsKitUtil.share.storeServerShow(cofigure.data.iosUp.int)
             }
         })
     }
@@ -226,6 +227,16 @@ extension HomeViewController: DNSPageContentViewDelegate, DNSPageTitleViewDelega
     }
     
     func titleView(_ titleView: DNSPageTitleView, didSelectAt index: Int) {
-        
+//        pageViewManager?.contentView.currentIndex = index
+//        //获取用户是不是管理员
+//        let groupId =  Defaults.shared.get(for: userGroupId)
+//        if let groupid = groupId, groupid == 2 {
+//            if index == 0 {
+//                rightNavigatorItem.isHidden = false
+//            } else {
+//                rightNavigatorItem.isHidden = true
+//            }
+//        }
+//        pageViewManager?.childViewControllers
     }
 }

@@ -95,8 +95,10 @@ class OutlinesideWKWebViewController: BaseViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
+        webView.load(URLRequest.init(url: URL(string: "https://www.baidu.com")!));
         //消除监听
         webView.removeObserver(self, forKeyPath: "estimatedProgress")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

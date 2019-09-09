@@ -20,7 +20,7 @@ extension UIImage {
         var compress:CGFloat = 1.0
         var data = self.jpegData(compressionQuality: compress)
         //如果图片本身大小小于maxSize就返回
-        printDebug("------------------------\(data?.count ?? 0 / 1024)KB")
+//        printDebug("------------------------\(data?.count ?? 0 / 1024)KB")
         if data?.count ?? 0 < maxSize { return data }
         //压缩图片的质量优点在于可以更好的保留图片的清晰度,缺点在于可能我们compress继续
         //减少, data也不会再减小,不能保证压缩后小于指定的大小
@@ -44,7 +44,7 @@ extension UIImage {
         //当对质量进行压缩并没有达到我们需要的大小时我们可以对照片大小进行压缩
         //压缩照片尺寸会达到我们理想的大小, 但会让照片变得相当模糊
         //判断质量压缩后的大小是否小于maxSize
-        printDebug("------------------------\(data?.count ?? 0 / 1024)KB")
+//        printDebug("------------------------\(data?.count ?? 0 / 1024)KB")
         if data?.count ?? 0 < maxSize { return data }
         guard var compressData = data else {
             return nil
@@ -85,7 +85,7 @@ extension UIImage {
             if data?.count != lastLength {
                 lastLength = data?.count ?? 0
                 max = compress
-                printDebug("------------------------\(data?.count ?? 0 / 1024)KB")
+//                printDebug("------------------------\(data?.count ?? 0 / 1024)KB")
             } else {
                 break
             }

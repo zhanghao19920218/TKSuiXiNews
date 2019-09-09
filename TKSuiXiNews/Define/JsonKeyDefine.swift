@@ -21,6 +21,7 @@ let K_JT_groupId: String = "groupId"
 let K_JT_placeholder: String = "placeholder"
 let K_JT_phoneMobile: String = "mobile"
 let K_JT_qrDownload: String = "QrCode"
+let K_JT_isShowServer: String = "isShowServer"
 
 ///显示统一的标题
 let K_JT_normal_share_title = "濉溪发布"
@@ -37,4 +38,4 @@ let userGroupId = Key<Int>(K_JT_groupId)
 let placeholderKey = Key<String>(K_JT_placeholder)
 let mobileKey = Key<String>(K_JT_phoneMobile)
 let qrCodeKey = Key<String>(K_JT_qrDownload)
-
+let isShowServerKey = Key<Int>(K_JT_isShowServer)

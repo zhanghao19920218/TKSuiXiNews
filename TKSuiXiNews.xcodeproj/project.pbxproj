@@ -2656,9 +2656,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development: Liangbo Yin (W5DUC3DZTS)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Anhui Hongyue Creative Culture Technology Co., Ltd (ZU3NFRZASC)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = VKSGMUVB34;
+				DEVELOPMENT_TEAM = ZU3NFRZASC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TKSuiXiNews/Resource/libQQ",
@@ -2771,9 +2771,9 @@
 					"-framework",
 					"\"FSPagerView\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tktechnology.tkSuixiNew;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anhuitechnology.tkSuixiNew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = tkSuixiNew_dev;
+				PROVISIONING_PROFILE_SPECIFIER = TkSuixiNew_AppStore;
 				SWIFT_OBJC_BRIDGING_HEADER = "TKSuiXiNews/Resource/TKSuiXiNews-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2788,9 +2788,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development: Liangbo Yin (W5DUC3DZTS)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Anhui Hongyue Creative Culture Technology Co., Ltd (ZU3NFRZASC)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = VKSGMUVB34;
+				DEVELOPMENT_TEAM = ZU3NFRZASC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TKSuiXiNews/Resource/libQQ",
@@ -2903,9 +2903,9 @@
 					"-framework",
 					"\"FSPagerView\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tktechnology.tkSuixiNew;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anhuitechnology.tkSuixiNew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = tkSuixiNew_dev;
+				PROVISIONING_PROFILE_SPECIFIER = TkSuixiNew_AppStore;
 				SWIFT_OBJC_BRIDGING_HEADER = "TKSuiXiNews/Resource/TKSuiXiNews-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
