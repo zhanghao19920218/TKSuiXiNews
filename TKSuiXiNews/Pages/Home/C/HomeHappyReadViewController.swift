@@ -177,7 +177,7 @@ extension HomeHappyReadViewController: UICollectionViewDataSource, UICollectionV
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! HomeHappyReadListItemModel
         if model.url.string.isEmpty {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = model.id.string
             vc.title = "悦读"
             navigationController?.pushViewController(vc, animated: true)
@@ -193,7 +193,7 @@ extension HomeHappyReadViewController: UICollectionViewDataSource, UICollectionV
                 collectionView.reloadItems(at: indexPaths)
             }
         }  else if !DefaultsKitUtil.share.isShowServer {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = model.id.string
             vc.title = "文章"
             navigationController?.pushViewController(vc, animated: true)

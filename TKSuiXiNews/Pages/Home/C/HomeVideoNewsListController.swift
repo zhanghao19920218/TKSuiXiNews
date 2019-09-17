@@ -27,7 +27,7 @@ class HomeVideoNewsListController: BaseTableViewController {
     
     //初始化页面
     private func setupUI() {
-        tableView.register(HomeVideoNewsViewCell.self, forCellReuseIdentifier: cellIdentifier);
+        tableView.register(SXHomeVideoNewsViewCell.self, forCellReuseIdentifier: cellIdentifier);
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = .none;
@@ -106,7 +106,7 @@ extension HomeVideoNewsListController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let model = dataSource[indexPath.row] as! HomeVideoNewsListModel
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! HomeVideoNewsViewCell;
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! SXHomeVideoNewsViewCell;
         cell.title = model.name.string;
         cell.imageName = model.image.string
         cell.time = model.begintime.string
@@ -124,7 +124,7 @@ extension HomeVideoNewsListController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! HomeVideoNewsListModel
         if model.url.string.isEmpty {
-            let vc = VideoNewsDetailController()
+            let vc = SXVideoNewsDetailController()
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
             //如果取消点赞或者成功点赞刷新页面
@@ -142,7 +142,7 @@ extension HomeVideoNewsListController: UITableViewDelegate, UITableViewDataSourc
                 self?.tableView.reloadRows(at: indexPaths, with: .none)
             }
         }  else if !DefaultsKitUtil.share.isShowServer {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = model.id.string
             vc.title = "文章"
             navigationController?.pushViewController(vc, animated: true)

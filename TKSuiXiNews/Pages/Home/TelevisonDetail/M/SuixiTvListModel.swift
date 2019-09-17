@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SuixiTvListModelElement: Codable {
+struct SXTvListModelElement: Codable {
     let date: String
     let list: [SuixiTvListModel]
 }

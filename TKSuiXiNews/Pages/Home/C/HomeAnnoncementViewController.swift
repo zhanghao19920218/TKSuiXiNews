@@ -26,9 +26,9 @@ class HomeAnnoncementViewController: BaseTableViewController {
     
     //初始化页面
     private func setupUI() {
-        tableView.register(HomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
-        tableView.register(HomeNewsThreePictureCell.self, forCellReuseIdentifier: newsThreePicIdentifier)
-        tableView.register(HomeNewsNoPicCell.self, forCellReuseIdentifier: newsNoPicIdentifier)
+        tableView.register(SXHomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
+        tableView.register(SXHomeNewsThreePictureCell.self, forCellReuseIdentifier: newsThreePicIdentifier)
+        tableView.register(SXHomeNewsNoPicCell.self, forCellReuseIdentifier: newsNoPicIdentifier)
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = .none;
@@ -109,7 +109,7 @@ extension HomeAnnoncementViewController: UITableViewDelegate, UITableViewDataSou
         let model = dataSource[indexPath.row] as! HomeNewsListModel
         
         if !model.image.string.isEmpty {
-            let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! SXHomeNewsOnePictureCell;
             cell.title = model.name.string
             cell.imageName = model.image.string
             cell.isLike = model.likeStatus.int
@@ -118,7 +118,7 @@ extension HomeAnnoncementViewController: UITableViewDelegate, UITableViewDataSou
             cell.time = model.begintime.string
             return cell;
         } else if model.images.count == 3 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: newsThreePicIdentifier) as! HomeNewsThreePictureCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: newsThreePicIdentifier) as! SXHomeNewsThreePictureCell;
             cell.title = model.name.string
             cell.imageName = model.images[0]
             cell.imageName2 = model.images[1]
@@ -130,7 +130,7 @@ extension HomeAnnoncementViewController: UITableViewDelegate, UITableViewDataSou
             return cell;
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: newsNoPicIdentifier) as! HomeNewsNoPicCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: newsNoPicIdentifier) as! SXHomeNewsNoPicCell
         cell.title = model.name.string
         cell.isLike = model.likeStatus.int
         cell.like = model.likeNum.int
@@ -157,7 +157,7 @@ extension HomeAnnoncementViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! HomeNewsListModel;
         if model.url.string.isEmpty {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = model.id.string
             //如果取消点赞或者成功点赞刷新页面
             vc.title = "公告"
@@ -175,7 +175,7 @@ extension HomeAnnoncementViewController: UITableViewDelegate, UITableViewDataSou
                 self?.tableView.reloadRows(at: indexPaths, with: .none)
             }
         } else if !DefaultsKitUtil.share.isShowServer {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = model.id.string
             vc.title = "文章"
             navigationController?.pushViewController(vc, animated: true)

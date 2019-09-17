@@ -63,8 +63,8 @@ class SXMineViewController: SXBaseViewController {
     }();
     
     //积分按钮
-    private lazy var scoreBackButton: ScroreItemButton = {
-        let button = ScroreItemButton(type: .custom);
+    private lazy var scoreBackButton: SXScroreItemButton = {
+        let button = SXScroreItemButton(type: .custom);
         button.layer.cornerRadius = 19 * iPHONE_AUTORATIO;
         button.backgroundColor = .white;
         button.layer.shadowOffset = CGSize(width: 1 , height: 1)
@@ -75,8 +75,8 @@ class SXMineViewController: SXBaseViewController {
     }();
     
     //下方的vIEW
-    private lazy var mineCollectionView: MineCollectionView = {
-        let view = MineCollectionView()
+    private lazy var mineCollectionView: SXMineCollectionView = {
+        let view = SXMineCollectionView()
         return view;
     }();
     
@@ -191,26 +191,26 @@ class SXMineViewController: SXBaseViewController {
             make.height.equalTo(200 * iPHONE_AUTORATIO)
         }
         //CollectionViewCell点击
-        mineCollectionView.mb = {[weak self](index:Int)->(Void) in
+        mineCollectionView.mineBlock = {[weak self](index:Int)->(Void) in
             if index == 0 {
                 //我的收藏
-                let vc = MineFavoriteListController()
+                let vc = SXMineFavoriteListController()
                 self?.navigationController?.pushViewController(vc, animated: true)
             } else if index == 4 {
-                let vc = MessageViewController()
+                let vc = SXMessageViewController()
                 self?.navigationController?.pushViewController(vc, animated: true)
                 
             } else if index == 1 {
                 //最近浏览
-                let vc = MineReviewListController()
+                let vc = SXMineReviewListController()
                 self?.navigationController?.pushViewController(vc, animated: true)
             } else if index == 5 {
                 //兑换记录
-                let vc = MineExchangeHistoryListController()
+                let vc = SXMineExchangeHistoryListController()
                 self?.navigationController?.pushViewController(vc, animated: true)
             } else if(index == 6){
                 //关于我们
-                let vc = AboutUsViewController()
+                let vc = SXAboutUsViewController()
                 self?.navigationController?.pushViewController(vc, animated: true)
             } else if index == 2 {
                 //我的帖子
@@ -218,7 +218,7 @@ class SXMineViewController: SXBaseViewController {
                 self?.navigationController?.pushViewController(vc, animated: true)
             } else if index == 3 {
                 //问政记录
-                let vc = MineAskGovListViewController()
+                let vc = SXMineAskGovListViewController()
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -239,7 +239,7 @@ class SXMineViewController: SXBaseViewController {
     
     //进入积分明细
     @objc func clickIntegralDetailAction(){
-        let vc = MineIntegralDetailViewController()
+        let vc = SXMineIntegralDetailViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -262,7 +262,7 @@ extension SXMineViewController {
             self?.scoreBackButton.score = forceModel.data.score.string
             
             //未读消息数量
-            self?.mineCollectionView.unreadMsgCount = forceModel.data.unread.int
+            self?.mineCollectionView.unreadMsgNum = forceModel.data.unread.int
             
             //更新手机号码
             DefaultsKitUtil.share.storePhoneNum(mobile: forceModel.data.mobile.string)

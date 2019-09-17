@@ -128,7 +128,7 @@ class BicycleMineController: SXBaseViewController {
     
     ///进入积分明细
     @objc private func clickIntegralDetailAction(){
-        let vc = MineIntegralDetailViewController()
+        let vc = SXMineIntegralDetailViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     

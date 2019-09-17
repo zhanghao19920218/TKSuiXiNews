@@ -33,7 +33,7 @@ class SXMineSettingViewController: SXBaseViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = RGB(244, 245, 247)
-        tableView.register(MineSettingTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(SXMineSettingCell.self, forCellReuseIdentifier: cellIdentifier)
         return tableView
     }()
     
@@ -111,7 +111,7 @@ extension SXMineSettingViewController : UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! MineSettingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! SXMineSettingCell
         cell.selectionStyle = .none
         cell.leftLab.text = leftitems[indexPath.row]
         return cell
@@ -122,7 +122,7 @@ extension SXMineSettingViewController : UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = ChangePasswordController()
+        let vc = SXChangePasswordController()
         navigationController?.pushViewController(vc, animated: true)
     }
     

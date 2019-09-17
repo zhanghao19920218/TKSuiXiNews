@@ -23,7 +23,7 @@ class HomeTVViewController: SXBaseViewController {
         let tableView = UITableView.init(frame: .zero);
         tableView.delegate = self;
         tableView.dataSource = self;
-        tableView.register(HomeTVChannelFirstCell.self, forCellReuseIdentifier: sectionFirstCellIdentifier);
+        tableView.register(SXHomeTVChannelFirstCell.self, forCellReuseIdentifier: sectionFirstCellIdentifier);
         tableView.register(HomeTVOtherSectionCell.self, forCellReuseIdentifier: sectionOtherCellIdentifier)
         tableView.separatorStyle = .none;
         //iOS 11Self-Sizing自动打开后，contentSize和contentOffset都可能发生改变。可以通过以下方式禁用
@@ -70,7 +70,7 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: sectionFirstCellIdentifier) as! HomeTVChannelFirstCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: sectionFirstCellIdentifier) as! SXHomeTVChannelFirstCell
             if let model = self.topModel {
                 //没有数据
                 if model.data.count == 0 {
@@ -83,11 +83,11 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
                         if index == 1 {
                             let category:String = model.data[0].type.string
                             if category == "tv" {
-                                let vc = DetailTelevisonInfoController()
+                                let vc = SXDetailTelevisonInfoController()
                                 vc.id = model.data[0].id.int
                                 self?.navigationController?.pushViewController(vc, animated: true)
                             } else {
-                                let vc = BocastDetailViewController()
+                                let vc = SXBocastDetailViewController()
                                 vc.id = model.data[0].id.int
                                 self?.navigationController?.pushViewController(vc, animated: true)
                             }
@@ -103,11 +103,11 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
                         if index <= 2 {
                             let category:String = model.data[index - 1].type.string
                             if category == "tv" {
-                                let vc = DetailTelevisonInfoController()
+                                let vc = SXDetailTelevisonInfoController()
                                 vc.id = model.data[index - 1].id.int
                                 self?.navigationController?.pushViewController(vc, animated: true)
                             } else {
-                                let vc = BocastDetailViewController()
+                                let vc = SXBocastDetailViewController()
                                 vc.id = model.data[index - 1].id.int
                                 self?.navigationController?.pushViewController(vc, animated: true)
                             }
@@ -125,11 +125,11 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.block = { [weak self] (index) in
                     let category:String = model.data[index - 1].type.string
                     if category == "tv" {
-                        let vc = DetailTelevisonInfoController()
+                        let vc = SXDetailTelevisonInfoController()
                         vc.id = model.data[index - 1].id.int
                         self?.navigationController?.pushViewController(vc, animated: true)
                     } else {
-                        let vc = BocastDetailViewController()
+                        let vc = SXBocastDetailViewController()
                         vc.id = model.data[index - 1].id.int
                         self?.navigationController?.pushViewController(vc, animated: true)
                     }
@@ -149,14 +149,14 @@ extension HomeTVViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.videoDetailBlock = { [weak self] (id) in
-            let vc = VideoNewsDetailController()
+            let vc = SXVideoNewsDetailController()
             vc.id = id
             vc.timerTravel = 360
             self?.navigationController?.pushViewController(vc, animated: true)
         }
         
         cell.checkTotalBlock = { [weak self] in
-            let vc = HomeTotalVideoController()
+            let vc = SXHomeTotalVideoController()
             vc.startIndex = indexPath.row - 1
             self?.navigationController?.pushViewController(vc, animated: true)
         }

@@ -10,19 +10,19 @@ import UIKit
 
 import Foundation
 
-// MARK: - ServerListModel
-struct ServerListModel: Codable {
-    let data: [ServerListModelSectionItem]
+/// 服务的list model
+struct SXServerListModel: Codable {
+    let data: [SXServerListModelSectionData]
 }
 
-// MARK: - ServerListModelDatum
-struct ServerListModelSectionItem: Codable {
+// 服务界面section的model
+struct SXServerListModelSectionData: Codable {
     let name: String
-    let data: [ServiceListItemModel]
+    let data: [SXServiceListItemModel]
 }
 
-// MARK: - DatumDatum
-struct ServiceListItemModel: Codable {
+// 服务的liest
+struct SXServiceListItemModel: Codable {
     let imagename, title, subTitle, url: String
 }
 

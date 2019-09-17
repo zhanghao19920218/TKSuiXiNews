@@ -11,7 +11,7 @@ import UIKit
 fileprivate let layoutWidth = 90 * iPHONE_AUTORATIO;
 
 //MARK: - 里面的collectionViewCell
-class BaseWrapCollectionCell: UICollectionViewCell {
+class SXBaseWrapCollectionCell: UICollectionViewCell {
     
     //照片名称
     var imageName:String? {
@@ -91,7 +91,7 @@ class BaseWrapImagesView: UIView {
         collectionView.isScrollEnabled = false;
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(BaseWrapCollectionCell.self, forCellWithReuseIdentifier: cellIdentifier);
+        collectionView.register(SXBaseWrapCollectionCell.self, forCellWithReuseIdentifier: cellIdentifier);
         return collectionView;
     }();
 
@@ -125,7 +125,7 @@ extension BaseWrapImagesView: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! BaseWrapCollectionCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! SXBaseWrapCollectionCell
         cell.imageName = dataSource[indexPath.row];
         return cell
     }

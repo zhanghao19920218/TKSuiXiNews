@@ -20,73 +20,73 @@ class PageJumpUtil {
     open func jumpVCAccording(_ model: BannerArticleInfoModel, _ id: TStrInt) {
         let currentVC = UIViewController.current()
         if model.module.string == "V视频" {
-            let vc = DetailVideoInfoController();
+            let vc = SXDetailVideoInfoController();
             vc.id = id.string
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         } else if model.module.string == "濉溪TV" {
-            let vc = VideoNewsDetailController()
+            let vc = SXVideoNewsDetailController()
             vc.id = id.string
             vc.timerTravel = 360
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         } else if model.module.string == "新闻" {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = id.string
             vc.title = "新闻"
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         } else if model.module.string == "视讯" {
-            let vc = VideoNewsDetailController()
+            let vc = SXVideoNewsDetailController()
             vc.id = id.string
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         } else if model.module.string == "问政" {
-            let vc = DetailAskGovementController();
+            let vc = SXDetailAskGovementController();
             vc.id = id.string
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         } else if model.module.string == "公告" {
-            let vc = DetailAskGovementController()
+            let vc = SXDetailAskGovementController()
             vc.id = id.string
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         } else if model.module.string == "直播" {
-            let vc = OnlineNewsShowController()
+            let vc = SKOnlineNewsShowController()
             vc.id = id.string
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         } else if model.module.string == "原创" {
             if model.images?.count ?? 0 == 0 {
                 //原创的视频页面
-                let vc = DetailVideoInfoController()
+                let vc = SXDetailVideoInfoController()
                 vc.id = id.string
                 currentVC?.navigationController?.pushViewController(vc, animated: true)
             } else {
                 //图文页面
-                let vc = ShowDetailImageViewController();
+                let vc = SXShowDetailImageViewController();
                 vc.id = id.string
                 currentVC?.navigationController?.pushViewController(vc, animated: true)
             }
         } else if model.module.string == "悦读" {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = id.string
             vc.title = "悦读"
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         } else if model.module.string == "悦听" {
-            let vc = HomeHappyDetailListenController()
+            let vc = SXHomeHappyDetailListenController()
             vc.id = id.string
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         } else if model.module.string == "矩阵" {
-            let vc = HomeNewsDetailInfoController()
+            let vc = SXHomeNewsDetailInfoController()
             vc.id = id.string
             vc.title = "矩阵"
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         } else if model.module.string == "党建" {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = id.string
             vc.title = "党建"
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         } else if model.module.string == "专栏" {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = model.id.string
             vc.title = "专栏"
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         } else {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = id.string
             currentVC?.navigationController?.pushViewController(vc, animated: true)
         }

@@ -34,7 +34,7 @@ class HomeSpecialColumnChildController: BaseTableViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.register(HomeSpecialSectionBannerCell.self, forCellReuseIdentifier: cellIdentifier)
-        tableView.register(HomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
+        tableView.register(SXHomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
         
         //重置暂无数据页面
         baseNoDataView.snp.remakeConstraints { (make) in
@@ -138,7 +138,7 @@ extension HomeSpecialColumnChildController: UITableViewDelegate, UITableViewData
             }
             //跳转外链
             cell.jumpWebBlock = { [weak self] (url) in
-                let vc = ServiceWKWebViewController() //新闻播放的页面
+                let vc = SXServiceWKWebViewController() //新闻播放的页面
                 vc.loadUrl = url
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
@@ -146,7 +146,7 @@ extension HomeSpecialColumnChildController: UITableViewDelegate, UITableViewData
         } else {
             let model = dataSource[indexPath.row] as! HomeSpecialColumnDatum
 
-            let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! SXHomeNewsOnePictureCell
             if !model.image.string.isEmpty {
                 cell.title = model.name.string
                 cell.imageName = model.image.string
@@ -170,7 +170,7 @@ extension HomeSpecialColumnChildController: UITableViewDelegate, UITableViewData
         if indexPath.section != 0 {
             let model = dataSource[indexPath.row] as! HomeSpecialColumnDatum
             if model.url.string.isEmpty {
-                let vc = HomeNewsDetailInfoController();
+                let vc = SXHomeNewsDetailInfoController();
                 vc.id = model.id.string
                 vc.title = "文章"
                 navigationController?.pushViewController(vc, animated: true)
@@ -188,7 +188,7 @@ extension HomeSpecialColumnChildController: UITableViewDelegate, UITableViewData
                     self?.tableView.reloadRows(at: indexPaths, with: .none)
                 }
             }  else if !DefaultsKitUtil.share.isShowServer {
-                let vc = HomeNewsDetailInfoController();
+                let vc = SXHomeNewsDetailInfoController();
                 vc.id = model.id.string
                 vc.title = "文章"
                 navigationController?.pushViewController(vc, animated: true)

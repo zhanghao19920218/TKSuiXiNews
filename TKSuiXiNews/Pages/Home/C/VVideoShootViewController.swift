@@ -84,14 +84,14 @@ class VVideoShootViewController: SXBaseViewController {
     }();
     
     //播放的界面
-    private lazy var videoPlayerScreen: HomeVVideoBaseView = {
-        let view = HomeVVideoBaseView(frame: .zero);
+    private lazy var videoPlayerScreen: SXHomeVVideoBaseView = {
+        let view = SXHomeVVideoBaseView(frame: .zero);
         return view
     }();
     
     //显示图片的界面
-    private lazy var imagesScreen: HomeVSendCollectionView = {
-        let view = HomeVSendCollectionView();
+    private lazy var imagesScreen: SXHomeVSendCollectionView = {
+        let view = SXHomeVSendCollectionView();
         view.images = []
         //点击选择更多照片
         view.block = { [weak self] () in

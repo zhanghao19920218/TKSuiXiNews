@@ -8,9 +8,7 @@
 
 import UIKit
 
-/*
- * 基类的头像
- */
+/// 基类的头像
 class BaseAvatarImageView: UIImageView {
     //获取图片地址
     var imageName:String? {

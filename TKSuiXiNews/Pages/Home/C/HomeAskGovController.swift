@@ -37,9 +37,9 @@ class HomeAskGovController: BaseTableViewController {
     private func setupUI(){
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(HomeAskGovOnePicCell.self, forCellReuseIdentifier: cellIdentifier)
-        tableView.register(HomeAskNonePicCell.self, forCellReuseIdentifier: cellTextIdentifier)
-        tableView.register(HomeAskThreePicCell.self, forCellReuseIdentifier: cellThreePicIdentifier)
+        tableView.register(SXHomeAskGovOnePicCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(SXHomeAskNonePicCell.self, forCellReuseIdentifier: cellTextIdentifier)
+        tableView.register(SXHomeAskThreePicCell.self, forCellReuseIdentifier: cellThreePicIdentifier)
         tableView.separatorStyle = .none
         
         view.addSubview(addAskButton)
@@ -131,7 +131,7 @@ extension HomeAskGovController: UITableViewDelegate, UITableViewDataSource {
         let model = dataSource[indexPath.row] as! HomeNewsListModel
         
         if model.images.count == 3 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellThreePicIdentifier) as! HomeAskThreePicCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellThreePicIdentifier) as! SXHomeAskThreePicCell
             cell.title = model.name.string
             cell.imageName = model.images[0]
             cell.imageName2 = model.images[1]
@@ -140,14 +140,14 @@ extension HomeAskGovController: UITableViewDelegate, UITableViewDataSource {
             cell.comment = model.commentNum.int
             return cell
         } else if !model.image.string.isEmpty {
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! HomeAskGovOnePicCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! SXHomeAskGovOnePicCell
             cell.title = model.name.string
             cell.imageName = model.image.string
             cell.time = model.begintime.string
             cell.comment = model.commentNum.int
             return cell
         } else if model.images.count > 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! HomeAskGovOnePicCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! SXHomeAskGovOnePicCell
             cell.title = model.name.string
             cell.imageName = model.images[0]
             cell.time = model.begintime.string
@@ -155,7 +155,7 @@ extension HomeAskGovController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellTextIdentifier) as! HomeAskNonePicCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellTextIdentifier) as! SXHomeAskNonePicCell
         cell.title = model.name.string
         cell.time = model.begintime.string
         cell.comment = model.commentNum.int
@@ -179,7 +179,7 @@ extension HomeAskGovController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! HomeNewsListModel
         if model.url.string.isEmpty {
-            let vc = DetailAskGovementController();
+            let vc = SXDetailAskGovementController();
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
             //如果取消点赞或者成功点赞刷新页面
@@ -196,7 +196,7 @@ extension HomeAskGovController: UITableViewDelegate, UITableViewDataSource {
                 self?.tableView.reloadRows(at: indexPaths, with: .none)
             }
         }  else if !DefaultsKitUtil.share.isShowServer {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = model.id.string
             vc.title = "文章"
             navigationController?.pushViewController(vc, animated: true)

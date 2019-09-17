@@ -42,9 +42,9 @@ class AskGovermentDetailController: SXBaseViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.layer.cornerRadius = 10 * iPHONE_AUTORATIO
-        tableView.register(AskGovermentDetailNormalCell.self, forCellReuseIdentifier: normalCellIdentifier)
-        tableView.register(AskGovermentContentCell.self, forCellReuseIdentifier: contentCellIdentifier)
-        tableView.register(AskGovermentAddPhotosCell.self, forCellReuseIdentifier: photoCellIdentifier)
+        tableView.register(SXAskGovermentDetailNormalCell.self, forCellReuseIdentifier: normalCellIdentifier)
+        tableView.register(SXAskGovermentContentCell.self, forCellReuseIdentifier: contentCellIdentifier)
+        tableView.register(SXAskGovermentAddPhotosCell.self, forCellReuseIdentifier: photoCellIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -132,24 +132,24 @@ extension AskGovermentDetailController: UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row <= 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: normalCellIdentifier) as! AskGovermentDetailNormalCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: normalCellIdentifier) as! SXAskGovermentDetailNormalCell
             cell.title = titleArray[indexPath.row]
             cell.placeholder = placeHolder[indexPath.row]
-            cell.textField.tag = indexPath.row
-            cell.textField.delegate = self
-            cell.textField.addTarget(self,
+            cell._textField.tag = indexPath.row
+            cell._textField.delegate = self
+            cell._textField.addTarget(self,
                                      action: #selector(textFieldValueDidChanged(_:)),
                                      for: .editingChanged)
             return cell
         }
         
         if indexPath.row == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: contentCellIdentifier) as! AskGovermentContentCell
-            cell.textView.delegate = self
+            let cell = tableView.dequeueReusableCell(withIdentifier: contentCellIdentifier) as! SXAskGovermentContentCell
+            cell._textView.delegate = self
             return cell
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: photoCellIdentifier) as! AskGovermentAddPhotosCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: photoCellIdentifier) as! SXAskGovermentAddPhotosCell
         cell.images = images
         cell.chooseBlock = { [weak self] () in
             self?.selectedMorePhotos()

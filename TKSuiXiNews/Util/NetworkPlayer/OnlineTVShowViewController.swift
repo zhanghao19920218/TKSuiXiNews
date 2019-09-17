@@ -71,8 +71,8 @@ class OnlineTVShowViewController: SXBaseViewController {
     }
     
     //请求定时器进行加分
-    override func counterAction() {
-        super.counterAction()
+    override func _counterAction() {
+        super._counterAction()
         
         readGetScore()
     }

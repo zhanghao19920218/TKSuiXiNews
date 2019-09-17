@@ -45,7 +45,7 @@ class BaseTabBarController: UITabBarController, tabBarDelegate {
         if from != to && (to == 1) {
             //随手拍页面
             let showNaviController = children[1] as! BANavigationController
-            let showController = showNaviController.children[0] as! ShowViewController
+            let showController = showNaviController.children[0] as! SXShowViewController
             showController.refreshShowPage() //刷新页面
         }
     }
@@ -73,10 +73,10 @@ class BaseTabBarController: UITabBarController, tabBarDelegate {
         let homeVC = HomeViewController.init();
         self.setupChildViewController(homeVC, title: "首页", imageName: "home_tab", selectedImageName: "home_selected_tab", withTag: 0);
         
-        let orderVC = ShowViewController.init();
+        let orderVC = SXShowViewController.init();
         self.setupChildViewController(orderVC, title: "随手拍", imageName: "camera_tab", selectedImageName: "camera_selected_tab", withTag: 1);
         
-        let carVC = ServiceViewController.init();
+        let carVC = SXServiceViewController.init();
         self.setupChildViewController(carVC, title: "服务", imageName: "server_tab", selectedImageName: "server_tab_selected", withTag: 2);
         
         let mineVC = SXMineViewController.init();

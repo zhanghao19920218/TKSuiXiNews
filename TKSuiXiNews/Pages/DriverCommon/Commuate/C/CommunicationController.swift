@@ -46,8 +46,8 @@ class CommunicationController: BaseTableViewController {
     
     //初始化页面
     private func setupUI() {
-        tableView.register(ShowImageTextCell.self, forCellReuseIdentifier: textImageIdentifier);
-        tableView.register(ShowVideoViewCell.self, forCellReuseIdentifier: videoIdentifier)
+        tableView.register(TKSXShowImageTextCell.self, forCellReuseIdentifier: textImageIdentifier);
+        tableView.register(TKSXShowVideoViewCell.self, forCellReuseIdentifier: videoIdentifier)
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = .none
@@ -63,7 +63,7 @@ class CommunicationController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.contentList(module: "随手拍", page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ShowListResponseModel.self, from: json)
+            let model = try? decoder.decode(SXShowListResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -87,7 +87,7 @@ class CommunicationController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.contentList(module: "随手拍", page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ShowListResponseModel.self, from: json)
+            let model = try? decoder.decode(SXShowListResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -117,7 +117,7 @@ extension CommunicationController {
     private func requestData(){
         HttpClient.shareInstance.request(target: BAAPI.contentList(module: "随手拍", page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ShowListResponseModel.self, from: json)
+            let model = try? decoder.decode(SXShowListResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -148,12 +148,12 @@ extension CommunicationController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = dataSource[indexPath.row] as! ShowListItemModel;
+        let model = dataSource[indexPath.row] as! SXShowListItemModel;
         
         let isShowDelete = (DefaultsKitUtil.share.groupId == 3)
         
         if model.images.count == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: videoIdentifier) as! ShowVideoViewCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: videoIdentifier) as! TKSXShowVideoViewCell;
             cell.describe = model.name.string;
             cell.imageUrl = model.image?.string;
             cell.videoUrl = model.video.string;
@@ -175,7 +175,7 @@ extension CommunicationController: UITableViewDelegate, UITableViewDataSource {
             }
             return cell;
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! ShowImageTextCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! TKSXShowImageTextCell
             cell.images = model.images;
             cell.describe = model.name.string;
             cell.avatar = model.avatar.string;
@@ -193,7 +193,7 @@ extension CommunicationController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = dataSource[indexPath.row] as! ShowListItemModel;
+        let model = dataSource[indexPath.row] as! SXShowListItemModel;
         
         if model.images.isEmpty {
             return 335 * iPHONE_AUTORATIO;
@@ -211,11 +211,11 @@ extension CommunicationController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row] as! ShowListItemModel;
+        let model = dataSource[indexPath.row] as! SXShowListItemModel;
         
         if model.images.count == 0 {
             //进入视频页面
-            let vc = DetailVideoInfoController()
+            let vc = SXDetailVideoInfoController()
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
             //如果取消点赞或者成功点赞刷新页面
@@ -223,7 +223,7 @@ extension CommunicationController: UITableViewDelegate, UITableViewDataSource {
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! ShowListItemModel
+                var changeModel = self?.dataSource[indexPath.row] as! SXShowListItemModel
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like
@@ -234,7 +234,7 @@ extension CommunicationController: UITableViewDelegate, UITableViewDataSource {
             }
         } else {
             //进入图文页面
-            let vc = ShowDetailImageViewController();
+            let vc = SXShowDetailImageViewController();
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
             //如果取消点赞或者成功点赞刷新页面
@@ -242,7 +242,7 @@ extension CommunicationController: UITableViewDelegate, UITableViewDataSource {
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! ShowListItemModel
+                var changeModel = self?.dataSource[indexPath.row] as! SXShowListItemModel
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like
@@ -256,7 +256,7 @@ extension CommunicationController: UITableViewDelegate, UITableViewDataSource {
     
     //删除当前的页面数据
     private func deleteCurrentPageItem(with index: Int) {
-        let model = dataSource[index] as! ShowListItemModel
+        let model = dataSource[index] as! SXShowListItemModel
         //先确定是不是退出页面
         AlertPopMenu.show(title: "删除随手拍", detail: "是否删除这条随手拍", confirmTitle: "确定", doubleTitle: "取消", confrimBlock: { [weak self] () in
             self?.deleteData(id: model.id.int)

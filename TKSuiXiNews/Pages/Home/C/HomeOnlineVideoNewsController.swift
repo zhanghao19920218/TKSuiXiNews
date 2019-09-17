@@ -30,7 +30,7 @@ class HomeOnlineVideoNewsController: BaseTableViewController {
     
     //初始化页面
     private func setupUI() {
-        tableView.register(OnlineVideoTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(SXOnlineVideoTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = .none;
@@ -114,7 +114,7 @@ extension HomeOnlineVideoNewsController: UITableViewDelegate, UITableViewDataSou
         
         let model = dataSource[indexPath.row] as! HomeNewsListModel
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! OnlineVideoTableViewCell;
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! SXOnlineVideoTableViewCell;
         cell.time = model.begintime.string
         cell.videoImageUrl = model.image.string
         cell.title = model.name.string
@@ -135,7 +135,7 @@ extension HomeOnlineVideoNewsController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! HomeNewsListModel
         if model.url.string.isEmpty {
-            let vc = OnlineNewsShowController();
+            let vc = SKOnlineNewsShowController();
             vc.id = model.id.string
             parent?.navigationController?.pushViewController(vc, animated: true)
             //如果取消点赞或者成功点赞刷新页面
@@ -150,7 +150,7 @@ extension HomeOnlineVideoNewsController: UITableViewDelegate, UITableViewDataSou
                 self?.tableView.reloadRows(at: indexPaths, with: .none)
             }
         } else if !DefaultsKitUtil.share.isShowServer {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = model.id.string
             vc.title = "文章"
             navigationController?.pushViewController(vc, animated: true)

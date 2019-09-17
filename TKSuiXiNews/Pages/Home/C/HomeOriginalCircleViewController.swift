@@ -36,8 +36,8 @@ class HomeOriginalCircleViewController: BaseTableViewController {
     
     //初始化页面
     private func setupUI() {
-        tableView.register(ShowImageTextCell.self, forCellReuseIdentifier: textImageIdentifier);
-        tableView.register(ShowVideoViewCell.self, forCellReuseIdentifier: videoIdentifier)
+        tableView.register(TKSXShowImageTextCell.self, forCellReuseIdentifier: textImageIdentifier);
+        tableView.register(TKSXShowVideoViewCell.self, forCellReuseIdentifier: videoIdentifier)
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = .none;
@@ -49,7 +49,7 @@ class HomeOriginalCircleViewController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.contentList(module: "原创", page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ShowListResponseModel.self, from: json)
+            let model = try? decoder.decode(SXShowListResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -73,7 +73,7 @@ class HomeOriginalCircleViewController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.contentList(module: "原创", page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ShowListResponseModel.self, from: json)
+            let model = try? decoder.decode(SXShowListResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -103,7 +103,7 @@ extension HomeOriginalCircleViewController {
     private func requestData(){
         HttpClient.shareInstance.request(target: BAAPI.contentList(module: "原创", page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ShowListResponseModel.self, from: json)
+            let model = try? decoder.decode(SXShowListResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -134,10 +134,10 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = dataSource[indexPath.row] as! ShowListItemModel
+        let model = dataSource[indexPath.row] as! SXShowListItemModel
         
         if model.images.count == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: videoIdentifier) as! ShowVideoViewCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: videoIdentifier) as! TKSXShowVideoViewCell;
             cell.describe = model.name.string;
             cell.imageUrl = model.image?.string;
             cell.videoUrl = model.video.string;
@@ -155,7 +155,7 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
             }
             return cell;
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! ShowImageTextCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! TKSXShowImageTextCell;
             cell.images = model.images;
             cell.describe = model.name.string;
             cell.avatar = model.avatar.string;
@@ -169,7 +169,7 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = dataSource[indexPath.row] as! ShowListItemModel;
+        let model = dataSource[indexPath.row] as! SXShowListItemModel;
         
         if model.images.isEmpty {
             return 335 * iPHONE_AUTORATIO;
@@ -187,7 +187,7 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row] as! ShowListItemModel
+        let model = dataSource[indexPath.row] as! SXShowListItemModel
         
         //跳转
         if !model.url.string.isEmpty && DefaultsKitUtil.share.isShowServer {
@@ -201,7 +201,7 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
         
         if model.images.count == 0 {
             //进入视频页面
-            let vc = DetailVideoInfoController()
+            let vc = SXDetailVideoInfoController()
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
             //如果取消点赞或者成功点赞刷新页面
@@ -209,7 +209,7 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! ShowListItemModel
+                var changeModel = self?.dataSource[indexPath.row] as! SXShowListItemModel
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like
@@ -220,7 +220,7 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
             }
         } else {
             //进入图文页面
-            let vc = ShowDetailImageViewController();
+            let vc = SXShowDetailImageViewController();
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
             //如果取消点赞或者成功点赞刷新页面
@@ -228,7 +228,7 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! ShowListItemModel
+                var changeModel = self?.dataSource[indexPath.row] as! SXShowListItemModel
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like

@@ -172,7 +172,7 @@ extension HomeHappyListenController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! HomeHappyReadListItemModel
         if model.url.string.isEmpty {
-            let vc = HomeHappyDetailListenController()
+            let vc = SXHomeHappyDetailListenController()
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
             //如果取消点赞或者成功点赞刷新页面
@@ -189,7 +189,7 @@ extension HomeHappyListenController: UITableViewDelegate, UITableViewDataSource 
                 self?.tableView.reloadRows(at: indexPaths, with: .none)
             }
         }  else if !DefaultsKitUtil.share.isShowServer {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = model.id.string
             vc.title = "文章"
             navigationController?.pushViewController(vc, animated: true)

@@ -30,11 +30,11 @@ class HomeNewsListViewController: BaseTableViewController {
     
     //初始化页面
     private func setupUI() {
-        tableView.register(HomeVVideoBannerCell.self, forCellReuseIdentifier: bannerIdentifier);
-        tableView.register(HomeNewsSearchInfoCell.self, forCellReuseIdentifier: searchTitleIdentifier)
-        tableView.register(HomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
-        tableView.register(HomeNewsThreePictureCell.self, forCellReuseIdentifier: newsThreePicIdentifier)
-        tableView.register(HomeNewsNoPicCell.self, forCellReuseIdentifier: newsNoPicIdentifier)
+        tableView.register(SXHomeVVideoBannerCell.self, forCellReuseIdentifier: bannerIdentifier);
+        tableView.register(SXHomeNewsSearchInfoCell.self, forCellReuseIdentifier: searchTitleIdentifier)
+        tableView.register(SXHomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
+        tableView.register(SXHomeNewsThreePictureCell.self, forCellReuseIdentifier: newsThreePicIdentifier)
+        tableView.register(SXHomeNewsNoPicCell.self, forCellReuseIdentifier: newsNoPicIdentifier)
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = .none;
@@ -114,7 +114,7 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: searchTitleIdentifier) as! HomeNewsSearchInfoCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: searchTitleIdentifier) as! SXHomeNewsSearchInfoCell
             cell.block = { [weak self] () in
                 let vc = HomeSearchListViewController()
                 //获取默认数据
@@ -125,7 +125,7 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
         }
         
         if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: bannerIdentifier) as! HomeVVideoBannerCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: bannerIdentifier) as! SXHomeVVideoBannerCell;
             if let model = model { cell.images = model.data }
             cell.block = { [weak self] (model) in
                 //如果不能显示就不跳转
@@ -143,7 +143,7 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
                 //如果有外链就跳转外链
                 if !model.url.string.isEmpty {
                     //跳转外链
-                    let vc = ServiceWKWebViewController() //新闻播放的页面
+                    let vc = SXServiceWKWebViewController() //新闻播放的页面
                     vc.loadUrl = model.url.string
                     self?.navigationController?.pushViewController(vc, animated: true)
                     return
@@ -163,7 +163,7 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
         let model = dataSource[indexPath.row - 2] as! HomeNewsListModel
         
         if !model.image.string.isEmpty {
-            let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! SXHomeNewsOnePictureCell;
             cell.title = model.name.string
             cell.imageName = model.image.string
             cell.isLike = model.likeStatus.int
@@ -172,7 +172,7 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
             cell.time = model.begintime.string
             return cell;
         } else if model.images.count == 3 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: newsThreePicIdentifier) as! HomeNewsThreePictureCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: newsThreePicIdentifier) as! SXHomeNewsThreePictureCell;
             cell.title = model.name.string
             cell.imageName = model.images[0]
             cell.imageName2 = model.images[1]
@@ -184,7 +184,7 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
             return cell;
         }
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: newsNoPicIdentifier) as! HomeNewsNoPicCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: newsNoPicIdentifier) as! SXHomeNewsNoPicCell
         cell.title = model.name.string
         cell.isLike = model.likeStatus.int
         cell.like = model.likeNum.int
@@ -218,7 +218,7 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
         if indexPath.row >= 2 {
             let model = dataSource[indexPath.row - 2] as! HomeNewsListModel
             if model.url.string.isEmpty {
-                let vc = HomeNewsDetailInfoController();
+                let vc = SXHomeNewsDetailInfoController();
                 vc.id = model.id.string
                 vc.title = "文章"
                 navigationController?.pushViewController(vc, animated: true)
@@ -237,7 +237,7 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
                     self?.tableView.reloadRows(at: indexPaths, with: .none)
                 }
             }  else if !DefaultsKitUtil.share.isShowServer {
-                let vc = HomeNewsDetailInfoController();
+                let vc = SXHomeNewsDetailInfoController();
                 vc.id = model.id.string
                 vc.title = "文章"
                 navigationController?.pushViewController(vc, animated: true)

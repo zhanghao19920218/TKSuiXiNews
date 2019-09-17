@@ -30,8 +30,8 @@ class MineVShootVideoController: BaseTableViewController {
     
     //初始化页面
     private func setupUI() {
-        tableView.register(ShowImageTextCell.self, forCellReuseIdentifier: textImageIdentifier);
-        tableView.register(ShowVideoViewCell.self, forCellReuseIdentifier: videoIdentifier)
+        tableView.register(TKSXShowImageTextCell.self, forCellReuseIdentifier: textImageIdentifier);
+        tableView.register(TKSXShowVideoViewCell.self, forCellReuseIdentifier: videoIdentifier)
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = .none
@@ -144,7 +144,7 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
         let model = dataSource[indexPath.row] as! MineArticleListDetailModel
         
         if model.images.count == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: videoIdentifier) as! ShowVideoViewCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: videoIdentifier) as! TKSXShowVideoViewCell;
             cell.describe = model.name.string;
             cell.imageUrl = model.image?.string;
             cell.videoUrl = model.video?.string ?? ""
@@ -165,7 +165,7 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
             }
             return cell;
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! ShowImageTextCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: textImageIdentifier) as! TKSXShowImageTextCell
             cell.images = model.images;
             cell.describe = model.name.string;
             cell.avatar = model.avatar.string;
@@ -205,7 +205,7 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
         
         if model.images.count == 0 {
             //进入视频页面
-            let vc = DetailVideoInfoController()
+            let vc = SXDetailVideoInfoController()
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
             //如果取消点赞或者成功点赞刷新页面
@@ -224,7 +224,7 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
             }
         } else {
             //进入图文页面
-            let vc = ShowDetailImageViewController();
+            let vc = SXShowDetailImageViewController();
             vc.id = model.id.string
             navigationController?.pushViewController(vc, animated: true)
             //如果取消点赞或者成功点赞刷新页面

@@ -31,7 +31,7 @@ class MineVVideoShootController: BaseTableViewController {
     
     //初始化页面
     private func setupUI() {
-        tableView.register(HomeVVideoNormalCell.self, forCellReuseIdentifier: normalIdentifier)
+        tableView.register(SXHomeVVideoNormalCell.self, forCellReuseIdentifier: normalIdentifier)
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = .none;
@@ -114,7 +114,7 @@ extension MineVVideoShootController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = dataSource[indexPath.row] as! MineArticleListDetailModel
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: normalIdentifier) as! HomeVVideoNormalCell;
+        let cell = tableView.dequeueReusableCell(withIdentifier: normalIdentifier) as! SXHomeVVideoNormalCell;
         cell.describe = model.name.string;
         cell.imageUrl = model.image?.string ?? ""
         cell.videoUrl = model.video?.string ?? ""
@@ -143,7 +143,7 @@ extension MineVVideoShootController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row] as! MineArticleListDetailModel
-        let vc = DetailVideoInfoController();
+        let vc = SXDetailVideoInfoController();
         vc.id = model.id.string
         parent?.navigationController?.pushViewController(vc, animated: true)
         //如果取消点赞或者成功点赞刷新页面

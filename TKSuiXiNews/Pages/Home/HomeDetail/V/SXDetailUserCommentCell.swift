@@ -16,28 +16,28 @@ class SXDetailUserCommentCell: BaseTableViewCell {
     //获取头像
     var avatar: String? {
         willSet(value) {
-            avatarImg.imageName = value;
+            _avatarImg.imageName = value;
         }
     }
     
     //获取昵称
     var nickname:String? {
         willSet(value) {
-            nameLabel.text = value ?? "";
+            _nameLabel.text = value ?? "";
         }
     }
     
     //获取小时
     var time:String? {
         willSet(value) {
-            timeLabel.text = value ?? "2019-01-01 00:00";
+            _timeLabel.text = value ?? "2019-01-01 00:00";
         }
     }
     
     //获取评论
     var comment:String? {
         willSet(value) {
-            commentL.text = value ?? "";
+            _commentL.text = value ?? "";
         }
     }
     
@@ -46,9 +46,9 @@ class SXDetailUserCommentCell: BaseTableViewCell {
         willSet(value) {
             if let newValue = value, newValue == 1 {
                 //是不是官方
-                govBackView.isHidden = false
+                _govBackView.isHidden = false
             } else {
-                govBackView.isHidden = true
+                _govBackView.isHidden = true
             }
         }
     }
@@ -56,7 +56,7 @@ class SXDetailUserCommentCell: BaseTableViewCell {
     
     
     //用户头像
-    private lazy var avatarImg: BaseAvatarImageView = {
+    private lazy var _avatarImg: BaseAvatarImageView = {
         let view = BaseAvatarImageView(frame: .zero);
         view.contentMode = UIView.ContentMode.scaleAspectFill
         view.clipsToBounds = true
@@ -64,14 +64,14 @@ class SXDetailUserCommentCell: BaseTableViewCell {
     }()
     
     //用户姓名
-    private lazy var nameLabel: UILabel = {
+    private lazy var _nameLabel: UILabel = {
         let label = UILabel();
         label.font = kFont(16 * iPHONE_AUTORATIO)
         return label;
     }()
     
     //评论时间
-    private lazy var timeLabel: UILabel = {
+    private lazy var _timeLabel: UILabel = {
         let label = UILabel();
         label.font = kFont(12 * iPHONE_AUTORATIO)
         label.textColor = RGBA(153, 153, 153, 1);
@@ -79,7 +79,7 @@ class SXDetailUserCommentCell: BaseTableViewCell {
     }()
     
     //评论内容
-    private lazy var commentL: UILabel = {
+    private lazy var _commentL: UILabel = {
         let label = UILabel();
         label.font = kFont(14 * iPHONE_AUTORATIO)
         label.numberOfLines = 0;
@@ -87,7 +87,7 @@ class SXDetailUserCommentCell: BaseTableViewCell {
     }()
     
     ///官方的背景
-    private lazy var govBackView:UIView = {
+    private lazy var _govBackView:UIView = {
         let view = UIView()
         view.backgroundColor = RGBA(245, 130, 32, 1)
         view.layer.cornerRadius = 3 * iPHONE_AUTORATIO
@@ -96,7 +96,7 @@ class SXDetailUserCommentCell: BaseTableViewCell {
     }()
     
     ///官方的Label
-    private lazy var govLabel: UILabel = {
+    private lazy var _govLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = kFont(10 * iPHONE_AUTORATIO)
@@ -107,39 +107,39 @@ class SXDetailUserCommentCell: BaseTableViewCell {
     override func setupUI() {
         super.setupUI()
         
-        contentView.addSubview(avatarImg);
-        avatarImg.snp.makeConstraints { (make) in
+        contentView.addSubview(_avatarImg);
+        _avatarImg.snp.makeConstraints { (make) in
             make.left.equalTo(13 * iPHONE_AUTORATIO)
             make.top.equalTo(15 * iPHONE_AUTORATIO)
             make.size.equalTo(CGSize(width: 42 * iPHONE_AUTORATIO, height: 42 * iPHONE_AUTORATIO))
         }
         
-        contentView.addSubview(nameLabel);
-        nameLabel.snp.makeConstraints { (make) in
+        contentView.addSubview(_nameLabel);
+        _nameLabel.snp.makeConstraints { (make) in
             make.left.equalTo(65 * iPHONE_AUTORATIO);
             make.top.equalTo(15 * iPHONE_AUTORATIO);
         }
         
-        contentView.addSubview(govBackView)
-        govBackView.snp.makeConstraints { (make) in
-            make.left.equalTo(nameLabel.snp_right).offset(5 * iPHONE_AUTORATIO)
-            make.centerY.equalTo(nameLabel.snp_centerY)
+        contentView.addSubview(_govBackView)
+        _govBackView.snp.makeConstraints { (make) in
+            make.left.equalTo(_nameLabel.snp_right).offset(5 * iPHONE_AUTORATIO)
+            make.centerY.equalTo(_nameLabel.snp_centerY)
             make.size.equalTo(CGSize(width: 30 * iPHONE_AUTORATIO, height: 17 * iPHONE_AUTORATIO))
         }
         
-        govBackView.addSubview(govLabel)
-        govLabel.snp.makeConstraints { (make) in
+        _govBackView.addSubview(_govLabel)
+        _govLabel.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
         }
         
-        contentView.addSubview(timeLabel);
-        timeLabel.snp.makeConstraints { (make) in
+        contentView.addSubview(_timeLabel);
+        _timeLabel.snp.makeConstraints { (make) in
             make.right.equalTo(-13 * iPHONE_AUTORATIO);
-            make.centerY.equalTo(self.nameLabel.snp_centerY);
+            make.centerY.equalTo(self._nameLabel.snp_centerY);
         }
         
-        contentView.addSubview(commentL);
-        commentL.snp.makeConstraints { (make) in
+        contentView.addSubview(_commentL);
+        _commentL.snp.makeConstraints { (make) in
             make.top.equalTo(44 * iPHONE_AUTORATIO)
             make.left.equalTo(65 * iPHONE_AUTORATIO);
             make.right.equalTo(-18 * iPHONE_AUTORATIO);

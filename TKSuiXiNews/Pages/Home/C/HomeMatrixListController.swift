@@ -34,7 +34,7 @@ class HomeMatrixListController: BaseTableViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.register(MatrixBannerPagerViewCell.self, forCellReuseIdentifier: titlePickIdentifier)
-        tableView.register(HomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
+        tableView.register(SXHomeNewsOnePictureCell.self, forCellReuseIdentifier: newsOnePicIdentifier)
     }
 
     override func loadData() {
@@ -131,7 +131,7 @@ extension HomeMatrixListController: UITableViewDelegate, UITableViewDataSource {
             }
             //跳转外链
             cell.jumpWebBlock = { [weak self] (url) in
-                let vc = ServiceWKWebViewController() //新闻播放的页面
+                let vc = SXServiceWKWebViewController() //新闻播放的页面
                 vc.loadUrl = url
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
@@ -139,7 +139,7 @@ extension HomeMatrixListController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let model = dataSource[indexPath.row] as! HomeMatrixListItemDataClassDatum
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! SXHomeNewsOnePictureCell
             if !model.image.string.isEmpty {
                 cell.title = model.name.string
                 cell.imageName = model.image.string
@@ -164,7 +164,7 @@ extension HomeMatrixListController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section != 0 {
             let model = dataSource[indexPath.row] as! HomeMatrixListItemDataClassDatum
             if model.url.string.isEmpty {
-                let vc = HomeNewsDetailInfoController()
+                let vc = SXHomeNewsDetailInfoController()
                 vc.id = model.id.string
                 vc.title = "文章"
                 navigationController?.pushViewController(vc, animated: true)
@@ -183,7 +183,7 @@ extension HomeMatrixListController: UITableViewDelegate, UITableViewDataSource {
                     tableView.reloadRows(at: indexPaths, with: .none)
                 }
             }  else if !DefaultsKitUtil.share.isShowServer {
-                let vc = HomeNewsDetailInfoController();
+                let vc = SXHomeNewsDetailInfoController();
                 vc.id = model.id.string
                 vc.title = "文章"
                 navigationController?.pushViewController(vc, animated: true)

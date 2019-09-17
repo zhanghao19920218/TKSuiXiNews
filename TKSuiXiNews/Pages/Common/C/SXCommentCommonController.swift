@@ -129,7 +129,7 @@ extension SXCommentCommonController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row >= 2 {
             let model = dataSource[indexPath.row - 2] as! HomeNewsListModel;
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = model.id.string
             parent?.navigationController?.pushViewController(vc, animated: true);
         }

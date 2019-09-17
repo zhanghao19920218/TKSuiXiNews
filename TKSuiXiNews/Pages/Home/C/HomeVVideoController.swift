@@ -33,8 +33,8 @@ class HomeVVideoController: BaseTableViewController {
     
     //初始化页面
     private func setupUI() {
-        tableView.register(HomeVVideoBannerCell.self, forCellReuseIdentifier: bannerIdentifier);
-        tableView.register(HomeVVideoNormalCell.self, forCellReuseIdentifier: normalIdentifier)
+        tableView.register(SXHomeVVideoBannerCell.self, forCellReuseIdentifier: bannerIdentifier);
+        tableView.register(SXHomeVVideoNormalCell.self, forCellReuseIdentifier: normalIdentifier)
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.separatorStyle = .none;
@@ -116,7 +116,7 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: bannerIdentifier) as! HomeVVideoBannerCell;
+            let cell = tableView.dequeueReusableCell(withIdentifier: bannerIdentifier) as! SXHomeVVideoBannerCell;
             if let model = model { cell.images = model.data }
             cell.block = { [weak self] (model) in
                 //如果不能显示就不跳转
@@ -134,7 +134,7 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
                 //如果有外链就跳转外链
                 if !model.url.string.isEmpty {
                     //跳转外链
-                    let vc = ServiceWKWebViewController() //新闻播放的页面
+                    let vc = SXServiceWKWebViewController() //新闻播放的页面
                     vc.loadUrl = model.url.string
                     self?.navigationController?.pushViewController(vc, animated: true)
                     return
@@ -153,7 +153,7 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
         
         let model = dataSource[indexPath.row - 1] as! VVideoListModel;
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: normalIdentifier) as! HomeVVideoNormalCell;
+        let cell = tableView.dequeueReusableCell(withIdentifier: normalIdentifier) as! SXHomeVVideoNormalCell;
         cell.describe = model.name.string
         cell.imageUrl = model.image.string
         cell.videoUrl = model.video.string
@@ -184,7 +184,7 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let model = dataSource[indexPath.row - 1] as! VVideoListModel
         if (model.url?.string ?? "").isEmpty {
-            let vc = OnlineNewsShowController();
+            let vc = SKOnlineNewsShowController();
             vc.id = model.id.string
             parent?.navigationController?.pushViewController(vc, animated: true)
             //如果取消点赞或者成功点赞刷新页面
@@ -199,7 +199,7 @@ extension HomeVVideoController: UITableViewDelegate, UITableViewDataSource {
                 self?.tableView.reloadRows(at: indexPaths, with: .none)
             }
         }  else if !DefaultsKitUtil.share.isShowServer {
-            let vc = HomeNewsDetailInfoController();
+            let vc = SXHomeNewsDetailInfoController();
             vc.id = model.id.string
             vc.title = "文章"
             navigationController?.pushViewController(vc, animated: true)

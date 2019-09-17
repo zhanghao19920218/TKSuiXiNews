@@ -75,7 +75,7 @@ class SXBaseViewController: UIViewController {
         }
     }
     
-    open func counterAction() {
+    open func _counterAction() {
         
     }
     
@@ -84,7 +84,7 @@ class SXBaseViewController: UIViewController {
     ///   - timer: 计时器
     @objc private func _timerAction(timer: Timer) {
         if _timeDuration == timerTravel {
-            counterAction()
+            _counterAction()
             timer.invalidate()
         }
         _timeDuration += 1

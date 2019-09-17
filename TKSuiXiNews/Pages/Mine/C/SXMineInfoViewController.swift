@@ -55,7 +55,7 @@ class SXMineInfoViewController: SXBaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.register(MineSettingTableViewCell.self, forCellReuseIdentifier: str)
+        tableView.register(SXMineSettingCell.self, forCellReuseIdentifier: str)
         tableView.backgroundColor = RGB(244, 245, 247)
         return tableView
     }()
@@ -120,8 +120,8 @@ class SXMineInfoViewController: SXBaseViewController {
         SevenBeefUpload.share.uploadSingleImage(image) { [weak self](fileUrl) in
             
             self?._avatar = fileUrl
-            let cell = self?.tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! MineSettingTableViewCell
-            cell.iconImageView.image = image
+            let cell = self?.tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! SXMineSettingCell
+            cell._iconImgView.image = image
         }
     }
     
@@ -148,21 +148,21 @@ extension SXMineInfoViewController : UITableViewDelegate,UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: str) as! MineSettingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: str) as! SXMineSettingCell
         cell.selectionStyle = .none
         cell.leftLab.text = leftSideList[indexPath.row]
         if indexPath.row == 0 {
-            cell.iconImageView.isHidden = false
-            cell.rightImageView.isHidden = true
+            cell._iconImgView.isHidden = false
+            cell._rightImgV.isHidden = true
             let avatar = userInfoModel?.avatar.string ?? ""
-            cell.iconImageView.kf.setImage(with: URL(string: avatar), placeholder: K_ImageName(PLACE_HOLDER_IMAGE))
+            cell._iconImgView.kf.setImage(with: URL(string: avatar), placeholder: K_ImageName(PLACE_HOLDER_IMAGE))
         }else if indexPath.row == 1{
-            cell.rightLab.isHidden = false
-            cell.rightImageView.isHidden = true
-            cell.rightLab.text = userInfoModel?.nickname.string
+            cell._rightLab.isHidden = false
+            cell._rightImgV.isHidden = true
+            cell._rightLab.text = userInfoModel?.nickname.string
         }else{
-            cell.rightSubLab.isHidden = false
-            cell.rightSubLab.text = userInfoModel?.mobile.string
+            cell._rightSubLab.isHidden = false
+            cell._rightSubLab.text = userInfoModel?.mobile.string
         }
         return cell
     }
@@ -211,8 +211,8 @@ extension SXMineInfoViewController : UITableViewDelegate,UITableViewDataSource{
                     return
                 }
                 self._nickname = tf?.text
-                let cell = self.tableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! MineSettingTableViewCell
-                cell.rightLab.text = tf?.text
+                let cell = self.tableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! SXMineSettingCell
+                cell._rightLab.text = tf?.text
             }
             let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
             alertVc.addAction(sureAction)
