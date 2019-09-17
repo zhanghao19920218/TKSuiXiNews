@@ -8,15 +8,15 @@
 
 import Foundation
 
-// MARK: - MemeberInfoResponse
-struct MemeberInfoResponse: Codable {
+///会员信息的response
+struct SXMemeberInfoResponse: Codable {
     let code: Int
     let msg, time: String
-    let data: MemberInfoModel
+    let data: SXMemberInfoModel
 }
 
 // MARK: - DataClass
-struct MemberInfoModel: Codable {
+struct SXMemberInfoModel: Codable {
     let id: TStrInt
     let username, nickname, mobile, avatar: TStrInt
     let score: TStrInt

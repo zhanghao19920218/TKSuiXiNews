@@ -51,7 +51,7 @@ class SXCommentCommonController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.loadMoreComment(id: articleCommentId, page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(CommentListModelResponse.self, from: json)
+            let model = try? decoder.decode(SXCommentListModelResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -75,7 +75,7 @@ class SXCommentCommonController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.loadMoreComment(id: articleCommentId, page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(CommentListModelResponse.self, from: json)
+            let model = try? decoder.decode(SXCommentListModelResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -142,7 +142,7 @@ extension SXCommentCommonController {
     private func requestComListData() {
         HttpClient.shareInstance.request(target: BAAPI.loadMoreComment(id: articleCommentId, page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(CommentListModelResponse.self, from: json)
+            let model = try? decoder.decode(SXCommentListModelResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }

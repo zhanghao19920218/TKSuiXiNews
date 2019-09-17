@@ -48,7 +48,7 @@ class MineAskGovListViewController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.myArticle(module: "问政", p: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MineArticleListModelResponse.self, from: json)
+            let model = try? decoder.decode(SXMineArticleListModelResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -72,7 +72,7 @@ class MineAskGovListViewController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.myArticle(module: "问政", p: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MineArticleListModelResponse.self, from: json)
+            let model = try? decoder.decode(SXMineArticleListModelResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -112,7 +112,7 @@ extension MineAskGovListViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = dataSource[indexPath.row] as! MineArticleListModelDatum
+        let model = dataSource[indexPath.row] as! MineArticleListDetailModel
         
         if model.images.count == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellThreePicIdentifier) as! HomeAskThreePicCell
@@ -147,7 +147,7 @@ extension MineAskGovListViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = dataSource[indexPath.row] as! MineArticleListModelDatum
+        let model = dataSource[indexPath.row] as! MineArticleListDetailModel
         
         if !(model.image?.string ?? "").isEmpty {
             return 118 * iPHONE_AUTORATIO
@@ -161,7 +161,7 @@ extension MineAskGovListViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row] as! MineArticleListModelDatum
+        let model = dataSource[indexPath.row] as! MineArticleListDetailModel
         let vc = DetailAskGovementController();
         vc.id = model.id.string
         navigationController?.pushViewController(vc, animated: true)
@@ -170,7 +170,7 @@ extension MineAskGovListViewController: UITableViewDelegate, UITableViewDataSour
             //获取要刷新的索引
             let indexPaths = [indexPath]
             //更新索引的数据
-            var changeModel = self?.dataSource[indexPath.row] as! MineArticleListModelDatum
+            var changeModel = self?.dataSource[indexPath.row] as! MineArticleListDetailModel
             changeModel.likeStatus.int = (likeStatus ? 1 : 0)
             changeModel.commentNum.int = comment
             changeModel.likeNum.int = like
@@ -187,7 +187,7 @@ extension MineAskGovListViewController {
     private func requestData(){
         HttpClient.shareInstance.request(target: BAAPI.myArticle(module: "问政", p: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MineArticleListModelResponse.self, from: json)
+            let model = try? decoder.decode(SXMineArticleListModelResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }

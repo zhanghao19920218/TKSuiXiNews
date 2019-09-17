@@ -8,16 +8,16 @@
 
 import Foundation
 
-struct MyMessageListItemResponse: Codable {
+struct SXUserMessageListItemResponse: Codable {
     let code: Int
     let msg, time: String
-    let data: MyMessageListItemClass
+    let data: MyMessageListItemData
 }
 
 // MARK: - DataClass
-struct MyMessageListItemClass: Codable {
+struct MyMessageListItemData: Codable {
     let total, perPage, currentPage, lastPage: TStrInt
-    let data: [MyMessageListItemDatum]
+    let data: [MyMessageListItemModel]
     
     enum CodingKeys: String, CodingKey {
         case total
@@ -29,7 +29,7 @@ struct MyMessageListItemClass: Codable {
 }
 
 // MARK: - Datum
-struct MyMessageListItemDatum: Codable {
+struct MyMessageListItemModel: Codable {
     let id: TStrInt
     let detail: TStrInt
     let status: TStrInt

@@ -17,22 +17,31 @@ import Photos
 
 fileprivate let str = "MineSettingTableViewCell"
 
-class MineInfoViewController: SXBaseViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+class SXMineInfoViewController: SXBaseViewController {
     
-    private var leftArray = [String]()
-//    private var rightArray = [String]()
-    public var infoModel : MemberInfoModel?
+    private lazy var leftSideList: [String] = {
+        return ["头像","昵称","手机号"]
+    }()
     
-    private var avatar : String?
-    private var nickname : String?
+    public var userInfoModel : SXMemberInfoModel?
     
-    private lazy var pickerVc : UIImagePickerController = {
+    ///头像
+    private lazy var _avatar : String? = {
+       return userInfoModel?.avatar.string
+    }()
+    
+    ///昵称
+    private lazy var _nickname : String? = {
+        return userInfoModel?.nickname.string
+    }()
+    
+    private lazy var _imagePickerVC : UIImagePickerController = {
         let vc = UIImagePickerController()
         return vc
     }()
     
-    private lazy var bottomBtn : UIButton = {
-        let btn = UIButton()
+    private lazy var _bottomButton : UIButton = {
+        let btn = UIButton(type: .custom)
         btn.backgroundColor = RGB(255, 74, 92)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = kFont(16)
@@ -53,26 +62,24 @@ class MineInfoViewController: SXBaseViewController,UIImagePickerControllerDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "个人资料"
-        //设置标题为白色
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        leftArray = ["头像","昵称","手机号"]
-        avatar = infoModel?.avatar.string
-        nickname = infoModel?.nickname.string
+        
+        navigationItem.title = "个人资料"
+        
         SevenBeefUpload.share.getSevenBeefToken() //请求七牛云token
+        
         createView()
     }
     
-    func createView() {
+    private func createView() {
         self.view.addSubview(tableView)
-        tableView.snp.makeConstraints { (ConstraintMaker) in
-            ConstraintMaker.edges.equalToSuperview()
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
         }
         
-        self.view.addSubview(bottomBtn)
-        bottomBtn.snp.makeConstraints { (ConstraintMaker) in
-            ConstraintMaker.left.bottom.right.equalToSuperview()
-            ConstraintMaker.height.equalTo(50)
+        self.view.addSubview(_bottomButton)
+        _bottomButton.snp.makeConstraints { (make) in
+            make.left.bottom.right.equalToSuperview()
+            make.height.equalTo(50)
         }
         
         let topBgView = UIView()
@@ -108,21 +115,11 @@ class MineInfoViewController: SXBaseViewController,UIImagePickerControllerDelega
         }
     }
     
-    //mark --- UIImagePickerControllerDelegate
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        guard let data = image.jpegData(compressionQuality: 0.75) else {
-            return;
-        }
-        uploadDetailImage(imageData: data,image: image)
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     //上传图像
     private func uploadDetailImage(imageData:Data,image:UIImage){
         SevenBeefUpload.share.uploadSingleImage(image) { [weak self](fileUrl) in
             
-            self?.avatar = fileUrl
+            self?._avatar = fileUrl
             let cell = self?.tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! MineSettingTableViewCell
             cell.iconImageView.image = image
         }
@@ -130,10 +127,10 @@ class MineInfoViewController: SXBaseViewController,UIImagePickerControllerDelega
     
     //保存按钮
     @objc func clickSaveAction() {
-        if avatar == infoModel?.avatar.string  && nickname == infoModel?.nickname.string{
+        if _avatar == userInfoModel?.avatar.string  && _nickname == userInfoModel?.nickname.string{
             TProgressHUD.show(text: "请填写修改内容")
         }else{
-            HttpClient.shareInstance.request(target: BAAPI.changeMemberInfo(avatar: avatar ?? "", nickname: nickname ?? ""), success: { [weak self] (json) in
+            HttpClient.shareInstance.request(target: BAAPI.changeMemberInfo(avatar: _avatar ?? "", nickname: _nickname ?? ""), success: { [weak self] (json) in
                 NotificationCenter.default.post(name: NSNotification.Name.init("refreshMemberInfo"), object: nil);
                 self?.popViewControllerBtnPressed()
                 TProgressHUD.show(text: "修改成功")
@@ -145,27 +142,27 @@ class MineInfoViewController: SXBaseViewController,UIImagePickerControllerDelega
 
 }
 
-extension MineInfoViewController : UITableViewDelegate,UITableViewDataSource{
+extension SXMineInfoViewController : UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return leftArray.count
+        return leftSideList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: str) as! MineSettingTableViewCell
         cell.selectionStyle = .none
-        cell.leftLab.text = leftArray[indexPath.row]
+        cell.leftLab.text = leftSideList[indexPath.row]
         if indexPath.row == 0 {
             cell.iconImageView.isHidden = false
             cell.rightImageView.isHidden = true
-            let avatar = infoModel?.avatar.string ?? ""
+            let avatar = userInfoModel?.avatar.string ?? ""
             cell.iconImageView.kf.setImage(with: URL(string: avatar), placeholder: K_ImageName(PLACE_HOLDER_IMAGE))
         }else if indexPath.row == 1{
             cell.rightLab.isHidden = false
             cell.rightImageView.isHidden = true
-            cell.rightLab.text = infoModel?.nickname.string
+            cell.rightLab.text = userInfoModel?.nickname.string
         }else{
             cell.rightSubLab.isHidden = false
-            cell.rightSubLab.text = infoModel?.mobile.string
+            cell.rightSubLab.text = userInfoModel?.mobile.string
         }
         return cell
     }
@@ -186,14 +183,14 @@ extension MineInfoViewController : UITableViewDelegate,UITableViewDataSource{
                     TProgressHUD.show(text: "获取相机权限失败，请打开权限")
                     return
                 }
-                self.pickerVc.sourceType = .camera
-                self.pickerVc.delegate = self
-                self.present(self.pickerVc, animated: true, completion: nil)
+                self._imagePickerVC.sourceType = .camera
+                self._imagePickerVC.delegate = self
+                self.present(self._imagePickerVC, animated: true, completion: nil)
             }
             let photoAction = UIAlertAction.init(title: "相册", style: .default) { (UIAlertAction) in
-                self.pickerVc.sourceType = .photoLibrary;
-                self.pickerVc.delegate = self
-                self.present(self.pickerVc, animated: true, completion: nil)
+                self._imagePickerVC.sourceType = .photoLibrary;
+                self._imagePickerVC.delegate = self
+                self.present(self._imagePickerVC, animated: true, completion: nil)
             }
             let cancelAction = UIAlertAction.init(title: "取消", style: .cancel, handler: nil)
             alertVc.addAction(cameraAction)
@@ -213,7 +210,7 @@ extension MineInfoViewController : UITableViewDelegate,UITableViewDataSource{
                 if tf?.text?.count == 0 {
                     return
                 }
-                self.nickname = tf?.text
+                self._nickname = tf?.text
                 let cell = self.tableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! MineSettingTableViewCell
                 cell.rightLab.text = tf?.text
             }
@@ -222,7 +219,7 @@ extension MineInfoViewController : UITableViewDelegate,UITableViewDataSource{
             alertVc.addAction(cancelAction)
             self.present(alertVc, animated: true, completion: nil)
         }else{
-            let vc = ChangeBindingViewController()
+            let vc = SXChangeBindingViewController()
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -234,5 +231,17 @@ extension MineInfoViewController : UITableViewDelegate,UITableViewDataSource{
             let result = content.prefix(7)
             textField.text = String(result)
         }
+    }
+}
+
+extension SXMineInfoViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    //mark --- UIImagePickerControllerDelegate
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        guard let data = image.jpegData(compressionQuality: 0.75) else {
+            return;
+        }
+        uploadDetailImage(imageData: data,image: image)
+        self.dismiss(animated: true, completion: nil)
     }
 }

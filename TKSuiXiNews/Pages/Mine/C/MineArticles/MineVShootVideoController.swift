@@ -43,7 +43,7 @@ class MineVShootVideoController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.myArticle(module: "随手拍", p: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MineArticleListModelResponse.self, from: json)
+            let model = try? decoder.decode(SXMineArticleListModelResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -67,7 +67,7 @@ class MineVShootVideoController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.myArticle(module: "随手拍", p: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MineArticleListModelResponse.self, from: json)
+            let model = try? decoder.decode(SXMineArticleListModelResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -97,7 +97,7 @@ extension MineVShootVideoController {
     private func requestData(){
         HttpClient.shareInstance.request(target: BAAPI.myArticle(module: "随手拍", p: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MineArticleListModelResponse.self, from: json)
+            let model = try? decoder.decode(SXMineArticleListModelResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -110,7 +110,7 @@ extension MineVShootVideoController {
     
     //删除当前的页面数据
     private func deleteCurrentPageItem(with index: Int) {
-        let model = dataSource[index] as! MineArticleListModelDatum
+        let model = dataSource[index] as! MineArticleListDetailModel
         //先确定是不是退出页面
         AlertPopMenu.show(title: "删除拍客", detail: "是否删除这条拍客", confirmTitle: "确定", doubleTitle: "取消", confrimBlock: { [weak self] () in
             self?.deleteVVideo(id: model.id.int)
@@ -141,7 +141,7 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = dataSource[indexPath.row] as! MineArticleListModelDatum
+        let model = dataSource[indexPath.row] as! MineArticleListDetailModel
         
         if model.images.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: videoIdentifier) as! ShowVideoViewCell;
@@ -183,7 +183,7 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = dataSource[indexPath.row] as! MineArticleListModelDatum
+        let model = dataSource[indexPath.row] as! MineArticleListDetailModel
         
         if model.images.isEmpty {
             return 335 * iPHONE_AUTORATIO;
@@ -201,7 +201,7 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row] as! MineArticleListModelDatum
+        let model = dataSource[indexPath.row] as! MineArticleListDetailModel
         
         if model.images.count == 0 {
             //进入视频页面
@@ -213,7 +213,7 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! MineArticleListModelDatum
+                var changeModel = self?.dataSource[indexPath.row] as! MineArticleListDetailModel
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like
@@ -232,7 +232,7 @@ extension MineVShootVideoController: UITableViewDelegate, UITableViewDataSource 
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! MineArticleListModelDatum
+                var changeModel = self?.dataSource[indexPath.row] as! MineArticleListDetailModel
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like

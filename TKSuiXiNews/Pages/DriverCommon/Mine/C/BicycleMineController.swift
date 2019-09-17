@@ -134,7 +134,7 @@ class BicycleMineController: SXBaseViewController {
     
     //点击设置按钮
     @objc private func clickSettingAction(){
-        let vc = MineSettingViewController()
+        let vc = SXMineSettingViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -151,7 +151,7 @@ extension BicycleMineController {
     private func requestData(){
         HttpClient.shareInstance.request(target: BAAPI.memeberInfo, success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MemeberInfoResponse.self, from: json)
+            let model = try? decoder.decode(SXMemeberInfoResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }

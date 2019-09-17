@@ -107,7 +107,7 @@ extension MineFavoriteListController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let model = dataSource[indexPath.row] as! FavoriteListItemDatum
+        let model = dataSource[indexPath.row] as! FavoriteListItemModel
         
         if !model.image.string.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell;
@@ -141,7 +141,7 @@ extension MineFavoriteListController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = dataSource[indexPath.row] as! FavoriteListItemDatum
+        let model = dataSource[indexPath.row] as! FavoriteListItemModel
         
         if !model.image.string.isEmpty {
             return 118 * iPHONE_AUTORATIO
@@ -155,7 +155,7 @@ extension MineFavoriteListController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row] as! FavoriteListItemDatum
+        let model = dataSource[indexPath.row] as! FavoriteListItemModel
         
         if !(model.url?.string ?? "").isEmpty {
             //跳转外链
@@ -176,7 +176,7 @@ extension MineFavoriteListController: UITableViewDelegate, UITableViewDataSource
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! FavoriteListItemDatum
+                var changeModel = self?.dataSource[indexPath.row] as! FavoriteListItemModel
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like
@@ -193,7 +193,7 @@ extension MineFavoriteListController: UITableViewDelegate, UITableViewDataSource
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! FavoriteListItemDatum
+                var changeModel = self?.dataSource[indexPath.row] as! FavoriteListItemModel
                 changeModel.visitNum.int = review
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.likeNum.int = like
@@ -209,7 +209,7 @@ extension MineFavoriteListController: UITableViewDelegate, UITableViewDataSource
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! FavoriteListItemDatum
+                var changeModel = self?.dataSource[indexPath.row] as! FavoriteListItemModel
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like
@@ -225,7 +225,7 @@ extension MineFavoriteListController: UITableViewDelegate, UITableViewDataSource
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! FavoriteListItemDatum
+                var changeModel = self?.dataSource[indexPath.row] as! FavoriteListItemModel
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like

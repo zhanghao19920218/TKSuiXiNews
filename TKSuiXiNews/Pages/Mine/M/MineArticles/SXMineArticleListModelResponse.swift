@@ -1,24 +1,24 @@
 //
-//  ReviewListItemResponse.swift
+//  MineArticleListModelResponse.swift
 //  TKSuiXiNews
 //
-//  Created by Barry Allen on 2019/8/3.
+//  Created by Barry Allen on 2019/8/11.
 //  Copyright © 2019 Barry Allen. All rights reserved.
 //
 
 import Foundation
 
-// MARK: - ReviewListItemResponse
-struct ReviewListItemResponse: Codable {
+// MARK: - 我发布的原创和随手拍
+struct SXMineArticleListModelResponse: Codable {
     let code: Int
     let msg, time: String
-    let data: ReviewListItemClass
+    let data: SXMineArticleListModelData
 }
 
 // MARK: - DataClass
-struct ReviewListItemClass: Codable {
-    let total, perPage, currentPage, lastPage: Int
-    let data: [ReviewListItemDatum]
+struct SXMineArticleListModelData: Codable {
+    let total, perPage, currentPage, lastPage: TStrInt
+    let data: [MineArticleListDetailModel]
     
     enum CodingKeys: String, CodingKey {
         case total
@@ -29,24 +29,22 @@ struct ReviewListItemClass: Codable {
     }
 }
 
-// MARK: - Datum
-struct ReviewListItemDatum: Codable {
+// MARK: - 我发布文章的具体model
+struct MineArticleListDetailModel: Codable {
     let id, userID, adminID: TStrInt
-    let module: TStrInt
-    let moduleSecond: TStrInt
-    let name: TStrInt
-    let image: TStrInt
+    let module, moduleSecond, name: TStrInt
+    let image: TStrInt?
     let images: [String]
-    let video: TStrInt
+    let video: TStrInt?
     let audio: TStrInt
-    let content, nickname, avatar: TStrInt
+    let content: TStrInt?
+    let nickname: TStrInt
+    let avatar: TStrInt
     let status: TStrInt
     let createtime: TStrInt
     let updatetime, voteID, weigh: TStrInt
-    let time: TStrInt
-    let type: TStrInt
+    let time, type: TStrInt
     var likeStatus, commentNum, likeNum, visitNum: TStrInt
-    let url: TStrInt?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -54,7 +52,7 @@ struct ReviewListItemDatum: Codable {
         case adminID = "admin_id"
         case module
         case moduleSecond = "module_second"
-        case name, image, images, video, audio, content, nickname, avatar, status, url
+        case name, image, images, video, audio, content, nickname, avatar, status
         case visitNum = "visit_num"
         case commentNum = "comment_num"
         case likeNum = "like_num"

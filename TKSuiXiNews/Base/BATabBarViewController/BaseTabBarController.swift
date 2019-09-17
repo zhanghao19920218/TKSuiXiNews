@@ -79,7 +79,7 @@ class BaseTabBarController: UITabBarController, tabBarDelegate {
         let carVC = ServiceViewController.init();
         self.setupChildViewController(carVC, title: "服务", imageName: "server_tab", selectedImageName: "server_tab_selected", withTag: 2);
         
-        let mineVC = MineViewController.init();
+        let mineVC = SXMineViewController.init();
         self.setupChildViewController(mineVC, title: "我的", imageName: "mine_tab", selectedImageName: "mine_selected_tab", withTag: 3);
     }
     

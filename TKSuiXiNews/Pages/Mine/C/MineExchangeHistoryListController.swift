@@ -47,7 +47,7 @@ class MineExchangeHistoryListController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.exchangeProduct(page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ExchangeProductListItemResponse.self, from: json)
+            let model = try? decoder.decode(SXExchangeProductListItemResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -71,7 +71,7 @@ class MineExchangeHistoryListController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.exchangeProduct(page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ExchangeProductListItemResponse.self, from: json)
+            let model = try? decoder.decode(SXExchangeProductListItemResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -105,7 +105,7 @@ extension MineExchangeHistoryListController: UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = dataSource[indexPath.row] as! ExchangeProductListItemDatum
+        let model = dataSource[indexPath.row] as! SXExchangeProductListItemModel
         
         if model.registerStatus.int != 0  {
             let cell = tableView.dequeueReusableCell(withIdentifier: historyExchangeIdentifier) as! ExchangeNewPersonCell
@@ -127,7 +127,7 @@ extension MineExchangeHistoryListController: UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = dataSource[indexPath.row] as! ExchangeProductListItemDatum
+        let model = dataSource[indexPath.row] as! SXExchangeProductListItemModel
         if model.registerStatus.int != 0 {
             return 125 * iPHONE_AUTORATIO
         } else {
@@ -150,7 +150,7 @@ extension MineExchangeHistoryListController {
     private func requestData(){
         HttpClient.shareInstance.request(target: BAAPI.exchangeProduct(page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ExchangeProductListItemResponse.self, from: json)
+            let model = try? decoder.decode(SXExchangeProductListItemResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }

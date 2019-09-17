@@ -8,14 +8,17 @@
 
 import UIKit
 
-fileprivate let str : String = "MineSettingTableViewCell"
+fileprivate let cellIdentifier : String = "MineSettingTableViewCellIdentifier"
 
-class MineSettingViewController: SXBaseViewController {
+///用户设置的Controller
+class SXMineSettingViewController: SXBaseViewController {
     
-    private var leftitems = [String]()
+    private lazy var leftitems : [String] = {
+       return ["修改密码"]
+    }()
     
-    private lazy var bottomBtn : UIButton = {
-        let btn = UIButton()
+    private lazy var _bottomButton : UIButton = {
+        let btn = UIButton(type: .custom)
         btn.backgroundColor = RGB(255, 74, 92)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = kFont(16)
@@ -30,16 +33,15 @@ class MineSettingViewController: SXBaseViewController {
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = RGB(244, 245, 247)
-        tableView.register(MineSettingTableViewCell.self, forCellReuseIdentifier: str)
+        tableView.register(MineSettingTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "系统设置"
-        //设置标题为白色
-        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        leftitems = ["修改密码"]
+        
+        navigationItem.title = "系统设置"
+        
         createView()
     }
     
@@ -50,8 +52,8 @@ class MineSettingViewController: SXBaseViewController {
             ConstraintMaker.bottom.equalTo(-50)
         }
         
-        self.view.addSubview(bottomBtn)
-        bottomBtn.snp.makeConstraints { (ConstraintMaker) in
+        self.view.addSubview(_bottomButton)
+        _bottomButton.snp.makeConstraints { (ConstraintMaker) in
             ConstraintMaker.left.bottom.right.equalToSuperview()
             ConstraintMaker.height.equalTo(50)
         }
@@ -103,13 +105,13 @@ class MineSettingViewController: SXBaseViewController {
 
 }
 
-extension MineSettingViewController : UITableViewDelegate, UITableViewDataSource{
+extension SXMineSettingViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return leftitems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: str) as! MineSettingTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! MineSettingTableViewCell
         cell.selectionStyle = .none
         cell.leftLab.text = leftitems[indexPath.row]
         return cell
@@ -126,14 +128,13 @@ extension MineSettingViewController : UITableViewDelegate, UITableViewDataSource
     
 }
 
-extension MineSettingViewController {
+extension SXMineSettingViewController {
     //MARK: - 注销登录
     private func logOut(){
         HttpClient.shareInstance.request(target: BAAPI.logoutLogin, success: { (json) in
             //退出登录
             TProgressHUD.show(text: "退出登录")
             HttpClient.shareInstance.userSignOutByTokenOutData() //退出登录
-            }
-        )
+        })
     }
 }

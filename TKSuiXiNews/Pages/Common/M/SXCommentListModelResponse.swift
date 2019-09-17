@@ -9,14 +9,14 @@
 import Foundation
 
 // MARK: - CommentListModel
-struct CommentListModelResponse: Codable {
+struct SXCommentListModelResponse: Codable {
     let code: Int
     let msg, time: String
-    let data: CommentListModel
+    let data: SXCommentListModel
 }
 
 // MARK: - DataClass
-struct CommentListModel: Codable {
+struct SXCommentListModel: Codable {
     let total, perPage, currentPage, lastPage: Int
     let data: [SXCommentListModelDatum]
     

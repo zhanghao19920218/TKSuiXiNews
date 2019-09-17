@@ -38,7 +38,7 @@
 		731950B323000B3900E2FB0B /* MineSendArticlesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950B223000B3900E2FB0B /* MineSendArticlesController.swift */; };
 		731950B623000E3200E2FB0B /* MineVShootVideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950B523000E3200E2FB0B /* MineVShootVideoController.swift */; };
 		731950B823000E5400E2FB0B /* MineVVideoShootController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950B723000E5400E2FB0B /* MineVVideoShootController.swift */; };
-		731950BB2300110E00E2FB0B /* MineArticleListModelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950BA2300110E00E2FB0B /* MineArticleListModelResponse.swift */; };
+		731950BB2300110E00E2FB0B /* SXMineArticleListModelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950BA2300110E00E2FB0B /* SXMineArticleListModelResponse.swift */; };
 		731950BD2300147A00E2FB0B /* MineAskGovListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731950BC2300147A00E2FB0B /* MineAskGovListViewController.swift */; };
 		732606C222F27A1000ED0A72 /* HomeHappyReadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732606C122F27A1000ED0A72 /* HomeHappyReadResponse.swift */; };
 		732606C422F2818E00ED0A72 /* HomeHappyListenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732606C322F2818E00ED0A72 /* HomeHappyListenCell.swift */; };
@@ -126,7 +126,7 @@
 		7380EA5222E301FB00628C48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7380EA5122E301FB00628C48 /* Assets.xcassets */; };
 		7380EA5522E301FB00628C48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7380EA5322E301FB00628C48 /* LaunchScreen.storyboard */; };
 		7380EA5D22E302C200628C48 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 7380EA5C22E302C200628C48 /* Podfile */; };
-		738664182303AB07008838D4 /* CommentListModelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738664172303AB07008838D4 /* CommentListModelResponse.swift */; };
+		738664182303AB07008838D4 /* SXCommentListModelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738664172303AB07008838D4 /* SXCommentListModelResponse.swift */; };
 		7386641C2303AF78008838D4 /* SXCommentCommonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7386641B2303AF78008838D4 /* SXCommentCommonController.swift */; };
 		738A083B2318BB2F008F7D26 /* OutlinesideWKWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738A083A2318BB2F008F7D26 /* OutlinesideWKWebViewController.swift */; };
 		738BD9E422E7E02600B7BF75 /* HomeVSendCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738BD9E322E7E02600B7BF75 /* HomeVSendCollectionView.swift */; };
@@ -168,11 +168,11 @@
 		73D4520522F42C4700DAE835 /* integral_detail_top@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73D451EB22F42C4700DAE835 /* integral_detail_top@3x.png */; };
 		73D4520622F42C4700DAE835 /* integral_detail_top.png in Resources */ = {isa = PBXBuildFile; fileRef = 73D451EC22F42C4700DAE835 /* integral_detail_top.png */; };
 		73D4520722F42C4700DAE835 /* MemberInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451EE22F42C4700DAE835 /* MemberInfoResponse.swift */; };
-		73D4520822F42C4700DAE835 /* IntegralDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451EF22F42C4700DAE835 /* IntegralDetailResponse.swift */; };
-		73D4520A22F42C4700DAE835 /* MineInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F222F42C4700DAE835 /* MineInfoViewController.swift */; };
-		73D4520B22F42C4700DAE835 /* MineSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F322F42C4700DAE835 /* MineSettingViewController.swift */; };
-		73D4520C22F42C4700DAE835 /* ChangeBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F422F42C4700DAE835 /* ChangeBindingViewController.swift */; };
-		73D4520D22F42C4700DAE835 /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F522F42C4700DAE835 /* MineViewController.swift */; };
+		73D4520822F42C4700DAE835 /* SXIntegralDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451EF22F42C4700DAE835 /* SXIntegralDetailResponse.swift */; };
+		73D4520A22F42C4700DAE835 /* SXMineInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F222F42C4700DAE835 /* SXMineInfoViewController.swift */; };
+		73D4520B22F42C4700DAE835 /* SXMineSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F322F42C4700DAE835 /* SXMineSettingViewController.swift */; };
+		73D4520C22F42C4700DAE835 /* SXChangeBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F422F42C4700DAE835 /* SXChangeBindingViewController.swift */; };
+		73D4520D22F42C4700DAE835 /* SXMineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F522F42C4700DAE835 /* SXMineViewController.swift */; };
 		73D4520E22F42C4700DAE835 /* MineIntegralDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F622F42C4700DAE835 /* MineIntegralDetailViewController.swift */; };
 		73D4520F22F42C4700DAE835 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F722F42C4700DAE835 /* AboutUsViewController.swift */; };
 		73D4521022F42C4700DAE835 /* MineUsualCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D451F922F42C4700DAE835 /* MineUsualCollCell.swift */; };
@@ -254,14 +254,14 @@
 		73E4105322F597A6009E9DA6 /* SuiXiBocastListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105222F597A6009E9DA6 /* SuiXiBocastListItemResponse.swift */; };
 		73E4105522F59CD7009E9DA6 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105422F59CD7009E9DA6 /* MessageViewController.swift */; };
 		73E4105722F59D07009E9DA6 /* CDLMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105622F59D07009E9DA6 /* CDLMessageCell.swift */; };
-		73E4105922F59E61009E9DA6 /* MyMessageListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105822F59E61009E9DA6 /* MyMessageListItemResponse.swift */; };
+		73E4105922F59E61009E9DA6 /* SXUserMessageListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105822F59E61009E9DA6 /* SXUserMessageListItemResponse.swift */; };
 		73E4105B22F5A198009E9DA6 /* MineReviewListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105A22F5A198009E9DA6 /* MineReviewListController.swift */; };
-		73E4105D22F5A1FC009E9DA6 /* ReviewListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105C22F5A1FC009E9DA6 /* ReviewListItemResponse.swift */; };
+		73E4105D22F5A1FC009E9DA6 /* SXReviewListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105C22F5A1FC009E9DA6 /* SXReviewListItemResponse.swift */; };
 		73E4105F22F5A5BF009E9DA6 /* MineFavoriteListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4105E22F5A5BF009E9DA6 /* MineFavoriteListController.swift */; };
 		73E4106122F5A5CF009E9DA6 /* FavoriteListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4106022F5A5CF009E9DA6 /* FavoriteListItemResponse.swift */; };
 		73E4106322F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4106222F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift */; };
 		73E4106522F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4106422F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift */; };
-		73E4106722F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4106622F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift */; };
+		73E4106722F5AA7C009E9DA6 /* SXExchangeProductListItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E4106622F5AA7C009E9DA6 /* SXExchangeProductListItemResponse.swift */; };
 		73ECFF1B22FEB65D003F8C5D /* ArticleAdminModelResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF1A22FEB65D003F8C5D /* ArticleAdminModelResponse.swift */; };
 		73ECFF1D22FECDFF003F8C5D /* HomeSpecialColumnChildController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF1C22FECDFF003F8C5D /* HomeSpecialColumnChildController.swift */; };
 		73ECFF2022FECE8C003F8C5D /* SpecialColumnSingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ECFF1F22FECE8C003F8C5D /* SpecialColumnSingleCell.swift */; };
@@ -421,7 +421,7 @@
 		731950B223000B3900E2FB0B /* MineSendArticlesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSendArticlesController.swift; sourceTree = "<group>"; };
 		731950B523000E3200E2FB0B /* MineVShootVideoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineVShootVideoController.swift; sourceTree = "<group>"; };
 		731950B723000E5400E2FB0B /* MineVVideoShootController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineVVideoShootController.swift; sourceTree = "<group>"; };
-		731950BA2300110E00E2FB0B /* MineArticleListModelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineArticleListModelResponse.swift; sourceTree = "<group>"; };
+		731950BA2300110E00E2FB0B /* SXMineArticleListModelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SXMineArticleListModelResponse.swift; sourceTree = "<group>"; };
 		731950BC2300147A00E2FB0B /* MineAskGovListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineAskGovListViewController.swift; sourceTree = "<group>"; };
 		732606C122F27A1000ED0A72 /* HomeHappyReadResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHappyReadResponse.swift; sourceTree = "<group>"; };
 		732606C322F2818E00ED0A72 /* HomeHappyListenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHappyListenCell.swift; sourceTree = "<group>"; };
@@ -514,7 +514,7 @@
 		7380EA5422E301FB00628C48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7380EA5622E301FB00628C48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7380EA5C22E302C200628C48 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		738664172303AB07008838D4 /* CommentListModelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListModelResponse.swift; sourceTree = "<group>"; };
+		738664172303AB07008838D4 /* SXCommentListModelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SXCommentListModelResponse.swift; sourceTree = "<group>"; };
 		7386641B2303AF78008838D4 /* SXCommentCommonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SXCommentCommonController.swift; sourceTree = "<group>"; };
 		738A083A2318BB2F008F7D26 /* OutlinesideWKWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlinesideWKWebViewController.swift; sourceTree = "<group>"; };
 		738BD9E322E7E02600B7BF75 /* HomeVSendCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVSendCollectionView.swift; sourceTree = "<group>"; };
@@ -556,11 +556,11 @@
 		73D451EB22F42C4700DAE835 /* integral_detail_top@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "integral_detail_top@3x.png"; sourceTree = "<group>"; };
 		73D451EC22F42C4700DAE835 /* integral_detail_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = integral_detail_top.png; sourceTree = "<group>"; };
 		73D451EE22F42C4700DAE835 /* MemberInfoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberInfoResponse.swift; sourceTree = "<group>"; };
-		73D451EF22F42C4700DAE835 /* IntegralDetailResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegralDetailResponse.swift; sourceTree = "<group>"; };
-		73D451F222F42C4700DAE835 /* MineInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineInfoViewController.swift; sourceTree = "<group>"; };
-		73D451F322F42C4700DAE835 /* MineSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineSettingViewController.swift; sourceTree = "<group>"; };
-		73D451F422F42C4700DAE835 /* ChangeBindingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeBindingViewController.swift; sourceTree = "<group>"; };
-		73D451F522F42C4700DAE835 /* MineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
+		73D451EF22F42C4700DAE835 /* SXIntegralDetailResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SXIntegralDetailResponse.swift; sourceTree = "<group>"; };
+		73D451F222F42C4700DAE835 /* SXMineInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SXMineInfoViewController.swift; sourceTree = "<group>"; };
+		73D451F322F42C4700DAE835 /* SXMineSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SXMineSettingViewController.swift; sourceTree = "<group>"; };
+		73D451F422F42C4700DAE835 /* SXChangeBindingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SXChangeBindingViewController.swift; sourceTree = "<group>"; };
+		73D451F522F42C4700DAE835 /* SXMineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SXMineViewController.swift; sourceTree = "<group>"; };
 		73D451F622F42C4700DAE835 /* MineIntegralDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineIntegralDetailViewController.swift; sourceTree = "<group>"; };
 		73D451F722F42C4700DAE835 /* AboutUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		73D451F922F42C4700DAE835 /* MineUsualCollCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineUsualCollCell.swift; sourceTree = "<group>"; };
@@ -642,14 +642,14 @@
 		73E4105222F597A6009E9DA6 /* SuiXiBocastListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuiXiBocastListItemResponse.swift; sourceTree = "<group>"; };
 		73E4105422F59CD7009E9DA6 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		73E4105622F59D07009E9DA6 /* CDLMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDLMessageCell.swift; sourceTree = "<group>"; };
-		73E4105822F59E61009E9DA6 /* MyMessageListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMessageListItemResponse.swift; sourceTree = "<group>"; };
+		73E4105822F59E61009E9DA6 /* SXUserMessageListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SXUserMessageListItemResponse.swift; sourceTree = "<group>"; };
 		73E4105A22F5A198009E9DA6 /* MineReviewListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineReviewListController.swift; sourceTree = "<group>"; };
-		73E4105C22F5A1FC009E9DA6 /* ReviewListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewListItemResponse.swift; sourceTree = "<group>"; };
+		73E4105C22F5A1FC009E9DA6 /* SXReviewListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SXReviewListItemResponse.swift; sourceTree = "<group>"; };
 		73E4105E22F5A5BF009E9DA6 /* MineFavoriteListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineFavoriteListController.swift; sourceTree = "<group>"; };
 		73E4106022F5A5CF009E9DA6 /* FavoriteListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListItemResponse.swift; sourceTree = "<group>"; };
 		73E4106222F5A7D5009E9DA6 /* ExchangeProductInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeProductInfoCell.swift; sourceTree = "<group>"; };
 		73E4106422F5AA3A009E9DA6 /* MineExchangeHistoryListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineExchangeHistoryListController.swift; sourceTree = "<group>"; };
-		73E4106622F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeProductListItemResponse.swift; sourceTree = "<group>"; };
+		73E4106622F5AA7C009E9DA6 /* SXExchangeProductListItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SXExchangeProductListItemResponse.swift; sourceTree = "<group>"; };
 		73ECFF1A22FEB65D003F8C5D /* ArticleAdminModelResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleAdminModelResponse.swift; sourceTree = "<group>"; };
 		73ECFF1C22FECDFF003F8C5D /* HomeSpecialColumnChildController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSpecialColumnChildController.swift; sourceTree = "<group>"; };
 		73ECFF1F22FECE8C003F8C5D /* SpecialColumnSingleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecialColumnSingleCell.swift; sourceTree = "<group>"; };
@@ -868,7 +868,7 @@
 		731950B9230010F400E2FB0B /* MineArticles */ = {
 			isa = PBXGroup;
 			children = (
-				731950BA2300110E00E2FB0B /* MineArticleListModelResponse.swift */,
+				731950BA2300110E00E2FB0B /* SXMineArticleListModelResponse.swift */,
 			);
 			path = MineArticles;
 			sourceTree = "<group>";
@@ -1232,7 +1232,7 @@
 		7386641D2303B047008838D4 /* M */ = {
 			isa = PBXGroup;
 			children = (
-				738664172303AB07008838D4 /* CommentListModelResponse.swift */,
+				738664172303AB07008838D4 /* SXCommentListModelResponse.swift */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1351,11 +1351,11 @@
 			children = (
 				731950B9230010F400E2FB0B /* MineArticles */,
 				73D451EE22F42C4700DAE835 /* MemberInfoResponse.swift */,
-				73D451EF22F42C4700DAE835 /* IntegralDetailResponse.swift */,
-				73E4105822F59E61009E9DA6 /* MyMessageListItemResponse.swift */,
-				73E4105C22F5A1FC009E9DA6 /* ReviewListItemResponse.swift */,
+				73D451EF22F42C4700DAE835 /* SXIntegralDetailResponse.swift */,
+				73E4105822F59E61009E9DA6 /* SXUserMessageListItemResponse.swift */,
+				73E4105C22F5A1FC009E9DA6 /* SXReviewListItemResponse.swift */,
 				73E4106022F5A5CF009E9DA6 /* FavoriteListItemResponse.swift */,
-				73E4106622F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift */,
+				73E4106622F5AA7C009E9DA6 /* SXExchangeProductListItemResponse.swift */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1363,10 +1363,10 @@
 		73D451F022F42C4700DAE835 /* C */ = {
 			isa = PBXGroup;
 			children = (
-				73D451F222F42C4700DAE835 /* MineInfoViewController.swift */,
-				73D451F322F42C4700DAE835 /* MineSettingViewController.swift */,
-				73D451F422F42C4700DAE835 /* ChangeBindingViewController.swift */,
-				73D451F522F42C4700DAE835 /* MineViewController.swift */,
+				73D451F222F42C4700DAE835 /* SXMineInfoViewController.swift */,
+				73D451F322F42C4700DAE835 /* SXMineSettingViewController.swift */,
+				73D451F422F42C4700DAE835 /* SXChangeBindingViewController.swift */,
+				73D451F522F42C4700DAE835 /* SXMineViewController.swift */,
 				73D451F622F42C4700DAE835 /* MineIntegralDetailViewController.swift */,
 				73D451F722F42C4700DAE835 /* AboutUsViewController.swift */,
 				73E4105422F59CD7009E9DA6 /* MessageViewController.swift */,
@@ -2475,7 +2475,7 @@
 				731950AB22FFF37600E2FB0B /* ExchangeNewPersonCell.swift in Sources */,
 				73DF82DC22F1620D0066583B /* BaseCollectionViewController.swift in Sources */,
 				739585D622FA609300D40D06 /* UITabBar+Extension.swift in Sources */,
-				738664182303AB07008838D4 /* CommentListModelResponse.swift in Sources */,
+				738664182303AB07008838D4 /* SXCommentListModelResponse.swift in Sources */,
 				73D4521422F42C4700DAE835 /* ScroreItemButton.swift in Sources */,
 				73FE5FF322FBB7D90047DB02 /* YPCameraView.swift in Sources */,
 				7372C98A22EE7CB000BD378D /* HomeTVDetailPlayerView.swift in Sources */,
@@ -2525,7 +2525,7 @@
 				7319509E22FFBFB600E2FB0B /* Int+Extesion.swift in Sources */,
 				7372C98822EE7C9A00BD378D /* HomeTVOtherSectionCell.swift in Sources */,
 				73AEE5DE23150143005F999E /* HomeDefaultListController.swift in Sources */,
-				73D4520D22F42C4700DAE835 /* MineViewController.swift in Sources */,
+				73D4520D22F42C4700DAE835 /* SXMineViewController.swift in Sources */,
 				73DEBAD522E32495007EC4E1 /* SXLoginViewController.swift in Sources */,
 				93713110232F7D080021B20C /* SXMineWalletController.swift in Sources */,
 				73FE5FE922FBB7D90047DB02 /* YPBottomPagerView.swift in Sources */,
@@ -2550,7 +2550,7 @@
 				73DEBAD122E322CD007EC4E1 /* BaseTableViewCell.swift in Sources */,
 				73ECFF2C22FEEBE8003F8C5D /* AskGovermentDetailNormalCell.swift in Sources */,
 				7372C98622EE786500BD378D /* HomeTVChannelFirstCell.swift in Sources */,
-				73D4520B22F42C4700DAE835 /* MineSettingViewController.swift in Sources */,
+				73D4520B22F42C4700DAE835 /* SXMineSettingViewController.swift in Sources */,
 				73ECFF2922FEDC25003F8C5D /* AskGovermentDetailController.swift in Sources */,
 				733ED18B22E45FC200B452D4 /* BaseAvatarImageView.swift in Sources */,
 				938273952330767C00836BC1 /* UIImages+Extensions.swift in Sources */,
@@ -2585,7 +2585,7 @@
 				736114ED22F1C32500BC5A8E /* AwardPanelModel.swift in Sources */,
 				73E3C48D231F56F800545319 /* TelevisionSectionView.swift in Sources */,
 				73FE600422FBB7D90047DB02 /* NSFileManager+Extensions.swift in Sources */,
-				73D4520C22F42C4700DAE835 /* ChangeBindingViewController.swift in Sources */,
+				73D4520C22F42C4700DAE835 /* SXChangeBindingViewController.swift in Sources */,
 				73DF82EB22F198990066583B /* ScoreProductDetailViewController.swift in Sources */,
 				7326073F22F2E46F00ED0A72 /* HomeTotalChildVideoController.swift in Sources */,
 				73E4104822F57E78009E9DA6 /* BoardCastVideoNewsCell.swift in Sources */,
@@ -2633,7 +2633,7 @@
 				73ECFF2222FECED7003F8C5D /* SpecialHomeTitleBannerCell.swift in Sources */,
 				73DEBB0222E3531A007EC4E1 /* SXForgetPasswordController.swift in Sources */,
 				731950A122FFC13C00E2FB0B /* BaseVoteView.swift in Sources */,
-				73D4520A22F42C4700DAE835 /* MineInfoViewController.swift in Sources */,
+				73D4520A22F42C4700DAE835 /* SXMineInfoViewController.swift in Sources */,
 				73FE5FE722FBB7D90047DB02 /* YPBottomPager.swift in Sources */,
 				73FE5FEA22FBB7D90047DB02 /* YPLibraryVC.swift in Sources */,
 				733ED18D22E4611000B452D4 /* ShowImageTextCell.swift in Sources */,
@@ -2672,8 +2672,8 @@
 				73FE5FED22FBB7D90047DB02 /* YPLibraryView.swift in Sources */,
 				73E4106122F5A5CF009E9DA6 /* FavoriteListItemResponse.swift in Sources */,
 				73D4519D22F3D8DB00DAE835 /* CommentPopMenu.swift in Sources */,
-				73E4105922F59E61009E9DA6 /* MyMessageListItemResponse.swift in Sources */,
-				73E4105D22F5A1FC009E9DA6 /* ReviewListItemResponse.swift in Sources */,
+				73E4105922F59E61009E9DA6 /* SXUserMessageListItemResponse.swift in Sources */,
+				73E4105D22F5A1FC009E9DA6 /* SXReviewListItemResponse.swift in Sources */,
 				73DEBABB22E31A2F007EC4E1 /* TStrInt.swift in Sources */,
 				73DF82E922F191EA0066583B /* ScoreRuleViewController.swift in Sources */,
 				73FE5FF122FBB7D90047DB02 /* YPPhotoCaptureDefaults.swift in Sources */,
@@ -2691,7 +2691,7 @@
 				73D4521122F42C4700DAE835 /* MineIntegralDetailTableViewCell.swift in Sources */,
 				730F178A22EEEFAF00FCD4FF /* HomeNewsThreePictureCell.swift in Sources */,
 				7326073C22F2DF4300ED0A72 /* HomeTotalCollectionCell.swift in Sources */,
-				73D4520822F42C4700DAE835 /* IntegralDetailResponse.swift in Sources */,
+				73D4520822F42C4700DAE835 /* SXIntegralDetailResponse.swift in Sources */,
 				73DEBAB622E315DC007EC4E1 /* MoyaConfig.swift in Sources */,
 				73DF82E222F17B1C0066583B /* RotatePanelScoreController.swift in Sources */,
 				73DEBAA922E30E7F007EC4E1 /* UIViewController+Extesion.swift in Sources */,
@@ -2743,7 +2743,7 @@
 				732606C222F27A1000ED0A72 /* HomeHappyReadResponse.swift in Sources */,
 				7377746322E7EEC300513350 /* BaseShareBottomView.swift in Sources */,
 				731950AD2300013C00E2FB0B /* ChangePasswordController.swift in Sources */,
-				73E4106722F5AA7C009E9DA6 /* ExchangeProductListItemResponse.swift in Sources */,
+				73E4106722F5AA7C009E9DA6 /* SXExchangeProductListItemResponse.swift in Sources */,
 				7363F8DF22F01B31000FE663 /* BaseGrouppedTableViewController.swift in Sources */,
 				938273972330767C00836BC1 /* AVMetadataObject+Extensions.swift in Sources */,
 				73DEBAEC22E32B90007EC4E1 /* TKSXLoginTextField.swift in Sources */,
@@ -2759,7 +2759,7 @@
 				73FE5FFF22FBB7D90047DB02 /* UIColor+Extensions.swift in Sources */,
 				731950B623000E3200E2FB0B /* MineVShootVideoController.swift in Sources */,
 				73FE600822FBB7D90047DB02 /* CGRect+Extensions.swift in Sources */,
-				731950BB2300110E00E2FB0B /* MineArticleListModelResponse.swift in Sources */,
+				731950BB2300110E00E2FB0B /* SXMineArticleListModelResponse.swift in Sources */,
 				734A7BB522EFCDFD0016764F /* HomeAskGovController.swift in Sources */,
 				937D9DED232F6AB7000519EA /* GDMapView.swift in Sources */,
 				73FE5FF922FBB7D90047DB02 /* AVCaptureDevice+Extensions.swift in Sources */,

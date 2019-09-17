@@ -8,25 +8,31 @@
 
 import UIKit
 
-class ChangeBindingViewController: SXBaseViewController {
-    private var _mobile:String = ""
+class SXChangeBindingViewController: SXBaseViewController {
+    ///用户手机号码
+    private lazy var _mobile:String = {
+        return ""
+    }()
     
-    private var _code:String = ""
+    ///验证码
+    private lazy var _code:String = {
+       return ""
+    }()
     
-    private lazy var backView: UIView = {
+    private lazy var _backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         return view
     }()
     
-    private lazy var mobileTitleLabel: UILabel = {
+    private lazy var _mobileTitleL: UILabel = {
         let label = UILabel()
         label.font = kFont(14 * iPHONE_AUTORATIO)
         label.text = "手机号"
         return label
     }()
     
-    private lazy var textField:UITextField = {
+    private lazy var _textField:UITextField = {
         let textField = UITextField()
         textField.placeholder = "请输入手机号"
         textField.font = kFont(14 * iPHONE_AUTORATIO)
@@ -39,14 +45,14 @@ class ChangeBindingViewController: SXBaseViewController {
         return textField
     }()
     
-    private lazy var codeTitleLabel: UILabel = {
+    private lazy var _codeTitleLabel: UILabel = {
         let label = UILabel()
         label.font = kFont(14 * iPHONE_AUTORATIO)
         label.text = "验证码"
         return label
     }()
     
-    private lazy var sendCodeButton: CounterButton = {
+    private lazy var _sendCodeButton: CounterButton = {
         let button = CounterButton(type: .custom)
         button.autoStartCounddown = false
         button.setTitleColor(RGBA(255, 74, 92, 1))
@@ -58,13 +64,13 @@ class ChangeBindingViewController: SXBaseViewController {
         return button
     }()
     
-    private lazy var line1: UIView = {
+    private lazy var _line1: UIView = {
         let view = UIView()
         view.backgroundColor = RGBA(238, 238, 238, 1)
         return view
     }()
     
-    private lazy var messageTextField:UITextField = {
+    private lazy var _messageTextField:UITextField = {
         let textField = UITextField()
         textField.placeholder = "请输入验证码"
         textField.keyboardType = .numberPad
@@ -75,7 +81,7 @@ class ChangeBindingViewController: SXBaseViewController {
         return textField
     }()
     
-    private lazy var confirmBindButton: UIButton = {
+    private lazy var _confirmBindButton: UIButton = {
         let button = UIButton(type: .custom)
         button.backgroundColor = RGBA(255, 74, 92, 1)
         button.setTitle("确 认 绑 定")
@@ -98,53 +104,53 @@ class ChangeBindingViewController: SXBaseViewController {
     func setupUI()  {
         view.backgroundColor = RGBA(245, 245, 245, 1)
         
-        view.addSubview(backView)
-        backView.snp.makeConstraints { (make) in
+        view.addSubview(_backgroundView)
+        _backgroundView.snp.makeConstraints { (make) in
             make.left.top.equalTo(15 * iPHONE_AUTORATIO)
             make.right.equalTo(-15 * iPHONE_AUTORATIO)
             make.height.equalTo(106 * iPHONE_AUTORATIO)
         }
         
-        backView.addSubview(mobileTitleLabel)
-        mobileTitleLabel.snp.makeConstraints { (make) in
+        _backgroundView.addSubview(_mobileTitleL)
+        _mobileTitleL.snp.makeConstraints { (make) in
             make.left.equalTo(16 * iPHONE_AUTORATIO)
             make.top.equalTo(20 * iPHONE_AUTORATIO)
         }
         
-        backView.addSubview(textField)
-        textField.snp.makeConstraints { (make) in
+        _backgroundView.addSubview(_textField)
+        _textField.snp.makeConstraints { (make) in
             make.right.equalTo(-15 * iPHONE_AUTORATIO)
-            make.centerY.equalTo(mobileTitleLabel.snp_centerY)
+            make.centerY.equalTo(_mobileTitleL.snp_centerY)
         }
         
-        backView.addSubview(line1)
-        line1.snp.makeConstraints { (make) in
+        _backgroundView.addSubview(_line1)
+        _line1.snp.makeConstraints { (make) in
             make.left.equalTo(15 * iPHONE_AUTORATIO)
             make.right.equalTo(-15 * iPHONE_AUTORATIO)
             make.top.equalTo(53 * iPHONE_AUTORATIO)
             make.height.equalTo(1)
         }
         
-        backView.addSubview(codeTitleLabel)
-        codeTitleLabel.snp.makeConstraints { (make) in
+        _backgroundView.addSubview(_codeTitleLabel)
+        _codeTitleLabel.snp.makeConstraints { (make) in
             make.top.equalTo(73 * iPHONE_AUTORATIO)
             make.left.equalTo(15 * iPHONE_AUTORATIO)
         }
         
-        backView.addSubview(sendCodeButton)
-        sendCodeButton.snp.makeConstraints { (make) in
+        _backgroundView.addSubview(_sendCodeButton)
+        _sendCodeButton.snp.makeConstraints { (make) in
             make.right.bottom.equalToSuperview()
             make.size.equalTo(CGSize(width: 90 * iPHONE_AUTORATIO, height: 52 * iPHONE_AUTORATIO))
         }
         
-        backView.addSubview(messageTextField)
-        messageTextField.snp.makeConstraints { (make) in
-            make.right.equalTo(sendCodeButton.snp_left)
-            make.centerY.equalTo(codeTitleLabel.snp_centerY)
+        _backgroundView.addSubview(_messageTextField)
+        _messageTextField.snp.makeConstraints { (make) in
+            make.right.equalTo(_sendCodeButton.snp_left)
+            make.centerY.equalTo(_codeTitleLabel.snp_centerY)
         }
         
-        view.addSubview(confirmBindButton)
-        confirmBindButton.snp.makeConstraints { (make) in
+        view.addSubview(_confirmBindButton)
+        _confirmBindButton.snp.makeConstraints { (make) in
             make.left.bottom.right.equalToSuperview()
             make.height.equalTo(49 * iPHONE_AUTORATIO)
         }

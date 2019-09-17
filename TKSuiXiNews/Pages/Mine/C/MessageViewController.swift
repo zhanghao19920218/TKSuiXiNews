@@ -64,7 +64,7 @@ class MessageViewController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.messageBlock(page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MyMessageListItemResponse.self, from: json)
+            let model = try? decoder.decode(SXUserMessageListItemResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -88,7 +88,7 @@ class MessageViewController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.messageBlock(page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MyMessageListItemResponse.self, from: json)
+            let model = try? decoder.decode(SXUserMessageListItemResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -122,7 +122,7 @@ extension MessageViewController {
     private func requestData(){
         HttpClient.shareInstance.request(target: BAAPI.messageBlock(page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MyMessageListItemResponse.self, from: json)
+            let model = try? decoder.decode(SXUserMessageListItemResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -153,14 +153,14 @@ extension MessageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //判断数据源
-        let model = dataSource[indexPath.row] as! MyMessageListItemDatum
+        let model = dataSource[indexPath.row] as! MyMessageListItemModel
         
         return 90 * iPHONE_AUTORATIO + model.detail.string.ga_heightForComment(fontSize: 14 * iPHONE_AUTORATIO, width: K_SCREEN_WIDTH - 30 * iPHONE_AUTORATIO);
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:CDLMessageCell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! CDLMessageCell;
-        let model = dataSource[indexPath.row] as!  MyMessageListItemDatum
+        let model = dataSource[indexPath.row] as!  MyMessageListItemModel
         cell.selectionStyle = .none;
         cell.date = model.createtime.string
         cell.message = model.detail.string

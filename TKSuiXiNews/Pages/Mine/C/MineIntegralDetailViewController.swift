@@ -10,16 +10,17 @@ import UIKit
 
 fileprivate let str = "MineIntegralDetailTableViewCell"
 
+///我的兑换记录的Controller
 class MineIntegralDetailViewController: BaseTableViewController {
-    
-    private lazy var topImageView : UIImageView = {
+    ///用户上方的imageView
+    private lazy var _userBackgroundView : UIImageView = {
         let imageView = UIImageView()
         imageView.image = K_ImageName("integral_detail_top")
         return imageView
     }()
     
-    
-    private lazy var integralLab : UILabel = {
+    ///兑换记录的Label
+    private lazy var _integralLabel : UILabel = {
         let lab = UILabel()
         lab.font = UIFont.boldSystemFont(ofSize: 36)
         lab.textColor = UIColor.white
@@ -41,7 +42,7 @@ class MineIntegralDetailViewController: BaseTableViewController {
         
         setupUI()
         
-        requestIntegralData()
+        getExchangeDetailInfo()
         
         navigationItem.title = "积分明细"
     }
@@ -49,45 +50,45 @@ class MineIntegralDetailViewController: BaseTableViewController {
     override func loadData() {
         super.loadData()
         
-        requestData()
+        getHomeData()
     }
     
     //积分数据
-    func requestIntegralData(){
+    func getExchangeDetailInfo(){
         HttpClient.shareInstance.request(target: BAAPI.memeberInfo, success: { [weak self](json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MemeberInfoResponse.self, from: json)
+            let model = try? decoder.decode(SXMemeberInfoResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
-            self?.integralLab.text = forceModel.data.score.string;
+            self?._integralLabel.text = forceModel.data.score.string;
             }
         )
     }
     
     //MARK: - 初始化页面
     private func setupUI() {
-        view.addSubview(topImageView)
-        topImageView.snp.makeConstraints { (make) in
+        view.addSubview(_userBackgroundView)
+        _userBackgroundView.snp.makeConstraints { (make) in
             make.left.top.right.equalToSuperview()
             make.height.equalTo(210 * iPHONE_AUTORATIO)
         }
         
-        topImageView.addSubview(integralLab)
-        integralLab.snp.makeConstraints { (make) in
+        _userBackgroundView.addSubview(_integralLabel)
+        _integralLabel.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
         }
-        integralLab.text = "---"
+        _integralLabel.text = "---"
         
         let btn = UIButton()
         btn.setImage("integral_detail_coin")
         btn .setTitle("  可用积分", for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = kFont(14)
-        topImageView.addSubview(btn)
+        _userBackgroundView.addSubview(btn)
         btn.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(integralLab.snp_bottom).offset(10)
+            make.top.equalTo(_integralLabel.snp_bottom).offset(10)
         }
         
         if iPhoneX || iPhoneXR || iPhoneMax {
@@ -114,7 +115,7 @@ class MineIntegralDetailViewController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.integralDetail(page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(IntegralDetailResponse.self, from: json)
+            let model = try? decoder.decode(SXIntegralDetailResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -138,7 +139,7 @@ class MineIntegralDetailViewController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.integralDetail(page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(IntegralDetailResponse.self, from: json)
+            let model = try? decoder.decode(SXIntegralDetailResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -184,10 +185,10 @@ extension MineIntegralDetailViewController : UITableViewDelegate,UITableViewData
 
 extension MineIntegralDetailViewController {
     //MARK: - 请求首页数据
-    private func requestData(){
+    private func getHomeData(){
         HttpClient.shareInstance.request(target: BAAPI.integralDetail(page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(IntegralDetailResponse.self, from: json)
+            let model = try? decoder.decode(SXIntegralDetailResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }

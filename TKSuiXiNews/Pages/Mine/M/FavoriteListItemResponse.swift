@@ -8,17 +8,17 @@
 
 import Foundation
 
-// MARK: - FavoriteListItemResponse
+/// 用户点赞的response
 struct FavoriteListItemResponse: Codable {
     let code: Int
     let msg, time: String
-    let data: FavoriteListItemClass
+    let data: FavoriteListItemData
 }
 
-// MARK: - DataClass
-struct FavoriteListItemClass: Codable {
+/// 用户点赞的列表data
+struct FavoriteListItemData: Codable {
     let total, perPage, currentPage, lastPage: Int
-    let data: [FavoriteListItemDatum]
+    let data: [FavoriteListItemModel]
     
     enum CodingKeys: String, CodingKey {
         case total
@@ -29,8 +29,8 @@ struct FavoriteListItemClass: Codable {
     }
 }
 
-// MARK: - Datum
-struct FavoriteListItemDatum: Codable {
+/// 用户点赞列表的model
+struct FavoriteListItemModel: Codable {
     let id, userID, adminID: TStrInt
     let module, moduleSecond, name: TStrInt
     let image: TStrInt

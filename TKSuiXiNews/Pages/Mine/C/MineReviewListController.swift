@@ -48,7 +48,7 @@ class MineReviewListController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.recentlyReview(page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ReviewListItemResponse.self, from: json)
+            let model = try? decoder.decode(SXReviewListItemResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -72,7 +72,7 @@ class MineReviewListController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.recentlyReview(page: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ReviewListItemResponse.self, from: json)
+            let model = try? decoder.decode(SXReviewListItemResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -107,7 +107,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let model = dataSource[indexPath.row] as! ReviewListItemDatum
+        let model = dataSource[indexPath.row] as! SXReviewListItemModel
         
         if !model.image.string.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: newsOnePicIdentifier) as! HomeNewsOnePictureCell;
@@ -141,7 +141,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let model = dataSource[indexPath.row] as! ReviewListItemDatum
+        let model = dataSource[indexPath.row] as! SXReviewListItemModel
         
         if !model.image.string.isEmpty {
             return 118 * iPHONE_AUTORATIO
@@ -155,7 +155,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row] as! ReviewListItemDatum
+        let model = dataSource[indexPath.row] as! SXReviewListItemModel
         
         if !(model.url?.string ?? "").isEmpty {
             //跳转外链
@@ -176,7 +176,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! ReviewListItemDatum
+                var changeModel = self?.dataSource[indexPath.row] as! SXReviewListItemModel
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like
@@ -194,7 +194,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! ReviewListItemDatum
+                var changeModel = self?.dataSource[indexPath.row] as! SXReviewListItemModel
                 changeModel.visitNum.int = review
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.likeNum.int = like
@@ -211,7 +211,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! ReviewListItemDatum
+                var changeModel = self?.dataSource[indexPath.row] as! SXReviewListItemModel
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like
@@ -231,7 +231,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
                     //获取要刷新的索引
                     let indexPaths = [indexPath]
                     //更新索引的数据
-                    var changeModel = self?.dataSource[indexPath.row] as! ReviewListItemDatum
+                    var changeModel = self?.dataSource[indexPath.row] as! SXReviewListItemModel
                     changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                     changeModel.commentNum.int = comment
                     changeModel.likeNum.int = like
@@ -250,7 +250,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
                     //获取要刷新的索引
                     let indexPaths = [indexPath]
                     //更新索引的数据
-                    var changeModel = self?.dataSource[indexPath.row] as! ReviewListItemDatum
+                    var changeModel = self?.dataSource[indexPath.row] as! SXReviewListItemModel
                     changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                     changeModel.commentNum.int = comment
                     changeModel.likeNum.int = like
@@ -269,7 +269,7 @@ extension MineReviewListController: UITableViewDelegate, UITableViewDataSource {
                 //获取要刷新的索引
                 let indexPaths = [indexPath]
                 //更新索引的数据
-                var changeModel = self?.dataSource[indexPath.row] as! ReviewListItemDatum
+                var changeModel = self?.dataSource[indexPath.row] as! SXReviewListItemModel
                 changeModel.likeStatus.int = (likeStatus ? 1 : 0)
                 changeModel.commentNum.int = comment
                 changeModel.likeNum.int = like
@@ -287,7 +287,7 @@ extension MineReviewListController {
     private func requestData(){
         HttpClient.shareInstance.request(target: BAAPI.recentlyReview(page: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(ReviewListItemResponse.self, from: json)
+            let model = try? decoder.decode(SXReviewListItemResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }

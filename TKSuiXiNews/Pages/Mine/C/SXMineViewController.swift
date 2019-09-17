@@ -102,7 +102,7 @@ class SXMineViewController: SXBaseViewController {
         
         configureNavigationBar()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(requestData), name: NSNotification.Name(rawValue: "refreshMemberInfo"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getHomeData), name: NSNotification.Name(rawValue: "refreshMemberInfo"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -110,7 +110,7 @@ class SXMineViewController: SXBaseViewController {
         
         navigationController?.navigationBar.isTranslucent = true
         
-        requestData()
+        getHomeData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -247,7 +247,7 @@ class SXMineViewController: SXBaseViewController {
 
 extension SXMineViewController {
     //MARK: - 请求个人中心数据
-    @objc private func requestData(){
+    @objc private func getHomeData(){
         HttpClient.shareInstance.request(target: BAAPI.memeberInfo, success: { [weak self] (json) in
             let decoder = JSONDecoder()
             let model = try? decoder.decode(SXMemeberInfoResponse.self, from: json)

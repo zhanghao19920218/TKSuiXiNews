@@ -8,17 +8,17 @@
 
 import Foundation
 
-// MARK: - ExchangeProductListItemResponse
-struct ExchangeProductListItemResponse: Codable {
+/// 兑换记录的 reponse
+struct SXExchangeProductListItemResponse: Codable {
     let code: Int
     let msg, time: String
-    let data: ExchangeProductListItemClass
+    let data: SXExchangeProductListItemData
 }
 
-// MARK: - DataClass
-struct ExchangeProductListItemClass: Codable {
+/// 兑换记录的 model
+struct SXExchangeProductListItemData: Codable {
     let total, perPage, currentPage, lastPage: Int
-    let data: [ExchangeProductListItemDatum]
+    let data: [SXExchangeProductListItemModel]
     
     enum CodingKeys: String, CodingKey {
         case total
@@ -29,8 +29,8 @@ struct ExchangeProductListItemClass: Codable {
     }
 }
 
-// MARK: - Datum
-struct ExchangeProductListItemDatum: Codable {
+/// 兑换记录每一个Item的model
+struct SXExchangeProductListItemModel: Codable {
     let id, userID, goodsID: TStrInt
     let name: TStrInt
     let image: TStrInt

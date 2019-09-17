@@ -50,7 +50,7 @@ class MineVVideoShootController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.myArticle(module: "V视频", p: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MineArticleListModelResponse.self, from: json)
+            let model = try? decoder.decode(SXMineArticleListModelResponse.self, from: json)
             guard let forceModel = model else {
                 self?.tableView.mj_header.endRefreshing()
                 self?.tableView.reloadData();
@@ -76,7 +76,7 @@ class MineVVideoShootController: BaseTableViewController {
         //请求成功进行再次刷新数据
         HttpClient.shareInstance.request(target: BAAPI.myArticle(module: "V视频", p: page), success:{ [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MineArticleListModelResponse.self, from: json)
+            let model = try? decoder.decode(SXMineArticleListModelResponse.self, from: json)
             guard let forceModel = model else {
                 self?.tableView.mj_footer.endRefreshing()
                 self?.tableView.reloadData();
@@ -112,7 +112,7 @@ extension MineVVideoShootController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = dataSource[indexPath.row] as! MineArticleListModelDatum
+        let model = dataSource[indexPath.row] as! MineArticleListDetailModel
         
         let cell = tableView.dequeueReusableCell(withIdentifier: normalIdentifier) as! HomeVVideoNormalCell;
         cell.describe = model.name.string;
@@ -142,7 +142,7 @@ extension MineVVideoShootController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = dataSource[indexPath.row] as! MineArticleListModelDatum
+        let model = dataSource[indexPath.row] as! MineArticleListDetailModel
         let vc = DetailVideoInfoController();
         vc.id = model.id.string
         parent?.navigationController?.pushViewController(vc, animated: true)
@@ -151,7 +151,7 @@ extension MineVVideoShootController: UITableViewDelegate, UITableViewDataSource 
             //获取要刷新的索引
             let indexPaths = [indexPath]
             //更新索引的数据
-            var changeModel = self?.dataSource[indexPath.row] as! MineArticleListModelDatum
+            var changeModel = self?.dataSource[indexPath.row] as! MineArticleListDetailModel
             changeModel.likeStatus.int = (likeStatus ? 1 : 0)
             changeModel.commentNum.int = comment
             changeModel.likeNum.int = like
@@ -167,7 +167,7 @@ extension MineVVideoShootController {
     private func requestData(){
         HttpClient.shareInstance.request(target: BAAPI.myArticle(module: "V视频", p: page), success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MineArticleListModelResponse.self, from: json)
+            let model = try? decoder.decode(SXMineArticleListModelResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
@@ -180,7 +180,7 @@ extension MineVVideoShootController {
     
     //删除当前的页面数据
     private func deleteCurrentPageItem(with index: Int) {
-        let model = dataSource[index] as! MineArticleListModelDatum
+        let model = dataSource[index] as! MineArticleListDetailModel
         //先确定是不是退出页面
         AlertPopMenu.show(title: "删除V视频", detail: "是否删除这条V视频", confirmTitle: "确定", doubleTitle: "取消", confrimBlock: { [weak self] () in
             self?.deleteVVideo(id: model.id.int)

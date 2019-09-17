@@ -296,7 +296,7 @@ extension ScoreMallController {
     private func requestScores() {
         HttpClient.shareInstance.request(target: BAAPI.memeberInfo, success: { [weak self] (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(MemeberInfoResponse.self, from: json)
+            let model = try? decoder.decode(SXMemeberInfoResponse.self, from: json)
             guard let forceModel = model else {
                 return;
             }
