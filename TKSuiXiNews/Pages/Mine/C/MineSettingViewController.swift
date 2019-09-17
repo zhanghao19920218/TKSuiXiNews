@@ -10,7 +10,7 @@ import UIKit
 
 fileprivate let str : String = "MineSettingTableViewCell"
 
-class MineSettingViewController: BaseViewController {
+class MineSettingViewController: SXBaseViewController {
     
     private var leftitems = [String]()
     

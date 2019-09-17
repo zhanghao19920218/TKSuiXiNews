@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseLoginViewController: BaseViewController {
+class BaseLoginViewController: SXBaseViewController {
     
     //登录界面的Logo
     private lazy var logo: UIImageView = {
@@ -18,8 +18,8 @@ class BaseLoginViewController: BaseViewController {
     }();
     
     //下面的按钮
-    lazy var button: SXLoginBaseButton = {
-        let button = SXLoginBaseButton.init(type: .custom);
+    lazy var button: LoginBaseButton = {
+        let button = LoginBaseButton.init(type: .custom);
         button.addTarget(self,
                          action: #selector(buttonAction(_:)),
                          for: .touchUpInside);
@@ -56,10 +56,10 @@ class BaseLoginViewController: BaseViewController {
     
     //给按钮增加点击事件
     @objc private func buttonAction(_ sender: UIButton) {
-        buttonTapped(sender);
+        commonLoginBtnTapped(sender);
     }
     
-    func buttonTapped(_ sender: UIButton) {
+    open func commonLoginBtnTapped(_ sender: UIButton) {
         
     }
 }

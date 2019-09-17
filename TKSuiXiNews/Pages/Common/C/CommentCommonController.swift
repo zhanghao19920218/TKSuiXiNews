@@ -12,7 +12,7 @@ fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
 
 /// 评论列表
 
-class CommentCommonController: BaseTableViewController {
+class SXCommentCommonController: BaseTableViewController {
     ///评论文章id
     var commentId: Int = 0
 
@@ -99,7 +99,7 @@ class CommentCommonController: BaseTableViewController {
     }
 }
 
-extension CommentCommonController: UITableViewDelegate, UITableViewDataSource {
+extension SXCommentCommonController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1;
     }
@@ -136,7 +136,7 @@ extension CommentCommonController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension CommentCommonController {
+extension SXCommentCommonController {
     
     //MARK: - 请求评论数组
     private func requestComment() {

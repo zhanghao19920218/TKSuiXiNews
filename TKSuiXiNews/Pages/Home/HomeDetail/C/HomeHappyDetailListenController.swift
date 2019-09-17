@@ -15,7 +15,7 @@ fileprivate let likeCellIdentifier = "DetailCommentLikeNumCellIdentifier"
 fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
 fileprivate let voteCellIdentifier = "DetailInfoVoteSectionCellIdentifier" //投票的Cell
 
-class HomeHappyDetailListenController: BaseViewController {
+class HomeHappyDetailListenController: SXBaseViewController {
     var model: DetailArticleModel?
     
     //获取详情的id
@@ -46,7 +46,7 @@ class HomeHappyDetailListenController: BaseViewController {
         tableView.register(ProductDetailDescribeCell.self, forCellReuseIdentifier: cotentDetailIdentifier)
         tableView.register(BaseShareBottomView.self, forCellReuseIdentifier: shareCellIdentifier);
         tableView.register(DetailCommentLikeNumCell.self, forCellReuseIdentifier: likeCellIdentifier)
-        tableView.register(DetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
+        tableView.register(SXDetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
         tableView.register(DetailInfoVoteSectionCell.self, forCellReuseIdentifier: voteCellIdentifier) //投票的Cell
         //iOS 11Self-Sizing自动打开后，contentSize和contentOffset都可能发生改变。可以通过以下方式禁用
         tableView.estimatedRowHeight = 0
@@ -181,11 +181,11 @@ extension HomeHappyDetailListenController {
             }
             
             //刷新详情页面的几个参数
-            self?.commentNum = forceModel.data.commentNum.int
-            self?.reviewNum = forceModel.data.visitNum.int
-            self?.likeNum = forceModel.data.likeNum.int
-            self?.isLike = (forceModel.data.likeStatus.int == 1)
-            self?.parametersBlock(self?.commentNum ?? 0, self?.reviewNum ?? 0, self?.likeNum ?? 0, self?.isLike ?? false)
+            self?._commentNum = forceModel.data.commentNum.int
+            self?._reviewNum = forceModel.data.visitNum.int
+            self?._likeNum = forceModel.data.likeNum.int
+            self?._isLike = (forceModel.data.likeStatus.int == 1)
+            self?.parametersBlock(self?._commentNum ?? 0, self?._reviewNum ?? 0, self?._likeNum ?? 0, self?._isLike ?? false)
             
             }
         )
@@ -402,7 +402,7 @@ extension HomeHappyDetailListenController: UITableViewDelegate, UITableViewDataS
             }
             
             //用户评论
-            let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! DetailUserCommentCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! SXDetailUserCommentCell
             cell.avatar = model?.comment?[indexPath.row - 5].avatar.string
             cell.nickname = model?.comment?[indexPath.row - 5].nickname.string
             cell.comment = model?.comment?[indexPath.row - 5].detail.string
@@ -439,7 +439,7 @@ extension HomeHappyDetailListenController: UITableViewDelegate, UITableViewDataS
             }
             
             //用户评论
-            let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! DetailUserCommentCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! SXDetailUserCommentCell
             cell.avatar = model?.comment?[indexPath.row - 4].avatar.string
             cell.nickname = model?.comment?[indexPath.row - 4].nickname.string
             cell.comment = model?.comment?[indexPath.row - 4].detail.string
@@ -491,14 +491,14 @@ extension HomeHappyDetailListenController: UITableViewDelegate, UITableViewDataS
         //判断是不是有投票内容
         if let detailModel = model, detailModel.voteID.int != 0 {
             if indexPath.row == 4 {
-                let vc = CommentCommonController()
-                vc.commentId = Int(id) ?? 0
+                let vc = SXCommentCommonController()
+                vc.articleCommentId = Int(id) ?? 0
                 navigationController?.pushViewController(vc, animated: true)
             }
         } else {
             if indexPath.row == 3 {
-                let vc = CommentCommonController()
-                vc.commentId = Int(id) ?? 0
+                let vc = SXCommentCommonController()
+                vc.articleCommentId = Int(id) ?? 0
                 navigationController?.pushViewController(vc, animated: true)
             }
         }

@@ -116,6 +116,8 @@ enum  BAAPI {
     case mobileCaptcha(mobile: String, captcha:String)
     //清空消息
     case clearAllMessage
+    //订单列表
+    case orderLists(p: Int)
 }
 
 // 补全【MoyaConfig 3：配置TargetType协议可以一次性处理的参数】中没有处理的参数
@@ -236,6 +238,8 @@ extension BAAPI: TargetType {
             return K_URL_loginMobileCode
         case .clearAllMessage:
             return K_URL_clearMessage
+        case .orderLists:
+            return K_URL_orderLists
         }
         
     }
@@ -442,6 +446,9 @@ extension BAAPI: TargetType {
         case let .mobileCaptcha(mobile, captcha):
             params["mobile"] = mobile
             params["captcha"] = captcha
+            
+        case let .orderLists(p):
+            params["p"] = p
             
         default:
             //不需要传参数的接口走这里

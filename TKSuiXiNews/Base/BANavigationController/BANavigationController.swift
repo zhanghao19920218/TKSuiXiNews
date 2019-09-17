@@ -43,11 +43,11 @@ class BANavigationController: UINavigationController, UINavigationControllerDele
         
         self.interactivePopGestureRecognizer?.delegate = self
         
-        self.setupClearColorNavigationBar();
+        self.setupUpAlphaNaviBar();
     }
     
     //MARK: 透明化标题颜色
-    private func setupClearColorNavigationBar()
+    private func setupUpAlphaNaviBar()
     {
         self.navigationBar.setBackgroundImage(UIImage.init(),
                                               for: .any,

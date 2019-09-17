@@ -33,5 +33,9 @@ pod 'SteviaLayout'
 pod 'PryntTrimmerView' #封面选择器
 pod 'UITextView+Placeholder'
 pod 'FaveButton' #收藏动态按钮
+# 濉溪发布出行的库
+pod 'AMap3DMap'    #3D地图SDK
+pod 'AMapSearch'   #地图SDK搜索功能
+pod 'AMapLocation' #定位SDK
 
 end

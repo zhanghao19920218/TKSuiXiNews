@@ -128,6 +128,11 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
             let cell = tableView.dequeueReusableCell(withIdentifier: bannerIdentifier) as! HomeVVideoBannerCell;
             if let model = model { cell.images = model.data }
             cell.block = { [weak self] (model) in
+                //如果不能显示就不跳转
+                if !DefaultsKitUtil.share.isShowServer {
+                    return
+                }
+                
                 //判断文章id是否存在
                 if model.articleID.int != 0 {
                     //跳转新闻的页面
@@ -213,6 +218,25 @@ extension HomeNewsListViewController: UITableViewDelegate, UITableViewDataSource
         if indexPath.row >= 2 {
             let model = dataSource[indexPath.row - 2] as! HomeNewsListModel
             if model.url.string.isEmpty {
+                let vc = HomeNewsDetailInfoController();
+                vc.id = model.id.string
+                vc.title = "文章"
+                navigationController?.pushViewController(vc, animated: true)
+                //如果取消点赞或者成功点赞刷新页面
+                vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                    //获取要刷新的索引
+                    let indexPaths = [indexPath]
+                    //更新索引的数据
+                    var changeModel = self?.dataSource[indexPath.row-2] as! HomeNewsListModel
+                    changeModel.likeStatus.int = (likeStatus ? 1 : 0)
+                    changeModel.commentNum.int = comment
+                    changeModel.likeNum.int = like
+                    changeModel.visitNum.int = review
+                    self?.dataSource[indexPath.row - 2] = changeModel
+                    //刷新页面
+                    self?.tableView.reloadRows(at: indexPaths, with: .none)
+                }
+            }  else if !DefaultsKitUtil.share.isShowServer {
                 let vc = HomeNewsDetailInfoController();
                 vc.id = model.id.string
                 vc.title = "文章"

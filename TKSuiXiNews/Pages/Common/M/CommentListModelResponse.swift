@@ -18,7 +18,7 @@ struct CommentListModelResponse: Codable {
 // MARK: - DataClass
 struct CommentListModel: Codable {
     let total, perPage, currentPage, lastPage: Int
-    let data: [CommentListModelDatum]
+    let data: [SXCommentListModelDatum]
     
     enum CodingKeys: String, CodingKey {
         case total
@@ -30,7 +30,7 @@ struct CommentListModel: Codable {
 }
 
 // MARK: - Datum
-struct CommentListModelDatum: Codable {
+struct SXCommentListModelDatum: Codable {
     let id, userID, articleID: TStrInt
     let detail, nickname: TStrInt
     let avatar: TStrInt

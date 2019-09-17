@@ -16,7 +16,7 @@ fileprivate let nameDetailIdentifier = "BoardCastVideoNewsCellIdentifier"
 fileprivate let likeCellIdentifier = "DetailCommentLikeNumCellIdentifier"
 fileprivate let commentCellIdentifier = "DetailUserCommentCellIdentifier"
 
-class BocastDetailViewController: BaseViewController {
+class BocastDetailViewController: SXBaseViewController {
     private var model: SuiXiBocastListItemClass?
     
     private lazy var bottomView: BocastShareBottom = {
@@ -50,7 +50,7 @@ class BocastDetailViewController: BaseViewController {
         tableView.register(BoardCastAudioPlayerCell.self, forCellReuseIdentifier: videoPlayIdentifier)
         tableView.register(BoardCastVideoNewsCell.self, forCellReuseIdentifier: nameDetailIdentifier)
         tableView.register(DetailCommentLikeNumCell.self, forCellReuseIdentifier: likeCellIdentifier)
-        tableView.register(DetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
+        tableView.register(SXDetailUserCommentCell.self, forCellReuseIdentifier: commentCellIdentifier)
         tableView.separatorStyle = .none
         return tableView
     }()
@@ -197,7 +197,7 @@ extension BocastDetailViewController: UITableViewDelegate, UITableViewDataSource
         }
 
         //用户评论
-        let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! DetailUserCommentCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: commentCellIdentifier) as! SXDetailUserCommentCell
         cell.avatar = model?.comment?[indexPath.row - 3].avatar.string
         cell.nickname = model?.comment?[indexPath.row - 3].nickname.string
         cell.comment = model?.comment?[indexPath.row - 3].detail.string
@@ -224,8 +224,8 @@ extension BocastDetailViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
             //进入评论页面
-            let vc = CommentCommonController()
-            vc.commentId = id
+            let vc = SXCommentCommonController()
+            vc.articleCommentId = id
             navigationController?.pushViewController(vc, animated: true)
         }
     }

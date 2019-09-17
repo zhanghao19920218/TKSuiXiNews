@@ -19,8 +19,8 @@ class BindThirdPartyController: BaseLoginViewController {
     private var messageCode:String = ""
     
     //输入手机号码
-    private lazy var phoneTextF: SXLoginTextField = {
-        let textField = SXLoginTextField.init();
+    private lazy var phoneTextF: TKSXLoginTextField = {
+        let textField = TKSXLoginTextField.init();
         textField.prefix.image = K_ImageName("phone");
         textField.placeholder = "请输入手机号";
         textField.isSuffixHidden = true;
@@ -32,8 +32,8 @@ class BindThirdPartyController: BaseLoginViewController {
     }()
     
     //输入验证码
-    private lazy var codeTextF: SXLoginTextField = {
-        let textField = SXLoginTextField.init();
+    private lazy var codeTextF: TKSXLoginTextField = {
+        let textField = TKSXLoginTextField.init();
         textField.prefix.image = K_ImageName("safe");
         textField.placeholder = "请输入验证码";
         textField.isShowButton = true;
@@ -86,7 +86,7 @@ class BindThirdPartyController: BaseLoginViewController {
     }
     
     
-    override func buttonTapped(_ sender: UIButton) {
+    override func commonLoginBtnTapped(_ sender: UIButton) {
         print("点击绑定按钮");
         
         if messageCode.isEmpty || mobile.isEmpty {
@@ -99,7 +99,7 @@ class BindThirdPartyController: BaseLoginViewController {
     
     @objc private func sendMssageButton(_ sender: UIButton) {
         
-        if !(mobile.isPhoneNumber()) {
+        if !mobile.isPhoneNumber {
             TProgressHUD.show(text: "手机号码错误")
             return
         }
@@ -110,7 +110,7 @@ class BindThirdPartyController: BaseLoginViewController {
     @objc private func textFieldValueDidChanged(_ sender: UITextField) {
         if sender.tag == 1 {
             mobile = sender.text ?? ""
-            if mobile.isPhoneNumber() { phoneTextF.isSuffixHidden = false } else { phoneTextF.isSuffixHidden = true }
+            if mobile.isPhoneNumber { phoneTextF.isSuffixHidden = false } else { phoneTextF.isSuffixHidden = true }
         }
         if sender.tag == 2 { messageCode = sender.text ?? "" }
     }
@@ -131,7 +131,7 @@ extension BindThirdPartyController {
         HttpClient.shareInstance.request(target: BAAPI.bindingMobile(thirdId: thirdId, mobile: mobile, captcha: messageCode), success: { (json) in
             TProgressHUD.show(text: "绑定成功")
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(UserSignInModuleResponse.self, from: json)
+            let model = try? decoder.decode(UserLoginInModulesResponse.self, from: json)
             guard let userModel = model else {
                 return;
             }

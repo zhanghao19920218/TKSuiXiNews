@@ -15,7 +15,7 @@ import KMPlaceholderTextView
 
 fileprivate let fontSize = kFont(14 * iPHONE_AUTORATIO)
 
-class VVideoShootViewController: BaseViewController {
+class VVideoShootViewController: SXBaseViewController {
     //发布完刷新页面
     var successBlock: () -> Void = { }
     

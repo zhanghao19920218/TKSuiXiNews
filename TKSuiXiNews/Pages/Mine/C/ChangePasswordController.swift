@@ -14,8 +14,8 @@ import UIKit
 fileprivate let cellIdentifier = "ChangePasswordCellIdentifier"
 fileprivate let codeIdentifier = "ChangePasswordCodeCellIdentifier"
 
-class ChangePasswordController: BaseViewController {
-    private var _mobile = DefaultsKitUtil.share.getMobileNum()
+class ChangePasswordController: SXBaseViewController {
+    private var _mobile = DefaultsKitUtil.share.getMobileNum
     private var _code = ""
     private var _password = ""
     private var _confirmPass = ""
@@ -102,7 +102,7 @@ class ChangePasswordController: BaseViewController {
 
 extension ChangePasswordController {
     private func sendMessageCode(_ sender: CounterButton) {
-        if _mobile.isEmpty || !_mobile.isPhoneNumber() {
+        if _mobile.isEmpty || !_mobile.isPhoneNumber {
             TProgressHUD.show(text: "请输入正确的手机号码")
             return
         }

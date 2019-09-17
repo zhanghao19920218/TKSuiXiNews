@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AboutUsViewController: BaseViewController {
+class AboutUsViewController: SXBaseViewController {
     ///下载的二维码图片
     private lazy var downLoadImageV: UIImageView = {
         let imageView = UIImageView()

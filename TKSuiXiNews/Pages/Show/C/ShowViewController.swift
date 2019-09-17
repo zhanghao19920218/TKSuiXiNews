@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DefaultsKit
 
 fileprivate let textImageIdentifier = "ShowImageTextCellIdentifier"
 fileprivate let videoIdentifier = "ShowVideoViewCellIdentifier"
@@ -33,7 +32,7 @@ class ShowViewController: BaseTableViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        createNavigationBarLogo();
+        setupNaviBarLogo();
         
         navigationController?.navigationBar.barTintColor = appThemeColor;
         
@@ -178,7 +177,7 @@ extension ShowViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = dataSource[indexPath.row] as! ShowListItemModel;
         
-        let isShowDelete = ((Defaults.shared.get(for: userGroupId) ?? 0) == 3)
+        let isShowDelete = (DefaultsKitUtil.share.groupId == 3)
         
         if model.images.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: videoIdentifier) as! ShowVideoViewCell;

@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class HomeBannerDetailViewController: BaseViewController {
+class HomeBannerDetailViewController: SXBaseViewController {
 
     //MARK: - 加载网页
     var loadUrl: String? {

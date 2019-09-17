@@ -9,7 +9,7 @@
 import UIKit
 import MJRefresh
 
-class BaseGrouppedTableViewController: BaseViewController {
+class BaseGrouppedTableViewController: SXBaseViewController {
 
     //基类的tableView
     lazy var tableView:UITableView = {

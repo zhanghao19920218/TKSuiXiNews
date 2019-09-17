@@ -12,7 +12,7 @@ import UIKit
  * 转盘抽奖的Controller
  */
 
-class RotatePanelScoreController: BaseViewController {
+class RotatePanelScoreController: SXBaseViewController {
     private var _model: AwardPanelModel = AwardPanelModel()
     
     private lazy var _backgroundImage: UIImageView = {

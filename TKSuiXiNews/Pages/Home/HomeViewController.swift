@@ -8,7 +8,7 @@
 
 import UIKit
 import DNSPageView
-import DefaultsKit
+//import DefaultsKit
 
 //PageView的frame
 fileprivate let pageViewRect = CGRect(x: 0, y: 0, width: K_SCREEN_WIDTH, height: K_SCREEN_HEIGHT - NAVIGATION_BAR_HEIGHT - TAB_BAR_HEIGHT);
@@ -18,7 +18,7 @@ fileprivate let pageViewFontSize = kFont(16 * iPHONE_AUTORATIO);
 //标题栏高度
 fileprivate let pageViewTitleHeight = 40 * iPHONE_AUTORATIO;
 
-class HomeViewController: BaseViewController {
+class HomeViewController: SXBaseViewController {
     //设置标题的数据
     private lazy var titles: [String] = {
         return [String]()
@@ -34,8 +34,7 @@ class HomeViewController: BaseViewController {
                          action: #selector(didSelectedVVideo),
                          for: .touchUpInside);
         //获取用户是不是管理员
-        let groupId =  Defaults.shared.get(for: userGroupId)
-        if let groupid = groupId, groupid == 2 {
+        if DefaultsKitUtil.share.groupId == 2 {
             button.isHidden = false
         } else {
             button.isHidden = true
@@ -57,7 +56,7 @@ class HomeViewController: BaseViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        createNavigationBarLogo();
+        setupNaviBarLogo();
         
         navigationController?.navigationBar.barTintColor = appThemeColor;
         
@@ -197,7 +196,7 @@ extension HomeViewController {
             let decoder = JSONDecoder()
             let model = try? decoder.decode(SystemConfigModel.self, from: json)
             if let cofigure = model {
-                Defaults.shared.set(cofigure.data.defaultSearch.string, for: placeholderKey)
+                DefaultsKitUtil.share.storeKeyboardPlaceHolder(cofigure.data.defaultSearch.string)
                 DefaultsKitUtil.share.storeQRAddress(url: cofigure.data.qrcode.string)
                 DefaultsKitUtil.share.storeServerShow(cofigure.data.iosUp.int)
             }

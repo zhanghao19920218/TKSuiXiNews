@@ -11,7 +11,7 @@ import WebKit
 
 //MARK: - 显示服务的显示的WebView
 
-class ServiceWKWebViewController: BaseViewController {
+class ServiceWKWebViewController: SXBaseViewController {
     //MARK: - 加载网页
     var loadUrl: String? {
         willSet(newValue) {

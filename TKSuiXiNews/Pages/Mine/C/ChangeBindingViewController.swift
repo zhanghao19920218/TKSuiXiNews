@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChangeBindingViewController: BaseViewController {
+class ChangeBindingViewController: SXBaseViewController {
     private var _mobile:String = ""
     
     private var _code:String = ""
@@ -53,7 +53,7 @@ class ChangeBindingViewController: BaseViewController {
         button.titleLabel?.font = kFont(12 * iPHONE_AUTORATIO)
         button.setTitle("发送验证码")
         button.addTarget(self,
-                         action: #selector(sendMessageCode(_:)),
+                         action: #selector(_sendMessageBtnCode(_:)),
                          for: .touchUpInside)
         return button
     }()
@@ -158,8 +158,8 @@ class ChangeBindingViewController: BaseViewController {
         }
     }
     
-    @objc private func sendMessageCode(_ sender: CounterButton) {
-        if _mobile.isEmpty || !_mobile.isPhoneNumber() {
+    @objc private func _sendMessageBtnCode(_ sender: CounterButton) {
+        if _mobile.isEmpty || !_mobile.isPhoneNumber {
             TProgressHUD.show(text: "请输入正确的手机号码")
             return
         }
@@ -174,7 +174,7 @@ class ChangeBindingViewController: BaseViewController {
     }
 
     @objc private func confirmBinding(_ sender: UIButton) {
-        if _mobile.isEmpty || !_mobile.isPhoneNumber() {
+        if _mobile.isEmpty || !_mobile.isPhoneNumber {
             TProgressHUD.show(text: "请输入正确的手机号码")
             return
         }

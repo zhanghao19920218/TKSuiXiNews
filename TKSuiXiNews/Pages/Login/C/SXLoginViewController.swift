@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DefaultsKit
 
 //MARK - 登录页面
 // Define a key
@@ -21,8 +20,8 @@ class SXLoginViewController: BaseLoginViewController {
     
     
     //输入手机号码
-    private lazy var phoneTextF: SXLoginTextField = {
-        let textField = SXLoginTextField.init();
+    private lazy var _phoneTextF: TKSXLoginTextField = {
+        let textField = TKSXLoginTextField.init();
         textField.prefix.image = K_ImageName("phone");
         textField.placeholder = "请输入手机号";
         textField.isSuffixHidden = true
@@ -35,8 +34,8 @@ class SXLoginViewController: BaseLoginViewController {
     }()
     
     //输入密码
-    private lazy var passwordTextF: SXLoginTextField = {
-        let textField = SXLoginTextField.init();
+    private lazy var _passwordTextF: TKSXLoginTextField = {
+        let textField = TKSXLoginTextField.init();
         textField.prefix.image = K_ImageName("psw");
         textField.placeholder = "请输入密码";
         textField.textField.tag = 2;
@@ -47,8 +46,8 @@ class SXLoginViewController: BaseLoginViewController {
     }()
     
     //输入验证码
-    private lazy var codeTextF: SXLoginTextField = {
-        let textField = SXLoginTextField.init();
+    private lazy var _codeTextF: TKSXLoginTextField = {
+        let textField = TKSXLoginTextField.init();
         textField.prefix.image = K_ImageName("safe");
         textField.placeholder = "请输入验证码";
         textField.isShowButton = true;
@@ -64,19 +63,19 @@ class SXLoginViewController: BaseLoginViewController {
     }()
     
     //忘记密码
-    private lazy var forgetButton: SXForgetBaseButton = {
-        let button = SXForgetBaseButton.init(type: .custom);
-        button.setTitle("忘 记 密 码", for: .normal);
-        button.tag = 4;
+    private lazy var _forgetButton: ForgetBaseButton = {
+        let button = ForgetBaseButton.init(type: .custom);
+        button.setTitle("忘 记 密 码", for: .normal)
+        button.tag = 4
         button.addTarget(self,
                          action: #selector(forgetPassSignUpButton(_:)),
                          for: .touchUpInside);
-        return button;
+        return button
     }();
     
-    //立即注册
-    private lazy var signUpButton: SXForgetBaseButton = {
-        let button = SXForgetBaseButton.init(type: .custom);
+    ///立即注册
+    private lazy var _signUpButton: ForgetBaseButton = {
+        let button = ForgetBaseButton.init(type: .custom);
         button.setTitle("立 即 注 册", for: .normal);
         button.tag = 5;
         button.addTarget(self,
@@ -85,8 +84,8 @@ class SXLoginViewController: BaseLoginViewController {
         return button;
     }();
     
-    //第三方登录
-    private lazy var thirdTitleL: UILabel = {
+    ///第三方登录
+    private lazy var _thirdTitleL: UILabel = {
         let label = UILabel.init();
         label.textAlignment = .center;
         label.font = fontStyle;
@@ -95,8 +94,8 @@ class SXLoginViewController: BaseLoginViewController {
         return label;
     }();
     
-    //QQ登录
-    private lazy var qqLoginB: UIButton = {
+    ///QQ登录
+    private lazy var _qqLoginB: UIButton = {
         let button = UIButton.init(type: .custom);
         button.setImage(K_ImageName("qq_login"), for: .normal);
         button.tag = 1;
@@ -106,8 +105,8 @@ class SXLoginViewController: BaseLoginViewController {
         return button;
     }();
     
-    //微信登录
-    private lazy var wechatLoginB: UIButton = {
+    ///微信登录
+    private lazy var _wechatLoginB: UIButton = {
         let button = UIButton.init(type: .custom);
         button.setImage(K_ImageName("wechat_login"), for: .normal);
         button.tag = 2;
@@ -117,8 +116,8 @@ class SXLoginViewController: BaseLoginViewController {
         return button;
     }();
     
-    //sina登录
-    private lazy var sinaLoginB: UIButton = {
+    ///sina登录
+    private lazy var _sinaLoginB: UIButton = {
         let button = UIButton.init(type: .custom);
         button.setImage(K_ImageName("sina_login"), for: .normal);
         button.tag = 3;
@@ -129,23 +128,23 @@ class SXLoginViewController: BaseLoginViewController {
     }();
     
     //MARK: - 登录数据
-    private lazy var model: LoginModel = {
-        let model = LoginModel()
+    private lazy var _model: SXLoginModel = {
+        let model = SXLoginModel()
         return model;
     }();
     
     ///登录的验证码
-    private lazy var swapLoginView: SwitchLoginTypeView = {
+    private lazy var _swapLoginView: SwitchLoginTypeView = {
         let view = SwitchLoginTypeView()
         view.layer.cornerRadius = 17 * iPHONE_AUTORATIO
         view.swapBlock = { [weak self] (type) in
             self?.loginType = type
             if type == .password { //如果密码登录
-                self?.passwordTextF.isHidden = false
-                self?.codeTextF.isHidden = true
+                self?._passwordTextF.isHidden = false
+                self?._codeTextF.isHidden = true
             } else { //验证码登录
-                self?.passwordTextF.isHidden = true
-                self?.codeTextF.isHidden = false
+                self?._passwordTextF.isHidden = true
+                self?._codeTextF.isHidden = false
             }
         }
         return view
@@ -154,43 +153,47 @@ class SXLoginViewController: BaseLoginViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //请求系统参数
+        requestSystemConfigure()
+        
         //初始化标题
         navigationItem.title = "登录"
         
         setupUI()
         
         ThirdPartyLogin.share.delegate = self
+
     }
     
     //初始化页面
     private func setupUI() {
-        view.addSubview(swapLoginView)
-        swapLoginView.snp.makeConstraints { (make) in
+        view.addSubview(_swapLoginView)
+        _swapLoginView.snp.makeConstraints { (make) in
             make.top.equalTo(164 * iPHONE_AUTORATIO)
             make.centerX.equalToSuperview()
             make.size.equalTo(CGSize(width: 300 * iPHONE_AUTORATIO, height: 34 * iPHONE_AUTORATIO))
         }
         
         
-        view.addSubview(phoneTextF);
-        phoneTextF.snp.makeConstraints { (make) in
+        view.addSubview(_phoneTextF);
+        _phoneTextF.snp.makeConstraints { (make) in
             make.top.equalTo(223 * iPHONE_AUTORATIO);
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
         };
 
-        view.addSubview(passwordTextF);
-        passwordTextF.snp.makeConstraints { (make) in
-            make.top.equalTo(self.phoneTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
+        view.addSubview(_passwordTextF);
+        _passwordTextF.snp.makeConstraints { (make) in
+            make.top.equalTo(self._phoneTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
         }
         
-        view.addSubview(codeTextF)
-        codeTextF.snp.makeConstraints { (make) in
-            make.top.equalTo(self.phoneTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
+        view.addSubview(_codeTextF)
+        _codeTextF.snp.makeConstraints { (make) in
+            make.top.equalTo(self._phoneTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
@@ -207,57 +210,57 @@ class SXLoginViewController: BaseLoginViewController {
         };
         
         //忘记密码
-        view.addSubview(forgetButton);
-        forgetButton.snp.makeConstraints { (make) in
+        view.addSubview(_forgetButton);
+        _forgetButton.snp.makeConstraints { (make) in
             make.left.equalTo(53 * iPHONE_AUTORATIO);
             make.top.equalTo(self.button.snp_bottom).offset(25 * iPHONE_AUTORATIO);
         };
         
         //立即注册
-        view.addSubview(signUpButton);
-        signUpButton.snp.makeConstraints { (make) in
+        view.addSubview(_signUpButton);
+        _signUpButton.snp.makeConstraints { (make) in
             make.right.equalTo(-53 * iPHONE_AUTORATIO);
-            make.centerY.equalTo(self.forgetButton.snp_centerY);
+            make.centerY.equalTo(self._forgetButton.snp_centerY);
         };
         
         //第三方登录
-        view.addSubview(thirdTitleL);
-        thirdTitleL.snp.makeConstraints { (make) in
+        view.addSubview(_thirdTitleL);
+        _thirdTitleL.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview();
             make.bottom.equalTo(-110 * iPHONE_AUTORATIO);
         }
         
         //微信登录
-        view.addSubview(wechatLoginB);
-        wechatLoginB.snp.makeConstraints { (make) in
+        view.addSubview(_wechatLoginB);
+        _wechatLoginB.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview();
             make.bottom.equalTo(-40 * iPHONE_AUTORATIO);
             make.size.equalTo(buttonSize);
         };
         
         //QQ登录
-        view.addSubview(qqLoginB);
-        qqLoginB.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.wechatLoginB.snp_centerY);
-            make.right.equalTo(self.wechatLoginB.snp_left).offset(-53 * iPHONE_AUTORATIO);
+        view.addSubview(_qqLoginB);
+        _qqLoginB.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self._wechatLoginB.snp_centerY);
+            make.right.equalTo(self._wechatLoginB.snp_left).offset(-53 * iPHONE_AUTORATIO);
             make.size.equalTo(buttonSize);
         };
         
         //sina登录
-        view.addSubview(sinaLoginB);
-        sinaLoginB.snp.makeConstraints { (make) in
-            make.centerY.equalTo(self.wechatLoginB.snp_centerY);
-            make.left.equalTo(self.wechatLoginB.snp_right).offset(53 * iPHONE_AUTORATIO);
+        view.addSubview(_sinaLoginB);
+        _sinaLoginB.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self._wechatLoginB.snp_centerY);
+            make.left.equalTo(self._wechatLoginB.snp_right).offset(53 * iPHONE_AUTORATIO);
             make.size.equalTo(buttonSize);
         };
     }
     
     //登录按钮点击
-    override func buttonTapped(_ sender: UIButton) {
+    override func commonLoginBtnTapped(_ sender: UIButton) {
         //关闭键盘
-        phoneTextF.textField.resignFirstResponder()
-        passwordTextF.textField.resignFirstResponder()
-        codeTextF.textField.resignFirstResponder()
+        _phoneTextF.textField.resignFirstResponder()
+        _passwordTextF.textField.resignFirstResponder()
+        _codeTextF.textField.resignFirstResponder()
         
         if loginType == .password { //账户密码登录
             loginInWithAccoutPassword()
@@ -274,7 +277,7 @@ class SXLoginViewController: BaseLoginViewController {
             navigationController?.pushViewController(vc, animated: true);
         } else {
             //立即注册
-            let vc = SXSignUpViewController();
+            let vc = TKSXSignController();
             navigationController?.pushViewController(vc, animated: true);
         }
     }
@@ -308,18 +311,18 @@ class SXLoginViewController: BaseLoginViewController {
     @objc private func textFieldValueDidChanged(_ sender: UITextField) {
         //更新账户
         if (sender.tag == 1) {
-            model.account = sender.text ?? "";
-            if model.account.isPhoneNumber() { phoneTextF.isSuffixHidden = false } else { phoneTextF.isSuffixHidden = true }
+            _model.account = sender.text ?? "";
+            if _model.account.isPhoneNumber { _phoneTextF.isSuffixHidden = false } else { _phoneTextF.isSuffixHidden = true }
         } else if sender.tag == 2 {
-            model.password = sender.text ?? "";
+            _model.password = sender.text ?? "";
         } else { //验证码
-            model.code = sender.text ?? ""
+            _model.code = sender.text ?? ""
         }
     }
     
     @objc private func sendMssageButton(_ sender: CounterButton) {
         
-        if !(model.account.isPhoneNumber()) {
+        if !_model.account.isPhoneNumber {
             TProgressHUD.show(text: "手机号码错误")
             return
         }
@@ -342,7 +345,7 @@ extension SXLoginViewController:ThirdPartyLoginDelegate {
     //MARK: - 发送验证码
     private func sendMessageCode(_ sender: CounterButton){
         
-        HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: model.account, event: "mobilelogin"), success: { (json) in
+        HttpClient.shareInstance.request(target: BAAPI.sendMessageCode(mobile: _model.account, event: "mobilelogin"), success: { (json) in
             ///发送验证码
             sender.startCountdown()
             TProgressHUD.show(text: "发送验证码成功")
@@ -360,15 +363,16 @@ extension SXLoginViewController:ThirdPartyLoginDelegate {
                 return
             }
             if model.code == 1 {
-                let userModels = try? decoder.decode(UserLoginInfo.self, from: json)
+                let userModels = try? decoder.decode(SXLoginInfoResponse.self, from: json)
                 guard let userModel = userModels else {
                     return;
                 }
                 
-                let token = userModel.data.userinfo.token.string;
-                Defaults.shared.set(token, for: key);
-                Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey)
-                Defaults.shared.set(userModel.data.userinfo.groupId.int, for: userGroupId)
+                let token = userModel.data.userinfo.token.string
+                DefaultsKitUtil.share.storeUserToken(token)
+                DefaultsKitUtil.share.storeUserId(id: userModel.data.userinfo.userID.string)
+                DefaultsKitUtil.share.storeGroupUserId(userModel.data.userinfo.groupId.int)
+                DefaultsKitUtil.share.storePhoneNum(mobile: userModel.data.userinfo.mobile.string)
                 //更新rootVC
                 let rootVC = BaseTabBarController.init();
                 UIViewController.restoreRootViewController(rootVC)
@@ -383,9 +387,7 @@ extension SXLoginViewController:ThirdPartyLoginDelegate {
                 let vc = BindThirdPartyController()
                 vc.thirdId = thirdmodel.data.thirdID.string
                 self?.navigationController?.pushViewController(vc, animated: true)
-            }
-            
-        }
+            }}
         )
     }
 }
@@ -395,53 +397,83 @@ extension SXLoginViewController {
     ///账户密码登录
     private func loginInWithAccoutPassword() {
         //MARK: - 判断密码账户
-        if !model.judgeIsFull() {
+        if !_model.judgeIsFull() {
             return;
         }
         
         //请求参数登录
-        HttpClient.shareInstance.request(target: BAAPI.login(account: model.account, password: model.password), success: { (json) in
+        HttpClient.shareInstance.request(target: BAAPI.login(account: _model.account, password: _model.password), success: { (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(UserLoginInfo.self, from: json)
+            let model = try? decoder.decode(SXLoginInfoResponse.self, from: json)
             guard let userModel = model else {
                 return;
             }
             
             let token = userModel.data.userinfo.token.string;
-            Defaults.shared.set(token, for: key);
-            Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey)
-            Defaults.shared.set(userModel.data.userinfo.groupId.int, for: userGroupId)
-            //更新rootVC
-            let rootVC = BaseTabBarController.init();
-            UIViewController.restoreRootViewController(rootVC);
-        }
-        )
+            DefaultsKitUtil.share.storeUserToken(token)
+            DefaultsKitUtil.share.storeUserId(id: userModel.data.userinfo.userID.string)
+            DefaultsKitUtil.share.storeGroupUserId(userModel.data.userinfo.groupId.int)
+            DefaultsKitUtil.share.storePhoneNum(mobile: userModel.data.userinfo.mobile.string)
+            
+            //判断是不是需要显示服务页面
+            if DefaultsKitUtil.share.isShowServer {
+                //正常VC
+                let rootVC = BaseTabBarController.init();
+                UIViewController.restoreRootViewController(rootVC)
+            } else {
+                //出行VC
+                let rootVC = BicycleTabBarController()
+                UIViewController.restoreRootViewController(rootVC)
+            }
+        })
     }
     
     
     ///账户验证码登录
     private func loginWithRegisterCaptcha(){
         //MARK: - 判断密码账户
-        if !model.judgeCodeFull() {
+        if !_model.judgeCodeFull() {
             return;
         }
         
         //请求参数登录
-        HttpClient.shareInstance.request(target: BAAPI.mobileCaptcha(mobile: model.account, captcha: model.code), success: { (json) in
+        HttpClient.shareInstance.request(target: BAAPI.mobileCaptcha(mobile: _model.account, captcha: _model.code), success: { (json) in
             let decoder = JSONDecoder()
-            let model = try? decoder.decode(UserLoginInfo.self, from: json)
+            let model = try? decoder.decode(SXLoginInfoResponse.self, from: json)
             guard let userModel = model else {
                 return;
             }
             
             let token = userModel.data.userinfo.token.string;
-            Defaults.shared.set(token, for: key);
-            Defaults.shared.set(userModel.data.userinfo.userID.string, for: userIdKey)
-            Defaults.shared.set(userModel.data.userinfo.groupId.int, for: userGroupId)
-            //更新rootVC
-            let rootVC = BaseTabBarController.init();
-            UIViewController.restoreRootViewController(rootVC);
-        }
-        )
+            DefaultsKitUtil.share.storeUserToken(token)
+            DefaultsKitUtil.share.storeUserId(id: userModel.data.userinfo.userID.string)
+            DefaultsKitUtil.share.storeGroupUserId(userModel.data.userinfo.groupId.int)
+            DefaultsKitUtil.share.storePhoneNum(mobile: userModel.data.userinfo.mobile.string)
+            
+            //判断是不是需要显示服务页面
+            if DefaultsKitUtil.share.isShowServer {
+                //正常VC
+                let rootVC = BaseTabBarController.init();
+                UIViewController.restoreRootViewController(rootVC)
+            } else {
+                //出行VC
+                let rootVC = BicycleTabBarController()
+                UIViewController.restoreRootViewController(rootVC)
+            }
+        })
+    }
+    
+    
+    //MARK: - 请求系统参数
+    private func requestSystemConfigure() {
+        HttpClient.shareInstance.request(target: BAAPI.sysconfigure, success: { (json) in
+            let decoder = JSONDecoder()
+            let model = try? decoder.decode(SystemConfigModel.self, from: json)
+            if let cofigure = model {
+                DefaultsKitUtil.share.storeKeyboardPlaceHolder(cofigure.data.defaultSearch.string)
+                DefaultsKitUtil.share.storeQRAddress(url: cofigure.data.qrcode.string)
+                DefaultsKitUtil.share.storeServerShow(cofigure.data.iosUp.int)
+            }
+        })
     }
 }

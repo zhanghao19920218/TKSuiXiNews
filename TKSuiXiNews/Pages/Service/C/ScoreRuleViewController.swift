@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScoreRuleViewController: BaseViewController {
+class ScoreRuleViewController: SXBaseViewController {
     
     private lazy var _titleLabel: UILabel = {
         let label = UILabel()

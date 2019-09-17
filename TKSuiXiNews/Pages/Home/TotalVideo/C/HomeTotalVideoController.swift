@@ -20,7 +20,7 @@ fileprivate let pageViewFontSize = kFont(16 * iPHONE_AUTORATIO);
 //标题栏高度
 fileprivate let pageViewTitleHeight = 40 * iPHONE_AUTORATIO;
 
-class HomeTotalVideoController: BaseViewController {
+class HomeTotalVideoController: SXBaseViewController {
     //初始化
     var startIndex:Int = 0
     

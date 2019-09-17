@@ -190,7 +190,7 @@ extension HomeOriginalCircleViewController: UITableViewDelegate, UITableViewData
         let model = dataSource[indexPath.row] as! ShowListItemModel
         
         //跳转
-        if !model.url.string.isEmpty {
+        if !model.url.string.isEmpty && DefaultsKitUtil.share.isShowServer {
             //跳转外链
             let vc = OutlinesideWKWebViewController() //新闻播放的页面
             vc.loadUrl = model.url.string

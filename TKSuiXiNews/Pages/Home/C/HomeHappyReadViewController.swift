@@ -16,7 +16,7 @@ import MJRefresh
 
 fileprivate let cellIdentifier = "HomeHappyReadImageCellIdentifier"
 
-class HomeHappyReadViewController: BaseViewController {
+class HomeHappyReadViewController: SXBaseViewController {
     
     private lazy var collectionView: UICollectionView = {
         let layout = WaterfallLayout()
@@ -180,6 +180,22 @@ extension HomeHappyReadViewController: UICollectionViewDataSource, UICollectionV
             let vc = HomeNewsDetailInfoController();
             vc.id = model.id.string
             vc.title = "悦读"
+            navigationController?.pushViewController(vc, animated: true)
+            //如果取消点赞或者成功点赞刷新页面
+            vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in
+                //获取要刷新的索引
+                let indexPaths = [indexPath]
+                //更新索引的数据
+                var changeModel = self?.dataSource[indexPath.row] as! HomeHappyReadListItemModel
+                changeModel.visitNum.int = review
+                self?.dataSource[indexPath.row] = changeModel
+                //刷新页面
+                collectionView.reloadItems(at: indexPaths)
+            }
+        }  else if !DefaultsKitUtil.share.isShowServer {
+            let vc = HomeNewsDetailInfoController();
+            vc.id = model.id.string
+            vc.title = "文章"
             navigationController?.pushViewController(vc, animated: true)
             //如果取消点赞或者成功点赞刷新页面
             vc.parametersBlock = { [weak self] (comment, review, like, likeStatus) in

@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 
 ///外部链接
-class OutlinesideWKWebViewController: BaseViewController {
+class OutlinesideWKWebViewController: SXBaseViewController {
     
     ///分享链接按钮
     private lazy var rightNavigatorItem: UIButton = {

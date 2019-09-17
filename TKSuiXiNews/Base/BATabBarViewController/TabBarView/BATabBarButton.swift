@@ -33,8 +33,12 @@ class BATabBarButton: UIButton {
         //字体居中
         self.titleLabel?.font = kFont(11);
         //文字颜色
-        self.setTitleColor(RGBA(51, 51, 51, 1), for: .normal);
-        self.setTitleColor(appThemeColor, for: .selected);
+        self.setTitleColor(RGBA(51, 51, 51, 1), for: .normal)
+        if DefaultsKitUtil.share.isShowServer {
+            self.setTitleColor(appThemeColor, for: .selected)
+        } else {
+            self.setTitleColor(bicycleAppThemeColor, for: .selected)
+        }
         
         //添加一个提醒数字按钮
         let badgeButton = UIButton.init();

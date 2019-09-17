@@ -17,7 +17,7 @@ import Photos
 
 fileprivate let str = "MineSettingTableViewCell"
 
-class MineInfoViewController: BaseViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+class MineInfoViewController: SXBaseViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
     private var leftArray = [String]()
 //    private var rightArray = [String]()

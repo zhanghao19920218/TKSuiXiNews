@@ -14,7 +14,11 @@ extension AppDelegate
     func verifiedApplicationRootVC () {
         if StaticMethod.share.isUserLogin
         {
-            self.window?.rootViewController = BaseTabBarController.init();
+            if DefaultsKitUtil.share.isShowServer {
+                self.window?.rootViewController = BaseTabBarController()
+            } else {
+                self.window?.rootViewController = BicycleTabBarController()
+            }
         } else
         {
             let rootVC = BANavigationController.init(rootViewController: SXLoginViewController());

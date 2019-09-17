@@ -16,7 +16,7 @@ fileprivate let cellIdentifier = "ProductDetailImageCellIdentifier"
 fileprivate let titleproductIdentifier = "ProductDetailTitleCellIdentifier"
 fileprivate let contentWebIdentifier = "HomeArticleContentWebCellIdentifier"
 
-class ScoreProductDetailViewController: BaseViewController {
+class ScoreProductDetailViewController: SXBaseViewController {
     var productId:Int?
     
     var model: DetailProductItemModel?

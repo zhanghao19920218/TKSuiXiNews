@@ -20,7 +20,7 @@ fileprivate let pageViewFontSize = kBoldFont(14 * iPHONE_AUTORATIO);
 //标题栏高度
 fileprivate let pageViewTitleHeight = 40 * iPHONE_AUTORATIO;
 
-class MineSendArticlesController: BaseViewController {
+class MineSendArticlesController: SXBaseViewController {
     
     //初始化页面选择器
     lazy var pageViewManager: DNSPageViewManager = {

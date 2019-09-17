@@ -16,7 +16,7 @@ fileprivate let normalCellIdentifier = "AskGovermentDetailNormalCellIdentifier"
 fileprivate let contentCellIdentifier = "AskGovermentContentCellIdentifier"
 fileprivate let photoCellIdentifier = "AskGovermentAddPhotosCellIdentifier"
 
-class AskGovermentDetailController: BaseViewController {
+class AskGovermentDetailController: SXBaseViewController {
     var successBlock: () -> Void = { }
     //置顶的model
     var topModel: ArticleAdminModelResponse?

@@ -14,7 +14,7 @@ public extension Notification.Name {
     static let noData = Notification.Name("noData")
 }
 
-class BaseTableViewController: BaseViewController {
+class BaseTableViewController: SXBaseViewController {
     //基类的tableView
     lazy var tableView:UITableView = {
         let tableView = UITableView.init(frame: .zero);

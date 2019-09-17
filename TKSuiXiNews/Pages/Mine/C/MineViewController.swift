@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MineViewController: BaseViewController {
+class MineViewController: SXBaseViewController {
     
     private var infoModel : MemberInfoModel?
     
@@ -92,7 +92,7 @@ class MineViewController: BaseViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        createNavigationBarLogo();
+        setupNaviBarLogo();
         
         navigationController?.navigationBar.barTintColor = appThemeColor;
         //设置背景透明

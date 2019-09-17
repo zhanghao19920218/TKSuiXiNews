@@ -110,27 +110,27 @@ class ShowImageTextCell: BaseTableViewCell {
     override func setupUI() {
         super.setupUI();
         
-        addSubview(avatarImage);
+        contentView.addSubview(avatarImage);
         avatarImage.snp.makeConstraints { (make) in
             make.top.equalTo(15 * iPHONE_AUTORATIO);
             make.left.equalTo(13 * iPHONE_AUTORATIO);
             make.size.equalTo(CGSize(width: 42 * iPHONE_AUTORATIO, height: 42 * iPHONE_AUTORATIO));
         };
         
-        addSubview(nicknameLabel);
+        contentView.addSubview(nicknameLabel);
         nicknameLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self.avatarImage.snp_right).offset(10 * iPHONE_AUTORATIO);
             make.top.equalTo(15 * iPHONE_AUTORATIO);
         }
         
-        addSubview(describeLabel);
+        contentView.addSubview(describeLabel);
         describeLabel.snp.makeConstraints { (make) in
             make.top.equalTo(44 * iPHONE_AUTORATIO);
             make.left.equalTo(65 * iPHONE_AUTORATIO)
             make.right.equalTo(-13 * iPHONE_AUTORATIO)
         }
         
-        addSubview(bottomView);
+        contentView.addSubview(bottomView);
         bottomView.snp.makeConstraints { (make) in
             make.bottom.equalTo(-15 * iPHONE_AUTORATIO);
             make.left.equalTo(65 * iPHONE_AUTORATIO);
@@ -142,13 +142,21 @@ class ShowImageTextCell: BaseTableViewCell {
             self?.deleteBlock()
         }
         
-        addSubview(imagesContentView);
+        contentView.addSubview(imagesContentView);
         imagesContentView.snp.makeConstraints { (make) in
             make.top.equalTo(96 * iPHONE_AUTORATIO);
             make.left.equalTo(65 * iPHONE_AUTORATIO);
             make.right.equalTo(-13 * iPHONE_AUTORATIO);
             make.height.equalTo(108 * iPHONE_AUTORATIO);
         };
+        
+        contentView.addSubview(bottomLine)
+        bottomLine.snp.makeConstraints { (make) in
+            make.left.equalTo(15 * iPHONE_AUTORATIO)
+            make.right.equalTo(-15 * iPHONE_AUTORATIO)
+            make.bottom.equalToSuperview()
+            make.height.equalTo(1)
+        }
     }
 
     //初始化图片查看

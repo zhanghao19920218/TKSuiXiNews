@@ -14,7 +14,7 @@ import UIKit
 fileprivate let sectionFirstCellIdentifier = "HomeTVChannelFirstCellIdentifier";
 fileprivate let sectionOtherCellIdentifier = "HomeTVOtherSectionCellIdentifier";
 
-class HomeTVViewController: BaseViewController {
+class HomeTVViewController: SXBaseViewController {
     //获取基本的标题model
     private var topModel: HomeTVTitleResponseDatum?
     

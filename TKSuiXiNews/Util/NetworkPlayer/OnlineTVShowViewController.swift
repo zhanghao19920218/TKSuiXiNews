@@ -13,7 +13,7 @@ import PLPlayerKit
  * 濉溪TV直播的Controller
  */
 
-class OnlineTVShowViewController: BaseViewController {
+class OnlineTVShowViewController: SXBaseViewController {
     var id: Int = 0
 
     //时间的进度

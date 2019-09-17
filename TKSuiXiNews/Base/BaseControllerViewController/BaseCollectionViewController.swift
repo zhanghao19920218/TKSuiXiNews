@@ -11,7 +11,7 @@ import MJRefresh
 
 //MARK: - 积分商城的Controller
 
-class BaseCollectionViewController: BaseViewController {
+class BaseCollectionViewController: SXBaseViewController {
 
     //基类的tableView
     lazy var collectionView:UICollectionView = {

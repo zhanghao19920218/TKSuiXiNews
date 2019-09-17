@@ -9,6 +9,7 @@
 import UIKit
 
 class ChangePasswordCodeCell: BaseTableViewCell {
+    ///发送密码验证码Block
     var block: (String) -> Void = { _ in }
 
     var sendMegBlock: (CounterButton) -> Void = { _ in}
@@ -46,7 +47,7 @@ class ChangePasswordCodeCell: BaseTableViewCell {
         button.titleLabel?.font = kFont(12 * iPHONE_AUTORATIO)
         button.setTitle("发送验证码")
         button.addTarget(self,
-                         action: #selector(sendMessageCode(_:)),
+                         action: #selector(_sendMessageBtnCode(_:)),
                          for: .touchUpInside)
         return button
     }()
@@ -89,7 +90,7 @@ class ChangePasswordCodeCell: BaseTableViewCell {
         block(text)
     }
     
-    @objc private func sendMessageCode(_ sender: CounterButton) {
+    @objc private func _sendMessageBtnCode(_ sender: CounterButton) {
         sendMegBlock(sender)
     }
 }

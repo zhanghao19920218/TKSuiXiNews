@@ -9,7 +9,7 @@
 import UIKit
 import PLPlayerKit
 
-class NETLivePlayerController: BaseViewController {
+class NETLivePlayerController: SXBaseViewController {
     //时间的进度
     private var playerTimer: Timer?
 

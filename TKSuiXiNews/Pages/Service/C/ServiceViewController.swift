@@ -16,7 +16,7 @@ fileprivate let scoreMallCellIdentifier = "ServiceScoreImageCellIdentifier"
 fileprivate let layoutWidth = K_SCREEN_WIDTH/2
 fileprivate let layoutHeight = 91 * iPHONE_AUTORATIO
 
-class ServiceViewController: BaseViewController {
+class ServiceViewController: SXBaseViewController {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -44,7 +44,7 @@ class ServiceViewController: BaseViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        createNavigationBarLogo();
+        setupNaviBarLogo();
         
         navigationController?.navigationBar.barTintColor = appThemeColor;
         

@@ -13,14 +13,14 @@ import DefaultsKit
 
 class SXForgetPasswordController: BaseLoginViewController {
     //创建修改密码model
-    private lazy var _model: ForgetPassModel = {
-        let model = ForgetPassModel()
+    private lazy var _model: SXForgetPassModel = {
+        let model = SXForgetPassModel()
         return model
     }()
 
     //输入手机号码
-    private lazy var phoneTextF: SXLoginTextField = {
-        let textField = SXLoginTextField.init();
+    private lazy var _phoneTextF: TKSXLoginTextField = {
+        let textField = TKSXLoginTextField.init();
         textField.prefix.image = K_ImageName("phone");
         textField.placeholder = "请输入手机号";
         textField.isSuffixHidden = true
@@ -33,8 +33,8 @@ class SXForgetPasswordController: BaseLoginViewController {
     }()
     
     //输入验证码
-    private lazy var codeTextF: SXLoginTextField = {
-        let textField = SXLoginTextField.init();
+    private lazy var _codeTextF: TKSXLoginTextField = {
+        let textField = TKSXLoginTextField.init();
         textField.prefix.image = K_ImageName("safe");
         textField.placeholder = "请输入验证码";
         textField.isShowButton = true;
@@ -49,8 +49,8 @@ class SXForgetPasswordController: BaseLoginViewController {
     }();
     
     //输入验证码
-    private lazy var passwordTextF: SXLoginTextField = {
-        let textField = SXLoginTextField.init();
+    private lazy var _passwordTextF: TKSXLoginTextField = {
+        let textField = TKSXLoginTextField.init();
         textField.prefix.image = K_ImageName("psw");
         textField.placeholder = "请输入新密码";
         textField.textField.tag = 3
@@ -62,8 +62,8 @@ class SXForgetPasswordController: BaseLoginViewController {
     }();
     
     //输入验证码
-    private lazy var confirmPasswordTextF: SXLoginTextField = {
-        let textField = SXLoginTextField.init();
+    private lazy var _confirmPasswordTextF: TKSXLoginTextField = {
+        let textField = TKSXLoginTextField.init();
         textField.prefix.image = K_ImageName("psw");
         textField.placeholder = "请确认新密码";
         textField.textField.tag = 4
@@ -85,33 +85,33 @@ class SXForgetPasswordController: BaseLoginViewController {
     
     //初始化页面
     private func setupUI() {
-        view.addSubview(phoneTextF);
-        phoneTextF.snp.makeConstraints { (make) in
+        view.addSubview(_phoneTextF);
+        _phoneTextF.snp.makeConstraints { (make) in
             make.top.equalTo(180 * iPHONE_AUTORATIO);
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
         };
         
-        view.addSubview(codeTextF);
-        codeTextF.snp.makeConstraints { (make) in
-            make.top.equalTo(self.phoneTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
+        view.addSubview(_codeTextF);
+        _codeTextF.snp.makeConstraints { (make) in
+            make.top.equalTo(self._phoneTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
         }
         
-        view.addSubview(passwordTextF);
-        passwordTextF.snp.makeConstraints { (make) in
-            make.top.equalTo(self.codeTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
+        view.addSubview(_passwordTextF);
+        _passwordTextF.snp.makeConstraints { (make) in
+            make.top.equalTo(self._codeTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
         };
         
-        view.addSubview(confirmPasswordTextF);
-        confirmPasswordTextF.snp.makeConstraints { (make) in
-            make.top.equalTo(self.passwordTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
+        view.addSubview(_confirmPasswordTextF);
+        _confirmPasswordTextF.snp.makeConstraints { (make) in
+            make.top.equalTo(self._passwordTextF.snp_bottom).offset(15 * iPHONE_AUTORATIO);
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
@@ -123,7 +123,7 @@ class SXForgetPasswordController: BaseLoginViewController {
         button.snp.makeConstraints { (make) in
             make.left.equalTo(38 * iPHONE_AUTORATIO);
             make.right.equalTo(-38 * iPHONE_AUTORATIO);
-            make.top.equalTo(self.confirmPasswordTextF.snp_bottom).offset(25 * iPHONE_AUTORATIO);
+            make.top.equalTo(self._confirmPasswordTextF.snp_bottom).offset(25 * iPHONE_AUTORATIO);
             make.height.equalTo(44 * iPHONE_AUTORATIO);
         };
     }
@@ -137,9 +137,9 @@ class SXForgetPasswordController: BaseLoginViewController {
         }
     }
     
-    override func buttonTapped(_ sender: UIButton) {
+    override func commonLoginBtnTapped(_ sender: UIButton) {
         print("点击修改密码按钮");
-        if !_model.mobile.isPhoneNumber() {
+        if !_model.mobile.isPhoneNumber {
             TProgressHUD.show(text: "请输入正确的手机号码")
             return
         }
@@ -153,14 +153,14 @@ class SXForgetPasswordController: BaseLoginViewController {
         }
         
         //修改密码
-        changePasswordSuccess()
+        _changePasswordSuccess()
     }
     
     //MARK: - 修改当前页面的手机号码, 验证码, 新密码, 确认新的密码
     @objc private func textFieldValueDidChanged(_ sender: UITextField) {
         if sender.tag == 1 { //手机号码
             _model.mobile = sender.text ?? ""
-            if _model.mobile.isPhoneNumber() { phoneTextF.isSuffixHidden = false } else { phoneTextF.isSuffixHidden = true }
+            if _model.mobile.isPhoneNumber { _phoneTextF.isSuffixHidden = false } else { _phoneTextF.isSuffixHidden = true }
         }
         if sender.tag == 2 { //验证码
             _model.code = sender.text ?? ""
@@ -170,13 +170,13 @@ class SXForgetPasswordController: BaseLoginViewController {
         }
         if sender.tag == 4 { //确认密码
             _model.confirmPass = sender.text ?? ""
-            if _model.password == _model.confirmPass { confirmPasswordTextF.isSuffixHidden = false } else { confirmPasswordTextF.isSuffixHidden = true }
+            if _model.password == _model.confirmPass { _confirmPasswordTextF.isSuffixHidden = false } else { _confirmPasswordTextF.isSuffixHidden = true }
         }
     }
     
     //MARK: - 点击获取验证码
     @objc private func getMessageCodeButtonPressed(_ sender: CounterButton) {
-        if !_model.mobile.isPhoneNumber() {
+        if !_model.mobile.isPhoneNumber {
             TProgressHUD.show(text: "请输入正确的手机号码")
             return
         }
@@ -197,7 +197,7 @@ extension SXForgetPasswordController {
     }
     
     //修改密码
-    private func changePasswordSuccess() {
+    private func _changePasswordSuccess() {
         HttpClient.shareInstance.request(target: BAAPI.resetPassword(mobile: _model.mobile, newpassword: _model.password, captcha: _model.code), success: { [weak self] (json) in
             self?.navigationController?.popViewController(animated: true)
             TProgressHUD.show(text: "修改密码成功")

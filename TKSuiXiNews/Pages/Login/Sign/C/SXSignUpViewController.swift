@@ -11,7 +11,7 @@ import DefaultsKit
 
 //MARK: - 立即注册页面
 
-class SXSignUpViewController: BaseLoginViewController {
+class TKSXSignController: BaseLoginViewController {
     //手机号码
     private var mobile:String = ""
     private var messageCode:String = ""
@@ -194,7 +194,7 @@ class SXSignUpViewController: BaseLoginViewController {
     }
 }
 
-extension SXSignUpViewController {
+extension TKSXSignController {
     //MARK: - 发送验证码
     private func sendMessageCode(_ sender: CounterButton){
         

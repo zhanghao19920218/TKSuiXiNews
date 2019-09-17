@@ -14,7 +14,7 @@ fileprivate let programListIdentifier = "HYTelevisionProgramCellIdentifier"
 //fileprivate let televisonPickIdentifier = "BoardCastTVDatePickCellIdentifier"
 //fileprivate let contentInfoIdentifier = "ProductDetailDescribeCellIdentifier"
 
-class DetailTelevisonInfoController: BaseViewController {
+class DetailTelevisonInfoController: SXBaseViewController {
     var currentIndex = 1
     
     var model: SuiXiTelevisionDetailPageClass?

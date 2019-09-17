@@ -55,7 +55,7 @@ class HomeSearchListViewController: BaseTableViewController {
         setupUI()
         
         // Do any additional setup after loading the view.
-        createNavigationBarLogo()
+        setupNaviBarLogo()
         
 //        textField.becomeFirstResponder()
     }
